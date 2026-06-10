@@ -28,5 +28,6 @@ if (!defined('CCL_CONTACT_PHONE_TEL')) {
 
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-leads.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-site-sections.php';
+require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-assets.php';
 
 Calgary_Condo_Leads::instance();
