@@ -17,9 +17,12 @@ final class Calgary_Condo_Site_Sections {
      * Wire shortcodes.
      */
     public function __construct() {
+        add_shortcode('ccl_quick_search', [$this, 'render_quick_search_shortcode']);
         add_shortcode('ccl_area_grid', [$this, 'render_area_grid_shortcode']);
         add_shortcode('ccl_price_grid', [$this, 'render_price_grid_shortcode']);
+        add_shortcode('ccl_buyer_path', [$this, 'render_buyer_path_shortcode']);
         add_shortcode('ccl_building_cta', [$this, 'render_building_cta_shortcode']);
+        add_shortcode('ccl_seller_cta', [$this, 'render_seller_cta_shortcode']);
         add_shortcode('ccl_site_footer', [$this, 'render_site_footer_shortcode']);
     }
 
@@ -35,6 +38,32 @@ final class Calgary_Condo_Site_Sections {
         $normalized = shortcode_atts($defaults, $atts, $shortcode);
 
         return array_map('strval', $normalized);
+    }
+
+    /**
+     * Render high-intent quick search links.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_quick_search_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'eyebrow' => 'Start Your Calgary Condo Search',
+                'title' => 'Find the right Calgary condo faster',
+                'subtitle' => 'Jump into the searches buyers use most, then use the IDX listings to compare real-time options.',
+            ],
+            'ccl_quick_search'
+        );
+
+        $items = [
+            ['title' => 'New Listings', 'text' => 'Fresh Calgary condo listings as they hit the market.', 'url' => '/calgary-condos/?sort=newest'],
+            ['title' => 'Inner-City Condos', 'text' => 'Downtown, Beltline, Mission, East Village, and nearby walkable areas.', 'url' => '/inner-city-calgary-condos/'],
+            ['title' => 'Concrete Buildings', 'text' => 'Search stronger building options and ask about construction type before you book.', 'url' => '/calgary-concrete-condos/'],
+            ['title' => 'Pet-Friendly Condos', 'text' => 'Find buildings where pet rules fit your lifestyle.', 'url' => '/calgary-pet-friendly-condos/'],
+        ];
+
+        return $this->render_link_grid($atts, $items, 'ccl-quick-search');
     }
 
     /**
@@ -92,6 +121,53 @@ final class Calgary_Condo_Site_Sections {
     }
 
     /**
+     * Render buyer guidance steps.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_buyer_path_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'eyebrow' => 'Calgary Condo Buyer Plan',
+                'title' => 'Before you book a showing, know what to check',
+                'subtitle' => 'A strong Calgary condo search is not just price and photos. The building, fees, bylaws, parking, reserve fund, and resale plan matter.',
+            ],
+            'ccl_buyer_path'
+        );
+
+        $steps = [
+            ['number' => '01', 'title' => 'Pick the right search lane', 'text' => 'Area, budget, building age, parking, pet rules, commute, and lifestyle fit.'],
+            ['number' => '02', 'title' => 'Compare the building', 'text' => 'Condo fees, amenities, management, reserve fund health, bylaws, and resale demand.'],
+            ['number' => '03', 'title' => 'Move with a plan', 'text' => 'Shortlist the best units, avoid weak buildings, and write cleaner offers when the right condo appears.'],
+        ];
+
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-buyer-path">
+            <div class="ccl-wrap">
+                <div class="ccl-section__header">
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <div class="ccl-step-grid">
+                    <?php foreach ($steps as $step) : ?>
+                        <article class="ccl-step-card">
+                            <span><?php echo esc_html($step['number']); ?></span>
+                            <h3><?php echo esc_html($step['title']); ?></h3>
+                            <p><?php echo esc_html($step['text']); ?></p>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
      * Render building research CTA.
      *
      * @param array<string,mixed> $atts Shortcode attributes.
@@ -119,6 +195,48 @@ final class Calgary_Condo_Site_Sections {
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
                 <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render condo seller valuation CTA.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_seller_cta_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'eyebrow' => 'Condo Owners',
+                'title' => 'Own a Calgary condo and want the real number?',
+                'subtitle' => 'Get a Calgary condo value check built around your building, recent sales, competition, condition, fees, and buyer demand.',
+                'button_text' => 'Request Condo Value Report',
+                'button_url' => '/condo-value-report/',
+                'secondary_text' => 'Call Calgary Number',
+            ],
+            'ccl_seller_cta'
+        );
+
+        $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
+        $phone_tel = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
+
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-section--white ccl-seller-cta">
+            <div class="ccl-wrap ccl-seller-card">
+                <div>
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <div class="ccl-seller-card__actions">
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+                    <a class="ccl-btn ccl-btn--dark" href="tel:<?php echo esc_attr($phone_tel); ?>"><?php echo esc_html($atts['secondary_text']); ?>: <?php echo esc_html($phone_display); ?></a>
+                </div>
             </div>
         </section>
         <?php
