@@ -251,6 +251,30 @@
   margin: 0;
 }
 
+/* Calgary Condo Search page cleanup.
+   These selectors are intentionally scoped to the confirmed WordPress page ID so
+   the duplicate theme/page title hero is suppressed only on this lead-gen page. */
+body.page-id-116 .entry-header,
+body.page-id-116 .page-header,
+body.page-id-116 .site-main > header,
+body.page-id-116 main > header,
+body.page-id-116 .wp-block-post-title,
+body.page-id-116 .wp-block-cover:first-of-type:not(.ccl-hero),
+body.page-id-116 .wp-block-group:first-of-type:has(h1):not(.ccl-hero) {
+  display: none !important;
+}
+
+body.page-id-116 .ccl-hero {
+  margin-top: 0;
+}
+
+body.page-id-116 .ccl-hero + .mrp-listing-results,
+body.page-id-116 .ccl-hero + .mrp-listing-search,
+body.page-id-116 .ccl-hero + [class*="mrp"],
+body.page-id-116 .ccl-hero + div {
+  margin-top: 0;
+}
+
 @media (max-width: 780px) {
   .ccl-hero__grid,
   .ccl-two-col,
