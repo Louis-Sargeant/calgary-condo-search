@@ -124,6 +124,8 @@ final class Calgary_Condo_Leads {
 [ccl_value_cards]
 [ccl_area_grid]
 [ccl_price_grid]
+[ccl_market_snapshot]
+[ccl_building_checklist]
 [ccl_buyer_path]
 [ccl_building_cta]
 [ccl_alert_form]
@@ -136,6 +138,8 @@ final class Calgary_Condo_Leads {
                 <li><code>[ccl_value_cards]</code> &mdash; <?php esc_html_e('Three trust/value proposition cards.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_area_grid]</code> &mdash; <?php esc_html_e('Calgary condo area cards.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_price_grid]</code> &mdash; <?php esc_html_e('Calgary condo budget cards.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_market_snapshot]</code> &mdash; <?php esc_html_e('Market education section that helps buyers compare building strength, monthly cost, lifestyle fit, and resale path without adding fake market statistics.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_building_checklist]</code> &mdash; <?php esc_html_e('Condo building due-diligence checklist for documents, fees, rules, unit details, building demand, and offer strategy.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_buyer_path]</code> &mdash; <?php esc_html_e('Buyer guidance section for building, fee, bylaw, and resale checks.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_building_cta]</code> &mdash; <?php esc_html_e('Building-alert call to action.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_alert_form]</code> &mdash; <?php esc_html_e('Condo alert lead form. Leads are saved under Condo Leads and emailed to the site admin address.', 'calgary-condo-leads'); ?></li>
@@ -147,6 +151,7 @@ final class Calgary_Condo_Leads {
                 <li><?php esc_html_e('Keep Coming Soon mode on until IDX, forms, links, mobile, and Calgary contact information are checked.', 'calgary-condo-leads'); ?></li>
                 <li><?php esc_html_e('Use Calgary phone number only on this site.', 'calgary-condo-leads'); ?></li>
                 <li><?php esc_html_e('Do not replace or edit the approved myRealPage IDX plugin from this lead-generation plugin.', 'calgary-condo-leads'); ?></li>
+                <li><?php esc_html_e('Do not add fake listings, fake MLS content, scraped market data, or unverified market statistics.', 'calgary-condo-leads'); ?></li>
             </ul>
         </div>
         <?php
