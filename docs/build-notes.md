@@ -30,3 +30,26 @@ Calgary Condo Search build notes.
 [ccl_seller_cta]
 [ccl_site_footer]
 ```
+
+## Deployment steps
+
+1. Package the plugin from GitHub Actions.
+2. Download the `calgary-condo-leads-wordpress-plugin` artifact.
+3. Upload `calgary-condo-leads.zip` in WordPress.
+4. Replace the existing plugin if WordPress asks.
+5. Confirm **Calgary Condo Leads** remains active.
+6. Open **Condo Leads → Shortcodes** and confirm the expanded shortcode layout appears.
+7. Purge SiteGround cache.
+8. Check the main Calgary Condos page in a private browser window.
+
+## Do not launch until
+
+- IDX listings load.
+- IDX listing detail pages work.
+- Lead form submits successfully.
+- Test lead appears in WordPress admin.
+- Lead email notification sends correctly.
+- Calgary phone number appears everywhere it should.
+- No Vancouver phone number appears on Calgary Condo Search pages.
+- Desktop and mobile layouts are checked.
+- Owner approves launch.
