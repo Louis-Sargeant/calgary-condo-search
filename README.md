@@ -16,12 +16,20 @@ The plugin adds conversion-focused sections around the site’s existing myRealP
 - GitHub/Codex handles the build work whenever possible.
 - WordPress login work is limited to required admin actions such as plugin upload, activation, cache purge, and final visual checks.
 - Coming Soon mode stays on until launch approval.
+- Calgary Condo Search pages must use Calgary-only contact information.
 
 ## What the plugin includes
 
 - `[ccl_hero]` — mobile-first hero section with configurable calls to action.
+- `[ccl_quick_search]` — high-intent quick search cards for Calgary condo buyers.
 - `[ccl_value_cards]` — trust/value proposition cards for the Calgary condo search page.
+- `[ccl_area_grid]` — Calgary condo area cards.
+- `[ccl_price_grid]` — Calgary condo price-range cards.
+- `[ccl_buyer_path]` — buyer education section that explains what to check before booking showings.
+- `[ccl_building_cta]` — building-alert CTA.
+- `[ccl_seller_cta]` — Calgary condo owner valuation CTA using the Calgary phone number.
 - `[ccl_alert_form]` — condo alert lead form with nonce validation, spam honeypot, admin email notification, and private lead storage in WordPress admin under **Condo Leads**.
+- `[ccl_site_footer]` — Calgary-only footer/contact block.
 - Front-end CSS in `assets/css/calgary-condo-leads.css`.
 - Page-specific layout cleanup for the Calgary Condo Search page.
 - Admin shortcode help page under **Condo Leads → Shortcodes**.
@@ -65,19 +73,26 @@ Only use this if the GitHub Actions artifact is not available.
 
 ## Shortcode usage instructions
 
-### Recommended page layout
+### Recommended Calgary condo search page layout
 
 Add the lead-generation shortcodes around the existing myRealPage IDX shortcode or IDX page embed:
 
 ```text
 [ccl_hero primary_url="#idx-search" secondary_url="#condo-alerts"]
+[ccl_quick_search]
 
 <div id="idx-search">
     Keep the existing myRealPage IDX shortcode here.
 </div>
 
 [ccl_value_cards]
+[ccl_area_grid]
+[ccl_price_grid]
+[ccl_buyer_path]
+[ccl_building_cta]
 [ccl_alert_form]
+[ccl_seller_cta]
+[ccl_site_footer]
 ```
 
 ### Hero shortcode
@@ -92,6 +107,12 @@ Optional attributes:
 [ccl_hero eyebrow="Calgary Condo Search" title="Search Calgary Condos For Sale" subtitle="Browse Calgary apartment condo listings with the existing IDX search." primary_text="Search Condos" primary_url="#idx-search" secondary_text="Get Condo Alerts" secondary_url="#condo-alerts" panel_title="Built for Calgary condo buyers." panel_text="Search smarter before booking a showing."]
 ```
 
+### Quick search shortcode
+
+```text
+[ccl_quick_search]
+```
+
 ### Value cards shortcode
 
 ```text
@@ -102,6 +123,17 @@ Optional attributes:
 
 ```text
 [ccl_value_cards title_1="Use the Existing IDX Search" text_1="Keep visitors focused on live listings from the approved IDX setup." title_2="Compare Condo Details" text_2="Help buyers think about fees, amenities, parking, and resale value." title_3="Capture Better Leads" text_3="Give serious buyers a simple next step."]
+```
+
+### Area, price, buyer path, building, seller, and footer shortcodes
+
+```text
+[ccl_area_grid]
+[ccl_price_grid]
+[ccl_buyer_path]
+[ccl_building_cta]
+[ccl_seller_cta]
+[ccl_site_footer]
 ```
 
 ### Condo alert form shortcode
@@ -126,5 +158,7 @@ Submissions are stored privately in WordPress admin under **Condo Leads** and em
 4. Confirm no fake listings or fake MLS content has been added.
 5. Confirm Calgary Condo Search page loads on desktop and mobile.
 6. Confirm IDX search, listing cards, and listing detail pages still work.
-7. Confirm condo lead form submission creates a private admin lead and emails the configured admin address.
-8. Confirm Coming Soon mode remains on until launch approval.
+7. Confirm all Calgary Condo Search pages use the Calgary phone number only.
+8. Confirm condo lead form submission creates a private admin lead and emails the configured admin address.
+9. Confirm quick-search, area, price, building-alert, seller-CTA, and footer links go to real pages or approved placeholder pages.
+10. Confirm Coming Soon mode remains on until launch approval.
