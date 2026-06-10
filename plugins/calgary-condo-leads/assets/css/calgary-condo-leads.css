@@ -53,7 +53,8 @@
 
 .ccl-hero h1,
 .ccl-section h2,
-.ccl-card h3 {
+.ccl-card h3,
+.ccl-step-card h3 {
   font-weight: 850;
   letter-spacing: -0.035em;
 }
@@ -116,9 +117,16 @@
   color: var(--ccl-white);
 }
 
+.ccl-btn--dark {
+  background: var(--ccl-blue);
+  color: var(--ccl-white);
+}
+
 .ccl-hero__panel,
 .ccl-card,
-.ccl-form {
+.ccl-form,
+.ccl-step-card,
+.ccl-seller-card {
   background: var(--ccl-white);
   border: 1px solid var(--ccl-border);
   border-radius: 22px;
@@ -241,32 +249,39 @@
 }
 
 .ccl-cards,
-.ccl-link-grid {
+.ccl-link-grid,
+.ccl-step-grid {
   display: grid;
   gap: 18px;
 }
 
-.ccl-cards {
+.ccl-cards,
+.ccl-link-grid,
+.ccl-step-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.ccl-link-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.ccl-quick-search .ccl-link-grid,
+.ccl-price-grid .ccl-link-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .ccl-card,
-.ccl-link-card {
+.ccl-link-card,
+.ccl-step-card {
   padding: 24px;
 }
 
-.ccl-card h3 {
+.ccl-card h3,
+.ccl-step-card h3 {
   color: var(--ccl-blue);
   font-size: 22px;
   line-height: 1.2;
   margin: 0 0 10px;
 }
 
-.ccl-card p {
+.ccl-card p,
+.ccl-step-card p {
   margin: 0;
 }
 
@@ -300,6 +315,15 @@
   line-height: 1.55;
 }
 
+.ccl-step-card span {
+  color: var(--ccl-gold);
+  display: block;
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
 .ccl-feature-band {
   align-items: center;
   background: var(--ccl-blue);
@@ -319,6 +343,27 @@
 .ccl-feature-band p:not(.ccl-eyebrow) {
   color: rgba(255, 255, 255, 0.84);
   margin-bottom: 0;
+}
+
+.ccl-seller-card {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.45fr);
+  padding: clamp(26px, 5vw, 44px);
+}
+
+.ccl-seller-card h2 {
+  margin-bottom: 12px;
+}
+
+.ccl-seller-card p {
+  margin-bottom: 0;
+}
+
+.ccl-seller-card__actions {
+  display: grid;
+  gap: 12px;
 }
 
 .ccl-site-footer {
@@ -417,17 +462,27 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
   margin-top: 0;
 }
 
+@media (max-width: 980px) {
+  .ccl-quick-search .ccl-link-grid,
+  .ccl-price-grid .ccl-link-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 780px) {
   .ccl-hero__grid,
   .ccl-two-col,
   .ccl-cards,
   .ccl-link-grid,
+  .ccl-step-grid,
   .ccl-feature-band,
+  .ccl-seller-card,
   .ccl-site-footer__inner {
     grid-template-columns: 1fr;
   }
 
-  .ccl-actions {
+  .ccl-actions,
+  .ccl-seller-card__actions {
     flex-direction: column;
   }
 
