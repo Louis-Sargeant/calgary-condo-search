@@ -1,0 +1,36 @@
+name: Package Calgary Condo Leads Plugin
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  package-plugin:
+    name: Build plugin ZIP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Prepare plugin package
+        run: |
+          mkdir -p dist
+          cd plugins
+          zip -r ../dist/calgary-condo-leads.zip calgary-condo-leads \
+            -x "*.DS_Store" \
+            -x "*/.git/*" \
+            -x "*/node_modules/*"
+
+      - name: Verify package structure
+        run: |
+          unzip -l dist/calgary-condo-leads.zip
+          unzip -l dist/calgary-condo-leads.zip | grep "calgary-condo-leads/calgary-condo-leads.php"
+
+      - name: Upload WordPress plugin ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: calgary-condo-leads-wordpress-plugin
+          path: dist/calgary-condo-leads.zip
+          if-no-files-found: error
