@@ -113,20 +113,40 @@ final class Calgary_Condo_Leads {
         <div class="wrap">
             <h1><?php esc_html_e('Calgary Condo Leads Shortcodes', 'calgary-condo-leads'); ?></h1>
             <p><?php esc_html_e('Use these shortcodes around the existing myRealPage IDX shortcode or search page. This plugin does not replace, modify, or seed IDX listing data.', 'calgary-condo-leads'); ?></p>
-            <h2><?php esc_html_e('Recommended page layout', 'calgary-condo-leads'); ?></h2>
+            <h2><?php esc_html_e('Recommended Calgary condo page layout', 'calgary-condo-leads'); ?></h2>
             <pre>[ccl_hero primary_url="#idx-search" secondary_url="#condo-alerts"]
+[ccl_quick_search]
 
 &lt;div id="idx-search"&gt;
     Keep your existing myRealPage IDX shortcode here.
 &lt;/div&gt;
 
 [ccl_value_cards]
-[ccl_alert_form]</pre>
+[ccl_area_grid]
+[ccl_price_grid]
+[ccl_buyer_path]
+[ccl_building_cta]
+[ccl_alert_form]
+[ccl_seller_cta]
+[ccl_site_footer]</pre>
             <h2><?php esc_html_e('Available shortcodes', 'calgary-condo-leads'); ?></h2>
             <ul>
                 <li><code>[ccl_hero]</code> &mdash; <?php esc_html_e('Hero section with two calls to action.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_quick_search]</code> &mdash; <?php esc_html_e('High-intent quick search cards for Calgary condo buyers.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_value_cards]</code> &mdash; <?php esc_html_e('Three trust/value proposition cards.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_area_grid]</code> &mdash; <?php esc_html_e('Calgary condo area cards.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_price_grid]</code> &mdash; <?php esc_html_e('Calgary condo budget cards.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_buyer_path]</code> &mdash; <?php esc_html_e('Buyer guidance section for building, fee, bylaw, and resale checks.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_building_cta]</code> &mdash; <?php esc_html_e('Building-alert call to action.', 'calgary-condo-leads'); ?></li>
                 <li><code>[ccl_alert_form]</code> &mdash; <?php esc_html_e('Condo alert lead form. Leads are saved under Condo Leads and emailed to the site admin address.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_seller_cta]</code> &mdash; <?php esc_html_e('Calgary condo owner valuation call to action with Calgary phone number.', 'calgary-condo-leads'); ?></li>
+                <li><code>[ccl_site_footer]</code> &mdash; <?php esc_html_e('Calgary-only footer/contact block.', 'calgary-condo-leads'); ?></li>
+            </ul>
+            <h2><?php esc_html_e('Launch rules', 'calgary-condo-leads'); ?></h2>
+            <ul>
+                <li><?php esc_html_e('Keep Coming Soon mode on until IDX, forms, links, mobile, and Calgary contact information are checked.', 'calgary-condo-leads'); ?></li>
+                <li><?php esc_html_e('Use Calgary phone number only on this site.', 'calgary-condo-leads'); ?></li>
+                <li><?php esc_html_e('Do not replace or edit the approved myRealPage IDX plugin from this lead-generation plugin.', 'calgary-condo-leads'); ?></li>
             </ul>
         </div>
         <?php
