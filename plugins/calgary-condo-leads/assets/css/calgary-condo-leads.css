@@ -18,8 +18,10 @@
 
 .ccl-hero,
 .ccl-section,
+.ccl-site-footer,
 .ccl-hero *,
-.ccl-section * {
+.ccl-section *,
+.ccl-site-footer * {
   box-sizing: border-box;
 }
 
@@ -172,6 +174,11 @@
   line-height: 1.65;
 }
 
+.ccl-section__header {
+  margin: 0 0 26px;
+  max-width: 780px;
+}
+
 .ccl-form {
   display: grid;
   gap: 14px;
@@ -233,13 +240,22 @@
   top: auto;
 }
 
-.ccl-cards {
+.ccl-cards,
+.ccl-link-grid {
   display: grid;
   gap: 18px;
+}
+
+.ccl-cards {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.ccl-card {
+.ccl-link-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ccl-card,
+.ccl-link-card {
   padding: 24px;
 }
 
@@ -252,6 +268,112 @@
 
 .ccl-card p {
   margin: 0;
+}
+
+.ccl-link-card {
+  background: var(--ccl-white);
+  border: 1px solid var(--ccl-border);
+  border-radius: 20px;
+  color: var(--ccl-text);
+  display: grid;
+  gap: 10px;
+  min-height: 170px;
+  text-decoration: none;
+  transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+}
+
+.ccl-link-card:hover,
+.ccl-link-card:focus-visible {
+  border-color: rgba(240, 199, 94, 0.75);
+  box-shadow: 0 18px 45px rgba(10, 26, 47, 0.14);
+  transform: translateY(-2px);
+}
+
+.ccl-link-card strong {
+  color: var(--ccl-blue);
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.ccl-link-card span {
+  color: var(--ccl-muted);
+  line-height: 1.55;
+}
+
+.ccl-feature-band {
+  align-items: center;
+  background: var(--ccl-blue);
+  border-radius: 26px;
+  color: var(--ccl-white);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: clamp(28px, 5vw, 46px);
+}
+
+.ccl-feature-band h2,
+.ccl-feature-band p {
+  color: var(--ccl-white);
+}
+
+.ccl-feature-band p:not(.ccl-eyebrow) {
+  color: rgba(255, 255, 255, 0.84);
+  margin-bottom: 0;
+}
+
+.ccl-site-footer {
+  background: #071120;
+  color: var(--ccl-white);
+  padding: clamp(34px, 5vw, 56px) 0;
+}
+
+.ccl-site-footer__inner {
+  align-items: start;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.ccl-site-footer strong {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.ccl-site-footer p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.55;
+  margin: 0 0 8px;
+}
+
+.ccl-site-footer__muted {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 14px;
+}
+
+.ccl-site-footer__phone {
+  color: var(--ccl-white);
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 850;
+  margin: 0 0 8px;
+  text-decoration: none;
+}
+
+.ccl-site-footer__links {
+  display: grid;
+  gap: 10px;
+  min-width: 210px;
+}
+
+.ccl-site-footer__links a {
+  color: rgba(255, 255, 255, 0.78);
+  text-decoration: none;
+}
+
+.ccl-site-footer__links a:hover,
+.ccl-site-footer__links a:focus-visible {
+  color: var(--ccl-gold);
 }
 
 /* Calgary Condo Search page cleanup.
@@ -298,7 +420,10 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
 @media (max-width: 780px) {
   .ccl-hero__grid,
   .ccl-two-col,
-  .ccl-cards {
+  .ccl-cards,
+  .ccl-link-grid,
+  .ccl-feature-band,
+  .ccl-site-footer__inner {
     grid-template-columns: 1fr;
   }
 
@@ -307,6 +432,11 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
   }
 
   .ccl-btn {
+    width: 100%;
+  }
+
+  .ccl-feature-band .ccl-btn,
+  .ccl-site-footer__links {
     width: 100%;
   }
 
