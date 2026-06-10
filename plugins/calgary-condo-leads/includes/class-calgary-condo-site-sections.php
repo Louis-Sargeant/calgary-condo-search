@@ -20,6 +20,8 @@ final class Calgary_Condo_Site_Sections {
         add_shortcode('ccl_quick_search', [$this, 'render_quick_search_shortcode']);
         add_shortcode('ccl_area_grid', [$this, 'render_area_grid_shortcode']);
         add_shortcode('ccl_price_grid', [$this, 'render_price_grid_shortcode']);
+        add_shortcode('ccl_market_snapshot', [$this, 'render_market_snapshot_shortcode']);
+        add_shortcode('ccl_building_checklist', [$this, 'render_building_checklist_shortcode']);
         add_shortcode('ccl_buyer_path', [$this, 'render_buyer_path_shortcode']);
         add_shortcode('ccl_building_cta', [$this, 'render_building_cta_shortcode']);
         add_shortcode('ccl_seller_cta', [$this, 'render_seller_cta_shortcode']);
@@ -118,6 +120,60 @@ final class Calgary_Condo_Site_Sections {
         ];
 
         return $this->render_link_grid($atts, $ranges, 'ccl-price-grid');
+    }
+
+    /**
+     * Render a market education section without fake market statistics.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_market_snapshot_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'eyebrow' => 'Calgary Condo Market Snapshot',
+                'title' => 'What matters before you fall in love with the photos',
+                'subtitle' => 'The best Calgary condo is not always the nicest-looking unit online. Strong buyers compare the building, monthly costs, rules, and future resale path before booking showings.',
+            ],
+            'ccl_market_snapshot'
+        );
+
+        $items = [
+            ['title' => 'Building strength', 'text' => 'Age, construction type, maintenance history, management quality, amenities, elevators, parking, and reserve-fund signals.'],
+            ['title' => 'True monthly cost', 'text' => 'Price matters, but condo fees, utilities, parking, storage, insurance, taxes, and special-assessment risk can change the real number.'],
+            ['title' => 'Lifestyle fit', 'text' => 'Pet rules, rental rules, noise, commute, walkability, visitor parking, storage, views, and building culture all affect long-term satisfaction.'],
+            ['title' => 'Exit plan', 'text' => 'A good buy should also be sellable later. Floor plan, location, fees, building reputation, and buyer demand matter for resale.'],
+        ];
+
+        return $this->render_info_grid($atts, $items, 'ccl-market-snapshot');
+    }
+
+    /**
+     * Render a building checklist section.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_building_checklist_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'eyebrow' => 'Condo Building Checklist',
+                'title' => 'Questions to ask before writing an offer',
+                'subtitle' => 'Use this checklist to separate strong Calgary condo options from risky ones before you spend time on showings or paperwork.',
+            ],
+            'ccl_building_checklist'
+        );
+
+        $items = [
+            ['title' => 'Documents', 'text' => 'Reserve fund study, bylaws, minutes, budget, insurance certificate, financials, engineering reports, and disclosure documents.'],
+            ['title' => 'Fees and risk', 'text' => 'Monthly fee trend, what is included, upcoming repairs, special-assessment history, insurance deductibles, and reserve-fund health.'],
+            ['title' => 'Rules', 'text' => 'Pets, rentals, short-term rentals, renovations, smoking, move-in rules, parking, storage, and amenity restrictions.'],
+            ['title' => 'Unit details', 'text' => 'Parking stall, storage locker, exposure, noise, heat source, appliances, floor plan, balcony, views, and condition.'],
+            ['title' => 'Building demand', 'text' => 'Days on market, similar sales, competing listings, buyer pool, and how the building is viewed by local condo buyers.'],
+            ['title' => 'Offer strategy', 'text' => 'Price, conditions, document-review timing, possession date, deposits, and how clean the offer needs to be to compete.'],
+        ];
+
+        return $this->render_info_grid($atts, $items, 'ccl-building-checklist');
     }
 
     /**
@@ -312,6 +368,38 @@ final class Calgary_Condo_Site_Sections {
                             <strong><?php echo esc_html($item['title']); ?></strong>
                             <span><?php echo esc_html($item['text']); ?></span>
                         </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render a reusable non-link information grid.
+     *
+     * @param array<string,string> $atts Heading attributes.
+     * @param array<int,array<string,string>> $items Grid items.
+     * @param string $class_name Section class.
+     */
+    private function render_info_grid(array $atts, array $items, string $class_name): string {
+        ob_start();
+        ?>
+        <section class="ccl-section <?php echo esc_attr($class_name); ?>">
+            <div class="ccl-wrap">
+                <div class="ccl-section__header">
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <div class="ccl-info-grid">
+                    <?php foreach ($items as $item) : ?>
+                        <article class="ccl-card ccl-info-card">
+                            <h3><?php echo esc_html($item['title']); ?></h3>
+                            <p><?php echo esc_html($item['text']); ?></p>
+                        </article>
                     <?php endforeach; ?>
                 </div>
             </div>
