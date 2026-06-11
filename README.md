@@ -210,3 +210,5 @@ Submissions are stored privately in WordPress admin under **Condo Leads** and em
 
 - `docs/2026-06-10-lead-gen-sections.md` — notes for the newest lead-generation sections.
 - `docs/live-launch-qa-checklist.md` — full live launch QA checklist for WordPress, IDX, mobile, forms, links, cache, and final approval.
+- `docs/supporting-page-content.md` — ready-to-paste SEO titles, meta descriptions, page copy, and shortcode stacks for support pages.
+- `docs/wordpress-build-checklist.md` — step-by-step WordPress build, upload, page creation, mobile QA, form QA, and cache checklist.
