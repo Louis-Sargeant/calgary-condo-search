@@ -263,7 +263,8 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.ccl-building-scorecard__card {
+.ccl-building-scorecard__card,
+.ccl-action-router__card {
   background: var(--ccl-white);
   border: 1px solid var(--ccl-border);
   border-radius: 22px;
@@ -285,6 +286,34 @@
   margin: 0;
 }
 
+.ccl-action-router__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ccl-action-router__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.ccl-action-router__card h3 {
+  color: var(--ccl-blue);
+  font-size: 24px;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+.ccl-action-router__card p {
+  flex: 1;
+  margin: 0 0 20px;
+}
+
+.ccl-action-router__card .ccl-btn {
+  width: 100%;
+}
+
 @media (max-width: 980px) {
   .ccl-info-grid,
   .ccl-building-checklist .ccl-info-grid {
@@ -293,7 +322,8 @@
 
   .ccl-idx-shell__header,
   .ccl-lead-magnet__card,
-  .ccl-building-scorecard__grid {
+  .ccl-building-scorecard__grid,
+  .ccl-action-router__grid {
     align-items: start;
     grid-template-columns: 1fr;
   }
@@ -304,6 +334,10 @@
 
   .ccl-building-scorecard__intro {
     position: static;
+  }
+
+  .ccl-action-router__card {
+    min-height: auto;
   }
 }
 
