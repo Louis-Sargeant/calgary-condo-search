@@ -14,11 +14,13 @@ Use this checklist after the Calgary Condo Leads plugin package is uploaded to W
 
 - Confirm the uploaded ZIP contains `calgary-condo-leads/` at the root.
 - Confirm `calgary-condo-leads.php` is directly inside that folder.
-- Confirm the plugin version shown in WordPress is `1.0.6`.
+- Confirm the plugin version shown in WordPress is `1.0.7`.
 - Confirm these files are present in the plugin folder:
   - `includes/class-calgary-condo-leads.php`
   - `includes/class-calgary-condo-site-sections.php`
   - `includes/class-calgary-condo-assets.php`
+  - `includes/class-calgary-condo-trust-strip.php`
+  - `includes/class-calgary-condo-intent-capture.php`
   - `assets/css/calgary-condo-leads.css`
   - `assets/css/calgary-condo-leads-extended.css`
 - Confirm **Calgary Condo Leads** remains active after upload/replacement.
@@ -30,21 +32,29 @@ Use this layout on the Calgary condo search page while keeping the existing IDX 
 ```text
 [ccl_hero primary_url="#idx-search" secondary_url="#condo-alerts"]
 [ccl_quick_search]
+[ccl_intent_capture]
+[ccl_trust_strip]
 
-<div id="idx-search">
+[ccl_idx_shell]
     Keep the existing myRealPage IDX shortcode or approved IDX embed here.
-</div>
+[/ccl_idx_shell]
 
 [ccl_value_cards]
 [ccl_area_grid]
 [ccl_price_grid]
 [ccl_market_snapshot]
 [ccl_building_checklist]
+[ccl_building_scorecard]
 [ccl_buyer_path]
+[ccl_lead_magnet]
+[ccl_action_router]
 [ccl_building_cta]
 [ccl_alert_form]
 [ccl_seller_cta]
+[ccl_faq]
+[ccl_next_step_band]
 [ccl_site_footer]
+[ccl_sticky_cta]
 ```
 
 ## IDX checks
@@ -65,6 +75,14 @@ Use this layout on the Calgary condo search page while keeping the existing IDX 
 - Confirm the spam honeypot field remains hidden on the front end.
 - Confirm required validation blocks empty name/email submissions.
 
+## Conversion section checks
+
+- Confirm the intent-capture cards route visitors to search, alerts, seller valuation, and building-risk guidance.
+- Confirm the trust strip appears near the IDX experience and does not alter IDX output.
+- Confirm the lead-magnet, building scorecard, action router, FAQ, next-step band, and sticky CTA display correctly.
+- Confirm all CTA buttons either jump to `#idx-search`, jump to `#condo-alerts`, call the Calgary number, or open an approved page.
+- Confirm no section contains fake market statistics, fake listings, or scraped MLS content.
+
 ## Mobile checks
 
 Check the page on mobile width and real phone if possible:
@@ -73,8 +91,12 @@ Check the page on mobile width and real phone if possible:
 - Buttons are full-width or easy to tap.
 - IDX search is usable.
 - Quick-search cards stack properly.
+- Intent-capture cards stack properly.
 - Market snapshot cards stack properly.
 - Building checklist cards stack properly.
+- Building scorecard cards stack properly.
+- FAQ accordions open and close cleanly.
+- Sticky CTA does not block form fields or IDX controls.
 - Lead form fields are easy to use.
 - Footer phone number is easy to tap.
 
