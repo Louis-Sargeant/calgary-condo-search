@@ -1,0 +1,43 @@
+name: Package Calgary Condo Leads Plugin
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'plugins/calgary-condo-leads/**'
+      - '.github/workflows/package-calgary-condo-leads.yml'
+
+jobs:
+  package:
+    name: Build WordPress plugin ZIP
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate plugin structure
+        run: |
+          test -d plugins/calgary-condo-leads
+          test -f plugins/calgary-condo-leads/calgary-condo-leads.php
+          test -f plugins/calgary-condo-leads/includes/class-calgary-condo-leads.php
+          test -f plugins/calgary-condo-leads/includes/class-calgary-condo-site-sections.php
+          test -f plugins/calgary-condo-leads/includes/class-calgary-condo-assets.php
+          test -f plugins/calgary-condo-leads/assets/css/calgary-condo-leads.css
+          test -f plugins/calgary-condo-leads/assets/css/calgary-condo-leads-extended.css
+
+      - name: Create WordPress upload ZIP
+        run: |
+          cd plugins
+          zip -r ../calgary-condo-leads.zip calgary-condo-leads
+          cd ..
+          unzip -l calgary-condo-leads.zip
+
+      - name: Upload packaged plugin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: calgary-condo-leads-wordpress-plugin
+          path: calgary-condo-leads.zip
+          if-no-files-found: error
