@@ -10,6 +10,8 @@ This repository contains a self-contained WordPress lead-generation plugin at:
 
 The plugin adds conversion-focused sections around the site’s existing myRealPage IDX search experience. It does **not** modify, replace, seed, scrape, or update the myRealPage IDX plugin, MLS data, or listing data.
 
+Current plugin version: `1.0.6`.
+
 ## Working rules
 
 - The site owner approves, checks, and grants access.
@@ -17,6 +19,8 @@ The plugin adds conversion-focused sections around the site’s existing myRealP
 - WordPress login work is limited to required admin actions such as plugin upload, activation, cache purge, and final visual checks.
 - Coming Soon mode stays on until launch approval.
 - Calgary Condo Search pages must use Calgary-only contact information.
+- Calgary phone number: `+1 (403) 800-6996`.
+- Click-to-call value: `+14038006996`.
 
 ## What the plugin includes
 
@@ -25,12 +29,15 @@ The plugin adds conversion-focused sections around the site’s existing myRealP
 - `[ccl_value_cards]` — trust/value proposition cards for the Calgary condo search page.
 - `[ccl_area_grid]` — Calgary condo area cards.
 - `[ccl_price_grid]` — Calgary condo price-range cards.
+- `[ccl_market_snapshot]` — buyer education section for comparing building strength, true monthly cost, lifestyle fit, and resale path without fake market statistics.
+- `[ccl_building_checklist]` — due-diligence checklist for condo documents, fees, rules, unit details, building demand, and offer strategy.
 - `[ccl_buyer_path]` — buyer education section that explains what to check before booking showings.
 - `[ccl_building_cta]` — building-alert CTA.
 - `[ccl_seller_cta]` — Calgary condo owner valuation CTA using the Calgary phone number.
 - `[ccl_alert_form]` — condo alert lead form with nonce validation, spam honeypot, admin email notification, and private lead storage in WordPress admin under **Condo Leads**.
 - `[ccl_site_footer]` — Calgary-only footer/contact block.
 - Front-end CSS in `assets/css/calgary-condo-leads.css`.
+- Extended lead-generation section CSS in `assets/css/calgary-condo-leads-extended.css`.
 - Page-specific layout cleanup for the Calgary Condo Search page.
 - Admin shortcode help page under **Condo Leads → Shortcodes**.
 
@@ -88,6 +95,8 @@ Add the lead-generation shortcodes around the existing myRealPage IDX shortcode 
 [ccl_value_cards]
 [ccl_area_grid]
 [ccl_price_grid]
+[ccl_market_snapshot]
+[ccl_building_checklist]
 [ccl_buyer_path]
 [ccl_building_cta]
 [ccl_alert_form]
@@ -125,11 +134,13 @@ Optional attributes:
 [ccl_value_cards title_1="Use the Existing IDX Search" text_1="Keep visitors focused on live listings from the approved IDX setup." title_2="Compare Condo Details" text_2="Help buyers think about fees, amenities, parking, and resale value." title_3="Capture Better Leads" text_3="Give serious buyers a simple next step."]
 ```
 
-### Area, price, buyer path, building, seller, and footer shortcodes
+### Area, price, market, checklist, buyer path, building, seller, and footer shortcodes
 
 ```text
 [ccl_area_grid]
 [ccl_price_grid]
+[ccl_market_snapshot]
+[ccl_building_checklist]
 [ccl_buyer_path]
 [ccl_building_cta]
 [ccl_seller_cta]
@@ -160,5 +171,10 @@ Submissions are stored privately in WordPress admin under **Condo Leads** and em
 6. Confirm IDX search, listing cards, and listing detail pages still work.
 7. Confirm all Calgary Condo Search pages use the Calgary phone number only.
 8. Confirm condo lead form submission creates a private admin lead and emails the configured admin address.
-9. Confirm quick-search, area, price, building-alert, seller-CTA, and footer links go to real pages or approved placeholder pages.
+9. Confirm quick-search, area, price, market snapshot, checklist, building-alert, seller-CTA, and footer links go to real pages or approved placeholder pages.
 10. Confirm Coming Soon mode remains on until launch approval.
+
+## Supporting docs
+
+- `docs/2026-06-10-lead-gen-sections.md` — notes for the newest lead-generation sections.
+- `docs/live-launch-qa-checklist.md` — full live launch QA checklist for WordPress, IDX, mobile, forms, links, cache, and final approval.
