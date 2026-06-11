@@ -23,6 +23,7 @@ final class Calgary_Condo_Assets {
         add_shortcode('ccl_sticky_cta', [$this, 'render_sticky_cta_shortcode']);
         add_shortcode('ccl_lead_magnet', [$this, 'render_lead_magnet_shortcode']);
         add_shortcode('ccl_building_scorecard', [$this, 'render_building_scorecard_shortcode']);
+        add_shortcode('ccl_action_router', [$this, 'render_action_router_shortcode']);
     }
 
     /**
@@ -270,6 +271,68 @@ final class Calgary_Condo_Assets {
                         <article class="ccl-building-scorecard__card">
                             <span><?php echo esc_html($item['label']); ?></span>
                             <p><?php echo esc_html($item['text']); ?></p>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render a visitor action router to prevent dead-end browsing.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_action_router_shortcode(array $atts = []): string {
+        $atts = shortcode_atts(
+            [
+                'eyebrow' => 'Choose Your Calgary Condo Search Path',
+                'title' => 'What do you want to do next?',
+                'subtitle' => 'Pick the path that matches where you are in the condo search. The right next step keeps you from wasting time on the wrong building or weak listing.',
+            ],
+            $atts,
+            'ccl_action_router'
+        );
+
+        $actions = [
+            [
+                'label' => 'Browse active listings',
+                'text' => 'Start with the live IDX search and narrow by price, area, bedrooms, and building style.',
+                'url' => '#idx-search',
+                'button' => 'Search Condos',
+            ],
+            [
+                'label' => 'Watch a building',
+                'text' => 'Track a specific Calgary condo building and get alerted when the right unit appears.',
+                'url' => '#condo-alerts',
+                'button' => 'Set Building Alerts',
+            ],
+            [
+                'label' => 'Check the risk',
+                'text' => 'Use the checklist and scorecard before you book showings or write an offer.',
+                'url' => '#condo-alerts',
+                'button' => 'Ask For Guidance',
+            ],
+        ];
+
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-section--white ccl-action-router" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+            <div class="ccl-wrap">
+                <div class="ccl-section__header">
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <div class="ccl-action-router__grid">
+                    <?php foreach ($actions as $action) : ?>
+                        <article class="ccl-action-router__card">
+                            <h3><?php echo esc_html($action['label']); ?></h3>
+                            <p><?php echo esc_html($action['text']); ?></p>
+                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($action['url']); ?>"><?php echo esc_html($action['button']); ?></a>
                         </article>
                     <?php endforeach; ?>
                 </div>
