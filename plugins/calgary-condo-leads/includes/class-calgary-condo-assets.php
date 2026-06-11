@@ -21,6 +21,7 @@ final class Calgary_Condo_Assets {
         add_shortcode('ccl_idx_shell', [$this, 'render_idx_shell_shortcode']);
         add_shortcode('ccl_faq', [$this, 'render_faq_shortcode']);
         add_shortcode('ccl_sticky_cta', [$this, 'render_sticky_cta_shortcode']);
+        add_shortcode('ccl_lead_magnet', [$this, 'render_lead_magnet_shortcode']);
     }
 
     /**
@@ -177,6 +178,52 @@ final class Calgary_Condo_Assets {
                 </div>
             </div>
         </aside>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render a lead-magnet CTA section for condo checklist and building guidance requests.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_lead_magnet_shortcode(array $atts = []): string {
+        $atts = shortcode_atts(
+            [
+                'eyebrow' => 'Free Calgary Condo Buyer Checklist',
+                'title' => 'Before you book showings, know what to check',
+                'subtitle' => 'Get a sharper condo search plan focused on buildings, fees, rules, parking, storage, documents, and resale fit.',
+                'button_text' => 'Send Me The Checklist',
+                'button_url' => '#condo-alerts',
+            ],
+            $atts,
+            'ccl_lead_magnet'
+        );
+
+        $points = [
+            'Building and document red flags to watch for.',
+            'Questions to ask before booking showings.',
+            'How to compare condo fees, rules, parking, and resale fit.',
+        ];
+
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-section--white ccl-lead-magnet" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+            <div class="ccl-wrap ccl-lead-magnet__card">
+                <div>
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+                </div>
+                <ul class="ccl-lead-magnet__list">
+                    <?php foreach ($points as $point) : ?>
+                        <li><?php echo esc_html($point); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </section>
         <?php
 
         return (string) ob_get_clean();
