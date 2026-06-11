@@ -27,6 +27,9 @@ jobs:
         run: |
           unzip -l dist/calgary-condo-leads.zip
           unzip -l dist/calgary-condo-leads.zip | grep "calgary-condo-leads/calgary-condo-leads.php"
+          unzip -l dist/calgary-condo-leads.zip | grep "calgary-condo-leads/includes/class-calgary-condo-intent-capture.php"
+          unzip -l dist/calgary-condo-leads.zip | grep "calgary-condo-leads/includes/class-calgary-condo-trust-strip.php"
+          unzip -l dist/calgary-condo-leads.zip | grep "calgary-condo-leads/assets/css/calgary-condo-leads-extended.css"
 
       - name: Upload WordPress plugin ZIP
         uses: actions/upload-artifact@v4
