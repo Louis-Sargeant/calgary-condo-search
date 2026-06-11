@@ -10,7 +10,7 @@ This repository contains a self-contained WordPress lead-generation plugin at:
 
 The plugin adds conversion-focused sections around the site’s existing myRealPage IDX search experience. It does **not** modify, replace, seed, scrape, or update the myRealPage IDX plugin, MLS data, or listing data.
 
-Current plugin version: `1.0.6`.
+Current plugin version: `1.0.7`.
 
 ## Working rules
 
@@ -32,6 +32,15 @@ Current plugin version: `1.0.6`.
 - `[ccl_market_snapshot]` — buyer education section for comparing building strength, true monthly cost, lifestyle fit, and resale path without fake market statistics.
 - `[ccl_building_checklist]` — due-diligence checklist for condo documents, fees, rules, unit details, building demand, and offer strategy.
 - `[ccl_buyer_path]` — buyer education section that explains what to check before booking showings.
+- `[ccl_idx_shell]` — conversion-focused wrapper for the existing IDX shortcode or embed.
+- `[ccl_trust_strip]` — trust/proof strip for IDX and building-first guidance.
+- `[ccl_lead_magnet]` — checklist CTA that routes buyers into the alert form.
+- `[ccl_building_scorecard]` — building-risk scorecard section.
+- `[ccl_action_router]` — next-step router for search, building alerts, and guidance.
+- `[ccl_intent_capture]` — visitor-intent cards for browsing, alerts, sellers, and building-risk questions.
+- `[ccl_next_step_band]` — compact CTA band for bottom-of-page conversion.
+- `[ccl_faq]` — Calgary condo buyer FAQ content.
+- `[ccl_sticky_cta]` — optional sticky search/alert CTA.
 - `[ccl_building_cta]` — building-alert CTA.
 - `[ccl_seller_cta]` — Calgary condo owner valuation CTA using the Calgary phone number.
 - `[ccl_alert_form]` — condo alert lead form with nonce validation, spam honeypot, admin email notification, and private lead storage in WordPress admin under **Condo Leads**.
@@ -87,21 +96,29 @@ Add the lead-generation shortcodes around the existing myRealPage IDX shortcode 
 ```text
 [ccl_hero primary_url="#idx-search" secondary_url="#condo-alerts"]
 [ccl_quick_search]
+[ccl_intent_capture]
+[ccl_trust_strip]
 
-<div id="idx-search">
+[ccl_idx_shell]
     Keep the existing myRealPage IDX shortcode here.
-</div>
+[/ccl_idx_shell]
 
 [ccl_value_cards]
 [ccl_area_grid]
 [ccl_price_grid]
 [ccl_market_snapshot]
 [ccl_building_checklist]
+[ccl_building_scorecard]
 [ccl_buyer_path]
+[ccl_lead_magnet]
+[ccl_action_router]
 [ccl_building_cta]
 [ccl_alert_form]
 [ccl_seller_cta]
+[ccl_faq]
+[ccl_next_step_band]
 [ccl_site_footer]
+[ccl_sticky_cta]
 ```
 
 ### Hero shortcode
@@ -132,6 +149,20 @@ Optional attributes:
 
 ```text
 [ccl_value_cards title_1="Use the Existing IDX Search" text_1="Keep visitors focused on live listings from the approved IDX setup." title_2="Compare Condo Details" text_2="Help buyers think about fees, amenities, parking, and resale value." title_3="Capture Better Leads" text_3="Give serious buyers a simple next step."]
+```
+
+### IDX, trust, intent, FAQ, sticky, and lead-magnet shortcodes
+
+```text
+[ccl_idx_shell]Existing IDX shortcode goes here.[/ccl_idx_shell]
+[ccl_trust_strip]
+[ccl_intent_capture]
+[ccl_next_step_band]
+[ccl_faq]
+[ccl_sticky_cta]
+[ccl_lead_magnet]
+[ccl_building_scorecard]
+[ccl_action_router]
 ```
 
 ### Area, price, market, checklist, buyer path, building, seller, and footer shortcodes
@@ -165,14 +196,15 @@ Submissions are stored privately in WordPress admin under **Condo Leads** and em
 
 1. Confirm the ZIP contains the folder `calgary-condo-leads/` at its root.
 2. Confirm `calgary-condo-leads.php` is directly inside that folder.
-3. Confirm the existing myRealPage IDX plugin is still installed and unchanged.
-4. Confirm no fake listings or fake MLS content has been added.
-5. Confirm Calgary Condo Search page loads on desktop and mobile.
-6. Confirm IDX search, listing cards, and listing detail pages still work.
-7. Confirm all Calgary Condo Search pages use the Calgary phone number only.
-8. Confirm condo lead form submission creates a private admin lead and emails the configured admin address.
-9. Confirm quick-search, area, price, market snapshot, checklist, building-alert, seller-CTA, and footer links go to real pages or approved placeholder pages.
-10. Confirm Coming Soon mode remains on until launch approval.
+3. Confirm plugin version shows `1.0.7` after upload/replace.
+4. Confirm the existing myRealPage IDX plugin is still installed and unchanged.
+5. Confirm no fake listings or fake MLS content has been added.
+6. Confirm Calgary Condo Search page loads on desktop and mobile.
+7. Confirm IDX search, listing cards, and listing detail pages still work.
+8. Confirm all Calgary Condo Search pages use the Calgary phone number only.
+9. Confirm condo lead form submission creates a private admin lead and emails the configured admin address.
+10. Confirm quick-search, area, price, market snapshot, checklist, building-alert, seller-CTA, intent-capture, next-step, FAQ, sticky CTA, and footer links go to real pages or approved placeholder pages.
+11. Confirm Coming Soon mode remains on until launch approval.
 
 ## Supporting docs
 
