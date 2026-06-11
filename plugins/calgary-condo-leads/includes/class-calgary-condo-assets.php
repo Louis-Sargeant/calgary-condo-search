@@ -22,6 +22,7 @@ final class Calgary_Condo_Assets {
         add_shortcode('ccl_faq', [$this, 'render_faq_shortcode']);
         add_shortcode('ccl_sticky_cta', [$this, 'render_sticky_cta_shortcode']);
         add_shortcode('ccl_lead_magnet', [$this, 'render_lead_magnet_shortcode']);
+        add_shortcode('ccl_building_scorecard', [$this, 'render_building_scorecard_shortcode']);
     }
 
     /**
@@ -222,6 +223,56 @@ final class Calgary_Condo_Assets {
                         <li><?php echo esc_html($point); ?></li>
                     <?php endforeach; ?>
                 </ul>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render a building scorecard section for buyer self-qualification.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_building_scorecard_shortcode(array $atts = []): string {
+        $atts = shortcode_atts(
+            [
+                'eyebrow' => 'Calgary Condo Building Scorecard',
+                'title' => 'Score the building before you chase the unit',
+                'subtitle' => 'A condo can look good online and still be the wrong move. Use this scorecard to think through the building before booking showings or writing an offer.',
+                'button_text' => 'Ask About A Building',
+                'button_url' => '#condo-alerts',
+            ],
+            $atts,
+            'ccl_building_scorecard'
+        );
+
+        $items = [
+            ['label' => 'Documents', 'text' => 'Reserve fund, bylaws, minutes, budget, insurance, and disclosure package.'],
+            ['label' => 'Fees', 'text' => 'Monthly fee trend, what is included, deductibles, utilities, and special-assessment risk.'],
+            ['label' => 'Rules', 'text' => 'Pets, rentals, renovations, smoking, parking, storage, and move-in restrictions.'],
+            ['label' => 'Resale', 'text' => 'Floor plan, building reputation, competing listings, buyer demand, and exit plan.'],
+        ];
+
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-building-scorecard" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+            <div class="ccl-wrap ccl-building-scorecard__grid">
+                <div class="ccl-building-scorecard__intro">
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+                </div>
+                <div class="ccl-building-scorecard__cards">
+                    <?php foreach ($items as $item) : ?>
+                        <article class="ccl-building-scorecard__card">
+                            <span><?php echo esc_html($item['label']); ?></span>
+                            <p><?php echo esc_html($item['text']); ?></p>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </section>
         <?php
