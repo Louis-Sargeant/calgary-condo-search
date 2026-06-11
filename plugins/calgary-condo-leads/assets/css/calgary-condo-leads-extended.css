@@ -245,6 +245,46 @@
   width: 20px;
 }
 
+.ccl-building-scorecard__grid {
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+}
+
+.ccl-building-scorecard__intro {
+  align-self: start;
+  position: sticky;
+  top: 24px;
+}
+
+.ccl-building-scorecard__cards {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ccl-building-scorecard__card {
+  background: var(--ccl-white);
+  border: 1px solid var(--ccl-border);
+  border-radius: 22px;
+  box-shadow: 0 16px 42px rgba(10, 26, 47, 0.09);
+  padding: 24px;
+}
+
+.ccl-building-scorecard__card span {
+  color: var(--ccl-gold);
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.ccl-building-scorecard__card p {
+  margin: 0;
+}
+
 @media (max-width: 980px) {
   .ccl-info-grid,
   .ccl-building-checklist .ccl-info-grid {
@@ -252,7 +292,8 @@
   }
 
   .ccl-idx-shell__header,
-  .ccl-lead-magnet__card {
+  .ccl-lead-magnet__card,
+  .ccl-building-scorecard__grid {
     align-items: start;
     grid-template-columns: 1fr;
   }
@@ -260,11 +301,16 @@
   .ccl-idx-shell__header .ccl-btn {
     width: 100%;
   }
+
+  .ccl-building-scorecard__intro {
+    position: static;
+  }
 }
 
 @media (max-width: 780px) {
   .ccl-info-grid,
-  .ccl-building-checklist .ccl-info-grid {
+  .ccl-building-checklist .ccl-info-grid,
+  .ccl-building-scorecard__cards {
     grid-template-columns: 1fr;
   }
 
