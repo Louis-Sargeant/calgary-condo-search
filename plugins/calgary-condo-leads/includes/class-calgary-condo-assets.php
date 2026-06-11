@@ -20,6 +20,7 @@ final class Calgary_Condo_Assets {
         add_action('wp_enqueue_scripts', [$this, 'enqueue_extended_styles'], 20);
         add_shortcode('ccl_idx_shell', [$this, 'render_idx_shell_shortcode']);
         add_shortcode('ccl_faq', [$this, 'render_faq_shortcode']);
+        add_shortcode('ccl_sticky_cta', [$this, 'render_sticky_cta_shortcode']);
     }
 
     /**
@@ -142,6 +143,40 @@ final class Calgary_Condo_Assets {
                 </div>
             </div>
         </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render an optional sticky conversion bar for search and alert actions.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_sticky_cta_shortcode(array $atts = []): string {
+        $atts = shortcode_atts(
+            [
+                'text' => 'Ready to compare Calgary condos with a plan?',
+                'primary_text' => 'Search Listings',
+                'primary_url' => '#idx-search',
+                'secondary_text' => 'Get Alerts',
+                'secondary_url' => '#condo-alerts',
+            ],
+            $atts,
+            'ccl_sticky_cta'
+        );
+
+        ob_start();
+        ?>
+        <aside class="ccl-sticky-cta" aria-label="<?php esc_attr_e('Calgary condo search actions', 'calgary-condo-leads'); ?>">
+            <div class="ccl-sticky-cta__inner">
+                <strong><?php echo esc_html($atts['text']); ?></strong>
+                <div class="ccl-sticky-cta__actions">
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['primary_url']); ?>"><?php echo esc_html($atts['primary_text']); ?></a>
+                    <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($atts['secondary_url']); ?>"><?php echo esc_html($atts['secondary_text']); ?></a>
+                </div>
+            </div>
+        </aside>
         <?php
 
         return (string) ob_get_clean();
