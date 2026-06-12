@@ -33,5 +33,6 @@ require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-trust-strip.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-intent-capture.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-homepage.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-visual-assets.php';
+require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-page-overrides.php';
 
 Calgary_Condo_Leads::instance();
