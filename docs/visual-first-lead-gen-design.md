@@ -2,9 +2,17 @@
 
 ## Core direction
 
-This Calgary condo lead-generation website must be visual, eye-catching, and easy to use. It should not feel word-heavy.
+This Calgary condo lead-generation website must be visual, eye-catching, new, and easy to use. It should not feel word-heavy.
 
 The site still needs strong SEO content, but the visitor experience should be built around visual sections, short copy, fast choices, strong calls to action, and clear lead paths.
+
+## Permanent visual mandate
+
+This site must grab attention immediately.
+
+It must look and feel different from a normal realtor IDX website. It must feel modern, visual, premium, clickable, and useful from the first screen.
+
+If a page feels like a long article, rebuild it into a visual lead page.
 
 ## Design goal
 
@@ -22,6 +30,8 @@ Make the site feel like a modern Calgary condo search machine, not a long real e
 - Short bullets instead of dense copy.
 - Strong spacing and clean section breaks.
 - Mobile-first layout.
+- Premium hover states and clickable cards.
+- Visual paths that help visitors choose quickly.
 
 ## Copy rules
 
@@ -30,6 +40,7 @@ Make the site feel like a modern Calgary condo search machine, not a long real e
 - Lead with visuals and actions.
 - Use headings that help people choose quickly.
 - Every major section should have a clear next step.
+- Use one sharp sentence before buttons instead of long paragraphs.
 
 ## Page layout rule
 
@@ -67,6 +78,7 @@ Use the Calgary Condo Search brand style:
 - Modern cards
 - Clear buttons
 - Professional but not boring
+- Premium, sharp, and memorable
 
 ## What to avoid
 
@@ -76,9 +88,18 @@ Use the Calgary Condo Search brand style:
 - Too many paragraphs before the visitor can search.
 - Design that hides the IDX or forms.
 - Pages that look like every other realtor site.
+- Content that feels like filler.
 
 ## Build standard
 
 When a new page is planned, build it as a visual lead page first and an SEO page second.
 
 The page must answer the visitor quickly, show them where to click, and make it easy to become a lead.
+
+## Final test
+
+Before launch, every important page should pass this test:
+
+Would a Calgary condo buyer or seller understand what to click within five seconds?
+
+If not, the page is not visual enough and must be tightened.
