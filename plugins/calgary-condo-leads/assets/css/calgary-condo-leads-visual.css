@@ -1,0 +1,160 @@
+/* Calgary Condo Leads 1.0.11 — visible premium upgrade.
+   Purpose: make the live site look clearly different, more visual, and more lead focused. */
+
+body .ccl-hero {
+  background:
+    linear-gradient(120deg, rgba(10, 26, 47, 0.92), rgba(10, 26, 47, 0.7)),
+    radial-gradient(circle at 18% 20%, rgba(240, 199, 94, 0.24), transparent 28%),
+    radial-gradient(circle at 84% 16%, rgba(240, 199, 94, 0.18), transparent 24%),
+    linear-gradient(135deg, #071120, #132b4b) !important;
+  border-radius: 0 0 34px 34px !important;
+  box-shadow: 0 28px 70px rgba(7, 17, 32, 0.22) !important;
+  margin-bottom: 0 !important;
+  position: relative;
+}
+
+body .ccl-hero::before {
+  background: linear-gradient(90deg, transparent, rgba(240, 199, 94, 0.95), transparent);
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+body .ccl-hero h1 {
+  font-size: clamp(44px, 6.8vw, 76px) !important;
+  max-width: 760px !important;
+  text-shadow: 0 12px 34px rgba(0, 0, 0, 0.3);
+}
+
+body .ccl-hero__subtitle {
+  font-size: clamp(18px, 1.9vw, 23px) !important;
+  max-width: 720px !important;
+}
+
+body .ccl-hero__panel,
+body .ccl-form {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(240, 199, 94, 0.38) !important;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.28) !important;
+}
+
+body .ccl-hero__panel strong,
+body .ccl-form h3,
+body .ccl-form legend {
+  color: #0a1a2f !important;
+}
+
+body .ccl-btn,
+body .ccl-form button,
+body .ccl-form input[type="submit"] {
+  box-shadow: 0 16px 34px rgba(10, 26, 47, 0.18) !important;
+  letter-spacing: -0.01em;
+}
+
+body .ccl-btn--primary,
+body .ccl-form button,
+body .ccl-form input[type="submit"] {
+  background: linear-gradient(135deg, #f0c75e, #f6a91a) !important;
+  color: #0a1a2f !important;
+}
+
+body .ccl-btn--secondary {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px);
+}
+
+body .ccl-section {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(240, 199, 94, 0.12), transparent 24%),
+    linear-gradient(180deg, #fffaf0, #f7f3ea) !important;
+}
+
+body .ccl-section--white {
+  background: #ffffff !important;
+}
+
+body .ccl-link-card,
+body .ccl-card,
+body .ccl-step-card,
+body .ccl-seller-card,
+body .ccl-feature-band {
+  border: 1px solid rgba(10, 26, 47, 0.1) !important;
+  box-shadow: 0 22px 50px rgba(10, 26, 47, 0.11) !important;
+  overflow: hidden;
+  position: relative;
+}
+
+body .ccl-link-card::before,
+body .ccl-card::before,
+body .ccl-step-card::before {
+  background: linear-gradient(90deg, #f0c75e, rgba(240, 199, 94, 0));
+  content: "";
+  height: 5px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+body .ccl-link-card {
+  min-height: 190px !important;
+  padding: 28px !important;
+}
+
+body .ccl-link-card strong,
+body .ccl-card h3,
+body .ccl-step-card h3 {
+  font-size: clamp(22px, 2.1vw, 28px) !important;
+}
+
+body .ccl-link-card:hover,
+body .ccl-link-card:focus-visible,
+body .ccl-card:hover,
+body .ccl-step-card:hover {
+  border-color: rgba(240, 199, 94, 0.88) !important;
+  box-shadow: 0 30px 70px rgba(10, 26, 47, 0.18) !important;
+  transform: translateY(-5px) !important;
+}
+
+body .ccl-trust-strip,
+body .ccl-homepage-intro,
+body .ccl-intent-capture {
+  border-radius: 28px !important;
+  box-shadow: 0 20px 55px rgba(10, 26, 47, 0.1) !important;
+}
+
+body .ccl-feature-band,
+body .ccl-seller-card {
+  background:
+    radial-gradient(circle at 90% 12%, rgba(240, 199, 94, 0.2), transparent 28%),
+    linear-gradient(135deg, #0a1a2f, #132b4b) !important;
+  color: #ffffff !important;
+}
+
+body .ccl-feature-band h2,
+body .ccl-feature-band p,
+body .ccl-seller-card h2,
+body .ccl-seller-card p {
+  color: #ffffff !important;
+}
+
+body.page-id-116 .ccl-hero {
+  max-width: 1180px !important;
+}
+
+@media (max-width: 780px) {
+  body .ccl-hero {
+    border-radius: 0 0 24px 24px !important;
+  }
+
+  body .ccl-hero h1 {
+    font-size: clamp(38px, 11vw, 54px) !important;
+  }
+
+  body .ccl-link-card {
+    min-height: 150px !important;
+  }
+}
