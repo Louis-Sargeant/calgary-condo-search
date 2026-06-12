@@ -456,6 +456,118 @@
   text-decoration: none;
 }
 
+/* Visual-first lead generation upgrades. */
+.ccl-hero,
+.ccl-tight-hero,
+.ccl-feature-band,
+.ccl-next-step-band__inner,
+.ccl-lead-magnet__card {
+  position: relative;
+}
+
+.ccl-hero::after,
+.ccl-tight-hero::after {
+  background:
+    linear-gradient(90deg, rgba(240, 199, 94, 0.22), rgba(240, 199, 94, 0)),
+    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 12px);
+  bottom: 0;
+  content: "";
+  height: 8px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.ccl-section__header p:not(.ccl-eyebrow) {
+  max-width: 680px;
+}
+
+.ccl-link-card,
+.ccl-card,
+.ccl-step-card,
+.ccl-info-card,
+.ccl-building-scorecard__card,
+.ccl-action-router__card,
+.ccl-intent-card {
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.ccl-link-card::after,
+.ccl-card::after,
+.ccl-step-card::after,
+.ccl-info-card::after,
+.ccl-building-scorecard__card::after,
+.ccl-action-router__card::after,
+.ccl-intent-card::after {
+  background: radial-gradient(circle, rgba(240, 199, 94, 0.18), transparent 64%);
+  content: "";
+  height: 140px;
+  pointer-events: none;
+  position: absolute;
+  right: -68px;
+  top: -72px;
+  width: 140px;
+  z-index: -1;
+}
+
+.ccl-link-card strong,
+.ccl-card h3,
+.ccl-step-card h3,
+.ccl-info-card h3,
+.ccl-action-router__card h3,
+.ccl-intent-card h3 {
+  max-width: 13ch;
+}
+
+.ccl-link-card span,
+.ccl-card p,
+.ccl-step-card p,
+.ccl-info-card p,
+.ccl-action-router__card p,
+.ccl-intent-card p {
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+}
+
+.ccl-link-card:hover,
+.ccl-link-card:focus-visible,
+.ccl-intent-card:hover,
+.ccl-intent-card:focus-within,
+.ccl-action-router__card:hover,
+.ccl-building-scorecard__card:hover {
+  box-shadow: 0 22px 54px rgba(10, 26, 47, 0.16);
+  transform: translateY(-3px);
+}
+
+.ccl-link-card,
+.ccl-intent-card,
+.ccl-action-router__card,
+.ccl-building-scorecard__card {
+  transition: box-shadow 160ms ease, transform 160ms ease, border-color 160ms ease;
+}
+
+.ccl-btn {
+  box-shadow: 0 10px 26px rgba(10, 26, 47, 0.16);
+}
+
+.ccl-btn--primary {
+  box-shadow: 0 12px 30px rgba(240, 199, 94, 0.28);
+}
+
+.ccl-form,
+.ccl-idx-shell__frame,
+.ccl-seller-card {
+  box-shadow: 0 24px 70px rgba(10, 26, 47, 0.12);
+}
+
+.ccl-form input,
+.ccl-form select,
+.ccl-form textarea {
+  min-height: 50px;
+}
+
 @media (max-width: 1120px) {
   .ccl-intent-capture__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
