@@ -32,7 +32,8 @@ The following items have been tested and confirmed:
 13. Budget Range was changed from a text field to a dropdown.
 14. Bedrooms Needed was changed from a text field to a dropdown.
 15. When are you looking to buy? was changed from a text field to a dropdown.
-16. Must-Haves was in progress: user was changing it from Text Area to Checkbox options.
+16. Must-Haves was changed to checkbox options.
+17. Building Alert Request form was retested after dropdown/checkbox changes and email came through correctly.
 
 ## Important shortcodes
 
@@ -72,7 +73,7 @@ This form currently has fields:
 - Budget Range — dropdown
 - Bedrooms Needed — dropdown
 - When are you looking to buy? — dropdown
-- Must-Haves — being changed to checkboxes
+- Must-Haves — checkboxes
 
 The user wants fewer typing fields and more dropdown/checkbox fields because it is faster and cleaner. Long-term direction is AI/voice-style intake where visitors can say/type what they want naturally.
 
@@ -149,22 +150,6 @@ Subject:
 New Building Alerts Lead
 ```
 
-## Current user workflow when paused
-
-The user is inside **Fluent Forms → Forms → Building Alerts → Edit**.
-
-The next task is to finish **Must-Haves** as checkboxes:
-
-1. Delete the current Must-Haves field if it is still a Text Area.
-2. Add **Checkbox**.
-3. Rename to **Must-Haves**.
-4. Use Bulk Edit / Predefined Data Sets.
-5. Paste the Must-Haves checkbox options listed above.
-6. Apply options.
-7. Click **Save Form**.
-8. Retest `https://louiss106.sg-host.com/building-alert-request/`.
-9. Verify email still arrives.
-
 ## Current live form page
 
 Building Alert Request page:
@@ -175,14 +160,28 @@ https://louiss106.sg-host.com/building-alert-request/
 
 This was created because the `/building-alerts/` page is controlled by a template/design that did not show normal block content reliably. Elementor also failed on that page with a content-area/template error. Keep using `/building-alert-request/` for the actual form unless/until the button links are updated.
 
+## Current user workflow when paused
+
+The user completed and retested the Building Alerts form. The next hands-on workflow should be the Condo Value Report seller lead form.
+
+## Next hands-on task
+
+Create or clean up the Condo Value Report seller form. Recommended path:
+
+1. Use Fluent Forms to create or edit the Calgary Condo Value Report form.
+2. Use dropdowns/checklists, not text-heavy fields.
+3. Set up email notification to Louis.
+4. Create a reliable live page for the form if existing `/condo-value-report/` is template-controlled.
+5. Test submission and email.
+
 ## Next tasks that do not need user decisions
 
-1. Document final form field setup after Must-Haves checkbox is finished.
-2. Prepare link-change instructions so the `Set Up Building Alerts` button points to:
+1. Prepare link-change instructions so the `Set Up Building Alerts` button points to:
    - `https://louiss106.sg-host.com/building-alert-request/`
-3. Prepare the Condo Value Report form plan.
-4. Prepare a clean seller lead form with dropdowns/checklists.
-5. Prepare page-copy improvements for the Building Alert Request page.
+2. Prepare the Condo Value Report form plan.
+3. Prepare a clean seller lead form with dropdowns/checklists.
+4. Prepare page-copy improvements for the Building Alert Request page.
+5. Later plan AI/voice-style intake.
 
 ## Do not do
 
