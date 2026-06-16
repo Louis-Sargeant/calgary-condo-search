@@ -13,6 +13,16 @@ final class Calgary_Condo_Homepage {
         $phone_tel = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
         $idx_content = trim((string) $content);
 
+        $tabs = [
+            ['label' => 'New to Market', 'url' => '/calgary-condos/?sort=newest', 'active' => true],
+            ['label' => 'Under $300K', 'url' => '/calgary-condos-under-300k/', 'active' => false],
+            ['label' => 'Downtown', 'url' => '/downtown-calgary-condos/', 'active' => false],
+            ['label' => 'Beltline', 'url' => '/beltline-condos/', 'active' => false],
+            ['label' => 'Luxury Condos', 'url' => '/calgary-luxury-condos/', 'active' => false],
+            ['label' => 'Price Drops', 'url' => '/calgary-condos/?sort=price-reduced', 'active' => false],
+            ['label' => 'Open Houses', 'url' => '/calgary-condos/?open-house=1', 'active' => false],
+        ];
+
         ob_start();
         ?>
         <div class="ccl-home-tight ccl-home-search-first">
@@ -22,7 +32,7 @@ final class Calgary_Condo_Homepage {
                         <p class="ccl-eyebrow">Calgary Condo Search</p>
                         <h1 id="ccl-home-title">The Place to Find a Calgary Condo</h1>
 
-                        <form class="ccl-home-search" action="#idx-search" method="get" role="search" aria-label="Search Calgary condos">
+                        <form class="ccl-home-search" action="/calgary-condos/" method="get" role="search" aria-label="Search Calgary condos">
                             <button class="ccl-home-search__type" type="button" aria-label="Search type">For Sale</button>
                             <label class="ccl-home-search__field">
                                 <span class="screen-reader-text">Search Calgary condos, buildings, or areas</span>
@@ -40,13 +50,9 @@ final class Calgary_Condo_Homepage {
                 <div class="ccl-wrap">
                     <h2 id="ccl-explore-title">Explore Calgary Condos</h2>
                     <nav class="ccl-home-tabs" aria-label="Calgary condo quick searches">
-                        <a class="is-active" href="#idx-search">New to Market</a>
-                        <a href="/condos-under-300k/">Under $300K</a>
-                        <a href="/downtown-calgary-condos/">Downtown</a>
-                        <a href="/beltline-condos/">Beltline</a>
-                        <a href="/luxury-condos/">Luxury Condos</a>
-                        <a href="/price-drops/">Price Drops</a>
-                        <a href="/open-houses/">Open Houses</a>
+                        <?php foreach ($tabs as $tab) : ?>
+                            <a class="<?php echo $tab['active'] ? 'is-active' : ''; ?>" href="<?php echo esc_url($tab['url']); ?>"><?php echo esc_html($tab['label']); ?></a>
+                        <?php endforeach; ?>
                     </nav>
                 </div>
             </section>
@@ -59,20 +65,15 @@ final class Calgary_Condo_Homepage {
                             <h2>Start with the search. Then compare the building.</h2>
                             <p>Search Calgary condos, save the right matches, and get building-first guidance before booking showings.</p>
                         </div>
-                        <a class="ccl-small-link" href="#condo-alerts">Get condo alerts</a>
+                        <a class="ccl-small-link" href="/building-alerts/">Get condo alerts</a>
                     </div>
                     <div class="ccl-idx-shell__frame">
                         <?php if ('' !== $idx_content) : ?>
                             <?php echo wp_kses_post(do_shortcode($idx_content)); ?>
                         <?php else : ?>
                             <div class="ccl-tight-idx__placeholder">
-                                <strong>Live condo search connection pending.</strong>
-                                <p>The live IDX gets connected when the approved myRealPage search is ready.</p>
-                                <div class="ccl-tight-idx__actions">
-                                    <a href="#condo-alerts">Request a custom condo search</a>
-                                    <a href="/condo-buildings/">Compare Calgary condo buildings</a>
-                                    <a href="/building-alerts/">Set building alerts</a>
-                                </div>
+                                <strong>Live Calgary condo search</strong>
+                                <p>Use the search page for active Calgary condo listings, then compare buildings before booking showings.</p>
                             </div>
                         <?php endif; ?>
                     </div>
