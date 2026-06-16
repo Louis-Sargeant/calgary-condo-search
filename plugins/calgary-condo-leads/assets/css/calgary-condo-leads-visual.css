@@ -1,5 +1,5 @@
-/* Calgary Condo Leads 1.0.11 — visible premium upgrade.
-   Purpose: make the live site look clearly different, more visual, and more lead focused. */
+/* Calgary Condo Leads 1.0.13 — Homes-style search-first visual layer.
+   Purpose: make the homepage brighter, cleaner, lighter, and less button-heavy. */
 
 body .ccl-hero {
   background:
@@ -145,6 +145,273 @@ body.page-id-116 .ccl-hero {
   max-width: 1180px !important;
 }
 
+/* Homes.com-inspired Calgary homepage: hero, search bar, and text tabs. */
+body .ccl-home-search-first .ccl-tight-hero {
+  background:
+    linear-gradient(180deg, rgba(10, 26, 47, 0.18), rgba(10, 26, 47, 0.34)),
+    radial-gradient(circle at 22% 68%, rgba(255, 255, 255, 0.72), transparent 22%),
+    linear-gradient(105deg, #dfe8eb 0%, #f7f4ed 40%, #c6d3cf 72%, #84968c 100%) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  min-height: clamp(300px, 38vw, 430px);
+  overflow: visible;
+  padding: 0 !important;
+}
+
+body .ccl-home-search-first .ccl-tight-hero::after {
+  display: none !important;
+}
+
+body .ccl-home-search-first .ccl-tight-hero__overlay {
+  align-items: center;
+  display: flex;
+  min-height: clamp(300px, 38vw, 430px);
+  padding: clamp(46px, 7vw, 88px) 0 clamp(42px, 6vw, 72px);
+}
+
+body .ccl-home-search-first .ccl-tight-hero__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+body .ccl-home-search-first .ccl-eyebrow {
+  color: rgba(255, 255, 255, 0.9) !important;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.26);
+}
+
+body .ccl-home-search-first .ccl-tight-hero h1 {
+  color: #ffffff !important;
+  font-size: clamp(38px, 5vw, 62px) !important;
+  font-weight: 850;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+  margin: 0 0 22px;
+  max-width: 900px;
+  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+}
+
+body .ccl-home-search {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgba(10, 26, 47, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 18px 45px rgba(10, 26, 47, 0.2);
+  display: grid;
+  grid-template-columns: auto minmax(180px, 1fr) auto;
+  max-width: 720px;
+  min-height: 58px;
+  padding: 6px 7px 6px 18px;
+  width: min(720px, 100%);
+}
+
+body .ccl-home-search__type {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-right: 1px solid rgba(10, 26, 47, 0.14);
+  color: #1f2937;
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  gap: 8px;
+  height: 36px;
+  padding: 0 18px 0 0;
+  white-space: nowrap;
+}
+
+body .ccl-home-search__type::after {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #4b5563;
+  content: "";
+  display: inline-block;
+}
+
+body .ccl-home-search__field {
+  display: block;
+  margin: 0;
+  min-width: 0;
+}
+
+body .ccl-home-search__field input {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #111827;
+  font: inherit;
+  font-size: 15px;
+  height: 44px;
+  outline: none;
+  padding: 0 14px;
+  width: 100%;
+}
+
+body .ccl-home-search__field input::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+body .ccl-home-search__submit {
+  align-items: center;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid rgba(10, 26, 47, 0.12);
+  border-radius: 999px;
+  color: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  height: 44px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 44px;
+}
+
+body .ccl-home-search__submit::before {
+  border: 2px solid #334155;
+  border-radius: 999px;
+  content: "";
+  height: 14px;
+  left: 13px;
+  position: absolute;
+  top: 12px;
+  width: 14px;
+}
+
+body .ccl-home-search__submit::after {
+  background: #334155;
+  border-radius: 999px;
+  content: "";
+  height: 2px;
+  left: 27px;
+  position: absolute;
+  top: 28px;
+  transform: rotate(45deg);
+  width: 9px;
+}
+
+body .ccl-home-search__submit:hover,
+body .ccl-home-search__submit:focus-visible {
+  background: #f8fafc;
+  box-shadow: 0 8px 18px rgba(10, 26, 47, 0.12);
+}
+
+body .ccl-home-search-first .ccl-tight-hero__phone {
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 750;
+  margin-top: 16px;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34);
+}
+
+body .ccl-home-explore {
+  background: #ffffff;
+  padding: 30px 0 18px;
+}
+
+body .ccl-home-explore h2 {
+  color: #1f2937;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 780;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+
+body .ccl-home-tabs {
+  align-items: center;
+  border-bottom: 1px solid rgba(10, 26, 47, 0.12);
+  display: flex;
+  gap: clamp(18px, 2.7vw, 34px);
+  overflow-x: auto;
+  padding: 0;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+
+body .ccl-home-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+body .ccl-home-tabs a {
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: #374151;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1;
+  padding: 15px 0 13px;
+  position: relative;
+  text-decoration: none;
+}
+
+body .ccl-home-tabs a::after {
+  background: transparent;
+  bottom: -1px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+body .ccl-home-tabs a:hover,
+body .ccl-home-tabs a:focus-visible,
+body .ccl-home-tabs a.is-active {
+  color: #0a1a2f;
+}
+
+body .ccl-home-tabs a:hover::after,
+body .ccl-home-tabs a:focus-visible::after,
+body .ccl-home-tabs a.is-active::after {
+  background: #d88430;
+}
+
+body .ccl-home-search-first .ccl-tight-idx {
+  border-bottom: 0 !important;
+  padding-top: 18px !important;
+}
+
+body .ccl-idx-shell__header--compact {
+  align-items: end;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-bottom: 16px;
+}
+
+body .ccl-idx-shell__header--compact h2 {
+  font-size: clamp(24px, 3vw, 34px) !important;
+  margin-bottom: 8px;
+}
+
+body .ccl-small-link {
+  color: #0a1a2f;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+body .ccl-small-link:hover,
+body .ccl-small-link:focus-visible {
+  color: #b87421;
+  text-decoration: underline;
+}
+
+body .ccl-home-search-first .ccl-idx-shell__frame {
+  border-radius: 14px !important;
+  box-shadow: 0 10px 28px rgba(10, 26, 47, 0.08) !important;
+  padding: clamp(10px, 1.6vw, 16px) !important;
+}
+
 @media (max-width: 780px) {
   body .ccl-hero {
     border-radius: 0 0 24px 24px !important;
@@ -156,5 +423,44 @@ body.page-id-116 .ccl-hero {
 
   body .ccl-link-card {
     min-height: 150px !important;
+  }
+
+  body .ccl-home-search-first .ccl-tight-hero {
+    min-height: 360px;
+  }
+
+  body .ccl-home-search-first .ccl-tight-hero__overlay {
+    min-height: 360px;
+    padding: 44px 0 38px;
+  }
+
+  body .ccl-home-search {
+    border-radius: 24px;
+    grid-template-columns: 1fr auto;
+    max-width: 100%;
+    min-height: auto;
+    padding: 8px;
+  }
+
+  body .ccl-home-search__type {
+    border-bottom: 1px solid rgba(10, 26, 47, 0.12);
+    border-right: 0;
+    grid-column: 1 / -1;
+    height: 38px;
+    justify-content: flex-start;
+    padding: 0 10px;
+  }
+
+  body .ccl-home-search__field input {
+    height: 46px;
+    padding-left: 10px;
+  }
+
+  body .ccl-home-tabs {
+    gap: 22px;
+  }
+
+  body .ccl-idx-shell__header--compact {
+    grid-template-columns: 1fr;
   }
 }
