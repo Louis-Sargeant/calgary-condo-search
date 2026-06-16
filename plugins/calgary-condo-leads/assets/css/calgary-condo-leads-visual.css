@@ -10,14 +10,8 @@
   --ccl-portal-white: #ffffff;
 }
 
-/* Keep older plugin sections clean without overpowering the page. */
-body .ccl-section {
-  background: #ffffff !important;
-}
-
-body .ccl-section--white {
-  background: #ffffff !important;
-}
+body .ccl-section { background: #ffffff !important; }
+body .ccl-section--white { background: #ffffff !important; }
 
 body .ccl-link-card,
 body .ccl-card,
@@ -29,19 +23,7 @@ body .ccl-idx-shell__frame {
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07) !important;
 }
 
-body .ccl-link-card:hover,
-body .ccl-link-card:focus-visible,
-body .ccl-card:hover,
-body .ccl-step-card:hover {
-  border-color: rgba(15, 23, 42, 0.16) !important;
-  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* Plugin-rendered Homes layout. */
-body .ccl-home-search-first {
-  background: #ffffff;
-}
+body .ccl-home-search-first { background: #ffffff; }
 
 body .ccl-home-search-first .ccl-tight-hero {
   background:
@@ -55,9 +37,7 @@ body .ccl-home-search-first .ccl-tight-hero {
 }
 
 body .ccl-home-search-first .ccl-tight-hero::before,
-body .ccl-home-search-first .ccl-tight-hero::after {
-  display: none !important;
-}
+body .ccl-home-search-first .ccl-tight-hero::after { display: none !important; }
 
 body .ccl-home-search-first .ccl-tight-hero__overlay {
   align-items: center;
@@ -109,7 +89,6 @@ body .ccl-home-search {
 }
 
 body .ccl-home-search__type {
-  align-items: center;
   appearance: none;
   background: transparent !important;
   border: 0 !important;
@@ -137,9 +116,7 @@ body .ccl-home-search__type::after {
 }
 
 body .ccl-home-search__field,
-body .ccl-home-search__field input {
-  min-width: 0;
-}
+body .ccl-home-search__field input { min-width: 0; }
 
 body .ccl-home-search__field input {
   appearance: none;
@@ -155,13 +132,9 @@ body .ccl-home-search__field input {
   width: 100% !important;
 }
 
-body .ccl-home-search__field input::placeholder {
-  color: #6b7280 !important;
-  opacity: 1;
-}
+body .ccl-home-search__field input::placeholder { color: #6b7280 !important; opacity: 1; }
 
 body .ccl-home-search__submit {
-  align-items: center;
   appearance: none;
   background: #ffffff !important;
   border: 0 !important;
@@ -209,10 +182,7 @@ body .ccl-home-search-first .ccl-tight-hero__phone {
   text-shadow: 0 5px 16px rgba(0, 0, 0, 0.32) !important;
 }
 
-body .ccl-home-explore {
-  background: #ffffff !important;
-  padding: 28px 0 12px !important;
-}
+body .ccl-home-explore { background: #ffffff !important; padding: 28px 0 12px !important; }
 
 body .ccl-home-explore h2 {
   color: var(--ccl-portal-text) !important;
@@ -234,9 +204,7 @@ body .ccl-home-tabs {
   white-space: nowrap;
 }
 
-body .ccl-home-tabs::-webkit-scrollbar {
-  display: none;
-}
+body .ccl-home-tabs::-webkit-scrollbar { display: none; }
 
 body .ccl-home-tabs a {
   background: transparent !important;
@@ -265,79 +233,50 @@ body .ccl-home-tabs a::after {
 
 body .ccl-home-tabs a:hover,
 body .ccl-home-tabs a:focus-visible,
-body .ccl-home-tabs a.is-active {
-  color: #0f172a !important;
-}
+body .ccl-home-tabs a.is-active { color: #0f172a !important; }
 
 body .ccl-home-tabs a:hover::after,
 body .ccl-home-tabs a:focus-visible::after,
-body .ccl-home-tabs a.is-active::after {
-  background: var(--ccl-portal-accent) !important;
-}
+body .ccl-home-tabs a.is-active::after { background: var(--ccl-portal-accent) !important; }
 
-body .ccl-home-search-first .ccl-tight-idx {
-  border-bottom: 0 !important;
-  padding-top: 14px !important;
-}
+body .ccl-home-search-first .ccl-tight-idx { border-bottom: 0 !important; padding-top: 14px !important; }
 
-/* Elementor fallback for the current visual-test/home page.
-   This forces Elementor pills/buttons to behave like the Homes.com text-tab row. */
-body.page-id-206 .elementor-section:first-of-type,
-body.page-id-206 .elementor > .e-con:first-of-type,
-body.page-id-116 .elementor-section:first-of-type,
-body.page-id-116 .elementor > .e-con:first-of-type {
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  overflow: hidden !important;
-}
+/* Stop the homepage from feeling like three buttons do the same job. */
+body .ccl-home-search-first .ccl-tight-idx__actions { display: none !important; }
 
-body.page-id-206 .elementor-section:first-of-type .elementor-button,
-body.page-id-206 .elementor > .e-con:first-of-type .elementor-button,
-body.page-id-116 .elementor-section:first-of-type .elementor-button,
-body.page-id-116 .elementor > .e-con:first-of-type .elementor-button {
-  box-shadow: none !important;
-  min-height: 0 !important;
-}
-
-body.page-id-206 .elementor-section:first-of-type a[href*="ai" i],
-body.page-id-206 .elementor > .e-con:first-of-type a[href*="ai" i],
-body.page-id-116 .elementor-section:first-of-type a[href*="ai" i],
-body.page-id-116 .elementor > .e-con:first-of-type a[href*="ai" i] {
-  display: none !important;
-}
-
-body.page-id-206 h2 + div a,
-body.page-id-206 h2 + nav a,
-body.page-id-206 .elementor-widget-heading + .elementor-widget-container a,
-body.page-id-116 h2 + div a,
-body.page-id-116 h2 + nav a,
-body.page-id-116 .elementor-widget-heading + .elementor-widget-container a {
-  background: transparent !important;
+body .ccl-home-search-first .ccl-tight-idx__placeholder {
+  background: #ffffff !important;
   border: 0 !important;
-  border-radius: 0 !important;
   box-shadow: none !important;
-  color: #374151 !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  padding: 14px 0 12px !important;
-  text-decoration: none !important;
+  color: #334155 !important;
+  padding: 8px 0 0 !important;
 }
 
-body.page-id-206 h2 + div a:first-child,
-body.page-id-206 h2 + nav a:first-child,
-body.page-id-116 h2 + div a:first-child,
-body.page-id-116 h2 + nav a:first-child {
-  color: #0f172a !important;
-  border-bottom: 2px solid var(--ccl-portal-accent) !important;
+body .ccl-home-search-first .ccl-tight-idx__placeholder strong {
+  color: #111827 !important;
+  display: block;
+  font-size: clamp(24px, 3vw, 36px) !important;
+  line-height: 1.1;
+  margin-bottom: 8px;
 }
+
+body .ccl-home-search-first .ccl-tight-idx__placeholder p {
+  color: #475569 !important;
+  font-size: 16px !important;
+  max-width: 680px;
+}
+
+.ccl-compare-hero__inner,
+.ccl-compare-hero__actions { display: grid; gap: 20px; }
+
+.ccl-compare-hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+.ccl-compare-hero h1 { font-size: clamp(36px, 4vw, 58px); line-height: 1.04; margin: 0 0 14px; }
+.ccl-compare-hero p { color: #475569; max-width: 760px; }
+.ccl-compare-hero__actions { justify-items: stretch; min-width: 260px; }
 
 @media (max-width: 780px) {
   body .ccl-home-search-first .ccl-tight-hero,
-  body .ccl-home-search-first .ccl-tight-hero__overlay {
-    min-height: 360px;
-  }
+  body .ccl-home-search-first .ccl-tight-hero__overlay { min-height: 360px; }
 
   body .ccl-home-search {
     border-radius: 24px !important;
@@ -355,7 +294,6 @@ body.page-id-116 h2 + nav a:first-child {
     padding: 0 10px !important;
   }
 
-  body .ccl-home-tabs {
-    gap: 22px !important;
-  }
+  body .ccl-home-tabs { gap: 22px !important; }
+  .ccl-compare-hero__inner { grid-template-columns: 1fr; }
 }
