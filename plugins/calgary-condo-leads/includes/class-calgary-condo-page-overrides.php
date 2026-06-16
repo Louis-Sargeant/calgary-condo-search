@@ -14,6 +14,11 @@ if (!defined('ABSPATH')) {
  */
 final class Calgary_Condo_Page_Overrides {
     /**
+     * Official CREB housing statistics page.
+     */
+    private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
+
+    /**
      * Wire filters.
      */
     public function __construct() {
@@ -37,6 +42,10 @@ final class Calgary_Condo_Page_Overrides {
 
         if (is_page('condo-buildings')) {
             return do_shortcode($this->compare_buildings_layout());
+        }
+
+        if (is_page(['market-report', 'market-update'])) {
+            return do_shortcode($this->market_update_layout());
         }
 
         return $content;
@@ -91,6 +100,33 @@ SHORTCODES;
 [ccl_alert_form title="Request a Calgary Building Comparison" subtitle="Tell us the areas, buildings, budget, parking needs, pet rules, and timeline. We will help narrow the right options before you book showings." button_text="Send My Building Comparison Request"]
 [ccl_site_footer]
 SHORTCODES;
+    }
+
+    /**
+     * Market Update page. Uses CREB as the source, not fake stats.
+     */
+    private function market_update_layout(): string {
+        $creb_url = esc_url(self::CREB_MARKET_UPDATE_URL);
+
+        return <<<HTML
+<section class="ccl-section ccl-section--white ccl-compare-hero">
+    <div class="ccl-wrap ccl-compare-hero__inner">
+        <div>
+            <p class="ccl-eyebrow">Calgary Market Update</p>
+            <h1>Calgary condo market update from the CREB Board.</h1>
+            <p>Use the official CREB housing statistics page for the current Calgary market update. Then use this site to search active condos, compare buildings, and request alerts.</p>
+        </div>
+        <div class="ccl-compare-hero__actions">
+            <a class="ccl-btn ccl-btn--primary" href="{$creb_url}" target="_blank" rel="noopener noreferrer">View CREB Market Update</a>
+            <a class="ccl-btn ccl-btn--dark" href="/calgary-condos/">Search Calgary Condos</a>
+        </div>
+    </div>
+</section>
+
+[ccl_market_snapshot eyebrow="Calgary Condo Market Update" title="Use market data, then compare the building" subtitle="Market data gives the big picture. The individual building still needs to be checked for fees, rules, reserve fund strength, parking, storage, documents, and resale path."]
+[ccl_building_cta title="Want help reading the Calgary condo market?" subtitle="Send the building, area, or price range you are watching and get guidance before booking showings." button_text="Compare Condo Buildings" button_url="/condo-buildings/"]
+[ccl_site_footer]
+HTML;
     }
 }
 
