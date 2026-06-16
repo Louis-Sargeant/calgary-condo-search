@@ -1,75 +1,18 @@
-/* Calgary Condo Leads 1.0.13 — Homes-style search-first visual layer.
-   Purpose: make the homepage brighter, cleaner, lighter, and less button-heavy. */
+/* Calgary Condo Leads 1.0.14 — Homes.com-style search and tabs.
+   The homepage must feel like a clean portal: wide hero, one search bar, slim text tabs, no chunky pill buttons. */
 
-body .ccl-hero {
-  background:
-    linear-gradient(120deg, rgba(10, 26, 47, 0.92), rgba(10, 26, 47, 0.7)),
-    radial-gradient(circle at 18% 20%, rgba(240, 199, 94, 0.24), transparent 28%),
-    radial-gradient(circle at 84% 16%, rgba(240, 199, 94, 0.18), transparent 24%),
-    linear-gradient(135deg, #071120, #132b4b) !important;
-  border-radius: 0 0 34px 34px !important;
-  box-shadow: 0 28px 70px rgba(7, 17, 32, 0.22) !important;
-  margin-bottom: 0 !important;
-  position: relative;
+:root {
+  --ccl-portal-blue: #0a1a2f;
+  --ccl-portal-text: #1f2937;
+  --ccl-portal-muted: #64748b;
+  --ccl-portal-line: rgba(15, 23, 42, 0.13);
+  --ccl-portal-accent: #d88430;
+  --ccl-portal-white: #ffffff;
 }
 
-body .ccl-hero::before {
-  background: linear-gradient(90deg, transparent, rgba(240, 199, 94, 0.95), transparent);
-  content: "";
-  height: 5px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-body .ccl-hero h1 {
-  font-size: clamp(44px, 6.8vw, 76px) !important;
-  max-width: 760px !important;
-  text-shadow: 0 12px 34px rgba(0, 0, 0, 0.3);
-}
-
-body .ccl-hero__subtitle {
-  font-size: clamp(18px, 1.9vw, 23px) !important;
-  max-width: 720px !important;
-}
-
-body .ccl-hero__panel,
-body .ccl-form {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border: 1px solid rgba(240, 199, 94, 0.38) !important;
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.28) !important;
-}
-
-body .ccl-hero__panel strong,
-body .ccl-form h3,
-body .ccl-form legend {
-  color: #0a1a2f !important;
-}
-
-body .ccl-btn,
-body .ccl-form button,
-body .ccl-form input[type="submit"] {
-  box-shadow: 0 16px 34px rgba(10, 26, 47, 0.18) !important;
-  letter-spacing: -0.01em;
-}
-
-body .ccl-btn--primary,
-body .ccl-form button,
-body .ccl-form input[type="submit"] {
-  background: linear-gradient(135deg, #f0c75e, #f6a91a) !important;
-  color: #0a1a2f !important;
-}
-
-body .ccl-btn--secondary {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(8px);
-}
-
+/* Keep older plugin sections clean without overpowering the page. */
 body .ccl-section {
-  background:
-    radial-gradient(circle at 8% 8%, rgba(240, 199, 94, 0.12), transparent 24%),
-    linear-gradient(180deg, #fffaf0, #f7f3ea) !important;
+  background: #ffffff !important;
 }
 
 body .ccl-section--white {
@@ -80,84 +23,38 @@ body .ccl-link-card,
 body .ccl-card,
 body .ccl-step-card,
 body .ccl-seller-card,
-body .ccl-feature-band {
-  border: 1px solid rgba(10, 26, 47, 0.1) !important;
-  box-shadow: 0 22px 50px rgba(10, 26, 47, 0.11) !important;
-  overflow: hidden;
-  position: relative;
-}
-
-body .ccl-link-card::before,
-body .ccl-card::before,
-body .ccl-step-card::before {
-  background: linear-gradient(90deg, #f0c75e, rgba(240, 199, 94, 0));
-  content: "";
-  height: 5px;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-body .ccl-link-card {
-  min-height: 190px !important;
-  padding: 28px !important;
-}
-
-body .ccl-link-card strong,
-body .ccl-card h3,
-body .ccl-step-card h3 {
-  font-size: clamp(22px, 2.1vw, 28px) !important;
+body .ccl-feature-band,
+body .ccl-idx-shell__frame {
+  border: 1px solid rgba(15, 23, 42, 0.09) !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.07) !important;
 }
 
 body .ccl-link-card:hover,
 body .ccl-link-card:focus-visible,
 body .ccl-card:hover,
 body .ccl-step-card:hover {
-  border-color: rgba(240, 199, 94, 0.88) !important;
-  box-shadow: 0 30px 70px rgba(10, 26, 47, 0.18) !important;
-  transform: translateY(-5px) !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.1) !important;
+  transform: translateY(-2px) !important;
 }
 
-body .ccl-trust-strip,
-body .ccl-homepage-intro,
-body .ccl-intent-capture {
-  border-radius: 28px !important;
-  box-shadow: 0 20px 55px rgba(10, 26, 47, 0.1) !important;
+/* Plugin-rendered Homes layout. */
+body .ccl-home-search-first {
+  background: #ffffff;
 }
 
-body .ccl-feature-band,
-body .ccl-seller-card {
-  background:
-    radial-gradient(circle at 90% 12%, rgba(240, 199, 94, 0.2), transparent 28%),
-    linear-gradient(135deg, #0a1a2f, #132b4b) !important;
-  color: #ffffff !important;
-}
-
-body .ccl-feature-band h2,
-body .ccl-feature-band p,
-body .ccl-seller-card h2,
-body .ccl-seller-card p {
-  color: #ffffff !important;
-}
-
-body.page-id-116 .ccl-hero {
-  max-width: 1180px !important;
-}
-
-/* Homes.com-inspired Calgary homepage: hero, search bar, and text tabs. */
 body .ccl-home-search-first .ccl-tight-hero {
   background:
-    linear-gradient(180deg, rgba(10, 26, 47, 0.18), rgba(10, 26, 47, 0.34)),
-    radial-gradient(circle at 22% 68%, rgba(255, 255, 255, 0.72), transparent 22%),
-    linear-gradient(105deg, #dfe8eb 0%, #f7f4ed 40%, #c6d3cf 72%, #84968c 100%) !important;
+    linear-gradient(180deg, rgba(10, 26, 47, 0.08), rgba(10, 26, 47, 0.22)),
+    linear-gradient(105deg, #e8edf0 0%, #faf8f2 42%, #d9e2df 70%, #9caea5 100%) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  min-height: clamp(300px, 38vw, 430px);
+  min-height: clamp(330px, 39vw, 450px);
   overflow: visible;
   padding: 0 !important;
 }
 
+body .ccl-home-search-first .ccl-tight-hero::before,
 body .ccl-home-search-first .ccl-tight-hero::after {
   display: none !important;
 }
@@ -165,8 +62,8 @@ body .ccl-home-search-first .ccl-tight-hero::after {
 body .ccl-home-search-first .ccl-tight-hero__overlay {
   align-items: center;
   display: flex;
-  min-height: clamp(300px, 38vw, 430px);
-  padding: clamp(46px, 7vw, 88px) 0 clamp(42px, 6vw, 72px);
+  min-height: clamp(330px, 39vw, 450px);
+  padding: clamp(52px, 7vw, 92px) 0 clamp(44px, 6vw, 76px);
 }
 
 body .ccl-home-search-first .ccl-tight-hero__inner {
@@ -177,52 +74,57 @@ body .ccl-home-search-first .ccl-tight-hero__inner {
 }
 
 body .ccl-home-search-first .ccl-eyebrow {
-  color: rgba(255, 255, 255, 0.9) !important;
-  letter-spacing: 0.08em;
-  margin-bottom: 12px;
-  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.26);
+  color: rgba(255, 255, 255, 0.94) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  margin: 0 0 12px !important;
+  text-transform: none !important;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
 }
 
 body .ccl-home-search-first .ccl-tight-hero h1 {
   color: #ffffff !important;
-  font-size: clamp(38px, 5vw, 62px) !important;
-  font-weight: 850;
-  letter-spacing: -0.045em;
-  line-height: 1.04;
-  margin: 0 0 22px;
-  max-width: 900px;
-  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+  font-size: clamp(36px, 4.2vw, 56px) !important;
+  font-weight: 760 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.04 !important;
+  margin: 0 0 22px !important;
+  max-width: 860px !important;
+  text-shadow: 0 10px 26px rgba(0, 0, 0, 0.32) !important;
 }
 
 body .ccl-home-search {
   align-items: center;
-  background: #ffffff;
-  border: 1px solid rgba(10, 26, 47, 0.12);
-  border-radius: 999px;
-  box-shadow: 0 18px 45px rgba(10, 26, 47, 0.2);
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.16) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.18) !important;
   display: grid;
-  grid-template-columns: auto minmax(180px, 1fr) auto;
-  max-width: 720px;
-  min-height: 58px;
-  padding: 6px 7px 6px 18px;
-  width: min(720px, 100%);
+  grid-template-columns: auto minmax(220px, 1fr) 46px;
+  max-width: 720px !important;
+  min-height: 54px !important;
+  padding: 5px 6px 5px 18px !important;
+  width: min(720px, calc(100% - 24px)) !important;
 }
 
 body .ccl-home-search__type {
   align-items: center;
   appearance: none;
-  background: transparent;
-  border: 0;
-  border-right: 1px solid rgba(10, 26, 47, 0.14);
-  color: #1f2937;
+  background: transparent !important;
+  border: 0 !important;
+  border-right: 1px solid rgba(15, 23, 42, 0.14) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--ccl-portal-text) !important;
   cursor: pointer;
   display: inline-flex;
   font: inherit;
-  font-size: 15px;
-  font-weight: 650;
+  font-size: 14px !important;
+  font-weight: 500 !important;
   gap: 8px;
-  height: 36px;
-  padding: 0 18px 0 0;
+  height: 34px;
+  padding: 0 18px 0 0 !important;
   white-space: nowrap;
 }
 
@@ -234,44 +136,46 @@ body .ccl-home-search__type::after {
   display: inline-block;
 }
 
-body .ccl-home-search__field {
-  display: block;
-  margin: 0;
+body .ccl-home-search__field,
+body .ccl-home-search__field input {
   min-width: 0;
 }
 
 body .ccl-home-search__field input {
   appearance: none;
-  background: transparent;
-  border: 0;
-  color: #111827;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #111827 !important;
   font: inherit;
-  font-size: 15px;
-  height: 44px;
-  outline: none;
-  padding: 0 14px;
-  width: 100%;
+  font-size: 14px !important;
+  height: 42px !important;
+  outline: none !important;
+  padding: 0 14px !important;
+  width: 100% !important;
 }
 
 body .ccl-home-search__field input::placeholder {
-  color: #6b7280;
+  color: #6b7280 !important;
   opacity: 1;
 }
 
 body .ccl-home-search__submit {
   align-items: center;
   appearance: none;
-  background: #ffffff;
-  border: 1px solid rgba(10, 26, 47, 0.12);
-  border-radius: 999px;
-  color: transparent;
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  color: transparent !important;
   cursor: pointer;
   display: inline-flex;
-  height: 44px;
+  height: 42px !important;
   justify-content: center;
   overflow: hidden;
+  padding: 0 !important;
   position: relative;
-  width: 44px;
+  width: 42px !important;
 }
 
 body .ccl-home-search__submit::before {
@@ -279,9 +183,9 @@ body .ccl-home-search__submit::before {
   border-radius: 999px;
   content: "";
   height: 14px;
-  left: 13px;
+  left: 12px;
   position: absolute;
-  top: 12px;
+  top: 11px;
   width: 14px;
 }
 
@@ -290,48 +194,42 @@ body .ccl-home-search__submit::after {
   border-radius: 999px;
   content: "";
   height: 2px;
-  left: 27px;
+  left: 26px;
   position: absolute;
-  top: 28px;
+  top: 27px;
   transform: rotate(45deg);
   width: 9px;
 }
 
-body .ccl-home-search__submit:hover,
-body .ccl-home-search__submit:focus-visible {
-  background: #f8fafc;
-  box-shadow: 0 8px 18px rgba(10, 26, 47, 0.12);
-}
-
 body .ccl-home-search-first .ccl-tight-hero__phone {
   color: #ffffff !important;
-  font-size: 14px;
-  font-weight: 750;
-  margin-top: 16px;
-  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.34);
+  font-size: 13px !important;
+  font-weight: 650 !important;
+  margin-top: 14px !important;
+  text-shadow: 0 5px 16px rgba(0, 0, 0, 0.32) !important;
 }
 
 body .ccl-home-explore {
-  background: #ffffff;
-  padding: 30px 0 18px;
+  background: #ffffff !important;
+  padding: 28px 0 12px !important;
 }
 
 body .ccl-home-explore h2 {
-  color: #1f2937;
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 780;
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-  margin: 0 0 12px;
+  color: var(--ccl-portal-text) !important;
+  font-size: clamp(23px, 2.4vw, 30px) !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.15 !important;
+  margin: 0 0 10px !important;
 }
 
 body .ccl-home-tabs {
   align-items: center;
-  border-bottom: 1px solid rgba(10, 26, 47, 0.12);
-  display: flex;
-  gap: clamp(18px, 2.7vw, 34px);
+  border-bottom: 1px solid var(--ccl-portal-line) !important;
+  display: flex !important;
+  gap: clamp(20px, 2.7vw, 34px) !important;
   overflow-x: auto;
-  padding: 0;
+  padding: 0 !important;
   scrollbar-width: none;
   white-space: nowrap;
 }
@@ -341,16 +239,18 @@ body .ccl-home-tabs::-webkit-scrollbar {
 }
 
 body .ccl-home-tabs a {
+  background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
-  color: #374151;
-  display: inline-flex;
-  font-size: 15px;
-  font-weight: 650;
-  line-height: 1;
-  padding: 15px 0 13px;
+  box-shadow: none !important;
+  color: #374151 !important;
+  display: inline-flex !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  padding: 14px 0 12px !important;
   position: relative;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 body .ccl-home-tabs a::after {
@@ -366,101 +266,96 @@ body .ccl-home-tabs a::after {
 body .ccl-home-tabs a:hover,
 body .ccl-home-tabs a:focus-visible,
 body .ccl-home-tabs a.is-active {
-  color: #0a1a2f;
+  color: #0f172a !important;
 }
 
 body .ccl-home-tabs a:hover::after,
 body .ccl-home-tabs a:focus-visible::after,
 body .ccl-home-tabs a.is-active::after {
-  background: #d88430;
+  background: var(--ccl-portal-accent) !important;
 }
 
 body .ccl-home-search-first .ccl-tight-idx {
   border-bottom: 0 !important;
-  padding-top: 18px !important;
+  padding-top: 14px !important;
 }
 
-body .ccl-idx-shell__header--compact {
-  align-items: end;
-  gap: 18px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  margin-bottom: 16px;
+/* Elementor fallback for the current visual-test/home page.
+   This forces Elementor pills/buttons to behave like the Homes.com text-tab row. */
+body.page-id-206 .elementor-section:first-of-type,
+body.page-id-206 .elementor > .e-con:first-of-type,
+body.page-id-116 .elementor-section:first-of-type,
+body.page-id-116 .elementor > .e-con:first-of-type {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  overflow: hidden !important;
 }
 
-body .ccl-idx-shell__header--compact h2 {
-  font-size: clamp(24px, 3vw, 34px) !important;
-  margin-bottom: 8px;
+body.page-id-206 .elementor-section:first-of-type .elementor-button,
+body.page-id-206 .elementor > .e-con:first-of-type .elementor-button,
+body.page-id-116 .elementor-section:first-of-type .elementor-button,
+body.page-id-116 .elementor > .e-con:first-of-type .elementor-button {
+  box-shadow: none !important;
+  min-height: 0 !important;
 }
 
-body .ccl-small-link {
-  color: #0a1a2f;
-  font-size: 14px;
-  font-weight: 800;
-  text-decoration: none;
-  white-space: nowrap;
+body.page-id-206 .elementor-section:first-of-type a[href*="ai" i],
+body.page-id-206 .elementor > .e-con:first-of-type a[href*="ai" i],
+body.page-id-116 .elementor-section:first-of-type a[href*="ai" i],
+body.page-id-116 .elementor > .e-con:first-of-type a[href*="ai" i] {
+  display: none !important;
 }
 
-body .ccl-small-link:hover,
-body .ccl-small-link:focus-visible {
-  color: #b87421;
-  text-decoration: underline;
+body.page-id-206 h2 + div a,
+body.page-id-206 h2 + nav a,
+body.page-id-206 .elementor-widget-heading + .elementor-widget-container a,
+body.page-id-116 h2 + div a,
+body.page-id-116 h2 + nav a,
+body.page-id-116 .elementor-widget-heading + .elementor-widget-container a {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: #374151 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 14px 0 12px !important;
+  text-decoration: none !important;
 }
 
-body .ccl-home-search-first .ccl-idx-shell__frame {
-  border-radius: 14px !important;
-  box-shadow: 0 10px 28px rgba(10, 26, 47, 0.08) !important;
-  padding: clamp(10px, 1.6vw, 16px) !important;
+body.page-id-206 h2 + div a:first-child,
+body.page-id-206 h2 + nav a:first-child,
+body.page-id-116 h2 + div a:first-child,
+body.page-id-116 h2 + nav a:first-child {
+  color: #0f172a !important;
+  border-bottom: 2px solid var(--ccl-portal-accent) !important;
 }
 
 @media (max-width: 780px) {
-  body .ccl-hero {
-    border-radius: 0 0 24px 24px !important;
-  }
-
-  body .ccl-hero h1 {
-    font-size: clamp(38px, 11vw, 54px) !important;
-  }
-
-  body .ccl-link-card {
-    min-height: 150px !important;
-  }
-
-  body .ccl-home-search-first .ccl-tight-hero {
-    min-height: 360px;
-  }
-
+  body .ccl-home-search-first .ccl-tight-hero,
   body .ccl-home-search-first .ccl-tight-hero__overlay {
     min-height: 360px;
-    padding: 44px 0 38px;
   }
 
   body .ccl-home-search {
-    border-radius: 24px;
-    grid-template-columns: 1fr auto;
-    max-width: 100%;
-    min-height: auto;
-    padding: 8px;
+    border-radius: 24px !important;
+    grid-template-columns: 1fr 42px;
+    max-width: calc(100% - 24px) !important;
+    padding: 8px !important;
   }
 
   body .ccl-home-search__type {
-    border-bottom: 1px solid rgba(10, 26, 47, 0.12);
-    border-right: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.13) !important;
+    border-right: 0 !important;
     grid-column: 1 / -1;
     height: 38px;
     justify-content: flex-start;
-    padding: 0 10px;
-  }
-
-  body .ccl-home-search__field input {
-    height: 46px;
-    padding-left: 10px;
+    padding: 0 10px !important;
   }
 
   body .ccl-home-tabs {
-    gap: 22px;
-  }
-
-  body .ccl-idx-shell__header--compact {
-    grid-template-columns: 1fr;
+    gap: 22px !important;
   }
 }
