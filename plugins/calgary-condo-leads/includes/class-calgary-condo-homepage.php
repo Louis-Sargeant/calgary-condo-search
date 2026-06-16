@@ -57,6 +57,8 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
+            <?php echo do_shortcode('[ccl_school_community]'); ?>
+
             <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
