@@ -48,6 +48,10 @@ final class Calgary_Condo_Page_Overrides {
             return do_shortcode($this->market_update_layout());
         }
 
+        if (is_page('calgary-communities')) {
+            return do_shortcode($this->calgary_communities_layout());
+        }
+
         return $content;
     }
 
@@ -56,7 +60,7 @@ final class Calgary_Condo_Page_Overrides {
      */
     private function calgary_condos_layout(): string {
         return <<<'SHORTCODES'
-[ccl_hero title="Search Calgary Condos With a Fighter In Your Corner" subtitle="Search current Calgary condo listings first. Then compare the building, fees, rules, parking, storage, and resale path before you book a showing." primary_text="Search Calgary Condos" primary_url="#mrp-listings" secondary_text="Compare Condo Buildings" secondary_url="/condo-buildings/" panel_title="Get Calgary condo matches sent to you" panel_text="Tell us what you want and we will help you narrow the search."]
+[ccl_hero title="Search Calgary Condos With a Fighter In Your Corner" subtitle="Search current Calgary condo listings first. Then compare the building, fees, rules, parking, storage, schools, commute, and resale path before you book a showing." primary_text="Search Calgary Condos" primary_url="#mrp-listings" secondary_text="Compare Condo Buildings" secondary_url="/condo-buildings/" panel_title="Get Calgary condo matches sent to you" panel_text="Tell us what you want and we will help you narrow the search."]
 
 <section id="mrp-listings" class="ccl-section ccl-section--white ccl-live-idx">
     <div class="ccl-wrap">
@@ -69,6 +73,7 @@ final class Calgary_Condo_Page_Overrides {
     </div>
 </section>
 
+[ccl_school_community]
 [ccl_buyer_path]
 [ccl_building_cta title="Compare a Calgary condo building before you book" subtitle="Send the building or area you are considering and get help checking fees, rules, parking, storage, documents, and resale path." button_text="Compare Condo Buildings" button_url="/condo-buildings/"]
 [ccl_alert_form title="Get Calgary Condo Alerts" subtitle="Tell us your preferred area, budget, parking needs, timeline, and must-haves." button_text="Send My Condo Match Request"]
@@ -127,6 +132,33 @@ SHORTCODES;
 [ccl_building_cta title="Want help reading the Calgary condo market?" subtitle="Send the building, area, or price range you are watching and get guidance before booking showings." button_text="Compare Condo Buildings" button_url="/condo-buildings/"]
 [ccl_site_footer]
 HTML;
+    }
+
+    /**
+     * Calgary Communities page.
+     */
+    private function calgary_communities_layout(): string {
+        return <<<'SHORTCODES'
+<section class="ccl-section ccl-section--white ccl-compare-hero">
+    <div class="ccl-wrap ccl-compare-hero__inner">
+        <div>
+            <p class="ccl-eyebrow">Calgary Communities</p>
+            <h1>Compare the community before you compare the condo.</h1>
+            <p>Search schools, commute, parks, walkability, nearby amenities, and condo lifestyle fit before you shortlist buildings or book showings.</p>
+        </div>
+        <div class="ccl-compare-hero__actions">
+            <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/">Search Calgary Condos</a>
+            <a class="ccl-btn ccl-btn--dark" href="/condo-buildings/">Compare Buildings</a>
+        </div>
+    </div>
+</section>
+
+[ccl_school_community]
+[ccl_area_grid title="Explore Calgary condo communities" subtitle="Start with the Calgary condo areas buyers ask about most, then narrow by building, budget, schools, commute, and lifestyle fit."]
+[ccl_price_grid]
+[ccl_alert_form title="Get Community-Based Condo Alerts" subtitle="Tell us the areas, school needs, commute, budget, parking needs, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Community Search Request"]
+[ccl_site_footer]
+SHORTCODES;
     }
 }
 
