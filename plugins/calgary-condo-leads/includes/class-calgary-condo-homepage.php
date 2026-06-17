@@ -6,71 +6,6 @@ if (!defined('ABSPATH')) {
 final class Calgary_Condo_Homepage {
     public function __construct() {
         add_shortcode('ccl_homepage_tight', [$this, 'render']);
-        add_action('template_redirect', [$this, 'route_homepage_search'], 1);
-    }
-
-    public function route_homepage_search(): void {
-        if (is_admin() || !is_page(['calgary-condos', 'calgary-condos-2'])) {
-            return;
-        }
-
-        $query = isset($_GET['ccl_q']) ? sanitize_text_field((string) wp_unslash($_GET['ccl_q'])) : '';
-        if ('' === $query) {
-            return;
-        }
-
-        $destination = $this->resolve_search_destination($query);
-        if ('' === $destination) {
-            return;
-        }
-
-        wp_safe_redirect(home_url($destination), 302);
-        exit;
-    }
-
-    private function resolve_search_destination(string $query): string {
-        $clean_query = strtolower(trim(preg_replace('/\s+/', ' ', preg_replace('/[^a-z0-9$ ]+/', ' ', $query))));
-
-        $routes = [
-            'southeast' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary', 'southeast calgary'],
-            'southwest' => ['southwest', 'south west', 'sw', 'sw calgary', 'south west calgary', 'southwest calgary'],
-            'northwest' => ['northwest', 'north west', 'nw', 'nw calgary', 'north west calgary', 'northwest calgary'],
-            'northeast' => ['northeast', 'north east', 'ne', 'ne calgary', 'north east calgary', 'northeast calgary'],
-        ];
-
-        foreach ($routes as $area => $aliases) {
-            foreach ($aliases as $alias) {
-                if ($clean_query === $alias || str_contains($clean_query, $alias)) {
-                    return '/calgary-condos/?ccl_area=' . $area . '#mrp-listings';
-                }
-            }
-        }
-
-        if (str_contains($clean_query, 'downtown')) {
-            return '/downtown-calgary-condos/';
-        }
-
-        if (str_contains($clean_query, 'beltline')) {
-            return '/beltline-condos/';
-        }
-
-        if (str_contains($clean_query, 'luxury')) {
-            return '/calgary-luxury-condos/';
-        }
-
-        if (str_contains($clean_query, '300')) {
-            return '/calgary-condos-under-300k/';
-        }
-
-        if (str_contains($clean_query, 'open house')) {
-            return '/calgary-condos/?ccl_filter=open-houses#mrp-listings';
-        }
-
-        if (str_contains($clean_query, 'price drop') || str_contains($clean_query, 'reduced')) {
-            return '/calgary-condos/?ccl_filter=price-drops#mrp-listings';
-        }
-
-        return '';
     }
 
     public function render(array $atts = [], ?string $content = null): string {
@@ -79,12 +14,14 @@ final class Calgary_Condo_Homepage {
         $idx_content = trim((string) $content);
 
         $tabs = [
-            ['label' => 'New to Market', 'url' => '/calgary-condos/?ccl_filter=newest#mrp-listings', 'active' => true],
-            ['label' => 'Under $300K', 'url' => '/calgary-condos-under-300k/', 'active' => false],
+            ['label' => 'All Calgary Condos', 'url' => '/calgary-condos/#mrp-listings', 'active' => true],
+            ['label' => 'Southeast Calgary', 'url' => '/calgary-condos/?ccl_area=southeast#mrp-listings', 'active' => false],
+            ['label' => 'Southwest Calgary', 'url' => '/calgary-condos/?ccl_area=southwest#mrp-listings', 'active' => false],
+            ['label' => 'Northwest Calgary', 'url' => '/calgary-condos/?ccl_area=northwest#mrp-listings', 'active' => false],
+            ['label' => 'Northeast Calgary', 'url' => '/calgary-condos/?ccl_area=northeast#mrp-listings', 'active' => false],
             ['label' => 'Downtown', 'url' => '/downtown-calgary-condos/', 'active' => false],
             ['label' => 'Beltline', 'url' => '/beltline-condos/', 'active' => false],
-            ['label' => 'Southeast', 'url' => '/calgary-condos/?ccl_area=southeast#mrp-listings', 'active' => false],
-            ['label' => 'Luxury Condos', 'url' => '/calgary-luxury-condos/', 'active' => false],
+            ['label' => 'Under $300K', 'url' => '/calgary-condos-under-300k/', 'active' => false],
             ['label' => 'Price Drops', 'url' => '/calgary-condos/?ccl_filter=price-drops#mrp-listings', 'active' => false],
             ['label' => 'Open Houses', 'url' => '/calgary-condos/?ccl_filter=open-houses#mrp-listings', 'active' => false],
         ];
@@ -98,26 +35,12 @@ final class Calgary_Condo_Homepage {
                         <p class="ccl-eyebrow">Calgary Condo Search</p>
                         <h1 id="ccl-home-title">The Place to Find a Calgary Condo</h1>
 
-                        <form class="ccl-home-search" action="/calgary-condos/" method="get" role="search" aria-label="Search Calgary condos">
-                            <span class="ccl-home-search__type" aria-label="Listing search type">For Sale</span>
-                            <label class="ccl-home-search__field">
-                                <span class="screen-reader-text">Search Calgary condos, buildings, or areas</span>
-                                <input name="ccl_q" type="search" placeholder="Search area, building, or price" autocomplete="off" list="ccl-home-search-suggestions" />
-                            </label>
-                            <button class="ccl-home-search__submit" type="submit" aria-label="Search Calgary condos">Search</button>
-                            <datalist id="ccl-home-search-suggestions">
-                                <option value="Southeast Calgary"></option>
-                                <option value="Southwest Calgary"></option>
-                                <option value="Northwest Calgary"></option>
-                                <option value="Northeast Calgary"></option>
-                                <option value="Downtown Calgary"></option>
-                                <option value="Beltline"></option>
-                                <option value="Luxury Condos"></option>
-                                <option value="Condos Under $300K"></option>
-                                <option value="Open Houses"></option>
-                                <option value="Price Drops"></option>
-                            </datalist>
-                        </form>
+                        <nav class="ccl-home-search ccl-home-search--links" aria-label="Calgary condo search shortcuts">
+                            <a class="ccl-home-search__main" href="/calgary-condos/#mrp-listings">Search All Calgary Condos</a>
+                            <a href="/calgary-condos/?ccl_area=southeast#mrp-listings">Southeast</a>
+                            <a href="/downtown-calgary-condos/">Downtown</a>
+                            <a href="/calgary-condos-under-300k/">Under $300K</a>
+                        </nav>
 
                         <a class="ccl-tight-hero__phone" href="tel:<?php echo esc_attr($phone_tel); ?>">Call Calgary direct: <?php echo esc_html($phone_display); ?></a>
                     </div>
