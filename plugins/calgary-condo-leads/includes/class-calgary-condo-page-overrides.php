@@ -56,10 +56,45 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
+     * Search context message for homepage-routed searches.
+     */
+    private function search_context_notice(): string {
+        $area_labels = [
+            'southeast' => 'Southeast Calgary',
+            'southwest' => 'Southwest Calgary',
+            'northwest' => 'Northwest Calgary',
+            'northeast' => 'Northeast Calgary',
+        ];
+
+        $area = isset($_GET['ccl_area']) ? sanitize_key((string) wp_unslash($_GET['ccl_area'])) : '';
+        $query = isset($_GET['ccl_q']) ? sanitize_text_field((string) wp_unslash($_GET['ccl_q'])) : '';
+
+        if ('' === $area && '' === $query) {
+            return '';
+        }
+
+        $label = $area_labels[$area] ?? $query;
+        if ('' === $label) {
+            return '';
+        }
+
+        $safe_label = esc_html($label);
+
+        return <<<HTML
+        <div class="ccl-search-context">
+            <strong>Search started for {$safe_label}</strong>
+            <p>The homepage search routed you here instead of guessing the wrong quadrant. Use the live myRealPage IDX below to finish narrowing active Calgary condo listings.</p>
+        </div>
+HTML;
+    }
+
+    /**
      * Calgary Condos listing page.
      */
     private function calgary_condos_layout(): string {
-        return <<<'SHORTCODES'
+        $search_context = $this->search_context_notice();
+
+        return <<<SHORTCODES
 [ccl_hero title="Search Calgary Condos With a Fighter In Your Corner" subtitle="Search current Calgary condo listings first. Then compare the building, fees, rules, parking, storage, schools, commute, and resale path before you book a showing." primary_text="Search Calgary Condos" primary_url="#mrp-listings" secondary_text="Compare Condo Buildings" secondary_url="/condo-buildings/" panel_title="Get Calgary condo matches sent to you" panel_text="Tell us what you want and we will help you narrow the search."]
 
 <section id="mrp-listings" class="ccl-section ccl-section--white ccl-live-idx">
@@ -69,6 +104,7 @@ final class Calgary_Condo_Page_Overrides {
             <h2>Live Calgary condo search</h2>
             <p>Use the live myRealPage search below to compare current Calgary condo listings.</p>
         </div>
+        {$search_context}
         [mrp account_id=67196 searchform_def=idx.browse embed=true context=recip init_attr=omni-city%3ACalgary%5BCalgary%20%2Ccity%29%5D,property_type-DWELLING_TYPE%40APAR]
     </div>
 </section>
