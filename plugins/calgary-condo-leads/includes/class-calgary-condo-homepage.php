@@ -6,6 +6,71 @@ if (!defined('ABSPATH')) {
 final class Calgary_Condo_Homepage {
     public function __construct() {
         add_shortcode('ccl_homepage_tight', [$this, 'render']);
+        add_action('template_redirect', [$this, 'route_homepage_search'], 1);
+    }
+
+    public function route_homepage_search(): void {
+        if (is_admin() || !is_page('calgary-condos')) {
+            return;
+        }
+
+        $query = isset($_GET['ccl_q']) ? sanitize_text_field((string) wp_unslash($_GET['ccl_q'])) : '';
+        if ('' === $query) {
+            return;
+        }
+
+        $destination = $this->resolve_search_destination($query);
+        if ('' === $destination) {
+            return;
+        }
+
+        wp_safe_redirect(home_url($destination), 302);
+        exit;
+    }
+
+    private function resolve_search_destination(string $query): string {
+        $clean_query = strtolower(trim(preg_replace('/\s+/', ' ', preg_replace('/[^a-z0-9$ ]+/', ' ', $query))));
+
+        $routes = [
+            'southeast' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary', 'southeast calgary'],
+            'southwest' => ['southwest', 'south west', 'sw', 'sw calgary', 'south west calgary', 'southwest calgary'],
+            'northwest' => ['northwest', 'north west', 'nw', 'nw calgary', 'north west calgary', 'northwest calgary'],
+            'northeast' => ['northeast', 'north east', 'ne', 'ne calgary', 'north east calgary', 'northeast calgary'],
+        ];
+
+        foreach ($routes as $area => $aliases) {
+            foreach ($aliases as $alias) {
+                if ($clean_query === $alias || str_contains($clean_query, $alias)) {
+                    return '/calgary-condos/?ccl_area=' . $area . '#mrp-listings';
+                }
+            }
+        }
+
+        if (str_contains($clean_query, 'downtown')) {
+            return '/downtown-calgary-condos/';
+        }
+
+        if (str_contains($clean_query, 'beltline')) {
+            return '/beltline-condos/';
+        }
+
+        if (str_contains($clean_query, 'luxury')) {
+            return '/calgary-luxury-condos/';
+        }
+
+        if (str_contains($clean_query, '300')) {
+            return '/calgary-condos-under-300k/';
+        }
+
+        if (str_contains($clean_query, 'open house')) {
+            return '/calgary-condos/?ccl_filter=open-houses#mrp-listings';
+        }
+
+        if (str_contains($clean_query, 'price drop') || str_contains($clean_query, 'reduced')) {
+            return '/calgary-condos/?ccl_filter=price-drops#mrp-listings';
+        }
+
+        return '';
     }
 
     public function render(array $atts = [], ?string $content = null): string {
