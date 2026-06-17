@@ -14,14 +14,30 @@ final class Calgary_Condo_Homepage {
         $idx_content = trim((string) $content);
 
         $tabs = [
-            ['label' => 'New to Market', 'url' => '/calgary-condos/?sort=newest', 'active' => true],
+            ['label' => 'New to Market', 'url' => '/calgary-condos/?sort=newest#mrp-listings', 'active' => true],
             ['label' => 'Under $300K', 'url' => '/calgary-condos-under-300k/', 'active' => false],
             ['label' => 'Downtown', 'url' => '/downtown-calgary-condos/', 'active' => false],
             ['label' => 'Beltline', 'url' => '/beltline-condos/', 'active' => false],
+            ['label' => 'Southeast', 'url' => '/calgary-condos/?ccl_area=southeast#mrp-listings', 'active' => false],
             ['label' => 'Luxury Condos', 'url' => '/calgary-luxury-condos/', 'active' => false],
-            ['label' => 'Price Drops', 'url' => '/calgary-condos/?sort=price-reduced', 'active' => false],
-            ['label' => 'Open Houses', 'url' => '/calgary-condos/?open-house=1', 'active' => false],
+            ['label' => 'Price Drops', 'url' => '/calgary-condos/?sort=price-reduced#mrp-listings', 'active' => false],
+            ['label' => 'Open Houses', 'url' => '/calgary-condos/?open-house=1#mrp-listings', 'active' => false],
         ];
+
+        $search_routes = [
+            ['label' => 'Southeast Calgary', 'url' => '/calgary-condos/?ccl_area=southeast#mrp-listings', 'aliases' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary']],
+            ['label' => 'Southwest Calgary', 'url' => '/calgary-condos/?ccl_area=southwest#mrp-listings', 'aliases' => ['southwest', 'south west', 'sw', 'sw calgary', 'south west calgary']],
+            ['label' => 'Northwest Calgary', 'url' => '/calgary-condos/?ccl_area=northwest#mrp-listings', 'aliases' => ['northwest', 'north west', 'nw', 'nw calgary', 'north west calgary']],
+            ['label' => 'Northeast Calgary', 'url' => '/calgary-condos/?ccl_area=northeast#mrp-listings', 'aliases' => ['northeast', 'north east', 'ne', 'ne calgary', 'north east calgary']],
+            ['label' => 'Downtown Calgary', 'url' => '/downtown-calgary-condos/', 'aliases' => ['downtown', 'downtown calgary', 'city centre', 'city center']],
+            ['label' => 'Beltline', 'url' => '/beltline-condos/', 'aliases' => ['beltline', 'beltline condos']],
+            ['label' => 'Luxury Condos', 'url' => '/calgary-luxury-condos/', 'aliases' => ['luxury', 'luxury condos', 'luxury condo']],
+            ['label' => 'Condos Under $300K', 'url' => '/calgary-condos-under-300k/', 'aliases' => ['under 300', 'under 300k', '300k', 'below 300k', 'affordable']],
+            ['label' => 'Open Houses', 'url' => '/calgary-condos/?open-house=1#mrp-listings', 'aliases' => ['open house', 'open houses']],
+            ['label' => 'Price Drops', 'url' => '/calgary-condos/?sort=price-reduced#mrp-listings', 'aliases' => ['price drop', 'price drops', 'reduced', 'reduced price']],
+        ];
+
+        $search_routes_json = wp_json_encode($search_routes);
 
         ob_start();
         ?>
@@ -32,14 +48,67 @@ final class Calgary_Condo_Homepage {
                         <p class="ccl-eyebrow">Calgary Condo Search</p>
                         <h1 id="ccl-home-title">The Place to Find a Calgary Condo</h1>
 
-                        <form class="ccl-home-search" action="/calgary-condos/" method="get" role="search" aria-label="Search Calgary condos">
-                            <button class="ccl-home-search__type" type="button" aria-label="Search type">For Sale</button>
+                        <form class="ccl-home-search" action="/calgary-condos/" method="get" role="search" aria-label="Search Calgary condos" data-ccl-routes="<?php echo esc_attr((string) $search_routes_json); ?>">
+                            <label class="ccl-home-search__type-wrap">
+                                <span class="screen-reader-text">Listing search type</span>
+                                <select class="ccl-home-search__type" name="ccl_status" aria-label="Listing search type">
+                                    <option value="for-sale" data-url="/calgary-condos/#mrp-listings">For Sale</option>
+                                    <option value="newest" data-url="/calgary-condos/?sort=newest#mrp-listings">New to Market</option>
+                                    <option value="price-reduced" data-url="/calgary-condos/?sort=price-reduced#mrp-listings">Price Drops</option>
+                                    <option value="open-house" data-url="/calgary-condos/?open-house=1#mrp-listings">Open Houses</option>
+                                </select>
+                            </label>
                             <label class="ccl-home-search__field">
                                 <span class="screen-reader-text">Search Calgary condos, buildings, or areas</span>
-                                <input name="condo_search" type="search" placeholder="Calgary condos, buildings, or areas" />
+                                <input name="ccl_q" type="search" placeholder="Search area, building, or price" autocomplete="off" list="ccl-home-search-suggestions" />
                             </label>
                             <button class="ccl-home-search__submit" type="submit" aria-label="Search Calgary condos">Search</button>
+                            <datalist id="ccl-home-search-suggestions">
+                                <?php foreach ($search_routes as $route) : ?>
+                                    <option value="<?php echo esc_attr($route['label']); ?>"></option>
+                                <?php endforeach; ?>
+                            </datalist>
                         </form>
+
+                        <script>
+                        (function () {
+                            var forms = document.querySelectorAll('.ccl-home-search[data-ccl-routes]');
+                            forms.forEach(function (form) {
+                                var routes = [];
+                                try { routes = JSON.parse(form.getAttribute('data-ccl-routes') || '[]'); } catch (error) { routes = []; }
+
+                                form.addEventListener('submit', function (event) {
+                                    var input = form.querySelector('input[name="ccl_q"]');
+                                    var select = form.querySelector('select[name="ccl_status"]');
+                                    var raw = input ? input.value.trim() : '';
+                                    var query = raw.toLowerCase().replace(/[^a-z0-9$ ]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+                                    if (query) {
+                                        var match = routes.find(function (route) {
+                                            return (route.aliases || []).some(function (alias) {
+                                                var cleanAlias = String(alias).toLowerCase();
+                                                return query === cleanAlias || query.indexOf(cleanAlias) !== -1;
+                                            });
+                                        });
+
+                                        if (match && match.url) {
+                                            event.preventDefault();
+                                            window.location.href = match.url;
+                                            return;
+                                        }
+                                    }
+
+                                    if (select && select.selectedOptions && select.selectedOptions[0] && select.selectedOptions[0].dataset.url) {
+                                        var selectedUrl = select.selectedOptions[0].dataset.url;
+                                        if (!query) {
+                                            event.preventDefault();
+                                            window.location.href = selectedUrl;
+                                        }
+                                    }
+                                });
+                            });
+                        }());
+                        </script>
 
                         <a class="ccl-tight-hero__phone" href="tel:<?php echo esc_attr($phone_tel); ?>">Call Calgary direct: <?php echo esc_html($phone_display); ?></a>
                     </div>
