@@ -19,6 +19,16 @@ final class Calgary_Condo_Page_Overrides {
     private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
 
     /**
+     * Real myRealPage predefined search shortcodes.
+     */
+    private const SEARCH_SHORTCODES = [
+        'all' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'southeast' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'under-400k' => '[mrp account_id=67196 listing_def=search-1439371 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
+    ];
+
+    /**
      * Wire filters.
      */
     public function __construct() {
@@ -56,6 +66,28 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
+     * Pick the active predefined myRealPage search.
+     */
+    private function active_idx_shortcode(): string {
+        $area = isset($_GET['ccl_area']) ? sanitize_key((string) wp_unslash($_GET['ccl_area'])) : '';
+        $filter = isset($_GET['ccl_filter']) ? sanitize_key((string) wp_unslash($_GET['ccl_filter'])) : '';
+
+        if ('southeast' === $area) {
+            return self::SEARCH_SHORTCODES['southeast'];
+        }
+
+        if ('price-drops' === $filter || 'price-reduced' === $filter) {
+            return self::SEARCH_SHORTCODES['price-drops'];
+        }
+
+        if ('under-400k' === $filter) {
+            return self::SEARCH_SHORTCODES['under-400k'];
+        }
+
+        return self::SEARCH_SHORTCODES['all'];
+    }
+
+    /**
      * Search context message for homepage-routed searches.
      */
     private function search_context_notice(): string {
@@ -66,14 +98,16 @@ final class Calgary_Condo_Page_Overrides {
             'northeast' => 'Northeast Calgary',
         ];
 
+        $filter_labels = [
+            'price-drops' => 'Price Reduced Calgary Condos',
+            'price-reduced' => 'Price Reduced Calgary Condos',
+            'under-400k' => 'Calgary Condos Under $400K',
+        ];
+
         $area = isset($_GET['ccl_area']) ? sanitize_key((string) wp_unslash($_GET['ccl_area'])) : '';
-        $query = isset($_GET['ccl_q']) ? sanitize_text_field((string) wp_unslash($_GET['ccl_q'])) : '';
+        $filter = isset($_GET['ccl_filter']) ? sanitize_key((string) wp_unslash($_GET['ccl_filter'])) : '';
 
-        if ('' === $area && '' === $query) {
-            return '';
-        }
-
-        $label = $area_labels[$area] ?? $query;
+        $label = $area_labels[$area] ?? ($filter_labels[$filter] ?? '');
         if ('' === $label) {
             return '';
         }
@@ -82,8 +116,8 @@ final class Calgary_Condo_Page_Overrides {
 
         return <<<HTML
         <div class="ccl-search-context">
-            <strong>Search started for {$safe_label}</strong>
-            <p>The homepage search routed you here instead of guessing the wrong quadrant. Use the live myRealPage IDX below to finish narrowing active Calgary condo listings.</p>
+            <strong>Showing live results for {$safe_label}</strong>
+            <p>This feed uses a saved myRealPage predefined search instead of a loose keyword search, so the listings match the button you clicked.</p>
         </div>
 HTML;
     }
@@ -93,6 +127,7 @@ HTML;
      */
     private function calgary_condos_layout(): string {
         $search_context = $this->search_context_notice();
+        $idx_shortcode = $this->active_idx_shortcode();
 
         return <<<SHORTCODES
 [ccl_hero title="Search Calgary Condos With a Fighter In Your Corner" subtitle="Search current Calgary condo listings first. Then compare the building, fees, rules, parking, storage, schools, commute, and resale path before you book a showing." primary_text="Search Calgary Condos" primary_url="#mrp-listings" secondary_text="Compare Condo Buildings" secondary_url="/condo-buildings/" panel_title="Get Calgary condo matches sent to you" panel_text="Tell us what you want and we will help you narrow the search."]
@@ -105,7 +140,7 @@ HTML;
             <p>Use the live myRealPage search below to compare current Calgary condo listings.</p>
         </div>
         {$search_context}
-        [mrp account_id=67196 searchform_def=idx.browse embed=true context=recip init_attr=omni-city%3ACalgary%5BCalgary%20%2Ccity%29%5D,property_type-DWELLING_TYPE%40APAR]
+        {$idx_shortcode}
     </div>
 </section>
 
