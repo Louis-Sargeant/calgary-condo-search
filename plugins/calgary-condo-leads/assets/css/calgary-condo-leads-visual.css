@@ -1,5 +1,5 @@
-/* Calgary Condo Leads 1.0.14 — Homes.com-style search and tabs.
-   The homepage must feel like a clean portal: wide hero, one search bar, slim text tabs, no chunky pill buttons. */
+/* Calgary Condo Leads 1.0.18 — Homes.com-style search and real routing.
+   The homepage must feel like a clean portal: wide hero, one real search bar, slim text tabs, no fake controls. */
 
 :root {
   --ccl-portal-blue: #0a1a2f;
@@ -82,17 +82,26 @@ body .ccl-home-search {
   box-shadow: 0 14px 34px rgba(15, 23, 42, 0.18) !important;
   display: grid;
   grid-template-columns: auto minmax(220px, 1fr) 46px;
-  max-width: 720px !important;
+  max-width: 760px !important;
   min-height: 54px !important;
   padding: 5px 6px 5px 18px !important;
-  width: min(720px, calc(100% - 24px)) !important;
+  width: min(760px, calc(100% - 24px)) !important;
+}
+
+body .ccl-home-search__type-wrap {
+  align-items: center;
+  border-right: 1px solid rgba(15, 23, 42, 0.14) !important;
+  display: inline-flex;
+  height: 34px;
+  min-width: 116px;
+  padding: 0 14px 0 0 !important;
+  position: relative;
 }
 
 body .ccl-home-search__type {
   appearance: none;
   background: transparent !important;
   border: 0 !important;
-  border-right: 1px solid rgba(15, 23, 42, 0.14) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   color: var(--ccl-portal-text) !important;
@@ -100,19 +109,24 @@ body .ccl-home-search__type {
   display: inline-flex;
   font: inherit;
   font-size: 14px !important;
-  font-weight: 500 !important;
-  gap: 8px;
+  font-weight: 600 !important;
   height: 34px;
+  outline: none !important;
   padding: 0 18px 0 0 !important;
+  width: 100%;
   white-space: nowrap;
 }
 
-body .ccl-home-search__type::after {
+body .ccl-home-search__type-wrap::after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 5px solid #4b5563;
   content: "";
-  display: inline-block;
+  pointer-events: none;
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 body .ccl-home-search__field,
@@ -266,6 +280,26 @@ body .ccl-home-search-first .ccl-tight-idx__placeholder p {
   max-width: 680px;
 }
 
+.ccl-search-context {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.09);
+  border-radius: 18px;
+  margin: 0 0 20px;
+  padding: 16px 18px;
+}
+
+.ccl-search-context strong {
+  color: #111827;
+  display: block;
+  font-size: 17px;
+  margin-bottom: 4px;
+}
+
+.ccl-search-context p {
+  color: #475569;
+  margin: 0;
+}
+
 .ccl-compare-hero__inner,
 .ccl-compare-hero__actions { display: grid; gap: 20px; }
 
@@ -285,15 +319,15 @@ body .ccl-home-search-first .ccl-tight-idx__placeholder p {
     padding: 8px !important;
   }
 
-  body .ccl-home-search__type {
+  body .ccl-home-search__type-wrap {
     border-bottom: 1px solid rgba(15, 23, 42, 0.13) !important;
     border-right: 0 !important;
     grid-column: 1 / -1;
     height: 38px;
-    justify-content: flex-start;
     padding: 0 10px !important;
   }
 
+  body .ccl-home-search__type { height: 38px; }
   body .ccl-home-tabs { gap: 22px !important; }
   .ccl-compare-hero__inner { grid-template-columns: 1fr; }
 }
