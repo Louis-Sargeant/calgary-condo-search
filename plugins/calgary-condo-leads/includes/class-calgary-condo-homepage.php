@@ -10,7 +10,7 @@ final class Calgary_Condo_Homepage {
     }
 
     public function route_homepage_search(): void {
-        if (is_admin() || !is_page('calgary-condos')) {
+        if (is_admin() || !is_page(['calgary-condos', 'calgary-condos-2'])) {
             return;
         }
 
