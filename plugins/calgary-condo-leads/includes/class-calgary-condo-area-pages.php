@@ -80,6 +80,8 @@ final class Calgary_Condo_Area_Pages {
         $subtitle = esc_html((string) $area['subtitle']);
         $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
         $idx = self::ALL_CONDOS_IDX;
+        $idx_shell = do_shortcode('[ccl_idx_shell eyebrow="Live ' . $label . ' Condo Search" title="Current ' . $label . ' condo listings" subtitle="Use the IDX feed below, then ask for building-first guidance before booking showings."]' . $idx . '[/ccl_idx_shell]');
+        $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
 
         return <<<HTML
 <main class="ccl-area-page ccl-area-page--{$slug}">
@@ -115,8 +117,8 @@ final class Calgary_Condo_Area_Pages {
         </div>
     </section>
 
-    [ccl_idx_shell eyebrow="Live {$label} Condo Search" title="Current {$label} condo listings" subtitle="Use the IDX feed below, then ask for building-first guidance before booking showings."]{$idx}[/ccl_idx_shell]
-    [ccl_lead_modal title="Get a {$label} condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right {$label} options without inventing listing data."]
+    {$idx_shell}
+    {$lead_modal}
 </main>
 HTML;
     }
