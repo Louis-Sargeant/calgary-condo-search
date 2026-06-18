@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Calgary Condo Leads
  * Description: Lead-generation shortcodes and styling for Calgary Condo Search pages using the myRealPage IDX plugin.
- * Version: 1.0.43
+ * Version: 1.0.44
  * Author: Louis Sargeant
  * Text Domain: calgary-condo-leads
  * Requires at least: 6.0
