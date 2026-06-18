@@ -58,7 +58,7 @@ final class Calgary_Condo_Assets {
 
         $idx_content = trim((string) $content);
         $idx_output = '' !== $idx_content
-            ? wp_kses_post(do_shortcode($idx_content))
+            ? do_shortcode($idx_content)
             : '<p class="ccl-idx-shell__empty">Add the existing IDX shortcode inside this wrapper.</p>';
 
         ob_start();
@@ -74,7 +74,7 @@ final class Calgary_Condo_Assets {
                     <a class="ccl-btn ccl-btn--dark" href="#condo-alerts"><?php esc_html_e('Get Condo Alerts', 'calgary-condo-leads'); ?></a>
                 </div>
                 <div class="ccl-idx-shell__frame">
-                    <?php echo $idx_output; ?>
+                    <?php echo $idx_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- IDX/plugin shortcode output must retain its scripts and markup. ?>
                 </div>
                 <p class="ccl-idx-shell__note"><?php echo esc_html($atts['note']); ?></p>
             </div>
@@ -258,18 +258,18 @@ final class Calgary_Condo_Assets {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-building-scorecard" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+        <section class="ccl-section ccl-section--white ccl-building-scorecard" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
             <div class="ccl-wrap ccl-building-scorecard__grid">
-                <div class="ccl-building-scorecard__intro">
+                <div>
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                     <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
                 </div>
-                <div class="ccl-building-scorecard__cards">
+                <div class="ccl-building-scorecard__items">
                     <?php foreach ($items as $item) : ?>
-                        <article class="ccl-building-scorecard__card">
-                            <span><?php echo esc_html($item['label']); ?></span>
+                        <article>
+                            <strong><?php echo esc_html($item['label']); ?></strong>
                             <p><?php echo esc_html($item['text']); ?></p>
                         </article>
                     <?php endforeach; ?>
@@ -282,57 +282,86 @@ final class Calgary_Condo_Assets {
     }
 
     /**
-     * Render a visitor action router to prevent dead-end browsing.
+     * Render a compact action router.
      *
      * @param array<string,mixed> $atts Shortcode attributes.
      */
     public function render_action_router_shortcode(array $atts = []): string {
         $atts = shortcode_atts(
             [
-                'eyebrow' => 'Choose Your Calgary Condo Search Path',
-                'title' => 'What do you want to do next?',
-                'subtitle' => 'Pick the path that matches where you are in the condo search. The right next step keeps you from wasting time on the wrong building or weak listing.',
+                'eyebrow' => 'Calgary Condo Actions',
+                'title' => 'Choose your next move',
+                'subtitle' => 'Search live listings, compare buildings, watch price drops, or request a condo value report.',
             ],
             $atts,
             'ccl_action_router'
         );
 
         $actions = [
-            [
-                'label' => 'Browse active listings',
-                'text' => 'Start with the live IDX search and narrow by price, area, bedrooms, and building style.',
-                'url' => '#idx-search',
-                'button' => 'Search Condos',
-            ],
-            [
-                'label' => 'Watch a building',
-                'text' => 'Track a specific Calgary condo building and get alerted when the right unit appears.',
-                'url' => '#condo-alerts',
-                'button' => 'Set Building Alerts',
-            ],
-            [
-                'label' => 'Check the risk',
-                'text' => 'Use the checklist and scorecard before you book showings or write an offer.',
-                'url' => '#condo-alerts',
-                'button' => 'Ask For Guidance',
-            ],
+            ['title' => 'Search Calgary Condos', 'text' => 'Browse current Calgary condo listings.', 'url' => '/calgary-condos/'],
+            ['title' => 'Set Building Alerts', 'text' => 'Watch specific buildings and areas.', 'url' => '/building-alerts/'],
+            ['title' => 'Price Reduced Condos', 'text' => 'Review listings with price changes.', 'url' => '/price-reduced-condos/'],
+            ['title' => 'Condo Value Report', 'text' => 'Estimate what your Calgary condo could sell for.', 'url' => '/condo-value-report/'],
         ];
 
+        return $this->render_link_grid($atts, $actions, 'ccl-action-router');
+    }
+
+    /**
+     * Render reusable link-card grid.
+     *
+     * @param array<string,string> $atts Section copy.
+     * @param array<int,array<string,string>> $items Items.
+     * @param string $class Class name.
+     */
+    private function render_link_grid(array $atts, array $items, string $class): string {
         ob_start();
         ?>
-        <section class="ccl-section ccl-section--white ccl-action-router" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+        <section class="ccl-section ccl-section--white <?php echo esc_attr($class); ?>" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
             <div class="ccl-wrap">
                 <div class="ccl-section__header">
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
-                <div class="ccl-action-router__grid">
-                    <?php foreach ($actions as $action) : ?>
-                        <article class="ccl-action-router__card">
-                            <h3><?php echo esc_html($action['label']); ?></h3>
-                            <p><?php echo esc_html($action['text']); ?></p>
-                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($action['url']); ?>"><?php echo esc_html($action['button']); ?></a>
+                <div class="ccl-card-grid ccl-card-grid--links">
+                    <?php foreach ($items as $item) : ?>
+                        <a class="ccl-link-card" href="<?php echo esc_url($item['url']); ?>">
+                            <h3><?php echo esc_html($item['title']); ?></h3>
+                            <p><?php echo esc_html($item['text']); ?></p>
+                            <span><?php esc_html_e('Open search', 'calgary-condo-leads'); ?></span>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+    /**
+     * Render reusable info grid.
+     *
+     * @param array<string,string> $atts Section copy.
+     * @param array<int,array<string,string>> $items Items.
+     * @param string $class Class name.
+     */
+    private function render_info_grid(array $atts, array $items, string $class): string {
+        ob_start();
+        ?>
+        <section class="ccl-section ccl-section--white <?php echo esc_attr($class); ?>" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+            <div class="ccl-wrap">
+                <div class="ccl-section__header">
+                    <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <div class="ccl-card-grid">
+                    <?php foreach ($items as $item) : ?>
+                        <article class="ccl-info-card">
+                            <h3><?php echo esc_html($item['title']); ?></h3>
+                            <p><?php echo esc_html($item['text']); ?></p>
                         </article>
                     <?php endforeach; ?>
                 </div>
