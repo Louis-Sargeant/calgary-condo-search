@@ -13,23 +13,15 @@ if (!defined('ABSPATH')) {
  * Renders a branded market statistics page at /market-update/.
  */
 final class Calgary_Condo_Market_Update_Page {
-    /**
-     * Fallback official CREB source.
-     */
     private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
 
-    /**
-     * Wire hooks.
-     */
     public function __construct() {
         add_action('template_redirect', [$this, 'render_market_update'], 0);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 10, 4);
+        add_filter('nav_menu_item_title', [$this, 'rewrite_market_menu_title'], 10, 4);
         add_action('wp_footer', [$this, 'rewrite_market_links'], 1);
     }
 
-    /**
-     * Render the market stats page before fallback/template logic runs.
-     */
     public function render_market_update(): void {
         if (is_admin()) {
             return;
@@ -56,20 +48,11 @@ final class Calgary_Condo_Market_Update_Page {
         exit;
     }
 
-    /**
-     * Rewrite menu links before output.
-     *
-     * @param array<string,string> $atts Link attributes.
-     * @param WP_Post             $menu_item Menu item.
-     * @param stdClass            $args Menu args.
-     * @param int                 $depth Menu depth.
-     * @return array<string,string>
-     */
     public function rewrite_market_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
         $title = isset($menu_item->title) ? strtolower(trim((string) $menu_item->title)) : '';
         $href = isset($atts['href']) ? strtolower((string) $atts['href']) : '';
 
-        if (in_array($title, ['market update', 'market stats', 'market statistics'], true) || false !== strpos($href, 'creb.com/housing_statistics')) {
+        if (in_array($title, ['market update', 'market report', 'market stats', 'market statistics'], true) || false !== strpos($href, 'creb.com/housing_statistics') || false !== strpos($href, '/market-update')) {
             $atts['href'] = home_url('/market-update/');
             unset($atts['target'], $atts['rel']);
         }
@@ -77,9 +60,17 @@ final class Calgary_Condo_Market_Update_Page {
         return $atts;
     }
 
-    /**
-     * Rewrite any hard-coded market links after page load.
-     */
+    public function rewrite_market_menu_title($title, $item, $args, $depth): string {
+        $plain_title = strtolower(trim(wp_strip_all_tags((string) $title)));
+        $url = isset($item->url) ? strtolower((string) $item->url) : '';
+
+        if (in_array($plain_title, ['market update', 'market report', 'market statistics'], true) || false !== strpos($url, '/market-update') || false !== strpos($url, 'creb.com/housing_statistics')) {
+            return 'Market Stats';
+        }
+
+        return (string) $title;
+    }
+
     public function rewrite_market_links(): void {
         if (is_admin()) {
             return;
@@ -90,10 +81,13 @@ final class Calgary_Condo_Market_Update_Page {
             document.querySelectorAll('a').forEach(function (link) {
                 var label = (link.textContent || '').trim().toLowerCase();
                 var href = (link.getAttribute('href') || '').toLowerCase();
-                if (label === 'market update' || label === 'market stats' || href.indexOf('creb.com/housing_statistics') !== -1) {
+                if (label === 'market update' || label === 'market report' || label === 'market stats' || href.indexOf('/market-update') !== -1 || href.indexOf('creb.com/housing_statistics') !== -1) {
                     link.setAttribute('href', '/market-update/');
                     link.removeAttribute('target');
                     link.removeAttribute('rel');
+                    if (label === 'market update' || label === 'market report') {
+                        link.textContent = 'Market Stats';
+                    }
                 }
             });
         });
@@ -101,11 +95,6 @@ final class Calgary_Condo_Market_Update_Page {
         <?php
     }
 
-    /**
-     * Load monthly market data from one isolated file.
-     *
-     * @return array<string,mixed>
-     */
     private function stats(): array {
         $fallback = [
             'month_label' => 'May 2026',
@@ -133,19 +122,10 @@ final class Calgary_Condo_Market_Update_Page {
         return array_replace_recursive($fallback, $data);
     }
 
-    /**
-     * Escape helper.
-     */
     private function e($value): string {
         return esc_html((string) $value);
     }
 
-    /**
-     * Render stat cards.
-     *
-     * @param array<int,array<string,string>> $items Stats.
-     * @param string                         $class Card class.
-     */
     private function cards(array $items, string $class): string {
         $html = '';
         foreach ($items as $item) {
@@ -155,11 +135,6 @@ final class Calgary_Condo_Market_Update_Page {
         return $html;
     }
 
-    /**
-     * Render hero stat tiles.
-     *
-     * @param array<int,array<string,string>> $items Stats.
-     */
     private function hero_tiles(array $items): string {
         $html = '';
         foreach (array_slice($items, 0, 4) as $item) {
@@ -169,20 +144,14 @@ final class Calgary_Condo_Market_Update_Page {
         return $html;
     }
 
-    /**
-     * Page-specific styles.
-     */
     private function styles(): string {
         return <<<'CSS'
 <style>
-.ccl-market-page{font-family:inherit;color:#0A1A2F;background:#f6f7f8}.ccl-market-wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}.ccl-market-hero{position:relative;overflow:hidden;background:#07162a;color:#fff;padding:76px 0 62px}.ccl-market-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,22,42,.96),rgba(7,22,42,.78),rgba(7,22,42,.52)),url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1800&q=80') center/cover;opacity:.94}.ccl-market-hero__inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.62fr);gap:38px;align-items:center}.ccl-market-eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;color:#F0C75E;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}.ccl-market-hero h1{margin:0 0 18px;font-size:clamp(40px,5.4vw,70px);line-height:.96;letter-spacing:-.05em;color:#fff}.ccl-market-hero p{font-size:18px;line-height:1.58;max-width:740px;color:rgba(255,255,255,.9);margin:0 0 28px}.ccl-market-actions{display:flex;flex-wrap:wrap;gap:14px}.ccl-market-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;font-weight:900;text-decoration:none;box-shadow:0 18px 38px rgba(0,0,0,.18)}.ccl-market-btn--gold{background:#F0C75E;color:#0A1A2F}.ccl-market-btn--dark{background:#fff;color:#0A1A2F}.ccl-stat-panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);border-radius:28px;padding:26px;backdrop-filter:blur(10px)}.ccl-stat-panel h2{margin:0 0 14px;color:#fff;font-size:28px;line-height:1.1}.ccl-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ccl-stat-tile{border-radius:18px;background:rgba(255,255,255,.12);padding:16px}.ccl-stat-tile span{display:block;color:rgba(255,255,255,.72);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.ccl-stat-tile strong{display:block;color:#fff;font-size:30px;line-height:1.1;margin:7px 0}.ccl-stat-tile em{font-style:normal;color:#ffb4a8;font-weight:900}.ccl-stat-tile em.up{color:#a8f0c2}.ccl-market-section{padding:62px 0;background:#fff}.ccl-market-section--soft{background:#f6f7f8}.ccl-market-section h2{margin:0 0 16px;font-size:clamp(30px,4vw,48px);line-height:1;letter-spacing:-.04em;color:#0A1A2F}.ccl-market-section p{font-size:17px;line-height:1.7;color:#4b5563;max-width:850px}.ccl-data-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}.ccl-data-card{background:#fff;border:1px solid rgba(10,26,47,.1);border-radius:22px;padding:22px;box-shadow:0 18px 45px rgba(10,26,47,.07)}.ccl-data-card span{display:block;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.ccl-data-card strong{display:block;margin:8px 0 4px;font-size:28px;letter-spacing:-.03em;color:#0A1A2F}.ccl-data-card em{font-style:normal;font-weight:900;color:#b42318}.ccl-data-card em.up{color:#147a3d}.ccl-price-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px;margin-top:28px}.ccl-price-card{background:#0A1A2F;color:#fff;border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(10,26,47,.14)}.ccl-price-card span{display:block;color:#F0C75E;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:900}.ccl-price-card strong{display:block;font-size:28px;margin:8px 0 4px}.ccl-price-card em{font-style:normal;color:#ffb4a8;font-weight:900}.ccl-price-card em.up{color:#a8f0c2}.ccl-area-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}.ccl-area-card{border:1px solid rgba(10,26,47,.1);background:#fff;border-radius:20px;padding:18px}.ccl-area-card span{display:block;color:#64748b;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:900}.ccl-area-card strong{display:block;font-size:24px;margin:8px 0}.ccl-area-card em{font-style:normal;font-weight:900;color:#b42318}.ccl-area-card em.up{color:#147a3d}.ccl-market-note{padding:18px 20px;border-left:5px solid #F0C75E;background:#fff9e6;border-radius:14px;color:#0A1A2F;font-weight:800;margin-top:22px}.ccl-market-source{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.45fr);gap:26px;align-items:center;padding:32px;border-radius:28px;background:#fff;border:1px solid rgba(10,26,47,.1);box-shadow:0 20px 54px rgba(10,26,47,.08)}.ccl-market-mini{display:grid;gap:14px}.ccl-market-mini a{display:block;padding:16px 18px;border-radius:16px;background:#0A1A2F;color:#fff;text-decoration:none;font-weight:900}.ccl-market-mini a:first-child{background:#F0C75E;color:#0A1A2F}.ccl-market-strip{background:#0A1A2F;color:#fff;padding:46px 0}.ccl-market-strip__inner{display:flex;align-items:center;justify-content:space-between;gap:24px}.ccl-market-strip h2{margin:0;color:#fff;font-size:34px;line-height:1.05}.ccl-market-strip p{margin:8px 0 0;color:rgba(255,255,255,.78);max-width:720px}@media(max-width:980px){.ccl-data-grid,.ccl-price-grid,.ccl-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ccl-market-hero__inner,.ccl-market-source{grid-template-columns:1fr}}@media(max-width:620px){.ccl-data-grid,.ccl-price-grid,.ccl-area-grid,.ccl-stat-grid{grid-template-columns:1fr}.ccl-market-actions{display:grid}.ccl-market-btn{width:100%}.ccl-market-strip__inner{display:block}}
+.ccl-market-page{font-family:inherit;color:#0A1A2F;background:#f6f7f8}.ccl-market-wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}.ccl-market-hero{position:relative;overflow:hidden;background:#07162a;color:#fff;padding:76px 0 62px}.ccl-market-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,22,42,.96),rgba(7,22,42,.78),rgba(7,22,42,.52)),url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1800&q=80') center/cover;opacity:.94}.ccl-market-hero__inner{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.62fr);gap:38px;align-items:center}.ccl-market-eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;color:#F0C75E;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}.ccl-market-hero h1{margin:0 0 18px;font-size:clamp(40px,5.4vw,70px);line-height:.96;letter-spacing:-.05em;color:#fff}.ccl-market-hero p{font-size:18px;line-height:1.58;max-width:740px;color:rgba(255,255,255,.9);margin:0 0 28px}.ccl-market-actions{display:flex;flex-wrap:wrap;gap:14px}.ccl-market-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;font-weight:900;text-decoration:none;box-shadow:0 18px 38px rgba(0,0,0,.18)}.ccl-market-btn--gold{background:#F0C75E;color:#0A1A2F}.ccl-market-btn--dark{background:#fff;color:#0A1A2F}.ccl-stat-panel{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);border-radius:28px;padding:26px;backdrop-filter:blur(10px)}.ccl-stat-panel h2{margin:0 0 14px;color:#fff;font-size:28px;line-height:1.1}.ccl-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ccl-stat-tile{border-radius:18px;background:rgba(255,255,255,.12);padding:16px}.ccl-stat-tile span{display:block;color:rgba(255,255,255,.72);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.ccl-stat-tile strong{display:block;color:#fff;font-size:30px;line-height:1.1;margin:7px 0}.ccl-stat-tile em{font-style:normal;color:#ffb4a8;font-weight:900}.ccl-stat-tile em.up{color:#a8f0c2}.ccl-market-section{padding:62px 0;background:#fff}.ccl-market-section--soft{background:#f6f7f8}.ccl-market-section h2{margin:0 0 16px;font-size:clamp(30px,4vw,48px);line-height:1;letter-spacing:-.04em;color:#0A1A2F}.ccl-market-section p{font-size:17px;line-height:1.7;color:#4b5563;max-width:850px}.ccl-data-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}.ccl-data-card{background:#fff;border:1px solid rgba(10,26,47,.1);border-radius:22px;padding:22px;box-shadow:0 18px 45px rgba(10,26,47,.07)}.ccl-data-card span{display:block;color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900}.ccl-data-card strong{display:block;margin:8px 0 4px;font-size:28px;letter-spacing:-.03em;color:#0A1A2F}.ccl-data-card em{font-style:normal;font-weight:900;color:#b42318}.ccl-data-card em.up{color:#147a3d}.ccl-price-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px;margin-top:28px}.ccl-price-card{background:#0A1A2F;color:#fff;border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(10,26,47,.14)}.ccl-price-card span{display:block;color:#F0C75E;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:900}.ccl-price-card strong{display:block;font-size:28px;margin:8px 0 4px}.ccl-price-card em{font-style:normal;color:#ffb4a8;font-weight:900}.ccl-price-card em.up{color:#a8f0c2}.ccl-area-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}.ccl-area-card{border:1px solid rgba(10,26,47,.1);background:#fff;border-radius:20px;padding:18px}.ccl-area-card span{display:block;color:#64748b;text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:900}.ccl-area-card strong{display:block;font-size:24px;margin:8px 0}.ccl-area-card em{font-style:normal;font-weight:900;color:#b42318}.ccl-area-card em.up{color:#147a3d}.ccl-market-note{padding:18px 20px;border-left:5px solid #F0C75E;background:#fff9e6;border-radius:14px;color:#0A1A2F;font-weight:800;margin-top:22px}.ccl-market-source{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,.35fr);gap:26px;align-items:center;padding:32px;border-radius:28px;background:#fff;border:1px solid rgba(10,26,47,.1);box-shadow:0 20px 54px rgba(10,26,47,.08)}.ccl-market-mini{display:grid;gap:14px}.ccl-market-mini a{display:block;padding:16px 18px;border-radius:16px;background:#F0C75E;color:#0A1A2F;text-decoration:none;font-weight:900;text-align:center}@media(max-width:980px){.ccl-data-grid,.ccl-price-grid,.ccl-area-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ccl-market-hero__inner,.ccl-market-source{grid-template-columns:1fr}}@media(max-width:620px){.ccl-data-grid,.ccl-price-grid,.ccl-area-grid,.ccl-stat-grid{grid-template-columns:1fr}.ccl-market-actions{display:grid}.ccl-market-btn{width:100%}}
 </style>
 CSS;
     }
 
-    /**
-     * Render page HTML.
-     */
     private function layout(): string {
         $stats = $this->stats();
         $creb_url = esc_url((string) ($stats['source_url'] ?? self::CREB_MARKET_UPDATE_URL));
@@ -256,23 +225,11 @@ CSS;
             <div>
                 <p class="ccl-market-eyebrow">Official Source</p>
                 <h2>Full CREB report stays one click away.</h2>
-                <p>Clients stay on your branded market stats page first. The official CREB report opens separately for anyone who wants to verify the board data.</p>
+                <p>Clients stay on your branded market stats page first. The official CREB report opens separately only when they want to verify the board data.</p>
             </div>
             <div class="ccl-market-mini">
                 <a href="{$creb_url}" target="_blank" rel="noopener noreferrer">Open CREB Housing Statistics</a>
-                <a href="/price-reduced-condos/">View Price Drop Condos</a>
-                <a href="/building-alerts/">Set Building Alerts</a>
             </div>
-        </div>
-    </section>
-
-    <section class="ccl-market-strip">
-        <div class="ccl-market-wrap ccl-market-strip__inner">
-            <div>
-                <h2>Want the market read for a specific condo building?</h2>
-                <p>Send the building, area, budget, and timeline. We will help compare the stats, price drops, documents, fees, rules, and resale path.</p>
-            </div>
-            <a class="ccl-market-btn ccl-market-btn--gold" href="/building-alerts/">Get Condo Guidance</a>
         </div>
     </section>
 </main>
