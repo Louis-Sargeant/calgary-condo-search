@@ -23,6 +23,7 @@ final class Calgary_Condo_Page_Overrides {
      */
     public function __construct() {
         add_filter('the_content', [$this, 'replace_page_content'], 999);
+        add_action('wp_footer', [$this, 'rewrite_market_links'], 99);
     }
 
     /**
@@ -41,7 +42,7 @@ final class Calgary_Condo_Page_Overrides {
         }
 
         if (is_page('price-reduced-condos')) {
-            return do_shortcode($this->price_reduced_layout($content));
+            return do_shortcode($this->price_reduced_layout());
         }
 
         if (is_page('condo-buildings')) {
@@ -60,13 +61,34 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
+     * Rewrite visible Market Update menu links to the on-site page.
+     */
+    public function rewrite_market_links(): void {
+        if (is_admin()) {
+            return;
+        }
+        ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('a').forEach(function (link) {
+                var label = (link.textContent || '').trim().toLowerCase();
+                var href = (link.getAttribute('href') || '').toLowerCase();
+                if (label === 'market update' || href.indexOf('creb.com/housing_statistics') !== -1) {
+                    link.setAttribute('href', '/market-update/');
+                    link.removeAttribute('target');
+                    link.removeAttribute('rel');
+                }
+            });
+        });
+        </script>
+        <?php
+    }
+
+    /**
      * Price Reduced page wrapper. The IDX controls whether price-change history appears on cards.
      */
-    private function price_reduced_layout(string $content): string {
-        $idx = trim($content);
-        if ('' === $idx) {
-            $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
-        }
+    private function price_reduced_layout(): string {
+        $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
 
         return <<<HTML
 <section class="ccl-section ccl-section--white ccl-compare-hero">
@@ -127,7 +149,7 @@ SHORTCODES;
         <div>
             <p class="ccl-eyebrow">Calgary Market Update</p>
             <h1>Calgary condo market update.</h1>
-            <p>Stay on this page for the plain-English condo market breakdown, then use the official CREB housing statistics link as the source document when you want the full board report.</p>
+            <p>This page keeps clients on your site first, then gives them the official CREB source link when they want the full board report.</p>
         </div>
         <div class="ccl-compare-hero__actions">
             <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/">Search Calgary Condos</a>
