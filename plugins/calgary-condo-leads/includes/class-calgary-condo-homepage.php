@@ -49,26 +49,25 @@ final class Calgary_Condo_Homepage {
     }
 
     public function render(array $atts = [], ?string $content = null): string {
-        $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
         $idx_content = trim((string) $content);
 
         ob_start();
         ?>
         <div class="ccl-home-tight ccl-home-search-first" data-ccl-condo-home>
             <style>
-                #calgary-hero-override,
-                #calgary-hero-override * {
+                #clean-calgary-hero,
+                #clean-calgary-hero * {
                     box-sizing: border-box !important;
                 }
 
-                #calgary-hero-override a,
+                #clean-calgary-hero a,
                 #calgary-explore-navbar a {
                     text-decoration: none !important;
                     box-shadow: none !important;
                 }
 
-                #calgary-hero-override a:hover,
-                #calgary-hero-override a:focus,
+                #clean-calgary-hero a:hover,
+                #clean-calgary-hero a:focus,
                 #calgary-explore-navbar a:hover,
                 #calgary-explore-navbar a:focus {
                     text-decoration: none !important;
@@ -90,15 +89,13 @@ final class Calgary_Condo_Homepage {
                 }
 
                 @media (max-width: 767px) {
-                    #calgary-hero-override {
+                    #clean-calgary-hero {
                         min-height: 620px !important;
                         padding: 64px 16px !important;
                     }
 
-                    #calgary-hero-quick-actions {
-                        max-width: 100% !important;
-                        margin: 24px auto !important;
-                        padding: 16px !important;
+                    #clean-calgary-hero-phone {
+                        font-size: clamp(1.65rem, 8vw, 2.5rem) !important;
                     }
 
                     #calgary-explore-navbar-inner {
@@ -119,26 +116,17 @@ final class Calgary_Condo_Homepage {
                 }
             </style>
 
-            <section id="calgary-hero-override" aria-labelledby="calgary-hero-override-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 560px !important; padding: 80px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
-                <div id="calgary-hero-override-overlay" style="background: rgba(0,0,0,0.45) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
-                <div id="calgary-hero-override-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
-                    <h1 id="calgary-hero-override-title" style="color: #ffffff !important; font-size: clamp(2.4rem, 5vw, 5rem) !important; line-height: 1.02 !important; font-weight: 800 !important; letter-spacing: -0.045em !important; text-align: center !important; max-width: 950px !important; margin: 0 auto 20px auto !important; text-shadow: 0 3px 18px rgba(0,0,0,0.65) !important;">Calgary condos, compared by building first.</h1>
-                    <p id="calgary-hero-override-subtitle" style="color: #ffffff !important; font-size: clamp(1rem, 1.65vw, 1.25rem) !important; line-height: 1.65 !important; font-weight: 500 !important; text-align: center !important; max-width: 800px !important; margin: 0 auto !important; text-shadow: 0 2px 12px rgba(0,0,0,0.7) !important;">Search live myRealPage IDX listings, then use buyer-focused Calgary condo guidance to compare buildings, condo fees, bylaws, parking, storage, documents, pet rules, rental rules, and resale fit before you book showings.</p>
-
-                    <nav id="calgary-hero-quick-actions" aria-label="Calgary condo hero quick actions" style="background: rgba(255,255,255,0.15) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255,255,255,0.25) !important; border-radius: 16px !important; max-width: 700px !important; margin: 30px auto !important; padding: 20px !important; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; align-items: center !important; gap: 12px !important; box-sizing: border-box !important;">
-                        <a id="calgary-hero-quick-action-all" href="/calgary-condos/" style="background: #FF9900 !important; color: #ffffff !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,153,0,0.95) !important; white-space: nowrap !important;">Search All Calgary Condos</a>
-                        <a id="calgary-hero-quick-action-southeast" href="/southeast-calgary-condos/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Southeast</a>
-                        <a id="calgary-hero-quick-action-downtown" href="/downtown-calgary-condos/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Downtown</a>
-                        <a id="calgary-hero-quick-action-buildings" href="/calgary-condo-buildings/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Buildings</a>
-                        <a id="calgary-hero-quick-action-under-400k" href="/condos-under-400k/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Under $400K</a>
-                    </nav>
-
-                    <a id="calgary-hero-shortlist-cta" href="/building-alerts/" style="background-color: #FF9900 !important; font-weight: bold !important; padding: 12px 30px !important; border-radius: 8px !important; display: inline-block !important; color: #000000 !important; text-decoration: none !important; line-height: 1.2 !important; box-shadow: 0 14px 34px rgba(0,0,0,0.32) !important;">Get a condo shortlist</a>
-                    <p id="calgary-hero-direct-phone" style="color: #ffffff !important; text-align: center !important; margin: 18px auto 0 auto !important; font-size: 1rem !important; line-height: 1.4 !important; font-weight: 700 !important; text-shadow: 0 2px 12px rgba(0,0,0,0.7) !important;">Call Calgary direct: <?php echo esc_html($phone_display); ?></p>
+            <section id="clean-calgary-hero" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
+                <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.48) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
+                <div id="clean-calgary-hero-content" style="position: relative !important; z-index: 2 !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
+                    <h1 id="clean-calgary-hero-title" style="font-size: clamp(3rem, 6vw, 5.8rem) !important; line-height: 0.95 !important; font-weight: 900 !important; letter-spacing: -0.055em !important; color: #ffffff !important; text-align: center !important; text-shadow: 0 6px 24px rgba(0,0,0,0.75) !important; max-width: 1050px !important; margin: 0 auto 24px auto !important;">Calgary Condos—Compared by Building First.</h1>
+                    <p id="clean-calgary-hero-subheadline" style="font-size: clamp(1.1rem, 2vw, 1.45rem) !important; line-height: 1.55 !important; font-weight: 600 !important; color: #ffffff !important; text-align: center !important; max-width: 900px !important; margin: 0 auto 34px auto !important; text-shadow: 0 4px 18px rgba(0,0,0,0.8) !important;">Before you buy, compare what matters. Uncover the truth about Calgary’s top buildings—from true condo fees, strict pet bylaws, and rental restrictions, to reserve fund health, underground parking allocations, and long-term resale value. Search active CREB® listings with absolute clarity.</p>
+                    <a id="clean-calgary-hero-shortlist-cta" href="/building-alerts/" style="background-color: #FF9900 !important; font-weight: 900 !important; padding: 14px 36px !important; border-radius: 10px !important; display: inline-block !important; color: #000000 !important; text-decoration: none !important; font-size: 1.05rem !important; box-shadow: 0 16px 38px rgba(0,0,0,0.35) !important;">Get a condo shortlist</a>
+                    <p id="clean-calgary-hero-phone" style="font-size: 2.5rem !important; font-weight: 800 !important; color: #ffffff !important; text-align: center !important; margin: 22px auto 0 auto !important; line-height: 1.15 !important; text-shadow: 0 6px 22px rgba(0,0,0,0.85) !important;">Call Calgary Direct: +1 (403) 800-8998</p>
                 </div>
             </section>
 
-            <section id="calgary-explore-navbar" aria-labelledby="calgary-explore-navbar-title" style="background: #ffffff !important; color: #000000 !important; width: 100% !important; padding: 20px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important;">
+            <section id="calgary-explore-navbar" aria-labelledby="calgary-explore-navbar-title" style="background: #ffffff !important; color: #000000 !important; width: 100% !important; padding: 22px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important;">
                 <div id="calgary-explore-navbar-inner" style="max-width: 1180px !important; width: 100% !important; margin: 0 auto !important; padding: 0 20px !important; box-sizing: border-box !important;">
                     <h2 id="calgary-explore-navbar-title" style="color: #000000 !important; font-size: clamp(1.35rem, 2.25vw, 2rem) !important; line-height: 1.15 !important; font-weight: 800 !important; text-align: left !important; margin: 0 0 14px 0 !important;">Explore Calgary Condos</h2>
                     <nav id="calgary-explore-navbar-nav" aria-label="Explore Calgary condos navigation" style="display: flex !important; flex-wrap: wrap !important; align-items: center !important; justify-content: flex-start !important; gap: 10px !important; width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important;">
