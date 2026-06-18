@@ -10,6 +10,15 @@ final class Calgary_Condo_Homepage {
         'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
     ];
 
+    private const AREA_ROUTES = [
+        'southeast' => '/southeast-calgary-condos/',
+        'southwest' => '/southwest-calgary-condos/',
+        'northwest' => '/northwest-calgary-condos/',
+        'northeast' => '/northeast-calgary-condos/',
+        'downtown' => '/downtown-calgary-condos/',
+        'beltline' => '/beltline-condos/',
+    ];
+
     public function __construct() {
         add_shortcode('ccl_homepage_tight', [$this, 'render']);
         add_action('template_redirect', [$this, 'redirect_legacy_query_routes'], 1);
@@ -23,8 +32,8 @@ final class Calgary_Condo_Homepage {
         $area = isset($_GET['ccl_area']) ? sanitize_key((string) wp_unslash($_GET['ccl_area'])) : '';
         $filter = isset($_GET['ccl_filter']) ? sanitize_key((string) wp_unslash($_GET['ccl_filter'])) : '';
 
-        if ('southeast' === $area) {
-            wp_safe_redirect(home_url('/southeast-calgary-condos/'), 301);
+        if (isset(self::AREA_ROUTES[$area])) {
+            wp_safe_redirect(home_url(self::AREA_ROUTES[$area]), 301);
             exit;
         }
 
@@ -47,14 +56,13 @@ final class Calgary_Condo_Homepage {
         $tabs = [
             ['key' => 'all', 'label' => 'All Calgary Condos', 'url' => '/calgary-condos/'],
             ['key' => 'southeast', 'label' => 'Southeast Calgary', 'url' => '/southeast-calgary-condos/'],
-            ['key' => 'southwest', 'label' => 'Southwest Calgary', 'url' => '/calgary-condos/'],
-            ['key' => 'northwest', 'label' => 'Northwest Calgary', 'url' => '/calgary-condos/'],
-            ['key' => 'northeast', 'label' => 'Northeast Calgary', 'url' => '/calgary-condos/'],
+            ['key' => 'southwest', 'label' => 'Southwest Calgary', 'url' => '/southwest-calgary-condos/'],
+            ['key' => 'northwest', 'label' => 'Northwest Calgary', 'url' => '/northwest-calgary-condos/'],
+            ['key' => 'northeast', 'label' => 'Northeast Calgary', 'url' => '/northeast-calgary-condos/'],
             ['key' => 'downtown', 'label' => 'Downtown', 'url' => '/downtown-calgary-condos/'],
             ['key' => 'beltline', 'label' => 'Beltline', 'url' => '/beltline-condos/'],
             ['key' => 'under-400k', 'label' => 'Under $400K', 'url' => '/condos-under-400k/'],
             ['key' => 'price-drops', 'label' => 'Price Drops', 'url' => '/price-reduced-condos/'],
-            ['key' => 'open-houses', 'label' => 'Open Houses', 'url' => '/calgary-condos/'],
         ];
 
         ob_start();
