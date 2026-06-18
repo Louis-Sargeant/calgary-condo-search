@@ -19,6 +19,7 @@ final class Calgary_Condo_Intent_Capture {
     public function __construct() {
         add_shortcode('ccl_intent_capture', [$this, 'render_intent_capture_shortcode']);
         add_shortcode('ccl_next_step_band', [$this, 'render_next_step_band_shortcode']);
+        add_shortcode('ccl_lead_modal', [$this, 'render_lead_modal_shortcode']);
     }
 
     /**
@@ -98,6 +99,76 @@ final class Calgary_Condo_Intent_Capture {
                 </div>
             </div>
         </section>
+        <?php
+
+        return (string) ob_get_clean();
+    }
+
+
+    /**
+     * Render an accessible lead-capture modal that can be opened from portal CTAs.
+     *
+     * @param array<string,mixed> $atts Shortcode attributes.
+     */
+    public function render_lead_modal_shortcode(array $atts = []): string {
+        $atts = $this->shortcode_atts(
+            $atts,
+            [
+                'title' => 'Get a Calgary condo shortlist before you book showings',
+                'subtitle' => 'Tell us your area, budget, must-haves, and any buildings you are watching. We will help you compare the building, fees, rules, parking, storage, documents, and resale fit.',
+                'button_text' => 'Open Condo Help Form',
+            ],
+            'ccl_lead_modal'
+        );
+
+        ob_start();
+        ?>
+        <section class="ccl-lead-modal-launch ccl-section ccl-section--white" aria-label="<?php esc_attr_e('Calgary condo lead capture', 'calgary-condo-leads'); ?>">
+            <div class="ccl-wrap ccl-lead-modal-launch__inner">
+                <div>
+                    <p class="ccl-eyebrow"><?php esc_html_e('Free Condo Guidance', 'calgary-condo-leads'); ?></p>
+                    <h2><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <button class="ccl-btn ccl-btn--primary" type="button" data-ccl-modal-open><?php echo esc_html($atts['button_text']); ?></button>
+            </div>
+        </section>
+        <div class="ccl-lead-modal" data-ccl-modal hidden>
+            <div class="ccl-lead-modal__backdrop" data-ccl-modal-close></div>
+            <div class="ccl-lead-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ccl-lead-modal-title">
+                <button class="ccl-lead-modal__close" type="button" aria-label="<?php esc_attr_e('Close condo help form', 'calgary-condo-leads'); ?>" data-ccl-modal-close>&times;</button>
+                <div class="ccl-lead-modal__copy">
+                    <p class="ccl-eyebrow"><?php esc_html_e('Calgary Condo Help', 'calgary-condo-leads'); ?></p>
+                    <h2 id="ccl-lead-modal-title"><?php echo esc_html($atts['title']); ?></h2>
+                    <p><?php echo esc_html($atts['subtitle']); ?></p>
+                </div>
+                <?php echo do_shortcode('[ccl_alert_form title="Send Your Condo Search Details" subtitle="No fake MLS data and no pressure. Your request is saved as a lead and sent to the site admin." button_text="Send My Condo Help Request"]'); ?>
+            </div>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.querySelector('[data-ccl-modal]');
+            if (!modal) { return; }
+            var openers = document.querySelectorAll('[data-ccl-modal-open], a[href="#condo-alerts"]');
+            var closers = modal.querySelectorAll('[data-ccl-modal-close]');
+            function openModal(event) {
+                if (event) { event.preventDefault(); }
+                modal.hidden = false;
+                document.documentElement.classList.add('ccl-modal-is-open');
+                var first = modal.querySelector('input, select, textarea, button');
+                if (first) { first.focus(); }
+            }
+            function closeModal() {
+                modal.hidden = true;
+                document.documentElement.classList.remove('ccl-modal-is-open');
+            }
+            openers.forEach(function (opener) { opener.addEventListener('click', openModal); });
+            closers.forEach(function (closer) { closer.addEventListener('click', closeModal); });
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape' && !modal.hidden) { closeModal(); }
+            });
+        });
+        </script>
         <?php
 
         return (string) ob_get_clean();
