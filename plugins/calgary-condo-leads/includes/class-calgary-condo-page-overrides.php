@@ -23,7 +23,9 @@ final class Calgary_Condo_Page_Overrides {
      */
     public function __construct() {
         add_filter('the_content', [$this, 'replace_page_content'], 999);
+        add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 20, 4);
         add_action('wp_footer', [$this, 'rewrite_market_links'], 99);
+        add_action('wp_footer', [$this, 'add_price_drop_badges'], 100);
     }
 
     /**
@@ -61,6 +63,27 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
+     * Rewrite WordPress menu Market Update links before they render.
+     *
+     * @param array<string,string> $atts Menu link attributes.
+     * @param WP_Post             $menu_item Menu item.
+     * @param stdClass            $args Menu args.
+     * @param int                 $depth Menu depth.
+     * @return array<string,string>
+     */
+    public function rewrite_market_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
+        $title = isset($menu_item->title) ? strtolower(trim((string) $menu_item->title)) : '';
+        $href = isset($atts['href']) ? strtolower((string) $atts['href']) : '';
+
+        if ('market update' === $title || false !== strpos($href, 'creb.com/housing_statistics')) {
+            $atts['href'] = home_url('/market-update/');
+            unset($atts['target'], $atts['rel']);
+        }
+
+        return $atts;
+    }
+
+    /**
      * Rewrite visible Market Update menu links to the on-site page.
      */
     public function rewrite_market_links(): void {
@@ -85,6 +108,113 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
+     * Add a truthful Price Drop badge to cards on the price-reduced IDX page.
+     *
+     * The feed itself is the price-reduced search. myRealPage does not always expose the previous price,
+     * so this marks the card category without inventing an old price or discount amount.
+     */
+    public function add_price_drop_badges(): void {
+        if (is_admin() || !is_page('price-reduced-condos')) {
+            return;
+        }
+        ?>
+        <style>
+            body.page-id-0 .ccl-price-drop-badge,
+            .ccl-price-drop-badge {
+                position: absolute;
+                left: 8px;
+                top: 8px;
+                z-index: 20;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 5px 8px;
+                border-radius: 999px;
+                background: #0A1A2F;
+                color: #fff;
+                font-size: 11px;
+                font-weight: 800;
+                letter-spacing: .04em;
+                text-transform: uppercase;
+                box-shadow: 0 8px 18px rgba(10, 26, 47, .22);
+                pointer-events: none;
+            }
+            .ccl-price-drop-badge::before {
+                content: "↓";
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                line-height: 16px;
+                text-align: center;
+                border-radius: 50%;
+                background: #F0C75E;
+                color: #0A1A2F;
+                font-weight: 900;
+            }
+            .ccl-price-drop-host {
+                position: relative !important;
+            }
+        </style>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function hasListingSignals(el) {
+                var text = (el.textContent || '').toLowerCase();
+                return text.indexOf('mls') !== -1 && (text.indexOf('$') !== -1 || text.indexOf('details') !== -1);
+            }
+
+            function badgeCards() {
+                var candidates = Array.prototype.slice.call(document.querySelectorAll('.ccl-idx-shell__frame *'));
+                var hosts = [];
+
+                candidates.forEach(function (el) {
+                    if (hosts.length >= 48) {
+                        return;
+                    }
+
+                    var rect = el.getBoundingClientRect();
+                    if (rect.width < 180 || rect.width > 520 || rect.height < 180 || rect.height > 760) {
+                        return;
+                    }
+
+                    if (!hasListingSignals(el)) {
+                        return;
+                    }
+
+                    var hasChildHost = hosts.some(function (host) {
+                        return host.contains(el);
+                    });
+                    if (hasChildHost) {
+                        return;
+                    }
+
+                    var image = el.querySelector('img');
+                    var details = (el.textContent || '').toLowerCase().indexOf('details') !== -1;
+                    if (image && details) {
+                        hosts.push(el);
+                    }
+                });
+
+                hosts.forEach(function (host) {
+                    if (host.querySelector(':scope > .ccl-price-drop-badge')) {
+                        return;
+                    }
+                    host.classList.add('ccl-price-drop-host');
+                    var badge = document.createElement('span');
+                    badge.className = 'ccl-price-drop-badge';
+                    badge.textContent = 'Price Drop';
+                    host.insertBefore(badge, host.firstChild);
+                });
+            }
+
+            badgeCards();
+            window.setTimeout(badgeCards, 800);
+            window.setTimeout(badgeCards, 1800);
+        });
+        </script>
+        <?php
+    }
+
+    /**
      * Price Reduced page wrapper. The IDX controls whether price-change history appears on cards.
      */
     private function price_reduced_layout(): string {
@@ -94,18 +224,18 @@ final class Calgary_Condo_Page_Overrides {
 <section class="ccl-section ccl-section--white ccl-compare-hero">
     <div class="ccl-wrap ccl-compare-hero__inner">
         <div>
-            <p class="ccl-eyebrow">Calgary Price Reduced Condos</p>
-            <h1>Condos with recent price reductions.</h1>
-            <p>This page uses the price-reduced IDX search. Some listing cards only show the current asking price because the myRealPage card template does not always expose the previous price or reduction amount.</p>
+            <p class="ccl-eyebrow">Calgary Price Drop Condos</p>
+            <h1>Condos with recent price drops.</h1>
+            <p>This page uses the price-reduced IDX search. Cards are marked as Price Drop listings, but we do not invent an old price or discount amount if myRealPage does not provide it.</p>
         </div>
         <div class="ccl-compare-hero__actions">
-            <a class="ccl-btn ccl-btn--primary" href="#idx-search">View Price Reduced Condos</a>
+            <a class="ccl-btn ccl-btn--primary" href="#idx-search">View Price Drop Condos</a>
             <a class="ccl-btn ccl-btn--dark" href="/building-alerts/">Get Price Drop Alerts</a>
         </div>
     </div>
 </section>
 
-[ccl_idx_shell eyebrow="Live Price Reduced Condo Search" title="Current Calgary condos from the price-reduced search" subtitle="The feed below is filtered through the saved price-reduced search. If the IDX card only shows one price, use the Details button or request a price-drop alert for verification."]{$idx}[/ccl_idx_shell]
+[ccl_idx_shell eyebrow="Live Price Drop Condo Search" title="Current Calgary condos from the price-drop search" subtitle="The feed below is filtered through the saved price-reduced search. The badge identifies these as price-drop listings; use Details or alerts to verify exact history."]{$idx}[/ccl_idx_shell]
 [ccl_alert_form title="Get Calgary Condo Price Drop Alerts" subtitle="Tell us your target area, building, budget, and timing. We will help watch price reductions without you having to keep checking every day." button_text="Send My Price Drop Alert Request"]
 [ccl_site_footer]
 HTML;
