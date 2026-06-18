@@ -1,0 +1,68 @@
+/* Live portal cleanup: remove placeholder-looking homepage styling and restore condo image hero. */
+.ccl-home-tight .ccl-tight-hero {
+  background:
+    linear-gradient(90deg, rgba(7, 22, 42, 0.94) 0%, rgba(7, 22, 42, 0.72) 48%, rgba(7, 22, 42, 0.28) 100%),
+    linear-gradient(180deg, rgba(7, 22, 42, 0.1), rgba(7, 22, 42, 0.72)),
+    url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') center/cover no-repeat !important;
+  min-height: 560px;
+  overflow: hidden;
+  padding: clamp(70px, 9vw, 130px) 0;
+}
+
+.ccl-home-tight .ccl-tight-hero h1,
+.ccl-home-tight .ccl-tight-hero__subtitle {
+  text-shadow: 0 12px 36px rgba(0, 0, 0, 0.42);
+}
+
+.ccl-home-search.ccl-home-search--links {
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 22px 62px rgba(0, 0, 0, 0.22) !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 18px !important;
+  max-width: 860px;
+  padding: 12px !important;
+  backdrop-filter: blur(12px);
+}
+
+.ccl-home-search.ccl-home-search--links a {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-radius: 999px !important;
+  color: #0A1A2F !important;
+  display: inline-flex !important;
+  font-weight: 900;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 16px !important;
+  text-decoration: none !important;
+}
+
+.ccl-home-search.ccl-home-search--links .ccl-home-search__main,
+.ccl-home-tight .ccl-tight-hero__actions .ccl-btn--primary {
+  background: #F0C75E !important;
+  color: #0A1A2F !important;
+}
+
+.ccl-tight-idx__placeholder {
+  display: none !important;
+}
+
+.ccl-compare-hero p {
+  max-width: 760px;
+}
+
+@media (max-width: 760px) {
+  .ccl-home-search.ccl-home-search--links,
+  .ccl-tight-hero__actions {
+    flex-direction: column;
+  }
+  .ccl-home-search.ccl-home-search--links a,
+  .ccl-tight-hero__actions .ccl-btn {
+    width: 100%;
+  }
+}
