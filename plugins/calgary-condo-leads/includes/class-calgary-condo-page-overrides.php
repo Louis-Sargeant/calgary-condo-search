@@ -24,6 +24,7 @@ final class Calgary_Condo_Page_Overrides {
     public function __construct() {
         add_filter('the_content', [$this, 'replace_page_content'], 999);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 20, 4);
+        add_action('template_redirect', [$this, 'render_virtual_market_update_page'], 1);
         add_action('wp_footer', [$this, 'rewrite_market_links'], 99);
         add_action('wp_footer', [$this, 'add_price_drop_badges'], 100);
     }
@@ -60,6 +61,36 @@ final class Calgary_Condo_Page_Overrides {
         }
 
         return $content;
+    }
+
+    /**
+     * Render /market-update/ on-site even when no WordPress page exists yet.
+     */
+    public function render_virtual_market_update_page(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        if (!in_array($path, ['market-update', 'market-report'], true)) {
+            return;
+        }
+
+        global $wp_query;
+        if ($wp_query instanceof WP_Query) {
+            $wp_query->is_404 = false;
+            $wp_query->is_page = true;
+            $wp_query->is_singular = true;
+        }
+
+        status_header(200);
+        nocache_headers();
+        get_header();
+        echo '<main id="primary" class="site-main ccl-virtual-market-update">';
+        echo do_shortcode($this->market_update_layout()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- shortcode output is intentionally rendered.
+        echo '</main>';
+        get_footer();
+        exit;
     }
 
     /**
