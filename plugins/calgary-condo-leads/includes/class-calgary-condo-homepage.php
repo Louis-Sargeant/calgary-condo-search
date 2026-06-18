@@ -50,52 +50,106 @@ final class Calgary_Condo_Homepage {
 
     public function render(array $atts = [], ?string $content = null): string {
         $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
-        $phone_tel = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
         $idx_content = trim((string) $content);
-
-        $tabs = [
-            ['key' => 'all', 'label' => 'All Calgary Condos', 'url' => '/calgary-condos/'],
-            ['key' => 'southeast', 'label' => 'Southeast Calgary', 'url' => '/southeast-calgary-condos/'],
-            ['key' => 'southwest', 'label' => 'Southwest Calgary', 'url' => '/southwest-calgary-condos/'],
-            ['key' => 'northwest', 'label' => 'Northwest Calgary', 'url' => '/northwest-calgary-condos/'],
-            ['key' => 'northeast', 'label' => 'Northeast Calgary', 'url' => '/northeast-calgary-condos/'],
-            ['key' => 'downtown', 'label' => 'Downtown', 'url' => '/downtown-calgary-condos/'],
-            ['key' => 'beltline', 'label' => 'Beltline', 'url' => '/beltline-condos/'],
-            ['key' => 'under-400k', 'label' => 'Under $400K', 'url' => '/condos-under-400k/'],
-            ['key' => 'price-drops', 'label' => 'Price Drops', 'url' => '/price-reduced-condos/'],
-        ];
 
         ob_start();
         ?>
         <div class="ccl-home-tight ccl-home-search-first" data-ccl-condo-home>
-            <section class="ccl-tight-hero" aria-labelledby="ccl-home-title">
-                <div class="ccl-tight-hero__overlay">
-                    <div class="ccl-wrap ccl-tight-hero__inner">
-                        <p class="ccl-eyebrow">Calgary Condo Search</p>
-                        <h1 id="ccl-home-title">Calgary condos, compared by building first.</h1>
-                        <p class="ccl-tight-hero__subtitle">Search live myRealPage IDX listings, then use buyer-focused Calgary condo guidance to compare buildings, condo fees, bylaws, parking, storage, documents, pet rules, rental rules, and resale fit before you book showings.</p>
+            <style>
+                #calgary-hero-override,
+                #calgary-hero-override * {
+                    box-sizing: border-box !important;
+                }
 
-                        <nav class="ccl-home-search ccl-home-search--links" aria-label="Calgary condo search shortcuts">
-                            <a class="ccl-home-search__main" href="/calgary-condos/">Search All Calgary Condos</a>
-                            <a href="/southeast-calgary-condos/">Southeast</a>
-                            <a href="/downtown-calgary-condos/">Downtown</a>
-                            <a href="/calgary-condo-buildings/">Buildings</a>
-                            <a href="/condos-under-400k/">Under $400K</a>
-                        </nav>
+                #calgary-hero-override a,
+                #calgary-explore-navbar a {
+                    text-decoration: none !important;
+                    box-shadow: none !important;
+                }
 
-                        <button class="ccl-btn ccl-btn--primary" type="button" data-ccl-modal-open>Get a condo shortlist</button>
-                        <a class="ccl-tight-hero__phone" href="tel:<?php echo esc_attr($phone_tel); ?>">Call Calgary direct: <?php echo esc_html($phone_display); ?></a>
-                    </div>
+                #calgary-hero-override a:hover,
+                #calgary-hero-override a:focus,
+                #calgary-explore-navbar a:hover,
+                #calgary-explore-navbar a:focus {
+                    text-decoration: none !important;
+                    transform: translateY(-1px) !important;
+                }
+
+                #calgary-explore-navbar,
+                #calgary-explore-navbar * {
+                    box-sizing: border-box !important;
+                }
+
+                #calgary-explore-navbar-nav::-webkit-scrollbar {
+                    height: 6px !important;
+                }
+
+                #calgary-explore-navbar-nav::-webkit-scrollbar-thumb {
+                    background: rgba(0,0,0,0.18) !important;
+                    border-radius: 999px !important;
+                }
+
+                @media (max-width: 767px) {
+                    #calgary-hero-override {
+                        min-height: 620px !important;
+                        padding: 64px 16px !important;
+                    }
+
+                    #calgary-hero-quick-actions {
+                        max-width: 100% !important;
+                        margin: 24px auto !important;
+                        padding: 16px !important;
+                    }
+
+                    #calgary-explore-navbar-inner {
+                        padding: 0 16px !important;
+                    }
+
+                    #calgary-explore-navbar-nav {
+                        flex-wrap: nowrap !important;
+                        overflow-x: auto !important;
+                        justify-content: flex-start !important;
+                        padding-bottom: 8px !important;
+                        -webkit-overflow-scrolling: touch !important;
+                    }
+
+                    #calgary-explore-navbar-nav a {
+                        flex: 0 0 auto !important;
+                    }
+                }
+            </style>
+
+            <section id="calgary-hero-override" aria-labelledby="calgary-hero-override-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 560px !important; padding: 80px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
+                <div id="calgary-hero-override-overlay" style="background: rgba(0,0,0,0.45) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
+                <div id="calgary-hero-override-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
+                    <h1 id="calgary-hero-override-title" style="color: #ffffff !important; font-size: clamp(2.4rem, 5vw, 5rem) !important; line-height: 1.02 !important; font-weight: 800 !important; letter-spacing: -0.045em !important; text-align: center !important; max-width: 950px !important; margin: 0 auto 20px auto !important; text-shadow: 0 3px 18px rgba(0,0,0,0.65) !important;">Calgary condos, compared by building first.</h1>
+                    <p id="calgary-hero-override-subtitle" style="color: #ffffff !important; font-size: clamp(1rem, 1.65vw, 1.25rem) !important; line-height: 1.65 !important; font-weight: 500 !important; text-align: center !important; max-width: 800px !important; margin: 0 auto !important; text-shadow: 0 2px 12px rgba(0,0,0,0.7) !important;">Search live myRealPage IDX listings, then use buyer-focused Calgary condo guidance to compare buildings, condo fees, bylaws, parking, storage, documents, pet rules, rental rules, and resale fit before you book showings.</p>
+
+                    <nav id="calgary-hero-quick-actions" aria-label="Calgary condo hero quick actions" style="background: rgba(255,255,255,0.15) !important; backdrop-filter: blur(12px) !important; -webkit-backdrop-filter: blur(12px) !important; border: 1px solid rgba(255,255,255,0.25) !important; border-radius: 16px !important; max-width: 700px !important; margin: 30px auto !important; padding: 20px !important; display: flex !important; flex-wrap: wrap !important; justify-content: center !important; align-items: center !important; gap: 12px !important; box-sizing: border-box !important;">
+                        <a id="calgary-hero-quick-action-all" href="/calgary-condos/" style="background: #FF9900 !important; color: #ffffff !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,153,0,0.95) !important; white-space: nowrap !important;">Search All Calgary Condos</a>
+                        <a id="calgary-hero-quick-action-southeast" href="/southeast-calgary-condos/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Southeast</a>
+                        <a id="calgary-hero-quick-action-downtown" href="/downtown-calgary-condos/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Downtown</a>
+                        <a id="calgary-hero-quick-action-buildings" href="/calgary-condo-buildings/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Buildings</a>
+                        <a id="calgary-hero-quick-action-under-400k" href="/condos-under-400k/" style="background: #ffffff !important; color: #111111 !important; border-radius: 999px !important; padding: 12px 18px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; border: 1px solid rgba(255,255,255,0.95) !important; white-space: nowrap !important;">Under $400K</a>
+                    </nav>
+
+                    <a id="calgary-hero-shortlist-cta" href="/building-alerts/" style="background-color: #FF9900 !important; font-weight: bold !important; padding: 12px 30px !important; border-radius: 8px !important; display: inline-block !important; color: #000000 !important; text-decoration: none !important; line-height: 1.2 !important; box-shadow: 0 14px 34px rgba(0,0,0,0.32) !important;">Get a condo shortlist</a>
+                    <p id="calgary-hero-direct-phone" style="color: #ffffff !important; text-align: center !important; margin: 18px auto 0 auto !important; font-size: 1rem !important; line-height: 1.4 !important; font-weight: 700 !important; text-shadow: 0 2px 12px rgba(0,0,0,0.7) !important;">Call Calgary direct: <?php echo esc_html($phone_display); ?></p>
                 </div>
             </section>
 
-            <section class="ccl-home-explore" aria-labelledby="ccl-explore-title">
-                <div class="ccl-wrap">
-                    <h2 id="ccl-explore-title">Explore Calgary Condos</h2>
-                    <nav class="ccl-home-tabs" aria-label="Calgary condo quick searches">
-                        <?php foreach ($tabs as $tab) : ?>
-                            <a class="<?php echo 'all' === $tab['key'] ? 'is-active' : ''; ?>" href="<?php echo esc_url($tab['url']); ?>"><?php echo esc_html($tab['label']); ?></a>
-                        <?php endforeach; ?>
+            <section id="calgary-explore-navbar" aria-labelledby="calgary-explore-navbar-title" style="background: #ffffff !important; color: #000000 !important; width: 100% !important; padding: 20px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important;">
+                <div id="calgary-explore-navbar-inner" style="max-width: 1180px !important; width: 100% !important; margin: 0 auto !important; padding: 0 20px !important; box-sizing: border-box !important;">
+                    <h2 id="calgary-explore-navbar-title" style="color: #000000 !important; font-size: clamp(1.35rem, 2.25vw, 2rem) !important; line-height: 1.15 !important; font-weight: 800 !important; text-align: left !important; margin: 0 0 14px 0 !important;">Explore Calgary Condos</h2>
+                    <nav id="calgary-explore-navbar-nav" aria-label="Explore Calgary condos navigation" style="display: flex !important; flex-wrap: wrap !important; align-items: center !important; justify-content: flex-start !important; gap: 10px !important; width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important;">
+                        <a id="calgary-explore-link-all" href="/calgary-condos/" style="background: #fff7ec !important; color: #111111 !important; border: 1px solid #FF9900 !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">All Calgary Condos</a>
+                        <a id="calgary-explore-link-southeast" href="/southeast-calgary-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Southeast Calgary</a>
+                        <a id="calgary-explore-link-southwest" href="/southwest-calgary-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Southwest Calgary</a>
+                        <a id="calgary-explore-link-northwest" href="/northwest-calgary-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Northwest Calgary</a>
+                        <a id="calgary-explore-link-northeast" href="/northeast-calgary-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Northeast Calgary</a>
+                        <a id="calgary-explore-link-downtown" href="/downtown-calgary-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Downtown</a>
+                        <a id="calgary-explore-link-beltline" href="/beltline-condos/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Beltline</a>
+                        <a id="calgary-explore-link-under-400k" href="/condos-under-400k/" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Under $400K</a>
                     </nav>
                 </div>
             </section>
