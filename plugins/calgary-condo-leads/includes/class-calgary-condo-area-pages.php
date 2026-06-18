@@ -17,26 +17,31 @@ final class Calgary_Condo_Area_Pages {
             'label' => 'Southwest Calgary',
             'title' => 'Southwest Calgary Condos',
             'subtitle' => 'Search Southwest Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'guidance' => 'Southwest Calgary condo buyers often balance established inner-city access, C-Train convenience, parks, shopping, and quieter residential pockets. Compare older low-rise buildings differently than newer concrete or amenity-rich projects because fees, documents, and resale demand can vary block by block.',
         ],
         'northwest-calgary-condos' => [
             'label' => 'Northwest Calgary',
             'title' => 'Northwest Calgary Condos',
             'subtitle' => 'Search Northwest Calgary condos with building-first guidance before you chase listings.',
+            'guidance' => 'Northwest Calgary condo searches often revolve around university access, hospitals, river pathways, C-Train stations, and established communities. Before booking showings, check the building age, envelope history, parking setup, storage, pet rules, and how similar units have been selling.',
         ],
         'northeast-calgary-condos' => [
             'label' => 'Northeast Calgary',
             'title' => 'Northeast Calgary Condos',
             'subtitle' => 'Search Northeast Calgary condos and narrow the right building, budget, and ownership fit.',
+            'guidance' => 'Northeast Calgary can offer practical condo budgets, airport access, transit options, and newer suburban communities. The right buy still depends on the specific corporation, fee inclusions, parking, visitor parking, management, insurance, bylaws, and future buyer pool.',
         ],
         'downtown-calgary-condos' => [
             'label' => 'Downtown Calgary',
             'title' => 'Downtown Calgary Condos',
             'subtitle' => 'Search Downtown Calgary condos and compare lifestyle, fees, parking, storage, and resale strength.',
+            'guidance' => 'Downtown Calgary condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
         ],
         'beltline-condos' => [
             'label' => 'Beltline',
             'title' => 'Beltline Condos',
             'subtitle' => 'Search Beltline condos and compare the buildings that fit your budget, lifestyle, and timeline.',
+            'guidance' => 'Beltline is one of Calgary’s most active condo areas, but not every building fits every buyer. Compare walkability, nightlife noise, age, construction, elevators, amenities, parking, short-term-rental rules, pet rules, and resale demand before chasing the best-looking unit.',
         ],
     ];
 
@@ -73,6 +78,7 @@ final class Calgary_Condo_Area_Pages {
         $label = esc_html((string) $area['label']);
         $title = esc_html((string) $area['title']);
         $subtitle = esc_html((string) $area['subtitle']);
+        $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
         $idx = self::ALL_CONDOS_IDX;
 
         return <<<HTML
@@ -91,7 +97,26 @@ final class Calgary_Condo_Area_Pages {
         </div>
     </section>
 
+    <section class="ccl-section ccl-area-guidance">
+        <div class="ccl-wrap ccl-portal-intro__grid">
+            <div>
+                <p class="ccl-eyebrow">{$label} Buyer Guidance</p>
+                <h2>Compare the building before the unit.</h2>
+                <p>{$guidance}</p>
+            </div>
+            <div class="ccl-portal-intro__panel">
+                <strong>Before you book showings</strong>
+                <ul>
+                    <li>Confirm parking, storage, pet rules, rental rules, and fee inclusions.</li>
+                    <li>Review reserve fund, minutes, insurance, bylaws, and upcoming repair signals.</li>
+                    <li>Ask how the building compares for resale before choosing by price alone.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     [ccl_idx_shell eyebrow="Live {$label} Condo Search" title="Current {$label} condo listings" subtitle="Use the IDX feed below, then ask for building-first guidance before booking showings."]{$idx}[/ccl_idx_shell]
+    [ccl_lead_modal title="Get a {$label} condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right {$label} options without inventing listing data."]
 </main>
 HTML;
     }
