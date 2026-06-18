@@ -78,6 +78,7 @@ final class Calgary_Condo_Homepage {
                             <a class="ccl-home-search__main" href="/calgary-condos/">Search All Calgary Condos</a>
                             <a href="/southeast-calgary-condos/">Southeast</a>
                             <a href="/downtown-calgary-condos/">Downtown</a>
+                            <a href="/calgary-condo-buildings/">Buildings</a>
                             <a href="/condos-under-400k/">Under $400K</a>
                         </nav>
 
@@ -96,6 +97,8 @@ final class Calgary_Condo_Homepage {
                     </nav>
                 </div>
             </section>
+
+            <?php echo do_shortcode('[ccl_building_directory]'); ?>
 
             <?php echo do_shortcode('[ccl_school_community]'); ?>
 
