@@ -36,7 +36,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
-     * Replace page bodies with approved clean layouts.
+     * Replace page bodies with approved clean fallback layouts.
      *
      * @param string $content Original page content.
      * @return string
@@ -47,6 +47,10 @@ final class Calgary_Condo_Page_Overrides {
         }
 
         if (is_page('calgary-condos')) {
+            if (false !== strpos($content, '[ccl_homepage_tight')) {
+                return $content;
+            }
+
             return do_shortcode($this->calgary_condos_layout());
         }
 
@@ -88,7 +92,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     /**
-     * Search context message for homepage-routed searches.
+     * Search context message for fallback-routed searches.
      */
     private function search_context_notice(): string {
         $area_labels = [
@@ -123,7 +127,7 @@ HTML;
     }
 
     /**
-     * Calgary Condos listing page.
+     * Calgary Condos listing page fallback.
      */
     private function calgary_condos_layout(): string {
         $search_context = $this->search_context_notice();
