@@ -93,7 +93,12 @@ final class Calgary_Condo_Homepage {
                     }
 
                     #clean-calgary-hero-title {
-                        font-size: clamp(2.35rem, 13vw, 4.1rem) !important;
+                        font-size: clamp(2.2rem, 11vw, 3.9rem) !important;
+                        max-width: 760px !important;
+                    }
+
+                    #clean-calgary-hero-title-line-two {
+                        white-space: normal !important;
                     }
 
                     #clean-calgary-hero-phone {
@@ -119,11 +124,11 @@ final class Calgary_Condo_Homepage {
             </style>
 
             <section id="clean-calgary-hero" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
-                <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.48) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
+                <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.52) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
                 <div id="clean-calgary-hero-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
-                    <h1 id="clean-calgary-hero-title" style="color: #ffffff !important; font-size: clamp(3rem, 6vw, 5.8rem) !important; line-height: 0.95 !important; font-weight: 900 !important; letter-spacing: -0.055em !important; text-align: center !important; max-width: 1050px !important; margin: 0 auto 24px auto !important; text-shadow: 0 6px 24px rgba(0,0,0,0.75) !important;">Calgary Condos—Compared by Building First.</h1>
-                    <p id="clean-calgary-hero-subtitle" style="color: #ffffff !important; font-size: clamp(1.1rem, 2vw, 1.45rem) !important; line-height: 1.55 !important; font-weight: 600 !important; text-align: center !important; max-width: 900px !important; margin: 0 auto 28px auto !important; text-shadow: 0 4px 18px rgba(0,0,0,0.8) !important;">Before you buy, compare what matters. Uncover the truth about Calgary’s top buildings—from true condo fees, strict pet bylaws, and rental restrictions, to reserve fund health, underground parking allocations, and long-term resale value. Search active CREB® listings with absolute clarity.</p>
-                    <p id="clean-calgary-hero-phone" style="color: #ffffff !important; text-align: center !important; margin: 24px auto 0 auto !important; font-size: 2.5rem !important; line-height: 1.15 !important; font-weight: 800 !important; text-shadow: 0 6px 22px rgba(0,0,0,0.85) !important;">Call Calgary Direct: <?php echo esc_html($phone_display); ?></p>
+                    <h1 id="clean-calgary-hero-title" style="color: #ffffff !important; font-size: clamp(2.85rem, 5.25vw, 5.15rem) !important; line-height: 0.98 !important; font-weight: 900 !important; letter-spacing: -0.052em !important; text-align: center !important; max-width: 1120px !important; margin: 0 auto 24px auto !important; text-shadow: 0 7px 28px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.85) !important;">Calgary Condos—<br><span id="clean-calgary-hero-title-line-two" style="white-space: nowrap !important;">Compared by Building First.</span></h1>
+                    <p id="clean-calgary-hero-subtitle" style="color: #ffffff !important; font-size: clamp(1.1rem, 2vw, 1.45rem) !important; line-height: 1.55 !important; font-weight: 700 !important; text-align: center !important; max-width: 930px !important; margin: 0 auto 28px auto !important; text-shadow: 0 5px 20px rgba(0,0,0,0.95), 0 2px 7px rgba(0,0,0,0.9) !important;">Before you buy, compare what matters. Uncover the truth about Calgary’s top buildings—from true condo fees, strict pet bylaws, and rental restrictions, to reserve fund health, underground parking allocations, and long-term resale value. Search active CREB® listings with absolute clarity.</p>
+                    <p id="clean-calgary-hero-phone" style="color: #ffffff !important; text-align: center !important; margin: 24px auto 0 auto !important; font-size: 2.5rem !important; line-height: 1.15 !important; font-weight: 900 !important; text-shadow: 0 7px 26px rgba(0,0,0,0.95), 0 2px 8px rgba(0,0,0,0.9) !important;">Call Calgary Direct: <?php echo esc_html($phone_display); ?></p>
                 </div>
             </section>
 
