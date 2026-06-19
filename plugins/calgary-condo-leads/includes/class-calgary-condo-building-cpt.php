@@ -15,6 +15,7 @@ final class Calgary_Condo_Building_CPT {
     public function __construct() {
         add_action('init', [$this, 'register_post_type']);
         add_action('init', [$this, 'register_taxonomies']);
+        add_action('init', [$this, 'ensure_default_terms'], 20);
         add_filter('the_content', [$this, 'render_building_profile']);
     }
 
@@ -37,7 +38,7 @@ final class Calgary_Condo_Building_CPT {
             'rewrite' => ['slug' => 'calgary-condo-buildings'],
             'menu_icon' => 'dashicons-building',
             'show_in_rest' => true,
-            'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields'],
+            'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'revisions'],
         ]);
     }
 
@@ -69,6 +70,31 @@ final class Calgary_Condo_Building_CPT {
         }
     }
 
+
+
+    public function ensure_default_terms(): void {
+        $communities = ['Beltline', 'Downtown Core', 'Eau Claire', 'East Village', 'Mission', 'Victoria Park', 'Kensington', 'Bridgeland', 'Sunnyside', 'Lower Mount Royal', 'Marda Loop', 'Inglewood', 'Seton', 'Mahogany', 'Auburn Bay', 'Legacy', 'Sage Hill', 'University District'];
+        $profiles = [
+            'luxury-high-rise-condos' => 'Luxury High-Rise',
+            'concrete-buildings' => 'Concrete Buildings',
+            'pet-friendly-condo-buildings' => 'Pet-Friendly',
+            'underground-parking' => 'Underground Parking',
+            'price-reduced' => 'Price-Reduced',
+            'under-400k' => 'Under $400K',
+        ];
+
+        foreach ($communities as $term) {
+            if (!term_exists($term, 'ccl_building_community')) {
+                wp_insert_term($term, 'ccl_building_community');
+            }
+        }
+
+        foreach ($profiles as $slug => $term) {
+            if (!term_exists($term, 'ccl_building_profile')) {
+                wp_insert_term($term, 'ccl_building_profile', ['slug' => $slug]);
+            }
+        }
+    }
     public function render_building_profile(string $content): string {
         if (is_admin() || !is_singular('ccl_building') || !in_the_loop() || !is_main_query()) {
             return $content;
@@ -76,41 +102,56 @@ final class Calgary_Condo_Building_CPT {
 
         $overview = $content ? '<div class="ccl-building-profile-overview">' . wp_kses_post($content) . '</div>' : '';
 
-        return '<div class="ccl-building-profile-layout"><main class="ccl-building-profile-main">'
+        return '<div class="ccl-building-profile"><div class="ccl-building-profile-grid"><main class="ccl-building-profile-main">'
             . $overview
             . $this->panel('Building Specs', $this->definition_list([
-                'Year Built' => 'year_built',
-                'Number of Units' => 'number_of_units',
-                'Number of Stories' => 'number_of_stories',
-                'Developer' => 'developer',
-                'Construction Type' => 'construction_type',
-                'Community' => 'community',
-                'Address' => 'address',
+                'Building Name' => 'post_title',
+                'Address' => 'building_address',
+                'Community' => 'building_community',
+                'Year Built' => 'building_year_built',
+                'Developer' => 'building_developer',
+                'Number of Units' => 'building_units',
+                'Number of Stories' => 'building_stories',
+                'Construction Type' => 'building_construction_type',
             ]))
-            . $this->panel('Amenities Checklist', $this->amenities())
-            . $this->panel('Bylaw Restrictions Highlights', $this->definition_list([
-                'Pet Rules' => 'pet_rules',
-                'Short-Term Rental Restrictions' => 'short_term_rental_restrictions',
-                'Age Limits' => 'age_limits',
-                'Rental Rules' => 'rental_rules',
-                'Smoking Rules' => 'smoking_rules',
-                'Renovation Rules' => 'renovation_rules',
-                'Move-In / Move-Out Rules' => 'move_in_move_out_rules',
-            ]) . '<p class="ccl-building-profile-note">' . esc_html__('Always verify current bylaws, condo documents, and board rules before writing an offer.', 'calgary-condo-leads') . '</p>')
-            . $this->panel('Financial Health & Condo Documents', $this->definition_list([
-                'Reserve Fund Study Status' => 'reserve_fund_study_status',
-                'Condo Fee Inclusions' => 'condo_fee_inclusions',
-                'Insurance Notes' => 'insurance_notes',
-                'Recent Special Assessment Signals' => 'recent_special_assessment_signals',
-                'Upcoming Repair Signals' => 'upcoming_repair_signals',
-                'Meeting Minutes Notes' => 'meeting_minutes_notes',
-                'Document Review Notes' => 'document_review_notes',
-            ]) . '<p class="ccl-building-profile-note">' . esc_html__('This section is for buyer due diligence. Confirm all documents with a licensed professional before purchase.', 'calgary-condo-leads') . '</p>')
+            . $this->panel('Condo Fees & Ownership Notes', $this->definition_list([
+                'Condo Fee Details' => 'building_condo_fee_details',
+                'Fee Inclusions' => 'building_fee_inclusions',
+                'Insurance Notes' => 'building_insurance_notes',
+                'Reserve Fund Study Status' => 'building_reserve_fund_status',
+                'Special Assessment Notes' => 'building_special_assessment_notes',
+            ]))
+            . $this->panel('Bylaws & Restrictions', $this->definition_list([
+                'Pet Rules' => 'building_pet_rules',
+                'Rental Rules' => 'building_rental_rules',
+                'Short-Term Rental Restrictions' => 'building_short_term_rental_rules',
+                'Age Limits' => 'building_age_limits',
+                'Smoking Rules' => 'building_smoking_rules',
+                'Renovation Rules' => 'building_renovation_rules',
+                'Move-In / Move-Out Rules' => 'building_move_rules',
+            ]))
+            . $this->panel('Parking, Storage & Amenities', $this->definition_list([
+                'Underground Parking' => 'building_underground_parking',
+                'Visitor Parking' => 'building_visitor_parking',
+                'Storage Lockers' => 'building_storage_lockers',
+                'Bike Storage' => 'building_bike_storage',
+                'Gym' => 'building_gym',
+                'Concierge' => 'building_concierge',
+                'Rooftop Deck' => 'building_rooftop_deck',
+                'Guest Suite' => 'building_guest_suite',
+                'Party Room' => 'building_party_room',
+            ]))
+            . '</main><aside class="ccl-building-profile-sidebar">'
             . $this->inventory()
-            . '</main>' . $this->lead_sidebar() . '</div>';
+            . $this->lead_sidebar()
+            . '</aside></div></div>';
     }
 
     private function field(string $key): string {
+        if ('post_title' === $key) {
+            return get_the_title();
+        }
+
         $value = get_post_meta(get_the_ID(), $key, true);
         return is_scalar($value) && '' !== trim((string) $value) ? (string) $value : self::FALLBACK;
     }
@@ -123,17 +164,6 @@ final class Calgary_Condo_Building_CPT {
         return $html . '</dl>';
     }
 
-    private function amenities(): string {
-        $items = ['Concierge','Underground Parking','Gym','Rooftop Deck','Visitor Parking','Storage Lockers','Bike Storage','Guest Suite','Party Room'];
-        $html = '<ul class="ccl-building-amenities">';
-        foreach ($items as $item) {
-            $key = sanitize_key(str_replace(' ', '_', strtolower($item)));
-            $confirmed = filter_var(get_post_meta(get_the_ID(), $key, true), FILTER_VALIDATE_BOOLEAN);
-            $html .= '<li class="' . esc_attr($confirmed ? 'is-confirmed' : 'is-unconfirmed') . '"><span aria-hidden="true">' . esc_html($confirmed ? '✓' : '—') . '</span>' . esc_html($item) . '<small>' . esc_html($confirmed ? 'Stored as confirmed' : 'Not confirmed yet') . '</small></li>';
-        }
-        return $html . '</ul>';
-    }
-
     private function panel(string $title, string $body): string {
         return '<section class="ccl-building-profile-panel"><h2>' . esc_html($title) . '</h2>' . $body . '</section>';
     }
@@ -141,12 +171,13 @@ final class Calgary_Condo_Building_CPT {
     private function inventory(): string {
         $shortcode = trim((string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true));
         $body = $shortcode ? do_shortcode($shortcode) : '<p>' . esc_html__('Live building-specific listings will appear here once the myRealPage saved search is connected for this address.', 'calgary-condo-leads') . '</p>';
-        return '<section class="ccl-building-profile-panel ccl-building-profile-inventory"><h2>' . esc_html__('Current Listings In This Building', 'calgary-condo-leads') . '</h2>' . $body . '</section>';
+        return '<section class="ccl-building-profile-panel ccl-building-inventory-slot"><h2>' . esc_html__('Current Listings In This Building', 'calgary-condo-leads') . '</h2>' . $body . '</section>';
     }
 
     private function lead_sidebar(): string {
-        return '<aside class="ccl-building-profile-sidebar"><div class="ccl-building-profile-cta"><h2>' . esc_html__('Compare this building first', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Send the building name, budget, parking needs, pet needs, and timing. We will help compare the building before you chase the unit.', 'calgary-condo-leads') . '</p><a class="ccl-building-profile-button" href="' . esc_url('/building-alerts/') . '" target="_self">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</a><a class="ccl-building-profile-phone" href="' . esc_url('tel:+14038006996') . '">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div></aside>';
+        return '<div class="ccl-building-lead-card"><h2>' . esc_html__('Compare this building first', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Send the building name, budget, parking needs, pet needs, and timing. We will help compare the building before you chase the unit.', 'calgary-condo-leads') . '</p><a class="ccl-building-lead-card__button" href="' . esc_url('/building-alerts/') . '" target="_self">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</a><a class="ccl-building-lead-card__phone" href="' . esc_url('tel:+14038006996') . '">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
     }
+
 }
 
 new Calgary_Condo_Building_CPT();
