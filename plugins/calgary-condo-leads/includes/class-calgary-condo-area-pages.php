@@ -10,6 +10,8 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Area_Pages {
+    private const SEEDED_REGIONAL_PAGES_VERSION_OPTION = 'ccl_seed_regional_pages_version';
+
     private const AREAS = [
         'southeast-calgary-condos' => [
             'label' => 'Southeast Calgary',
@@ -80,7 +82,23 @@ final class Calgary_Condo_Area_Pages {
         'northeast-calgary-condos' => '',
     ];
 
+    private const SEEDED_REGIONAL_PAGES = [
+        'southwest-calgary-condos' => [
+            'title' => 'Southwest Calgary Condos',
+            'intro' => 'Search Southwest Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'listings_heading' => 'Live Southwest Calgary Condo Listings',
+            'shortcode' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        ],
+        'northwest-calgary-condos' => [
+            'title' => 'Northwest Calgary Condos',
+            'intro' => 'Search Northwest Calgary condos with building-first guidance before you chase listings.',
+            'listings_heading' => 'Live Northwest Calgary Condo Listings',
+            'shortcode' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        ],
+    ];
+
     public function __construct() {
+        add_action('admin_init', [$this, 'seed_regional_pages']);
         add_action('template_redirect', [$this, 'render_area_page'], 0);
     }
 
@@ -91,6 +109,10 @@ final class Calgary_Condo_Area_Pages {
 
         $slug = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
         if (!isset(self::AREAS[$slug])) {
+            return;
+        }
+
+        if (is_page() || is_singular('page')) {
             return;
         }
 
@@ -107,6 +129,83 @@ final class Calgary_Condo_Area_Pages {
         echo $this->layout(self::AREAS[$slug], $slug); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         get_footer();
         exit;
+    }
+
+    public function seed_regional_pages(): void {
+        if (!is_admin() || !current_user_can('edit_pages')) {
+            return;
+        }
+
+        if ((string) get_option(self::SEEDED_REGIONAL_PAGES_VERSION_OPTION, '') === CCL_VERSION) {
+            return;
+        }
+
+        $all_pages_confirmed = true;
+
+        foreach (self::SEEDED_REGIONAL_PAGES as $slug => $page) {
+            $existing_page = get_page_by_path($slug, OBJECT, 'page');
+
+            if ($existing_page instanceof WP_Post) {
+                continue;
+            }
+
+            $inserted_page_id = wp_insert_post([
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'post_title' => (string) $page['title'],
+                'post_name' => $slug,
+                'post_content' => $this->regional_page_content($page),
+                'comment_status' => 'closed',
+                'ping_status' => 'closed',
+            ], true);
+
+            if (is_wp_error($inserted_page_id) || 0 === (int) $inserted_page_id) {
+                $all_pages_confirmed = false;
+            }
+        }
+
+        if ($all_pages_confirmed) {
+            update_option(self::SEEDED_REGIONAL_PAGES_VERSION_OPTION, CCL_VERSION, false);
+        }
+    }
+
+    private function regional_page_content(array $page): string {
+        $title = (string) $page['title'];
+        $intro = (string) $page['intro'];
+        $listings_heading = (string) $page['listings_heading'];
+        $shortcode = (string) $page['shortcode'];
+
+        return <<<HTML
+<!-- wp:heading {"level":1} -->
+<h1 class="wp-block-heading">{$title}</h1>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>{$intro}</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">Compare the building before the unit.</h2>
+<!-- /wp:heading -->
+
+<!-- wp:paragraph -->
+<p>Review the condo corporation, monthly fees, bylaws, parking, storage, pet rules, rental rules, reserve fund, insurance, recent minutes, and resale fit before choosing a unit by price alone.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:buttons -->
+<div class="wp-block-buttons"><!-- wp:button -->
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/building-alert-request/">Get Building Alerts</a></div>
+<!-- /wp:button --></div>
+<!-- /wp:buttons -->
+
+<!-- wp:heading -->
+<h2 class="wp-block-heading">{$listings_heading}</h2>
+<!-- /wp:heading -->
+
+<!-- wp:shortcode -->
+{$shortcode}
+<!-- /wp:shortcode -->
+HTML;
     }
 
     private function layout(array $area, string $slug): string {
