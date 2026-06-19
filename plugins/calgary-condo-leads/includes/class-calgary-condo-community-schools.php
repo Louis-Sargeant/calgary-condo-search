@@ -48,7 +48,7 @@ final class Calgary_Condo_Community_Schools {
                         <p><?php esc_html_e('Go beyond the unit and compare building age, bylaws, parking, pets, fees, documents, and resale fit.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-school-community__pills">
                             <a class="ccl-school-community__pill" href="/calgary-condo-buildings/" target="_self"><?php esc_html_e('Browse Buildings', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill" href="#building-risk-report" data-ccl-open-building-risk-modal><?php esc_html_e('Ask About Building Risk', 'calgary-condo-leads'); ?></a>
+                            <a class="ccl-school-community__pill" href="#" data-ccl-open-building-risk-modal><?php esc_html_e('Ask About Building Risk', 'calgary-condo-leads'); ?></a>
                         </div>
                     </article>
                 </div>
