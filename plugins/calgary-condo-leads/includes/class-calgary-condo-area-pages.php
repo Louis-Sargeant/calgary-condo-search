@@ -10,8 +10,6 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Area_Pages {
-    private const ALL_CONDOS_IDX = '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]';
-
     private const AREAS = [
         'southeast-calgary-condos' => [
             'label' => 'Southeast Calgary',
@@ -109,8 +107,7 @@ final class Calgary_Condo_Area_Pages {
         $title = esc_html((string) $area['title']);
         $subtitle = esc_html((string) $area['subtitle']);
         $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
-        $idx = self::ALL_CONDOS_IDX;
-        $idx_shell = do_shortcode('[ccl_idx_shell eyebrow="Live ' . $label . ' Condo Search" title="Current ' . $label . ' condo listings" subtitle="Use the IDX feed below, then ask for building-first guidance before booking showings."]' . $idx . '[/ccl_idx_shell]');
+        $idx_section = $this->regional_idx_section($slug, $label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
 
         return <<<HTML
@@ -147,11 +144,60 @@ final class Calgary_Condo_Area_Pages {
         </div>
     </section>
 
-    {$idx_shell}
+    {$idx_section}
     {$lead_modal}
 </main>
 HTML;
     }
+    private function regional_idx_section(string $slug, string $label): string {
+        $southeast_mrp_shortcode = '';
+        $southwest_mrp_shortcode = '';
+        $northwest_mrp_shortcode = '';
+        $northeast_mrp_shortcode = '';
+
+        $shortcodes = [
+            'southeast-calgary-condos' => [
+                'shortcode' => $southeast_mrp_shortcode,
+                'comment' => '<!-- Paste Southeast Calgary myRealPage shortcode here -->',
+            ],
+            'southwest-calgary-condos' => [
+                'shortcode' => $southwest_mrp_shortcode,
+                'comment' => '<!-- Paste Southwest Calgary myRealPage shortcode here -->',
+            ],
+            'northwest-calgary-condos' => [
+                'shortcode' => $northwest_mrp_shortcode,
+                'comment' => '<!-- Paste Northwest Calgary myRealPage shortcode here -->',
+            ],
+            'northeast-calgary-condos' => [
+                'shortcode' => $northeast_mrp_shortcode,
+                'comment' => '<!-- Paste Northeast Calgary myRealPage shortcode here -->',
+            ],
+        ];
+
+        $slot = $shortcodes[$slug] ?? [
+            'shortcode' => '',
+            'comment' => '<!-- Paste regional myRealPage shortcode here -->',
+        ];
+        $shortcode = trim((string) $slot['shortcode']);
+        $comment = (string) $slot['comment'];
+        $feed = '' !== $shortcode
+            ? do_shortcode($shortcode)
+            : '<p class="ccl-region-idx-placeholder">' . esc_html(sprintf(__('Live %s condo listings will appear here once the saved myRealPage search is connected.', 'calgary-condo-leads'), $label)) . '</p>';
+
+        return <<<HTML
+<section id="idx-search" class="ccl-section ccl-section--white ccl-region-idx-section">
+    <div class="ccl-wrap">
+        <h2>Live {$label} Condo Listings</h2>
+        <p>Browse current {$label} condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.</p>
+        {$comment}
+        <div class="ccl-region-idx-feed">
+            {$feed}
+        </div>
+    </div>
+</section>
+HTML;
+    }
+
 }
 
 new Calgary_Condo_Area_Pages();
