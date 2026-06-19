@@ -39,78 +39,57 @@ final class Calgary_Condo_Building_Directory {
 
 
     public function database_shortcode(): string {
-        $directory_links = [
-            'beltline_url' => '/calgary-condo-buildings/beltline/',
-            'downtown_core_url' => '/calgary-condo-buildings/downtown-core/',
-            'eau_claire_url' => '/calgary-condo-buildings/eau-claire/',
-            'east_village_url' => '/calgary-condo-buildings/east-village/',
-            'mission_url' => '/calgary-condo-buildings/mission/',
-            'victoria_park_url' => '/calgary-condo-buildings/victoria-park/',
-            'kensington_url' => '/calgary-condo-buildings/kensington/',
-            'bridgeland_url' => '/calgary-condo-buildings/bridgeland/',
-            'sunnyside_url' => '/calgary-condo-buildings/sunnyside/',
-            'lower_mount_royal_url' => '/calgary-condo-buildings/lower-mount-royal/',
-            'marda_loop_url' => '/calgary-condo-buildings/marda-loop/',
-            'inglewood_url' => '/calgary-condo-buildings/inglewood/',
-            'seton_url' => '/calgary-condo-buildings/seton/',
-            'mahogany_url' => '/calgary-condo-buildings/mahogany/',
-            'auburn_bay_url' => '/calgary-condo-buildings/auburn-bay/',
-            'legacy_url' => '/calgary-condo-buildings/legacy/',
-            'sage_hill_url' => '/calgary-condo-buildings/sage-hill/',
-            'university_district_url' => '/calgary-condo-buildings/university-district/',
-            'luxury_high_rise_url' => '/calgary-condo-buildings/luxury-high-rise-condos/',
-            'concrete_buildings_url' => '/calgary-condo-buildings/concrete-buildings/',
-            'pet_friendly_url' => '/calgary-condo-buildings/pet-friendly-condo-buildings/',
-            'underground_parking_url' => '/calgary-condo-buildings/underground-parking/',
-            'price_reduced_url' => '/price-reduced-condos/',
-            'under_400k_url' => '/condos-under-400k/',
-        ];
-
         $groups = [
             'Inner-City Condo Hubs' => [
-                ['label' => 'Beltline', 'key' => 'beltline_url'],
-                ['label' => 'Downtown Core', 'key' => 'downtown_core_url'],
-                ['label' => 'Eau Claire', 'key' => 'eau_claire_url'],
-                ['label' => 'East Village', 'key' => 'east_village_url'],
-                ['label' => 'Mission', 'key' => 'mission_url'],
-                ['label' => 'Victoria Park', 'key' => 'victoria_park_url'],
+                ['label' => 'Beltline', 'url' => '/beltline/', 'class' => 'beltline'],
+                ['label' => 'Downtown Core', 'url' => '/downtown-core/', 'class' => 'downtown-core'],
+                ['label' => 'Eau Claire', 'url' => '/eau-claire/', 'class' => 'eau-claire'],
+                ['label' => 'East Village', 'url' => '/east-village/', 'class' => 'east-village'],
+                ['label' => 'Mission', 'url' => '/mission/', 'class' => 'mission'],
+                ['label' => 'Victoria Park', 'url' => '/victoria-park/', 'class' => 'victoria-park'],
             ],
             'Lifestyle & Walkability Areas' => [
-                ['label' => 'Kensington', 'key' => 'kensington_url'],
-                ['label' => 'Bridgeland', 'key' => 'bridgeland_url'],
-                ['label' => 'Sunnyside', 'key' => 'sunnyside_url'],
-                ['label' => 'Lower Mount Royal', 'key' => 'lower_mount_royal_url'],
-                ['label' => 'Marda Loop', 'key' => 'marda_loop_url'],
-                ['label' => 'Inglewood', 'key' => 'inglewood_url'],
+                ['label' => 'Kensington', 'url' => '/kensington/', 'class' => 'kensington'],
+                ['label' => 'Bridgeland', 'url' => '/bridgeland/', 'class' => 'bridgeland'],
+                ['label' => 'Sunnyside', 'url' => '/sunnyside/', 'class' => 'sunnyside'],
+                ['label' => 'Lower Mount Royal', 'url' => '/lower-mount-royal/', 'class' => 'lower-mount-royal'],
+                ['label' => 'Marda Loop', 'url' => '/marda-loop/', 'class' => 'marda-loop'],
+                ['label' => 'Inglewood', 'url' => '/inglewood/', 'class' => 'inglewood'],
             ],
             'Suburban Condo Markets' => [
-                ['label' => 'Seton', 'key' => 'seton_url'],
-                ['label' => 'Mahogany', 'key' => 'mahogany_url'],
-                ['label' => 'Auburn Bay', 'key' => 'auburn_bay_url'],
-                ['label' => 'Legacy', 'key' => 'legacy_url'],
-                ['label' => 'Sage Hill', 'key' => 'sage_hill_url'],
-                ['label' => 'University District', 'key' => 'university_district_url'],
+                ['label' => 'Seton', 'url' => '/seton/', 'class' => 'seton'],
+                ['label' => 'Mahogany', 'url' => '/mahogany/', 'class' => 'mahogany'],
+                ['label' => 'Auburn Bay', 'url' => '/auburn-bay/', 'class' => 'auburn-bay'],
+                ['label' => 'Legacy', 'url' => '/legacy/', 'class' => 'legacy'],
+                ['label' => 'Sage Hill', 'url' => '/sage-hill/', 'class' => 'sage-hill'],
+                ['label' => 'University District', 'url' => '/university-district/', 'class' => 'university-district'],
             ],
             'Building Profile Searches' => [
-                ['label' => 'Luxury High-Rise Condos', 'key' => 'luxury_high_rise_url'],
-                ['label' => 'Concrete Buildings', 'key' => 'concrete_buildings_url'],
-                ['label' => 'Pet-Friendly Condo Buildings', 'key' => 'pet_friendly_url'],
-                ['label' => 'Buildings With Underground Parking', 'key' => 'underground_parking_url'],
-                ['label' => 'Price-Reduced Condos', 'key' => 'price_reduced_url'],
-                ['label' => 'Condos Under $400K', 'key' => 'under_400k_url'],
+                ['label' => 'Luxury High-Rise Condos', 'url' => '/luxury-high-rise-condos/', 'class' => 'luxury-high-rise-condos', 'profile' => true],
+                ['label' => 'Concrete Buildings', 'url' => '/concrete-buildings/', 'class' => 'concrete-buildings', 'profile' => true],
+                ['label' => 'Pet-Friendly Condo Buildings', 'url' => '/pet-friendly-condo-buildings/', 'class' => 'pet-friendly-condo-buildings', 'profile' => true],
+                ['label' => 'Buildings With Underground Parking', 'url' => '/buildings-with-underground-parking/', 'class' => 'buildings-with-underground-parking', 'profile' => true],
+                ['label' => 'Newer Condo Buildings', 'url' => '/newer-condo-buildings/', 'class' => 'newer-condo-buildings', 'profile' => true],
+                ['label' => 'Low-Rise Condo Buildings', 'url' => '/low-rise-condo-buildings/', 'class' => 'low-rise-condo-buildings', 'profile' => true],
             ],
         ];
 
         $columns = '';
         foreach ($groups as $heading => $items) {
-            $links = '';
+            $cards = '';
             foreach ($items as $item) {
-                $links .= '<li><a href="' . esc_url($directory_links[$item['key']]) . '" class="directory-link" target="_self">' . esc_html($item['label']) . '</a></li>';
+                $classes = 'ccl-visual-card ccl-visual-card--' . sanitize_html_class($item['class']);
+                if (!empty($item['profile'])) {
+                    $classes .= ' ccl-visual-card--profile';
+                }
+
+                $cards .= '<a href="' . esc_url($item['url']) . '" target="_self" class="' . esc_attr($classes) . '"><span class="ccl-visual-card__overlay"></span><span class="ccl-visual-card__title">' . esc_html($item['label']) . '</span></a>';
             }
-            $columns .= '<article class="ccl-building-database-column"><h3>' . esc_html($heading) . '</h3><ul>' . $links . '</ul></article>';
+
+            $columns .= '<div class="ccl-visual-directory__column"><h3>' . esc_html($heading) . '</h3><div class="ccl-visual-directory__cards">' . $cards . '</div></div>';
         }
 
-        return '<section id="calgary-building-directory-database" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-building-database-wrap"><p class="ccl-building-database-eyebrow">Calgary Building Database</p><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p class="ccl-building-database-subtitle">Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p><div class="ccl-building-database-grid">' . $columns . '</div></div></section>';
+        return '<section id="calgary-building-directory-database" class="ccl-visual-directory" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-visual-directory__header"><span class="ccl-visual-directory__eyebrow">Calgary Building Database</span><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p>Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p></div><div class="ccl-visual-directory__matrix">' . $columns . '</div></section>';
     }
 
     public function render_buildings_page(): void {
