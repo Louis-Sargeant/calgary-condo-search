@@ -36,6 +36,14 @@ final class Calgary_Condo_Assets {
             ['calgary-condo-leads'],
             CCL_VERSION
         );
+
+        wp_enqueue_script(
+            'calgary-condo-school-modal',
+            CCL_PLUGIN_URL . 'assets/js/calgary-condo-school-modal.js',
+            [],
+            CCL_VERSION,
+            true
+        );
     }
 
     /**

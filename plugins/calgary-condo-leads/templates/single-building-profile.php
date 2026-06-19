@@ -1,0 +1,55 @@
+<?php
+/**
+ * Reusable single building profile template partial.
+ *
+ * @package CalgaryCondoLeads
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+$post_id = get_the_ID();
+
+if (!function_exists('ccl_building_profile_meta_value')) {
+    function ccl_building_profile_meta_value(int $post_id, string $meta_key): string {
+        $value = get_post_meta($post_id, $meta_key, true);
+
+        if (is_scalar($value) && '' !== trim((string) $value)) {
+            return (string) $value;
+        }
+
+        return __('To be verified', 'calgary-condo-leads');
+    }
+}
+
+$fields = [
+    __('Year Built', 'calgary-condo-leads') => 'ccl_building_year_built',
+    __('Total Units', 'calgary-condo-leads') => 'ccl_building_total_units',
+    __('Stories', 'calgary-condo-leads') => 'ccl_building_stories',
+    __('Amenities', 'calgary-condo-leads') => 'ccl_building_amenities',
+    __('Pet Bylaws', 'calgary-condo-leads') => 'ccl_building_pet_bylaws',
+    __('Rental Constraints', 'calgary-condo-leads') => 'ccl_building_rental_constraints',
+    __('Parking', 'calgary-condo-leads') => 'ccl_building_parking',
+];
+?>
+<section class="ccl-building-profile" aria-label="<?php esc_attr_e('Calgary condo building profile', 'calgary-condo-leads'); ?>">
+    <div class="ccl-building-profile__grid">
+        <aside class="ccl-building-profile__meta" aria-label="<?php esc_attr_e('Building metadata', 'calgary-condo-leads'); ?>">
+            <div class="ccl-building-profile__meta-card">
+                <p class="ccl-building-profile__eyebrow"><?php esc_html_e('Building Snapshot', 'calgary-condo-leads'); ?></p>
+                <?php foreach ($fields as $label => $meta_key) : ?>
+                    <div class="ccl-building-profile__meta-row">
+                        <span class="ccl-building-profile__meta-label"><?php echo esc_html($label); ?></span>
+                        <span class="ccl-building-profile__meta-value"><?php echo esc_html(ccl_building_profile_meta_value((int) $post_id, $meta_key)); ?></span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </aside>
+        <div class="ccl-building-profile__idx">
+            <div class="ccl-building-profile__idx-feed">
+                <!-- Dynamic Building IDX Feed Component -->
+            </div>
+        </div>
+    </div>
+</section>
