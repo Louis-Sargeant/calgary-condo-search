@@ -57,25 +57,25 @@ final class Calgary_Condo_Intent_Capture {
                 'label' => 'I want to browse condos',
                 'text' => 'Start with the live IDX search, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.',
                 'button' => 'Search Calgary Condos',
-                'url' => '#idx-search',
+                'url' => '/calgary-condos/#idx-search',
             ],
             [
                 'label' => 'I want alerts',
                 'text' => 'Get notified around your preferred Calgary area, budget, building style, and timing so the right listing does not get missed.',
                 'button' => 'Set Up Condo Alerts',
-                'url' => '#condo-alerts',
+                'url' => '/building-alerts/',
             ],
             [
                 'label' => 'I own a condo',
                 'text' => 'Request a value check based on your building, recent competition, condition, fees, demand, and current buyer pool.',
                 'button' => 'Request Value Report',
-                'url' => '/condo-value-report/',
+                'url' => '/building-alerts/?request=value-report',
             ],
             [
                 'label' => 'I am worried about the building',
                 'text' => 'Ask about documents, reserve fund signals, bylaws, insurance, special-assessment risk, pet rules, rental rules, and resale concerns.',
                 'button' => 'Ask About Building Risk',
-                'url' => '#condo-alerts',
+                'url' => '/building-alerts/?request=building-risk',
             ],
         ];
 
@@ -93,7 +93,7 @@ final class Calgary_Condo_Intent_Capture {
                         <article class="ccl-intent-card">
                             <h3><?php echo esc_html($card['label']); ?></h3>
                             <p><?php echo esc_html($card['text']); ?></p>
-                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>"><?php echo esc_html($card['button']); ?></a>
+                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>" target="_self"><?php echo esc_html($card['button']); ?></a>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -187,9 +187,9 @@ final class Calgary_Condo_Intent_Capture {
                 'title' => 'Not sure which Calgary condo is worth seeing?',
                 'subtitle' => 'Send your area, budget, and building questions. Get a cleaner shortlist before wasting time on weak buildings or bad-fit listings.',
                 'primary_text' => 'Get Condo Guidance',
-                'primary_url' => '#condo-alerts',
+                'primary_url' => '/building-alerts/',
                 'secondary_text' => 'Search Listings',
-                'secondary_url' => '#idx-search',
+                'secondary_url' => '/calgary-condos/#idx-search',
             ],
             'ccl_next_step_band'
         );
@@ -204,8 +204,8 @@ final class Calgary_Condo_Intent_Capture {
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
                 <div class="ccl-next-step-band__actions">
-                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['primary_url']); ?>"><?php echo esc_html($atts['primary_text']); ?></a>
-                    <a class="ccl-btn ccl-btn--secondary" href="<?php echo esc_url($atts['secondary_url']); ?>"><?php echo esc_html($atts['secondary_text']); ?></a>
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['primary_url']); ?>" target="_self"><?php echo esc_html($atts['primary_text']); ?></a>
+                    <a class="ccl-btn ccl-btn--secondary" href="<?php echo esc_url($atts['secondary_url']); ?>" target="_self"><?php echo esc_html($atts['secondary_text']); ?></a>
                 </div>
             </div>
         </section>
