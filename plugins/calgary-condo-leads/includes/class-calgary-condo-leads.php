@@ -305,8 +305,8 @@ final class Calgary_Condo_Leads {
                             <option value="6+ months"><?php esc_html_e('6+ months', 'calgary-condo-leads'); ?></option>
                         </select>
                     </label>
-                    <label for="ccl-message"><?php esc_html_e('What should we help you find?', 'calgary-condo-leads'); ?>
-                        <textarea id="ccl-message" name="ccl_message" rows="4" placeholder="<?php esc_attr_e('Building preferences, must-haves, parking, pet rules, or questions...', 'calgary-condo-leads'); ?>"></textarea>
+                    <label for="ccl-message"><?php esc_html_e('What matters most to you?', 'calgary-condo-leads'); ?>
+                        <textarea id="ccl-message" name="ccl_message" rows="4" placeholder="<?php esc_attr_e('Parking needs, pet rules, preferred buildings, budget, timing, must-haves...', 'calgary-condo-leads'); ?>"></textarea>
                     </label>
                     <label class="ccl-hp" for="ccl-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?>
                         <input id="ccl-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off">
