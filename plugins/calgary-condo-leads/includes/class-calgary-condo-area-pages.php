@@ -43,6 +43,30 @@ final class Calgary_Condo_Area_Pages {
             'subtitle' => 'Search Beltline condos and compare the buildings that fit your budget, lifestyle, and timeline.',
             'guidance' => 'Beltline is one of Calgary’s most active condo areas, but not every building fits every buyer. Compare walkability, nightlife noise, age, construction, elevators, amenities, parking, short-term-rental rules, pet rules, and resale demand before chasing the best-looking unit.',
         ],
+        'east-village-condos' => [
+            'label' => 'East Village',
+            'title' => 'East Village Condos',
+            'subtitle' => 'Search East Village condos near the river, library, restaurants, pathways, and downtown east amenities.',
+            'guidance' => 'East Village appeals to buyers who want newer towers, river access, walkability, and a more urban lifestyle. Compare building age, parking assignment, storage, amenities, short-term-rental rules, condo fees, and how much future supply may affect resale.',
+        ],
+        'mission-condos' => [
+            'label' => 'Mission',
+            'title' => 'Mission Condos',
+            'subtitle' => 'Search Mission condos and compare walkability, building age, river access, rules, and resale fit.',
+            'guidance' => 'Mission condo buyers often want restaurants, river pathways, 4th Street access, and inner-city convenience. The best unit depends on the building’s age, parking, storage, noise exposure, pet rules, fee trend, documents, and long-term resale demand.',
+        ],
+        'eau-claire-condos' => [
+            'label' => 'Eau Claire',
+            'title' => 'Eau Claire Condos',
+            'subtitle' => 'Search Eau Claire condos and compare premium buildings, river proximity, fees, documents, and resale strength.',
+            'guidance' => 'Eau Claire is a premium Calgary condo area where building quality, river proximity, concierge-style services, parking, storage, reserve fund health, and monthly fee inclusions can dramatically affect ownership cost and resale appeal.',
+        ],
+        'calgary-luxury-condos' => [
+            'label' => 'Calgary Luxury Condos',
+            'title' => 'Calgary Luxury Condos',
+            'subtitle' => 'Search higher-end Calgary condos and compare the building, services, views, privacy, amenities, and resale path.',
+            'guidance' => 'Luxury condo buying is not just price. Compare construction quality, concierge or security, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
+        ],
     ];
 
     public function __construct() {
@@ -93,8 +117,8 @@ final class Calgary_Condo_Area_Pages {
                 <p>{$subtitle}</p>
             </div>
             <div class="ccl-compare-hero__actions">
-                <a class="ccl-btn ccl-btn--primary" href="#idx-search">View {$label} Condos</a>
-                <a class="ccl-btn ccl-btn--dark" href="/building-alerts/">Get Building Alerts</a>
+                <a class="ccl-btn ccl-btn--primary" href="#idx-search" target="_self">View {$label} Condos</a>
+                <a class="ccl-btn ccl-btn--dark" href="/building-alerts/" target="_self">Get Building Alerts</a>
             </div>
         </div>
     </section>
