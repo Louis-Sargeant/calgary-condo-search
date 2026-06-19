@@ -1694,3 +1694,171 @@
     height: 62vh;
   }
 }
+
+/* Premium visual matrix for the Calgary building database directory. */
+.ccl-visual-directory {
+  background: #fdfdfd;
+  color: #1a202c;
+  padding: clamp(42px, 6vw, 78px) clamp(18px, 4vw, 40px);
+}
+
+.ccl-visual-directory__header {
+  max-width: 880px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.ccl-visual-directory__eyebrow {
+  display: inline-flex;
+  margin-bottom: 12px;
+  color: #FF9900;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ccl-visual-directory__header h2 {
+  margin: 0 0 14px;
+  color: #0A1A2F;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.ccl-visual-directory__header p {
+  margin: 0 auto;
+  color: #4a5568;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.ccl-visual-directory__matrix {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.ccl-visual-directory__column {
+  min-width: 0;
+}
+
+.ccl-visual-directory__column h3 {
+  margin: 0 0 16px;
+  color: #0A1A2F;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.ccl-visual-directory__cards {
+  display: grid;
+  gap: 16px;
+}
+
+.ccl-visual-card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 120px;
+  border-radius: 18px;
+  text-decoration: none;
+  background-color: #0A1A2F;
+  background-image: var(--ccl-visual-card-image, linear-gradient(135deg, rgba(10, 26, 47, 0.96), rgba(255, 153, 0, 0.64)));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 14px 34px rgba(10, 26, 47, 0.14);
+  transition: all 0.35s ease-in-out;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+.ccl-visual-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.70) 100%
+  );
+  z-index: 1;
+}
+
+.ccl-visual-card__title {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 17px;
+  line-height: 1.2;
+  padding: 18px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+.ccl-visual-card:hover,
+.ccl-visual-card:focus-visible {
+  transform: translateY(-4px) translateZ(0);
+  box-shadow: 0 22px 48px rgba(10, 26, 47, 0.24);
+}
+
+.ccl-visual-card:focus-visible {
+  outline: 3px solid #FF9900;
+  outline-offset: 3px;
+}
+
+.ccl-visual-card--profile {
+  border-left: 4px solid #FF9900;
+}
+
+.ccl-visual-card--beltline,
+.ccl-visual-card--downtown-core,
+.ccl-visual-card--eau-claire,
+.ccl-visual-card--east-village,
+.ccl-visual-card--mission,
+.ccl-visual-card--victoria-park {
+  --ccl-visual-card-image: linear-gradient(135deg, rgba(10, 26, 47, 0.92), rgba(44, 82, 130, 0.62));
+}
+
+.ccl-visual-card--kensington,
+.ccl-visual-card--bridgeland,
+.ccl-visual-card--sunnyside,
+.ccl-visual-card--lower-mount-royal,
+.ccl-visual-card--marda-loop,
+.ccl-visual-card--inglewood {
+  --ccl-visual-card-image: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(47, 133, 90, 0.6));
+}
+
+.ccl-visual-card--seton,
+.ccl-visual-card--mahogany,
+.ccl-visual-card--auburn-bay,
+.ccl-visual-card--legacy,
+.ccl-visual-card--sage-hill,
+.ccl-visual-card--university-district {
+  --ccl-visual-card-image: linear-gradient(135deg, rgba(10, 26, 47, 0.9), rgba(49, 130, 206, 0.62));
+}
+
+.ccl-visual-card--luxury-high-rise-condos,
+.ccl-visual-card--concrete-buildings,
+.ccl-visual-card--pet-friendly-condo-buildings,
+.ccl-visual-card--buildings-with-underground-parking,
+.ccl-visual-card--newer-condo-buildings,
+.ccl-visual-card--low-rise-condo-buildings {
+  --ccl-visual-card-image: linear-gradient(135deg, rgba(10, 26, 47, 0.94), rgba(255, 153, 0, 0.68));
+}
+
+@media (max-width: 1024px) {
+  .ccl-visual-directory__matrix {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .ccl-visual-directory__matrix {
+    grid-template-columns: 1fr;
+  }
+}
