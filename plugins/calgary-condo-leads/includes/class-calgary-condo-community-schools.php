@@ -15,6 +15,9 @@ final class Calgary_Condo_Community_Schools {
             'subtitle' => 'A Calgary condo search should include the area around the building: schools, commute, parks, amenities, walkability, and community feel.',
         ], $atts, 'ccl_school_community');
 
+        $cbe_school_finder_url = '#';
+        $ccsd_school_finder_url = '#';
+
         ob_start();
         ?>
         <section class="ccl-section ccl-section--white ccl-school-community">
@@ -28,7 +31,7 @@ final class Calgary_Condo_Community_Schools {
                     <article class="ccl-school-community__luxury-card">
                         <h3><?php esc_html_e('Public & Catholic Schools', 'calgary-condo-leads'); ?></h3>
                         <p><?php esc_html_e('Review Calgary school options near the condo communities you are comparing.', 'calgary-condo-leads'); ?></p>
-                        <a class="ccl-school-community__pill" href="#" data-ccl-school-modal-url><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></a>
+                        <a class="ccl-school-community__pill" href="#" data-ccl-open-school-finder-modal><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></a>
                     </article>
                     <article class="ccl-school-community__luxury-card">
                         <h3><?php esc_html_e('Explore Communities', 'calgary-condo-leads'); ?></h3>
@@ -51,13 +54,19 @@ final class Calgary_Condo_Community_Schools {
                 </div>
             </div>
         </section>
-        <div class="ccl-school-modal" data-ccl-school-modal hidden>
-            <div class="ccl-school-modal__overlay" data-ccl-school-modal-close></div>
-            <div class="ccl-school-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ccl-school-modal-title">
-                <button class="ccl-school-modal__close" type="button" aria-label="<?php esc_attr_e('Close school finder', 'calgary-condo-leads'); ?>" data-ccl-school-modal-close>&times;</button>
-                <h2 id="ccl-school-modal-title"><?php esc_html_e('Calgary School Finder', 'calgary-condo-leads'); ?></h2>
-                <p class="ccl-school-modal__message" data-ccl-school-modal-message hidden><?php esc_html_e('School finder link is being connected.', 'calgary-condo-leads'); ?></p>
-                <iframe class="ccl-school-modal__iframe" title="<?php esc_attr_e('School finder', 'calgary-condo-leads'); ?>" data-ccl-school-modal-iframe hidden></iframe>
+        <div class="ccl-school-finder-modal" data-ccl-school-finder-modal hidden>
+            <div class="ccl-school-finder-modal__overlay" data-ccl-school-finder-close></div>
+            <div class="ccl-school-finder-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Calgary school finder', 'calgary-condo-leads'); ?>">
+                <button type="button" class="ccl-school-finder-modal__close" data-ccl-school-finder-close aria-label="<?php esc_attr_e('Close school finder', 'calgary-condo-leads'); ?>"><?php esc_html_e('✕ Close and Return to Portal', 'calgary-condo-leads'); ?></button>
+                <h2><?php esc_html_e('Calgary School Finder', 'calgary-condo-leads'); ?></h2>
+                <div class="ccl-school-finder-modal__tabs" aria-label="<?php esc_attr_e('Choose a school finder', 'calgary-condo-leads'); ?>">
+                    <button type="button" class="ccl-school-finder-modal__tab" data-ccl-school-finder-url="<?php echo esc_url($cbe_school_finder_url); ?>"><?php esc_html_e('CBE School Finder', 'calgary-condo-leads'); ?></button>
+                    <button type="button" class="ccl-school-finder-modal__tab" data-ccl-school-finder-url="<?php echo esc_url($ccsd_school_finder_url); ?>"><?php esc_html_e('CCSD School Finder', 'calgary-condo-leads'); ?></button>
+                </div>
+                <iframe class="ccl-school-finder-modal__iframe" data-ccl-school-finder-iframe title="<?php esc_attr_e('Calgary school finder', 'calgary-condo-leads'); ?>" hidden></iframe>
+                <div class="ccl-school-finder-modal__message" data-ccl-school-finder-message>
+                    <?php esc_html_e('School finder link is being connected.', 'calgary-condo-leads'); ?>
+                </div>
             </div>
         </div>
         <?php
