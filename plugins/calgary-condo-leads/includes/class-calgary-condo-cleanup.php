@@ -30,6 +30,12 @@ final class Calgary_Condo_Cleanup {
         }
 
         $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+
+        if ('' === $path) {
+            wp_safe_redirect(home_url('/calgary-condos/'), 301);
+            exit;
+        }
+
         if ('calgary-condos' !== $path) {
             return;
         }
