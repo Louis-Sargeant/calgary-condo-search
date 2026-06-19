@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 
 final class Calgary_Condo_Homepage {
     private const SEARCH_SHORTCODES = [
-        'all' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'all' => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'under-400k' => '[mrp account_id=67196 listing_def=search-1439371 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
     ];
