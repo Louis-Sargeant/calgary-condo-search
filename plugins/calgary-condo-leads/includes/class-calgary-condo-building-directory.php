@@ -67,7 +67,7 @@ final class Calgary_Condo_Building_Directory {
         ];
 
         $groups = [
-            'Inner-City Hubs' => [
+            'Inner-City Condo Hubs' => [
                 ['label' => 'Beltline', 'key' => 'beltline_url'],
                 ['label' => 'Downtown Core', 'key' => 'downtown_core_url'],
                 ['label' => 'Eau Claire', 'key' => 'eau_claire_url'],
@@ -75,7 +75,7 @@ final class Calgary_Condo_Building_Directory {
                 ['label' => 'Mission', 'key' => 'mission_url'],
                 ['label' => 'Victoria Park', 'key' => 'victoria_park_url'],
             ],
-            'Lifestyle & Walkability' => [
+            'Lifestyle & Walkability Areas' => [
                 ['label' => 'Kensington', 'key' => 'kensington_url'],
                 ['label' => 'Bridgeland', 'key' => 'bridgeland_url'],
                 ['label' => 'Sunnyside', 'key' => 'sunnyside_url'],
@@ -92,12 +92,12 @@ final class Calgary_Condo_Building_Directory {
                 ['label' => 'University District', 'key' => 'university_district_url'],
             ],
             'Building Profile Searches' => [
-                ['label' => 'Luxury High-Rise', 'key' => 'luxury_high_rise_url'],
+                ['label' => 'Luxury High-Rise Condos', 'key' => 'luxury_high_rise_url'],
                 ['label' => 'Concrete Buildings', 'key' => 'concrete_buildings_url'],
-                ['label' => 'Pet-Friendly', 'key' => 'pet_friendly_url'],
-                ['label' => 'Underground Parking', 'key' => 'underground_parking_url'],
-                ['label' => 'Price-Reduced', 'key' => 'price_reduced_url'],
-                ['label' => 'Under $400K', 'key' => 'under_400k_url'],
+                ['label' => 'Pet-Friendly Condo Buildings', 'key' => 'pet_friendly_url'],
+                ['label' => 'Buildings With Underground Parking', 'key' => 'underground_parking_url'],
+                ['label' => 'Price-Reduced Condos', 'key' => 'price_reduced_url'],
+                ['label' => 'Condos Under $400K', 'key' => 'under_400k_url'],
             ],
         ];
 
@@ -105,7 +105,7 @@ final class Calgary_Condo_Building_Directory {
         foreach ($groups as $heading => $items) {
             $links = '';
             foreach ($items as $item) {
-                $links .= '<li><a class="ccl-building-database-link" href="' . esc_url($directory_links[$item['key']]) . '" target="_self">' . esc_html($item['label']) . '</a></li>';
+                $links .= '<li><a href="' . esc_url($directory_links[$item['key']]) . '" class="directory-link" target="_self">' . esc_html($item['label']) . '</a></li>';
             }
             $columns .= '<article class="ccl-building-database-column"><h3>' . esc_html($heading) . '</h3><ul>' . $links . '</ul></article>';
         }
