@@ -1320,3 +1320,20 @@
   margin: 0;
   padding: 18px;
 }
+
+#mrp-nw-listings-feed-container,
+.ccl-manual-mrp-feed {
+  width: 100% !important;
+  min-height: 720px;
+  overflow: visible !important;
+  display: block !important;
+  position: relative;
+}
+
+#mrp-nw-listings-feed-container iframe,
+#mrp-nw-listings-feed-container .mrp-listings,
+#mrp-nw-listings-feed-container .mrp-listing-results,
+#mrp-nw-listings-feed-container .mrp-listings-container,
+#mrp-nw-listings-feed-container [class*="mrp"] {
+  max-width: 100%;
+}

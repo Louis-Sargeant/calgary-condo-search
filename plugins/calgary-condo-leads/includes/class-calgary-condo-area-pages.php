@@ -114,7 +114,9 @@ final class Calgary_Condo_Area_Pages {
         $title = esc_html((string) $area['title']);
         $subtitle = esc_html((string) $area['subtitle']);
         $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
-        $idx_section = $this->regional_idx_section($slug, $label);
+        $idx_section = 'northwest-calgary-condos' === $slug
+            ? $this->northwest_manual_idx_feed()
+            : $this->regional_idx_section($slug, $label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
 
         return <<<HTML
@@ -156,6 +158,16 @@ final class Calgary_Condo_Area_Pages {
 </main>
 HTML;
     }
+    private function northwest_manual_idx_feed(): string {
+        $northwest_feed = do_shortcode('[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]');
+
+        return <<<HTML
+<div id="mrp-nw-listings-feed-container" class="ccl-manual-mrp-feed ccl-manual-mrp-feed--northwest" style="width: 100% !important; margin-top: 40px !important; padding: 20px 0 !important;">
+    {$northwest_feed}
+</div>
+HTML;
+    }
+
     private function regional_idx_section(string $slug, string $label): string {
         $shortcode = trim((string) (self::REGIONAL_MRP_SHORTCODES[$slug] ?? ''));
         $feed = '' !== $shortcode
