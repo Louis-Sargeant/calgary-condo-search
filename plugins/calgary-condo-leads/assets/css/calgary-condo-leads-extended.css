@@ -1400,25 +1400,21 @@
 }
 
 /* Building risk modal. */
-.ccl-building-risk-modal[hidden],
-.ccl-school-modal[hidden] { display: none; }
+.ccl-building-risk-modal[hidden] { display: none; }
 
-.ccl-building-risk-modal,
-.ccl-school-modal {
+.ccl-building-risk-modal {
   inset: 0;
   position: fixed;
   z-index: 99999;
 }
 
-.ccl-building-risk-modal__overlay,
-.ccl-school-modal__overlay {
+.ccl-building-risk-modal__overlay {
   background: rgba(17, 24, 39, 0.76);
   inset: 0;
   position: absolute;
 }
 
-.ccl-building-risk-modal__dialog,
-.ccl-school-modal__dialog {
+.ccl-building-risk-modal__dialog {
   background: #1f2933;
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 28px;
@@ -1435,8 +1431,7 @@
   width: min(calc(100% - 32px), 920px);
 }
 
-.ccl-building-risk-modal__close,
-.ccl-school-modal__close {
+.ccl-building-risk-modal__close {
   align-items: center;
   background: rgba(255,255,255,0.12);
   border: 0;
@@ -1453,8 +1448,7 @@
   width: 42px;
 }
 
-.ccl-building-risk-modal__intro h2,
-.ccl-school-modal__dialog h2 {
+.ccl-building-risk-modal__intro h2 {
   color: #ffffff;
   margin-right: 42px;
 }
@@ -1508,8 +1502,7 @@
   transform: translateY(-1px);
 }
 
-.ccl-building-risk-modal-is-open,
-.ccl-school-modal-is-open { overflow: hidden; }
+.ccl-building-risk-modal-is-open { overflow: hidden; }
 
 /* Schools and lifestyle luxury grid. */
 .ccl-school-community__luxury-grid {
@@ -1538,27 +1531,105 @@
 
 .ccl-school-community__pills {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ccl-school-community__pills .ccl-school-community__pill {
+  width: 100%;
+}
+
+.ccl-school-finder-modal[hidden] { display: none; }
+
+.ccl-school-finder-modal {
+  inset: 0;
+  position: fixed;
+  z-index: 99999;
+}
+
+.ccl-school-finder-modal__overlay {
+  background: rgba(17, 24, 39, 0.84);
+  inset: 0;
+  position: absolute;
+}
+
+.ccl-school-finder-modal__dialog {
+  background: #1f2933;
+  border: 1px solid rgba(249,115,22,0.32);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.42);
+  color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  left: 50%;
+  max-height: calc(100vh - 32px);
+  max-width: 1180px;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 38px);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(calc(100% - 32px), 1180px);
+}
+
+.ccl-school-finder-modal__dialog h2 {
+  color: #ffffff;
+  margin: 0;
+  padding-right: 260px;
+}
+
+.ccl-school-finder-modal__close {
+  background: #f97316;
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 12px 18px;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+}
+
+.ccl-school-finder-modal__tabs {
+  display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.ccl-school-modal__iframe {
+.ccl-school-finder-modal__tab {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 900;
+  padding: 12px 18px;
+}
+
+.ccl-school-finder-modal__tab:hover {
+  background: #f97316;
+}
+
+.ccl-school-finder-modal__iframe {
   background: #ffffff;
   border: 0;
   border-radius: 18px;
-  height: min(70vh, 720px);
-  margin-top: 18px;
+  height: min(72vh, 760px);
   width: 100%;
 }
 
-.ccl-school-modal__message {
+.ccl-school-finder-modal__message {
   background: #fffaf3;
   border-radius: 18px;
   color: #1f2937;
   font-weight: 800;
-  margin-top: 18px;
   padding: 24px;
 }
+
+.ccl-school-finder-modal-is-open { overflow: hidden; }
 
 @media (max-width: 767px) {
   .ccl-building-profile__grid,
@@ -1575,5 +1646,30 @@
     margin-top: 5px;
     max-width: none;
     text-align: left;
+  }
+
+  .ccl-school-finder-modal__dialog {
+    max-height: calc(100vh - 20px);
+    padding: 20px;
+    width: min(calc(100% - 20px), 100%);
+  }
+
+  .ccl-school-finder-modal__dialog h2 {
+    padding-right: 0;
+    padding-top: 52px;
+  }
+
+  .ccl-school-finder-modal__close {
+    left: 20px;
+    right: 20px;
+    text-align: center;
+  }
+
+  .ccl-school-finder-modal__tab {
+    width: 100%;
+  }
+
+  .ccl-school-finder-modal__iframe {
+    height: 62vh;
   }
 }
