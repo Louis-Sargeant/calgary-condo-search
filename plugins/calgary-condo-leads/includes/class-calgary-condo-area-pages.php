@@ -112,7 +112,7 @@ final class Calgary_Condo_Area_Pages {
             return;
         }
 
-        if (is_page() || is_singular('page')) {
+        if ('southeast-calgary-condos' !== $slug && (is_page() || is_singular('page'))) {
             return;
         }
 
