@@ -13,6 +13,12 @@ final class Calgary_Condo_Area_Pages {
     private const ALL_CONDOS_IDX = '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]';
 
     private const AREAS = [
+        'southeast-calgary-condos' => [
+            'label' => 'Southeast Calgary',
+            'title' => 'Southeast Calgary Condos',
+            'subtitle' => 'Search Southeast Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'guidance' => 'Southeast Calgary condo buyers often compare lake communities, newer suburban buildings, transit access, shopping, parks, and ownership costs. Review the corporation, fee inclusions, parking, storage, pet rules, reserve fund, and resale fit before choosing by price alone.',
+        ],
         'southwest-calgary-condos' => [
             'label' => 'Southwest Calgary',
             'title' => 'Southwest Calgary Condos',
@@ -117,8 +123,8 @@ final class Calgary_Condo_Area_Pages {
                 <p>{$subtitle}</p>
             </div>
             <div class="ccl-compare-hero__actions">
-                <a class="ccl-btn ccl-btn--primary" href="#idx-search" target="_self">View {$label} Condos</a>
-                <a class="ccl-btn ccl-btn--dark" href="/building-alerts/" target="_self">Get Building Alerts</a>
+                <a href="#idx-search" target="_self" class="ccl-btn ccl-btn--primary ccl-region-cta-button">View {$label} Condos</a>
+                <a href="/building-alert-request/" target="_self" class="ccl-btn ccl-btn--dark ccl-region-alert-button">Get Building Alerts</a>
             </div>
         </div>
     </section>
