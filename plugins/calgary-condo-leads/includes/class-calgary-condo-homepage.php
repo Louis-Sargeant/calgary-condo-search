@@ -145,6 +145,8 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
+            <?php echo do_shortcode('[ccl_building_database_directory]'); ?>
+
             <section class="ccl-section ccl-section--white ccl-portal-intro" aria-labelledby="ccl-portal-intro-title">
                 <div class="ccl-wrap ccl-portal-intro__grid">
                     <div>

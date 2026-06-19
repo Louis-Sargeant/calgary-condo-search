@@ -34,6 +34,29 @@ final class Calgary_Condo_Building_Directory {
     public function __construct() {
         add_action('template_redirect', [$this, 'render_buildings_page'], 0);
         add_shortcode('ccl_building_directory', [$this, 'shortcode']);
+        add_shortcode('ccl_building_database_directory', [$this, 'database_shortcode']);
+    }
+
+
+    public function database_shortcode(): string {
+        $groups = [
+            'Inner-City Condo Hubs' => ['Beltline', 'Downtown Core', 'Eau Claire', 'East Village', 'Mission', 'Victoria Park'],
+            'Lifestyle & Walkability Areas' => ['Kensington', 'Bridgeland', 'Sunnyside', 'Lower Mount Royal', 'Marda Loop', 'Inglewood'],
+            'Suburban Condo Markets' => ['Seton', 'Mahogany', 'Auburn Bay', 'Legacy', 'Sage Hill', 'University District'],
+            'Building Profile Searches' => ['Luxury High-Rise Condos', 'Concrete Buildings', 'Pet-Friendly Condo Buildings', 'Buildings With Underground Parking', 'Price-Reduced Condos', 'Condos Under $400K'],
+        ];
+
+        $columns = '';
+        foreach ($groups as $heading => $items) {
+            $links = '';
+            foreach ($items as $item) {
+                $url = '/calgary-condo-buildings/' . sanitize_title($item) . '/';
+                $links .= '<li><a href="' . esc_url($url) . '" target="_self">' . esc_html($item) . '</a></li>';
+            }
+            $columns .= '<article class="ccl-building-database-column"><h3>' . esc_html($heading) . '</h3><ul>' . $links . '</ul></article>';
+        }
+
+        return '<section id="calgary-building-directory-database" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-building-database-wrap"><p class="ccl-building-database-eyebrow">Calgary Building Database</p><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p class="ccl-building-database-subtitle">Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p><div class="ccl-building-database-grid">' . $columns . '</div></div></section>';
     }
 
     public function render_buildings_page(): void {
