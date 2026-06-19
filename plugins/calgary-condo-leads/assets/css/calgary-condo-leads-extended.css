@@ -835,7 +835,7 @@
   list-style: none;
 }
 
-.ccl-building-database-column a {
+#calgary-building-directory-database .directory-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -849,10 +849,12 @@
   text-decoration: none;
 }
 
-.ccl-building-database-column a:hover,
-.ccl-building-database-column a:focus {
+#calgary-building-directory-database .directory-link:hover,
+#calgary-building-directory-database .directory-link:focus {
   border-color: #ff9900;
   box-shadow: 0 10px 24px rgba(255, 153, 0, 0.14);
+  transform: translateY(-1px);
+  text-decoration: none;
 }
 
 .ccl-building-profile-layout {
