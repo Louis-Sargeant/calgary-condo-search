@@ -147,6 +147,22 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
+            <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-live-calgary-listings-title">
+                <div class="ccl-wrap">
+                    <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
+                        <div>
+                            <p class="ccl-eyebrow">Live Calgary Condo Search</p>
+                            <h2 id="ccl-live-calgary-listings-title">Live Calgary Condo Listings</h2>
+                            <p>Search Calgary condos, save the right matches, and get building-first guidance before booking showings.</p>
+                        </div>
+                        <a class="ccl-small-link" href="/building-alerts/" target="_self">Get condo alerts</a>
+                    </div>
+                    <div class="ccl-idx-shell__frame">
+                        <?php echo do_shortcode(self::SEARCH_SHORTCODES['all']); ?>
+                    </div>
+                </div>
+            </section>
+
             <?php echo do_shortcode('[ccl_building_database_directory]'); ?>
 
             <section class="ccl-section ccl-section--white ccl-portal-intro" aria-labelledby="ccl-portal-intro-title">
@@ -177,26 +193,6 @@ final class Calgary_Condo_Homepage {
 
             <?php echo do_shortcode('[ccl_lead_modal]'); ?>
 
-            <span id="idx-search" class="ccl-anchor-target" aria-hidden="true"></span>
-            <section id="mrp-listings" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx">
-                <div class="ccl-wrap">
-                    <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
-                        <div>
-                            <p class="ccl-eyebrow">Live Calgary Condo Search</p>
-                            <h2>All Calgary condo listings</h2>
-                            <p>Search Calgary condos, save the right matches, and get building-first guidance before booking showings.</p>
-                        </div>
-                        <a class="ccl-small-link" href="/building-alerts/" target="_self">Get condo alerts</a>
-                    </div>
-                    <div class="ccl-idx-shell__frame">
-                        <?php if ('' !== $idx_content) : ?>
-                            <?php echo wp_kses_post(do_shortcode($idx_content)); ?>
-                        <?php else : ?>
-                            <?php echo do_shortcode(self::SEARCH_SHORTCODES['all']); ?>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </section>
         </div>
         <?php
         return (string) ob_get_clean();

@@ -76,7 +76,7 @@ final class Calgary_Condo_Area_Pages {
     ];
 
     private const REGIONAL_MRP_SHORTCODES = [
-        'southeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439652 context=recip perm_attr=tmpl~v2]',
+        'southeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439654 context=recip perm_attr=tmpl~v2]',
         'southwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northeast-calgary-condos' => '',
