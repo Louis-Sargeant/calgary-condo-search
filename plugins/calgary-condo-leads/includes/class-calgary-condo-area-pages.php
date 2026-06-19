@@ -73,6 +73,13 @@ final class Calgary_Condo_Area_Pages {
         ],
     ];
 
+    private const REGIONAL_MRP_SHORTCODES = [
+        'southeast-calgary-condos' => '',
+        'southwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        'northeast-calgary-condos' => '',
+    ];
+
     public function __construct() {
         add_action('template_redirect', [$this, 'render_area_page'], 0);
     }
@@ -150,36 +157,7 @@ final class Calgary_Condo_Area_Pages {
 HTML;
     }
     private function regional_idx_section(string $slug, string $label): string {
-        $southeast_mrp_shortcode = '';
-        $southwest_mrp_shortcode = '';
-        $northwest_mrp_shortcode = '';
-        $northeast_mrp_shortcode = '';
-
-        $shortcodes = [
-            'southeast-calgary-condos' => [
-                'shortcode' => $southeast_mrp_shortcode,
-                'comment' => '<!-- Paste Southeast Calgary myRealPage shortcode here -->',
-            ],
-            'southwest-calgary-condos' => [
-                'shortcode' => $southwest_mrp_shortcode,
-                'comment' => '<!-- Paste Southwest Calgary myRealPage shortcode here -->',
-            ],
-            'northwest-calgary-condos' => [
-                'shortcode' => $northwest_mrp_shortcode,
-                'comment' => '<!-- Paste Northwest Calgary myRealPage shortcode here -->',
-            ],
-            'northeast-calgary-condos' => [
-                'shortcode' => $northeast_mrp_shortcode,
-                'comment' => '<!-- Paste Northeast Calgary myRealPage shortcode here -->',
-            ],
-        ];
-
-        $slot = $shortcodes[$slug] ?? [
-            'shortcode' => '',
-            'comment' => '<!-- Paste regional myRealPage shortcode here -->',
-        ];
-        $shortcode = trim((string) $slot['shortcode']);
-        $comment = (string) $slot['comment'];
+        $shortcode = trim((string) (self::REGIONAL_MRP_SHORTCODES[$slug] ?? ''));
         $feed = '' !== $shortcode
             ? do_shortcode($shortcode)
             : '<p class="ccl-region-idx-placeholder">' . esc_html(sprintf(__('Live %s condo listings will appear here once the saved myRealPage search is connected.', 'calgary-condo-leads'), $label)) . '</p>';
@@ -189,7 +167,6 @@ HTML;
     <div class="ccl-wrap">
         <h2>Live {$label} Condo Listings</h2>
         <p>Browse current {$label} condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.</p>
-        {$comment}
         <div class="ccl-region-idx-feed">
             {$feed}
         </div>
