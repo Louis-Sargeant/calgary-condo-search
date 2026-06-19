@@ -158,7 +158,7 @@ final class Calgary_Condo_Homepage {
                         <a class="ccl-small-link" href="/building-alerts/" target="_self">Get condo alerts</a>
                     </div>
                     <div class="ccl-idx-shell__frame">
-                        <?php echo do_shortcode(self::SEARCH_SHORTCODES['all']); ?>
+                        <?php echo do_shortcode('[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2 ][/mrp]'); ?>
                     </div>
                 </div>
             </section>
