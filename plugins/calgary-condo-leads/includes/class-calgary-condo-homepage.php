@@ -51,10 +51,12 @@ final class Calgary_Condo_Homepage {
     public function render(array $atts = [], ?string $content = null): string {
         $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
         $idx_content = trim((string) $content);
+        $page_number = isset($_GET['_pg']) ? absint(wp_unslash($_GET['_pg'])) : 0;
+        $is_paginated_idx = $page_number > 1;
 
         ob_start();
         ?>
-        <div class="ccl-home-tight ccl-home-search-first" data-ccl-condo-home>
+        <div class="ccl-home-tight ccl-home-search-first<?php echo $is_paginated_idx ? ' ccl-home-search-first--paginated' : ''; ?>" data-ccl-condo-home>
             <style>
                 #clean-calgary-hero,
                 #clean-calgary-hero * {
@@ -125,6 +127,7 @@ final class Calgary_Condo_Homepage {
                 }
             </style>
 
+            <?php if (!$is_paginated_idx) : ?>
             <section id="clean-calgary-hero" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
                 <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.52) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
                 <div id="clean-calgary-hero-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
@@ -147,13 +150,15 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
+            <?php endif; ?>
+
             <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-live-calgary-listings-title">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
                         <div>
                             <p class="ccl-eyebrow">Live Calgary Condo Search</p>
-                            <h2 id="ccl-live-calgary-listings-title">Live Calgary Condo Listings</h2>
-                            <p>Search Calgary condos, save the right matches, and get building-first guidance before booking showings.</p>
+                            <h2 id="ccl-live-calgary-listings-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
+                            <p><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
                         </div>
                         <a class="ccl-small-link" href="/building-alerts/" target="_self">Get condo alerts</a>
                     </div>
@@ -162,6 +167,17 @@ final class Calgary_Condo_Homepage {
                     </div>
                 </div>
             </section>
+
+            <?php if ($is_paginated_idx) : ?>
+                <section class="ccl-section ccl-section--white ccl-paginated-condo-note" aria-labelledby="ccl-paginated-condo-note-title">
+                    <div class="ccl-wrap">
+                        <p class="ccl-eyebrow">Calgary Condo Listings</p>
+                        <h2 id="ccl-paginated-condo-note-title">Keep browsing active Calgary condos.</h2>
+                        <p>This paginated results view stays focused on live listings. Return to the main Calgary condo portal when you want building guides, area links, alerts, and buyer resources.</p>
+                        <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/" target="_self">Back to Calgary Condo Portal</a>
+                    </div>
+                </section>
+            <?php else : ?>
 
             <?php echo do_shortcode('[ccl_building_database_directory]'); ?>
 
@@ -192,6 +208,7 @@ final class Calgary_Condo_Homepage {
             <?php echo do_shortcode('[ccl_school_community]'); ?>
 
             <?php echo do_shortcode('[ccl_lead_modal]'); ?>
+            <?php endif; ?>
 
         </div>
         <?php
