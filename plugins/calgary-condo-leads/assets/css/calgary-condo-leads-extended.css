@@ -1337,3 +1337,243 @@
 #mrp-nw-listings-feed-container [class*="mrp"] {
   max-width: 100%;
 }
+
+/* Single building profile foundation. */
+.ccl-building-profile {
+  padding: clamp(32px, 5vw, 72px) 0;
+}
+
+.ccl-building-profile__grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.38fr) minmax(0, 0.62fr);
+  gap: clamp(22px, 3vw, 40px);
+  margin: 0 auto;
+  max-width: 1180px;
+  width: min(100% - 32px, 1180px);
+}
+
+.ccl-building-profile__meta-card,
+.ccl-building-profile__idx-feed {
+  background: #ffffff;
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 26px;
+  box-shadow: 0 22px 60px rgba(17, 24, 39, 0.09);
+}
+
+.ccl-building-profile__meta-card {
+  border-top: 5px solid #f97316;
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.ccl-building-profile__eyebrow {
+  color: #f97316;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+}
+
+.ccl-building-profile__meta-row {
+  border-top: 1px solid rgba(31, 41, 55, 0.1);
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.ccl-building-profile__meta-label {
+  color: #374151;
+  font-weight: 800;
+}
+
+.ccl-building-profile__meta-value {
+  color: #111827;
+  max-width: 58%;
+  text-align: right;
+}
+
+.ccl-building-profile__idx-feed {
+  min-height: 420px;
+  padding: clamp(18px, 3vw, 30px);
+  width: 100%;
+}
+
+/* Building risk modal. */
+.ccl-building-risk-modal[hidden],
+.ccl-school-modal[hidden] { display: none; }
+
+.ccl-building-risk-modal,
+.ccl-school-modal {
+  inset: 0;
+  position: fixed;
+  z-index: 99999;
+}
+
+.ccl-building-risk-modal__overlay,
+.ccl-school-modal__overlay {
+  background: rgba(17, 24, 39, 0.76);
+  inset: 0;
+  position: absolute;
+}
+
+.ccl-building-risk-modal__dialog,
+.ccl-school-modal__dialog {
+  background: #1f2933;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 28px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+  color: #f9fafb;
+  left: 50%;
+  max-height: calc(100vh - 32px);
+  max-width: 920px;
+  overflow-y: auto;
+  padding: clamp(24px, 4vw, 42px);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(calc(100% - 32px), 920px);
+}
+
+.ccl-building-risk-modal__close,
+.ccl-school-modal__close {
+  align-items: center;
+  background: rgba(255,255,255,0.12);
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  font-size: 30px;
+  height: 42px;
+  justify-content: center;
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  width: 42px;
+}
+
+.ccl-building-risk-modal__intro h2,
+.ccl-school-modal__dialog h2 {
+  color: #ffffff;
+  margin-right: 42px;
+}
+
+.ccl-building-risk-modal__intro p:not(.ccl-eyebrow) { color: #d1d5db; }
+
+.ccl-building-risk-modal__form {
+  background: #fffaf3;
+  border-radius: 22px;
+  color: #1f2937;
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  padding: clamp(20px, 3vw, 30px);
+}
+
+.ccl-building-risk-modal__form label {
+  color: #374151;
+  font-weight: 800;
+}
+
+.ccl-building-risk-modal__form input,
+.ccl-building-risk-modal__form textarea {
+  background: #ffffff;
+  border: 1px solid rgba(31,41,55,0.18);
+  border-radius: 14px;
+  display: block;
+  margin-top: 8px;
+  padding: 13px 14px;
+  width: 100%;
+}
+
+.ccl-building-risk-modal__submit,
+.ccl-school-community__pill {
+  background: #f97316;
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff !important;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  justify-content: center;
+  padding: 12px 18px;
+  text-decoration: none !important;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.ccl-building-risk-modal__submit:hover,
+.ccl-school-community__pill:hover {
+  background: #ea580c;
+  transform: translateY(-1px);
+}
+
+.ccl-building-risk-modal-is-open,
+.ccl-school-modal-is-open { overflow: hidden; }
+
+/* Schools and lifestyle luxury grid. */
+.ccl-school-community__luxury-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.ccl-school-community__luxury-card {
+  background: #fffaf3;
+  border: 1px solid rgba(31,41,55,0.12);
+  border-radius: 24px;
+  box-shadow: 0 18px 48px rgba(17,24,39,0.08);
+  padding: 26px;
+}
+
+.ccl-school-community__luxury-card h3 {
+  color: #1f2937;
+  margin: 0 0 10px;
+}
+
+.ccl-school-community__luxury-card p {
+  color: #4b5563;
+  margin: 0 0 18px;
+}
+
+.ccl-school-community__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ccl-school-modal__iframe {
+  background: #ffffff;
+  border: 0;
+  border-radius: 18px;
+  height: min(70vh, 720px);
+  margin-top: 18px;
+  width: 100%;
+}
+
+.ccl-school-modal__message {
+  background: #fffaf3;
+  border-radius: 18px;
+  color: #1f2937;
+  font-weight: 800;
+  margin-top: 18px;
+  padding: 24px;
+}
+
+@media (max-width: 767px) {
+  .ccl-building-profile__grid,
+  .ccl-school-community__luxury-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ccl-building-profile__meta-row {
+    display: block;
+  }
+
+  .ccl-building-profile__meta-value {
+    display: block;
+    margin-top: 5px;
+    max-width: none;
+    text-align: left;
+  }
+}
