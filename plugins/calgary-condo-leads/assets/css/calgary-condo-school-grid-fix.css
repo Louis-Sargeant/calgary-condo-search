@@ -91,3 +91,71 @@
     white-space: normal !important;
   }
 }
+
+/* Force the Schools & Community wrapper to a dark navy/charcoal treatment. */
+.ccl-school-community {
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 153, 0, 0.14), transparent 30%),
+    radial-gradient(circle at 86% 22%, rgba(59, 130, 246, 0.10), transparent 32%),
+    linear-gradient(135deg, #05070d 0%, #101827 48%, #0a1a2f 100%) !important;
+  color: #ffffff !important;
+}
+
+.ccl-school-community,
+.ccl-school-community * {
+  color: #ffffff !important;
+}
+
+.ccl-school-community p,
+.ccl-school-community li,
+.ccl-school-community small,
+.ccl-school-community .ccl-lifestyle-hub__copy,
+.ccl-school-community .ccl-lifestyle-hub__panel p,
+.ccl-school-community .ccl-risk-inspector p,
+.ccl-school-community__luxury-card p {
+  color: rgba(226, 232, 240, 0.88) !important;
+}
+
+.ccl-school-community .ccl-lifestyle-hub__eyebrow,
+.ccl-school-community .ccl-lifestyle-hub__panel-kicker,
+.ccl-school-community .ccl-risk-inspector__kicker,
+.ccl-school-community .ccl-eyebrow,
+.ccl-school-community [class*="eyebrow"] {
+  color: #ff9900 !important;
+}
+
+.ccl-school-community .ccl-lifestyle-hub__panel,
+.ccl-school-community .ccl-risk-inspector,
+.ccl-school-community .ccl-risk-inspector__row,
+.ccl-school-community .ccl-lifestyle-hub__community-link,
+.ccl-school-community__luxury-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(10, 26, 47, 0.72)) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 22px 58px rgba(0, 0, 0, 0.36) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  color: #ffffff !important;
+}
+
+.ccl-school-community button,
+.ccl-school-community .ccl-button,
+.ccl-school-community .ccl-btn,
+.ccl-school-community__pill {
+  background: #ff9900 !important;
+  border-color: rgba(255, 153, 0, 0.58) !important;
+  color: #ffffff !important;
+}
+
+.ccl-school-community button:hover,
+.ccl-school-community button:focus-visible,
+.ccl-school-community .ccl-button:hover,
+.ccl-school-community .ccl-button:focus-visible,
+.ccl-school-community .ccl-btn:hover,
+.ccl-school-community .ccl-btn:focus-visible,
+.ccl-school-community__pill:hover,
+.ccl-school-community__pill:focus-visible {
+  background: #ffb13b !important;
+  color: #ffffff !important;
+}
