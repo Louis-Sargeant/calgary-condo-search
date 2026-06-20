@@ -177,9 +177,9 @@ final class Calgary_Condo_Assets {
             [
                 'text' => 'Ready to compare Calgary condos with a plan?',
                 'primary_text' => 'Search Listings',
-                'primary_url' => '#idx-search',
+                'primary_url' => '/calgary-condos/#idx-search',
                 'secondary_text' => 'Get Alerts',
-                'secondary_url' => '#condo-alerts',
+                'secondary_url' => '',
             ],
             $atts,
             'ccl_sticky_cta'
@@ -192,7 +192,7 @@ final class Calgary_Condo_Assets {
                 <strong><?php echo esc_html($atts['text']); ?></strong>
                 <div class="ccl-sticky-cta__actions">
                     <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['primary_url']); ?>"><?php echo esc_html($atts['primary_text']); ?></a>
-                    <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($atts['secondary_url']); ?>"><?php echo esc_html($atts['secondary_text']); ?></a>
+                    <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="Sticky CTA" data-requested-category="Condo Alerts" data-intent="Active listings request"><?php echo esc_html($atts['secondary_text']); ?></button>
                 </div>
             </div>
         </aside>

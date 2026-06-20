@@ -162,6 +162,45 @@
 
 .ccl-section--white {
   background: var(--ccl-white);
+  color: var(--ccl-text);
+}
+
+.ccl-section--dark {
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 16% 16%, rgba(255, 153, 0, 0.18), transparent 28%),
+    linear-gradient(135deg, #05070d 0%, #0f172a 48%, #0A1A2F 100%);
+}
+
+.ccl-section--dark h1,
+.ccl-section--dark h2,
+.ccl-section--dark h3,
+.ccl-section--dark strong {
+  color: #ffffff;
+}
+
+.ccl-section--dark p,
+.ccl-section--dark li,
+.ccl-section--dark span {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ccl-section--light {
+  color: #0A1A2F;
+  background: #f7f3ea;
+}
+
+.ccl-section--light h1,
+.ccl-section--light h2,
+.ccl-section--light h3,
+.ccl-section--light strong {
+  color: #0A1A2F;
+}
+
+.ccl-section--light p,
+.ccl-section--light li,
+.ccl-section--light span {
+  color: rgba(10, 26, 47, 0.76);
 }
 
 .ccl-two-col {
