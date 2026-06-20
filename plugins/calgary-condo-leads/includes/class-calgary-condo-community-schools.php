@@ -20,47 +20,48 @@ final class Calgary_Condo_Community_Schools {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-section--white ccl-school-community">
+        <section class="ccl-section ccl-lifestyle-hub ccl-school-community" aria-labelledby="ccl-lifestyle-hub-title">
             <div class="ccl-wrap">
-                <div class="ccl-section__header ccl-section__header--centered">
-                    <p class="ccl-eyebrow"><?php echo esc_html((string) $atts['eyebrow']); ?></p>
-                    <h2><?php echo esc_html((string) $atts['title']); ?></h2>
-                    <p><?php echo esc_html((string) $atts['subtitle']); ?></p>
+                <div class="ccl-lifestyle-hub__header">
+                    <p class="ccl-lifestyle-hub__eyebrow"><?php echo esc_html((string) $atts['eyebrow']); ?></p>
+                    <h2 id="ccl-lifestyle-hub-title"><?php echo esc_html((string) $atts['title']); ?></h2>
+                    <p class="ccl-lifestyle-hub__copy"><?php echo esc_html((string) $atts['subtitle']); ?></p>
                 </div>
-                <div class="ccl-school-community__luxury-grid">
-                    <article class="ccl-school-community__luxury-card">
-                        <h3><?php esc_html_e('Public & Catholic Schools', 'calgary-condo-leads'); ?></h3>
-                        <p><?php esc_html_e('Review Calgary school options near the condo communities you are comparing.', 'calgary-condo-leads'); ?></p>
-                        <a class="ccl-school-community__pill" href="/calgary-school-finder/" target="_self" data-ccl-open-school-finder-modal><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></a>
-                    </article>
-                    <article class="ccl-school-community__luxury-card">
-                        <h3><?php esc_html_e('Explore Communities', 'calgary-condo-leads'); ?></h3>
-                        <p><?php esc_html_e('Compare Calgary condo areas by lifestyle, commute, amenities, and building type.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-school-community__pills">
-                            <a class="ccl-school-community__pill" href="/southeast-calgary-condos/" target="_self"><?php esc_html_e('Southeast Calgary', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill" href="/southwest-calgary-condos/" target="_self"><?php esc_html_e('Southwest Calgary', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill" href="/northwest-calgary-condos/" target="_self"><?php esc_html_e('Northwest Calgary', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill" href="/northeast-calgary-condos/" target="_self"><?php esc_html_e('Northeast Calgary', 'calgary-condo-leads'); ?></a>
+                <div class="ccl-lifestyle-hub__grid">
+                    <div class="ccl-lifestyle-hub__panel-stack">
+                        <article class="ccl-lifestyle-hub__panel">
+                            <span class="ccl-lifestyle-hub__panel-kicker"><?php esc_html_e('School catchments', 'calgary-condo-leads'); ?></span>
+                            <h3><?php esc_html_e('Public & Catholic Schools', 'calgary-condo-leads'); ?></h3>
+                            <p><?php esc_html_e('Review Calgary school options near the condo communities you are comparing before you book showings.', 'calgary-condo-leads'); ?></p>
+                            <button type="button" class="ccl-lifestyle-hub__primary-action" data-ccl-open-school-finder-modal><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></button>
+                        </article>
+                        <article class="ccl-lifestyle-hub__panel">
+                            <span class="ccl-lifestyle-hub__panel-kicker"><?php esc_html_e('High-demand condo markets', 'calgary-condo-leads'); ?></span>
+                            <h3><?php esc_html_e('Explore Communities', 'calgary-condo-leads'); ?></h3>
+                            <p><?php esc_html_e('Compare proven inner-city Calgary condo areas by lifestyle, commute, amenities, and building type.', 'calgary-condo-leads'); ?></p>
+                            <div class="ccl-lifestyle-hub__actions" aria-label="Explore Calgary condo communities">
+                                <a class="ccl-lifestyle-hub__community-link" href="/beltline-condos/" target="_self"><?php esc_html_e('Beltline', 'calgary-condo-leads'); ?><span aria-hidden="true">→</span></a>
+                                <a class="ccl-lifestyle-hub__community-link" href="/downtown-core-condos/" target="_self"><?php esc_html_e('Downtown Core', 'calgary-condo-leads'); ?><span aria-hidden="true">→</span></a>
+                                <a class="ccl-lifestyle-hub__community-link" href="/eau-claire-condos/" target="_self"><?php esc_html_e('Eau Claire', 'calgary-condo-leads'); ?><span aria-hidden="true">→</span></a>
+                                <a class="ccl-lifestyle-hub__community-link" href="/mission-condos/" target="_self"><?php esc_html_e('Mission', 'calgary-condo-leads'); ?><span aria-hidden="true">→</span></a>
+                            </div>
+                        </article>
+                    </div>
+                    <article class="ccl-risk-inspector" aria-labelledby="ccl-risk-inspector-title">
+                        <div class="ccl-risk-inspector__header">
+                            <span class="ccl-risk-inspector__kicker"><?php esc_html_e('Diagnostic dashboard', 'calgary-condo-leads'); ?></span>
+                            <h3 id="ccl-risk-inspector-title"><?php esc_html_e('Building Risk Intelligence', 'calgary-condo-leads'); ?></h3>
+                            <p><?php esc_html_e('A premium pre-showing screen for ownership signals that can shape condo value, financing, and resale confidence.', 'calgary-condo-leads'); ?></p>
                         </div>
-                    </article>
-                    <article class="ccl-school-community__luxury-card ccl-risk-dashboard" aria-labelledby="ccl-risk-dashboard-title">
-                        <div class="ccl-risk-dashboard__header">
-                            <span class="ccl-risk-dashboard__step"><?php esc_html_e('Diagnostic dashboard', 'calgary-condo-leads'); ?></span>
-                            <h3 id="ccl-risk-dashboard-title"><?php esc_html_e('Building Risk Intelligence', 'calgary-condo-leads'); ?></h3>
-                            <p><?php esc_html_e('Preview the ownership signals buyers should review before booking showings or writing an offer.', 'calgary-condo-leads'); ?></p>
+                        <div class="ccl-risk-inspector__rows" aria-label="Building risk report preview metrics">
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--green" aria-hidden="true"></span><div><strong><?php esc_html_e('Reserve Fund Health', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Review fund strength before booking showings.', 'calgary-condo-leads'); ?></p></div></div>
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--amber" aria-hidden="true"></span><div><strong><?php esc_html_e('Special Assessment Risk', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Flag upcoming capital work and owner cost exposure.', 'calgary-condo-leads'); ?></p></div></div>
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--green" aria-hidden="true"></span><div><strong><?php esc_html_e('Concrete vs Wood Frame', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Compare construction type, sound transfer, and buyer demand.', 'calgary-condo-leads'); ?></p></div></div>
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--orange" aria-hidden="true"></span><div><strong><?php esc_html_e('Pet / Rental Policy Fit', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Check bylaws against your lifestyle or investment plan.', 'calgary-condo-leads'); ?></p></div></div>
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--amber" aria-hidden="true"></span><div><strong><?php esc_html_e('Insurance & Condo Fee Pressure', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Spot cost trends that may affect monthly affordability.', 'calgary-condo-leads'); ?></p></div></div>
+                            <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--orange" aria-hidden="true"></span><div><strong><?php esc_html_e('Resale Liquidity', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Evaluate market depth before you commit to a building.', 'calgary-condo-leads'); ?></p></div></div>
                         </div>
-                        <div class="ccl-risk-dashboard__metrics" aria-label="Building risk report preview metrics">
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Reserve Fund Health', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 82%"></i></div>
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Special Assessment Risk', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 64%"></i></div>
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Concrete vs Wood Frame', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 74%"></i></div>
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Pet / Rental Policy Fit', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 58%"></i></div>
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Insurance & Condo Fee Pressure', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 70%"></i></div>
-                            <div class="ccl-risk-dashboard__metric"><span><?php esc_html_e('Resale Liquidity', 'calgary-condo-leads'); ?></span><i style="--ccl-risk-level: 77%"></i></div>
-                        </div>
-                        <div class="ccl-school-community__pills ccl-risk-dashboard__actions">
-                            <a class="ccl-school-community__pill" href="/calgary-condo-buildings/" target="_self"><?php esc_html_e('Browse Buildings', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill ccl-risk-dashboard__cta" href="/building-alerts/" target="_self" data-ccl-open-building-risk-modal><?php esc_html_e('Request Building Risk Report', 'calgary-condo-leads'); ?></a>
-                        </div>
+                        <button type="button" class="ccl-risk-inspector__cta" data-ccl-open-building-risk-modal><?php esc_html_e('Ask About Building Risk', 'calgary-condo-leads'); ?></button>
                     </article>
                 </div>
             </div>
