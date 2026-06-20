@@ -2358,3 +2358,11 @@ body.admin-bar .ccl-floating-lead-widget {
     bottom: 20px;
   }
 }
+
+.ccl-keyword-search-form .ccl-keyword-chip,
+.ccl-keyword-search-form .ccl-keyword-pill,
+.ccl-keyword-search-form .ccl-keyword-tags,
+.ccl-keyword-search-form .ccl-autocomplete-dropdown,
+.ccl-keyword-search-form .select2-container {
+  display: none !important;
+}
