@@ -3340,3 +3340,238 @@ body.admin-bar .ccl-floating-lead-widget {
   border-radius: 999px;
   font-weight: 900;
 }
+
+/* myRealPage visual cohesion wrapper */
+.mr-custom-wrapper,
+.mr-custom-wrapper * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif !important;
+}
+
+.mr-custom-wrapper h1,
+.mr-custom-wrapper h2,
+.mr-custom-wrapper h3,
+.mr-custom-wrapper h4,
+.mr-custom-wrapper .listing-title,
+.mr-custom-wrapper .mrp-listing-title,
+.mr-custom-wrapper .mrp-listing-address,
+.mr-custom-wrapper [class*="listing-title"],
+.mr-custom-wrapper [class*="address"],
+.mr-custom-wrapper [class*="title"] {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif !important;
+  color: #0A1A2F !important;
+  font-weight: 850 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.18 !important;
+}
+
+.mr-custom-wrapper label,
+.mr-custom-wrapper .label,
+.mr-custom-wrapper .mrp-label,
+.mr-custom-wrapper [class*="label"],
+.mr-custom-wrapper [class*="status"],
+.mr-custom-wrapper [class*="mls"],
+.mr-custom-wrapper [class*="beds"],
+.mr-custom-wrapper [class*="baths"],
+.mr-custom-wrapper [class*="sqft"] {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif !important;
+  color: rgba(10, 26, 47, 0.72) !important;
+  font-weight: 700 !important;
+}
+
+.ccl-idx-premium-section.mr-custom-wrapper {
+  position: relative !important;
+  overflow: hidden !important;
+  margin: clamp(48px, 6vw, 86px) auto !important;
+  padding: clamp(36px, 5vw, 64px) clamp(18px, 4vw, 42px) !important;
+  border-radius: 34px !important;
+  color: #0A1A2F !important;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,153,0,0.12), transparent 30%),
+    radial-gradient(circle at 90% 12%, rgba(10,26,47,0.08), transparent 28%),
+    linear-gradient(135deg, rgba(255,255,255,0.96), rgba(246,241,231,0.90)) !important;
+  border: 1px solid rgba(10,26,47,0.08) !important;
+  box-shadow: 0 28px 80px rgba(10,26,47,0.14) !important;
+  isolation: isolate !important;
+}
+
+.ccl-idx-premium-section.mr-custom-wrapper::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  opacity: 0.14 !important;
+  background-image:
+    linear-gradient(rgba(10,26,47,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,26,47,0.10) 1px, transparent 1px) !important;
+  background-size: 44px 44px !important;
+  z-index: 0 !important;
+}
+
+.ccl-idx-premium-section.mr-custom-wrapper > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.ccl-idx-premium-section.mr-custom-wrapper h2,
+.ccl-idx-premium-section.mr-custom-wrapper .ccl-idx-title {
+  color: #0A1A2F !important;
+  font-size: clamp(2rem, 3.8vw, 4.25rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.055em !important;
+  font-weight: 950 !important;
+  text-shadow: none !important;
+}
+
+.ccl-idx-premium-section.mr-custom-wrapper p,
+.ccl-idx-premium-section.mr-custom-wrapper .ccl-idx-copy {
+  color: rgba(10,26,47,0.72) !important;
+  font-size: clamp(1rem, 1.4vw, 1.12rem) !important;
+  line-height: 1.7 !important;
+}
+
+.mr-custom-wrapper form,
+.mr-custom-wrapper .mrp-search-form,
+.mr-custom-wrapper [class*="search-form"],
+.mr-custom-wrapper [class*="filters"],
+.mr-custom-wrapper [class*="login"] {
+  gap: 10px !important;
+  align-items: center !important;
+}
+
+.mr-custom-wrapper input[type="text"],
+.mr-custom-wrapper input[type="search"],
+.mr-custom-wrapper input[type="email"],
+.mr-custom-wrapper input[type="tel"],
+.mr-custom-wrapper select,
+.mr-custom-wrapper textarea {
+  min-height: 42px !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(10,26,47,0.14) !important;
+  background: rgba(255,255,255,0.92) !important;
+  color: #0A1A2F !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.75) !important;
+  font-weight: 650 !important;
+  outline: none !important;
+}
+
+.mr-custom-wrapper input:focus,
+.mr-custom-wrapper select:focus,
+.mr-custom-wrapper textarea:focus {
+  border-color: rgba(255,153,0,0.72) !important;
+  box-shadow:
+    0 0 0 3px rgba(255,153,0,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.80) !important;
+}
+
+.mr-custom-wrapper button,
+.mr-custom-wrapper input[type="button"],
+.mr-custom-wrapper input[type="submit"],
+.mr-custom-wrapper .button,
+.mr-custom-wrapper .btn,
+.mr-custom-wrapper a.button,
+.mr-custom-wrapper [class*="button"],
+.mr-custom-wrapper [class*="btn"] {
+  border-radius: 999px !important;
+  border: 1px solid rgba(255,153,0,0.55) !important;
+  background: #FF9900 !important;
+  color: #0A1A2F !important;
+  font-weight: 900 !important;
+  box-shadow: 0 12px 28px rgba(255,153,0,0.18) !important;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease !important;
+  text-decoration: none !important;
+}
+
+.mr-custom-wrapper button:hover,
+.mr-custom-wrapper input[type="button"]:hover,
+.mr-custom-wrapper input[type="submit"]:hover,
+.mr-custom-wrapper .button:hover,
+.mr-custom-wrapper .btn:hover,
+.mr-custom-wrapper a.button:hover,
+.mr-custom-wrapper [class*="button"]:hover,
+.mr-custom-wrapper [class*="btn"]:hover {
+  transform: translateY(-2px) !important;
+  background: #ffb13b !important;
+  box-shadow: 0 18px 38px rgba(255,153,0,0.26) !important;
+}
+
+.mr-custom-wrapper [class*="facebook"],
+.mr-custom-wrapper [class*="google"],
+.mr-custom-wrapper [class*="twitter"],
+.mr-custom-wrapper [class*="social"],
+.mr-custom-wrapper a[href*="facebook"],
+.mr-custom-wrapper a[href*="google"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.mr-custom-wrapper [class*="social"] img,
+.mr-custom-wrapper a[href*="facebook"] img,
+.mr-custom-wrapper a[href*="google"] img {
+  width: auto !important;
+  height: auto !important;
+  max-width: 38px !important;
+}
+
+.mr-custom-wrapper .mrp-listing,
+.mr-custom-wrapper .listing,
+.mr-custom-wrapper .listing-card,
+.mr-custom-wrapper [class*="listing-card"],
+.mr-custom-wrapper [class*="listing-item"],
+.mr-custom-wrapper [class*="property-card"],
+.mr-custom-wrapper [class*="property-item"] {
+  overflow: hidden !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(10,26,47,0.10) !important;
+  background: rgba(255,255,255,0.94) !important;
+  box-shadow: 0 18px 44px rgba(10,26,47,0.12) !important;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease !important;
+}
+
+.mr-custom-wrapper .mrp-listing:hover,
+.mr-custom-wrapper .listing:hover,
+.mr-custom-wrapper .listing-card:hover,
+.mr-custom-wrapper [class*="listing-card"]:hover,
+.mr-custom-wrapper [class*="listing-item"]:hover,
+.mr-custom-wrapper [class*="property-card"]:hover,
+.mr-custom-wrapper [class*="property-item"]:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(255,153,0,0.30) !important;
+  box-shadow:
+    0 24px 58px rgba(10,26,47,0.18),
+    0 0 0 1px rgba(255,153,0,0.12) !important;
+}
+
+.mr-custom-wrapper .mrp-listing img,
+.mr-custom-wrapper .listing img,
+.mr-custom-wrapper .listing-card img,
+.mr-custom-wrapper [class*="listing-card"] img,
+.mr-custom-wrapper [class*="property-card"] img {
+  width: 100% !important;
+  aspect-ratio: 16 / 10 !important;
+  object-fit: cover !important;
+  border-radius: 14px !important;
+}
+
+.mr-custom-wrapper [class*="price"],
+.mr-custom-wrapper .price {
+  font-weight: 950 !important;
+  letter-spacing: -0.025em !important;
+  color: #0A1A2F !important;
+}
+
+.mr-custom-wrapper [class*="status"],
+.mr-custom-wrapper [class*="badge"],
+.mr-custom-wrapper [class*="property-type"] {
+  border-radius: 999px !important;
+  font-weight: 850 !important;
+}
+
+/* myRealPage iframe internals cannot be styled from the parent site. Internal IDX styling must be adjusted in myRealPage settings/theme if iframe-rendered. */
+.mr-custom-wrapper iframe {
+  width: 100% !important;
+  min-height: 900px !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  box-shadow: 0 18px 44px rgba(10,26,47,0.12) !important;
+}

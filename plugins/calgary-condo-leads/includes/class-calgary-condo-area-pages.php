@@ -274,10 +274,10 @@ HTML;
             : '<p class="ccl-region-idx-placeholder">' . esc_html(sprintf(__('Live %s condo listings will appear here once the saved myRealPage search is connected.', 'calgary-condo-leads'), $label)) . '</p>';
 
         return <<<HTML
-<section id="idx-search" class="ccl-section ccl-section--white ccl-region-idx-section">
+<section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-section--white ccl-region-idx-section" aria-labelledby="ccl-idx-title">
     <div class="ccl-wrap">
-        <h2>Live {$label} Condo Listings</h2>
-        <p>Browse current {$label} condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.</p>
+        <h2 id="ccl-idx-title" class="ccl-idx-title">Live {$label} Condo Listings</h2>
+        <p class="ccl-idx-copy">Browse current {$label} condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.</p>
         <div class="ccl-region-idx-feed">
             {$feed}
         </div>
