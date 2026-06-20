@@ -194,7 +194,7 @@ HTML;
                 <h2>Want alerts for a specific building?</h2>
                 <p>Tell us the building, budget, unit type, parking needs, and timing. We will watch the right listings and help compare the building before you book showings.</p>
             </div>
-            <a class="ccl-building-btn" href="/building-alerts/">Set Building Alerts</a>
+            <a class="ccl-building-btn" href="/building-alerts/" target="_self">Set Building Alerts</a>
         </div>
     </div>
 </section>
