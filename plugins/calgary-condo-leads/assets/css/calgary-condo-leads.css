@@ -499,3 +499,397 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
     max-width: 100%;
   }
 }
+
+.ccl-react-portal,
+.ccl-react-portal * {
+  box-sizing: border-box;
+}
+
+.ccl-react-portal {
+  background: #0a1a2f;
+  color: #ffffff;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.ccl-react-portal a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ccl-react-portal__glow {
+  border-radius: 999px;
+  filter: blur(72px);
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.ccl-react-portal__glow--orange {
+  background: rgba(251, 146, 60, 0.25);
+  height: 20rem;
+  left: -8rem;
+  top: 5rem;
+  width: 20rem;
+}
+
+.ccl-react-portal__glow--blue {
+  background: rgba(96, 165, 250, 0.2);
+  height: 24rem;
+  right: -10rem;
+  top: 18rem;
+  width: 24rem;
+}
+
+.ccl-react-portal__glow--white {
+  background: rgba(255, 255, 255, 0.1);
+  bottom: -8rem;
+  height: 24rem;
+  left: 33%;
+  width: 24rem;
+}
+
+.ccl-react-portal__nav {
+  backdrop-filter: blur(22px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.ccl-react-portal__nav-inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 80rem;
+  padding: 1rem 1.5rem;
+}
+
+.ccl-react-portal__brand {
+  font-size: 1.125rem;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+}
+
+.ccl-react-portal__links {
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 700;
+  gap: 1.5rem;
+}
+
+.ccl-react-portal__links a,
+.ccl-react-portal__start,
+.ccl-react-portal__search-box button,
+.ccl-react-portal__community-grid a,
+.ccl-react-portal__info-card {
+  transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.ccl-react-portal__links a:hover,
+.ccl-react-portal__links a:focus-visible {
+  color: #ffffff;
+}
+
+.ccl-react-portal__start,
+.ccl-react-portal__search-box button {
+  background: #ff9900;
+  color: #0a1a2f;
+  font-weight: 900;
+}
+
+.ccl-react-portal__start {
+  border-radius: 999px;
+  box-shadow: 0 10px 20px rgba(251, 146, 60, 0.2);
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.ccl-react-portal__start:hover,
+.ccl-react-portal__start:focus-visible,
+.ccl-react-portal__search-box button:hover,
+.ccl-react-portal__search-box button:focus-visible {
+  background: #fdba74;
+  transform: translateY(-2px);
+}
+
+.ccl-react-portal__hero,
+.ccl-react-portal__communities,
+.ccl-react-portal__cards {
+  margin: 0 auto;
+  max-width: 80rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.ccl-react-portal__hero {
+  align-items: center;
+  display: flex;
+  min-height: 82vh;
+  padding-bottom: 5rem;
+  padding-top: 5rem;
+}
+
+.ccl-react-portal__hero-grid {
+  align-items: center;
+  display: grid;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.ccl-react-portal__panel,
+.ccl-react-portal__info-card {
+  backdrop-filter: blur(32px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.ccl-react-portal__panel {
+  border-radius: 2rem;
+  padding: clamp(2rem, 4vw, 3rem);
+}
+
+.ccl-react-portal__panel--hero {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.ccl-react-portal__badge {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: #fed7aa;
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 800;
+  margin: 0 0 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.ccl-react-portal h1 {
+  color: #ffffff;
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 950;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+  margin: 0;
+  max-width: 64rem;
+}
+
+.ccl-react-portal__lead {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  margin: 1.5rem 0 0;
+  max-width: 42rem;
+}
+
+.ccl-react-portal__search {
+  margin-top: 2.5rem;
+}
+
+.ccl-react-portal__search-box {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+.ccl-react-portal__search-box input {
+  background: #f7fafc;
+  border: 0;
+  border-radius: 1rem;
+  color: #334155;
+  flex: 1;
+  font: inherit;
+  font-weight: 700;
+  min-height: 56px;
+  padding: 1rem 1.25rem;
+  width: 100%;
+}
+
+.ccl-react-portal__search-box input::placeholder {
+  color: #64748b;
+}
+
+.ccl-react-portal__search-box button {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 10px 22px rgba(251, 146, 60, 0.25);
+  cursor: pointer;
+  font: inherit;
+  padding: 1rem 1.75rem;
+}
+
+.ccl-react-portal__note {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  margin: 0.75rem 0 0;
+}
+
+.ccl-react-portal__feature {
+  padding: 1.5rem;
+}
+
+.ccl-react-portal__feature-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1), rgba(251, 146, 60, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 34rem;
+  padding: 1.5rem;
+}
+
+.ccl-react-portal__kicker {
+  color: #fed7aa;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.ccl-react-portal__feature-card h2,
+.ccl-react-portal__communities h2,
+.ccl-react-portal__info-card h3 {
+  color: #ffffff;
+  font-weight: 950;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.ccl-react-portal__feature-card h2 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin-top: 0.75rem;
+}
+
+.ccl-react-portal__community-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ccl-react-portal__community-stack div {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  font-weight: 800;
+  padding: 0.75rem 1rem;
+}
+
+.ccl-react-portal__communities {
+  padding-bottom: 5rem;
+}
+
+.ccl-react-portal__communities h2 {
+  font-size: clamp(1.875rem, 3vw, 2.25rem);
+}
+
+.ccl-react-portal__community-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.ccl-react-portal__community-grid a {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  font-weight: 900;
+  padding: 1.25rem;
+}
+
+.ccl-react-portal__community-grid a:hover,
+.ccl-react-portal__community-grid a:focus-visible,
+.ccl-react-portal__info-card:hover,
+.ccl-react-portal__info-card:focus-within {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(253, 186, 116, 0.5);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+}
+
+.ccl-react-portal__cards {
+  display: grid;
+  gap: 1.25rem;
+  padding-bottom: 6rem;
+}
+
+.ccl-react-portal__info-card {
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+}
+
+.ccl-react-portal__info-card h3 {
+  font-size: 1.25rem;
+}
+
+.ccl-react-portal__info-card p {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.65;
+  margin: 0.75rem 0 0;
+}
+
+@media (min-width: 640px) {
+  .ccl-react-portal__community-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .ccl-react-portal__search-box {
+    flex-direction: row;
+  }
+
+  .ccl-react-portal__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .ccl-react-portal__hero-grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .ccl-react-portal__community-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .ccl-react-portal__links {
+    display: none;
+  }
+
+  .ccl-react-portal__nav-inner,
+  .ccl-react-portal__hero,
+  .ccl-react-portal__communities,
+  .ccl-react-portal__cards {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .ccl-react-portal__hero {
+    min-height: auto;
+  }
+
+  .ccl-react-portal h1 {
+    font-size: clamp(2.55rem, 13vw, 4rem);
+  }
+}

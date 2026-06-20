@@ -53,6 +53,21 @@ final class Calgary_Condo_Homepage {
         $idx_content = trim((string) $content);
         $page_number = isset($_GET['_pg']) ? absint(wp_unslash($_GET['_pg'])) : 0;
         $is_paginated_idx = $page_number > 1;
+        $featured_communities = ['Beltline', 'Downtown', 'Eau Claire', 'East Village', 'Mission', 'Kensington'];
+        $featured_cards = [
+            [
+                'title' => 'Inner-City Condos',
+                'copy' => 'Walkable buildings near restaurants, parks, river paths, and downtown offices.',
+            ],
+            [
+                'title' => 'Luxury High-Rise Living',
+                'copy' => 'Premium views, concierge-style amenities, and concrete construction options.',
+            ],
+            [
+                'title' => 'Smart Buyer Filters',
+                'copy' => 'Compare buildings by lifestyle, location, budget, parking, and pet rules.',
+            ],
+        ];
 
         ob_start();
         ?>
@@ -128,30 +143,75 @@ final class Calgary_Condo_Homepage {
             </style>
 
             <?php if (!$is_paginated_idx) : ?>
-            <section id="clean-calgary-hero" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
-                <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.52) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
-                <div id="clean-calgary-hero-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
-                    <h1 id="clean-calgary-hero-title" style="color: #ffffff !important; font-size: clamp(2.85rem, 5.25vw, 5.15rem) !important; line-height: 0.98 !important; font-weight: 900 !important; letter-spacing: -0.052em !important; text-align: center !important; max-width: 1120px !important; margin: 0 auto 24px auto !important; text-shadow: 0 7px 28px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.85) !important;">Calgary Condos—<br><span id="clean-calgary-hero-title-line-two" style="white-space: nowrap !important;">Compared by Building First.</span></h1>
-                    <p id="clean-calgary-hero-subtitle" style="color: #ffffff !important; font-size: clamp(1.1rem, 2vw, 1.45rem) !important; line-height: 1.55 !important; font-weight: 700 !important; text-align: center !important; max-width: 930px !important; margin: 0 auto 28px auto !important; text-shadow: 0 5px 20px rgba(0,0,0,0.95), 0 2px 7px rgba(0,0,0,0.9) !important;">Before you buy, compare what matters. Uncover the truth about Calgary’s top buildings—from true condo fees, strict pet bylaws, and rental restrictions, to reserve fund health, underground parking allocations, and long-term resale value. Search active CREB® listings with absolute clarity.</p>
-                    <form action="/calgary-condos/" method="GET" class="ccl-hero-workspace ccl-ai-lifestyle-search-form" role="search" aria-label="Calgary condo lifestyle search workspace">
-                        <input type="text" id="ai-lifestyle-search" name="q" class="ccl-hero-workspace__input" placeholder="Describe your ideal Calgary condo lifestyle (e.g., Pet-friendly concrete high-rise in Beltline under $600K)...">
-                        <button type="submit" class="ccl-hero-workspace__button ccl-ai-lifestyle-search-submit">Find Matches</button>
-                    </form>
-                    <p id="clean-calgary-hero-phone" style="color: #ffffff !important; text-align: center !important; margin: 24px auto 0 auto !important; font-size: 2.5rem !important; line-height: 1.15 !important; font-weight: 900 !important; text-shadow: 0 7px 26px rgba(0,0,0,0.95), 0 2px 8px rgba(0,0,0,0.9) !important;">Call Calgary Direct: <?php echo esc_html($phone_display); ?></p>
-                </div>
-            </section>
+            <section class="ccl-react-portal" aria-labelledby="ccl-react-portal-title">
+                <div class="ccl-react-portal__glow ccl-react-portal__glow--orange" aria-hidden="true"></div>
+                <div class="ccl-react-portal__glow ccl-react-portal__glow--blue" aria-hidden="true"></div>
+                <div class="ccl-react-portal__glow ccl-react-portal__glow--white" aria-hidden="true"></div>
 
-            <section id="calgary-explore-navbar" aria-labelledby="calgary-explore-navbar-title" style="background: #ffffff !important; color: #000000 !important; width: 100% !important; padding: 22px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(0,0,0,0.08) !important;">
-                <div id="calgary-explore-navbar-inner" style="max-width: 1180px !important; width: 100% !important; margin: 0 auto !important; padding: 0 20px !important; box-sizing: border-box !important;">
-                    <h2 id="calgary-explore-navbar-title" style="color: #000000 !important; font-size: clamp(1.35rem, 2.25vw, 2rem) !important; line-height: 1.15 !important; font-weight: 800 !important; text-align: left !important; margin: 0 0 14px 0 !important;">Explore Calgary Condos</h2>
-                    <nav id="calgary-explore-navbar-nav" class="ccl-region-nav" aria-label="Explore Calgary Condos" style="display: flex !important; flex-wrap: wrap !important; align-items: center !important; justify-content: flex-start !important; gap: 10px !important; width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important;">
-                        <a id="calgary-explore-link-all" class="nav-item-link" href="/calgary-condos/" target="_self" style="background: #fff7ec !important; color: #111111 !important; border: 1px solid #FF9900 !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">All Calgary Condos</a>
-                        <a id="calgary-explore-link-southeast" class="nav-item-link" href="/southeast-calgary-condos/" target="_self" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Southeast Calgary</a>
-                        <a id="calgary-explore-link-southwest" class="nav-item-link" href="/southwest-calgary-condos/" target="_self" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Southwest Calgary</a>
-                        <a id="calgary-explore-link-northwest" class="nav-item-link" href="/northwest-calgary-condos/" target="_self" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Northwest Calgary</a>
-                        <a id="calgary-explore-link-northeast" class="nav-item-link" href="/northeast-calgary-condos/" target="_self" style="background: #f7f7f7 !important; color: #111111 !important; border: 1px solid rgba(0,0,0,0.14) !important; border-radius: 999px !important; padding: 10px 16px !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; font-weight: 700 !important; line-height: 1.1 !important; text-decoration: none !important; white-space: nowrap !important;">Northeast Calgary</a>
-                    </nav>
+                <nav class="ccl-react-portal__nav" aria-label="Calgary Condo Search portal navigation">
+                    <div class="ccl-react-portal__nav-inner">
+                        <a href="/" class="ccl-react-portal__brand">Calgary Condo Search</a>
+                        <div class="ccl-react-portal__links">
+                            <a href="#communities">Communities</a>
+                            <a href="#featured">Building Types</a>
+                            <a href="#search">Search</a>
+                        </div>
+                        <a href="#search" class="ccl-react-portal__start">Start Search</a>
+                    </div>
+                </nav>
+
+                <div class="ccl-react-portal__hero">
+                    <div class="ccl-react-portal__hero-grid">
+                        <div class="ccl-react-portal__panel ccl-react-portal__panel--hero">
+                            <p class="ccl-react-portal__badge">Calgary Condo Portal</p>
+                            <h1 id="ccl-react-portal-title">Find Your Perfect Calgary Condo</h1>
+                            <p class="ccl-react-portal__lead">Explore premium condo opportunities across Calgary’s most in-demand inner-city communities, including Beltline, Downtown, Eau Claire, East Village, and surrounding walkable neighbourhoods.</p>
+
+                            <div id="search" class="ccl-react-portal__search">
+                                <form action="/calgary-condos/" method="GET" class="ccl-react-portal__search-box" role="search" aria-label="Search Calgary condos">
+                                    <label class="screen-reader-text" for="ccl-react-portal-search-input">Search by community, building style, price range, or lifestyle</label>
+                                    <input id="ccl-react-portal-search-input" name="q" type="text" placeholder="Search by community, building style, price range, or lifestyle..." />
+                                    <button type="submit">Find Matches</button>
+                                </form>
+                                <p class="ccl-react-portal__note">Static placeholder only. Search logic and IDX/API connections are not active yet.</p>
+                            </div>
+                        </div>
+
+                        <aside class="ccl-react-portal__panel ccl-react-portal__feature" aria-label="Featured Calgary condo search focus">
+                            <div class="ccl-react-portal__feature-card">
+                                <div>
+                                    <p class="ccl-react-portal__kicker">Featured Focus</p>
+                                    <h2>Building-first condo search for serious Calgary buyers.</h2>
+                                </div>
+                                <div class="ccl-react-portal__community-stack">
+                                    <?php foreach (array_slice($featured_communities, 0, 4) as $community) : ?>
+                                        <div><?php echo esc_html($community); ?></div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
                 </div>
+
+                <section id="communities" class="ccl-react-portal__communities" aria-labelledby="ccl-react-portal-communities-title">
+                    <div class="ccl-react-portal__panel">
+                        <h2 id="ccl-react-portal-communities-title">Popular Calgary Condo Communities</h2>
+                        <div class="ccl-react-portal__community-grid">
+                            <?php foreach ($featured_communities as $community) : ?>
+                                <a href="<?php echo esc_url('/' . sanitize_title($community) . '/'); ?>"><?php echo esc_html($community); ?></a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="featured" class="ccl-react-portal__cards" aria-label="Featured Calgary condo building types">
+                    <?php foreach ($featured_cards as $card) : ?>
+                        <article class="ccl-react-portal__info-card">
+                            <h3><?php echo esc_html($card['title']); ?></h3>
+                            <p><?php echo esc_html($card['copy']); ?></p>
+                        </article>
+                    <?php endforeach; ?>
+                </section>
             </section>
 
             <?php endif; ?>
