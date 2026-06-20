@@ -92,7 +92,7 @@ final class Calgary_Condo_Building_Index {
 
         ob_start();
         ?>
-        <main class="ccl-building-index">
+        <main class="ccl-inner-page-shell ccl-building-index">
             <header class="ccl-building-index__header">
                 <p class="ccl-building-index__eyebrow"><?php esc_html_e('Calgary Building Database', 'calgary-condo-leads'); ?></p>
                 <h1><?php echo esc_html(sprintf(__('Browse %s Condo Buildings', 'calgary-condo-leads'), $term['name'])); ?></h1>

@@ -131,7 +131,7 @@ CSS;
     }
 
     private function page(): string {
-        return '<main class="ccl-building-page">' . $this->hero() . $this->directory_section(true) . $this->cta() . '</main>';
+        return '<main class="ccl-inner-page-shell ccl-building-page">' . $this->hero() . $this->directory_section(true) . $this->cta() . '</main>';
     }
 
     private function hero(): string {
