@@ -61,7 +61,7 @@ final class Calgary_Condo_Community_Schools {
                             <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--amber" aria-hidden="true"></span><div><strong><?php esc_html_e('Insurance & Condo Fee Pressure', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Spot cost trends that may affect monthly affordability.', 'calgary-condo-leads'); ?></p></div></div>
                             <div class="ccl-risk-inspector__row"><span class="ccl-risk-inspector__badge ccl-risk-inspector__badge--orange" aria-hidden="true"></span><div><strong><?php esc_html_e('Resale Liquidity', 'calgary-condo-leads'); ?></strong><p><?php esc_html_e('Evaluate market depth before you commit to a building.', 'calgary-condo-leads'); ?></p></div></div>
                         </div>
-                        <button type="button" class="ccl-risk-inspector__cta" data-ccl-open-building-risk-modal><?php esc_html_e('Ask About Building Risk', 'calgary-condo-leads'); ?></button>
+                        <button type="button" class="ccl-risk-inspector__cta" data-ccl-lead-open data-lead-source="Building Risk Intelligence" data-requested-category="Building Risk Report" data-intent="Building risk report request"><?php esc_html_e('Ask About Building Risk', 'calgary-condo-leads'); ?></button>
                     </article>
                 </div>
             </div>

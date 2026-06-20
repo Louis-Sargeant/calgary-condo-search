@@ -173,7 +173,7 @@ final class Calgary_Condo_Homepage {
                             <h2 id="ccl-live-calgary-listings-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
                             <p><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
                         </div>
-                        <a class="ccl-small-link" href="/building-alerts/" target="_self">Get condo alerts</a>
+                        <button type="button" class="ccl-small-link" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get condo alerts</button>
                     </div>
                     <?php
                     $keyword = isset($_GET['keyword']) ? sanitize_text_field(wp_unslash($_GET['keyword'])) : '';

@@ -151,7 +151,7 @@ final class Calgary_Condo_Building_Index {
     }
 
     private function lead_card(): string {
-        return '<div class="ccl-building-lead-card"><a href="' . esc_url('/building-alerts/') . '" target="_self" class="ccl-building-lead-card__button">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</a><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
+        return '<div class="ccl-building-lead-card"><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
     }
 
     private function live_inventory_slot(string $community_name): string {
