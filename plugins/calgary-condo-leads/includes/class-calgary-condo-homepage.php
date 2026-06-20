@@ -48,6 +48,101 @@ final class Calgary_Condo_Homepage {
         }
     }
 
+
+    private function get_market_stats(): array {
+        $defaults = [
+            'report_label' => 'Calgary Market Stats',
+            'headline_prefix' => 'Apartment prices',
+            'headline_suffix' => 'are moving — know the building before you book.',
+            'sales' => [
+                'label' => 'Sales',
+                'value' => '0',
+                'delta' => '+0.0% Y/Y',
+                'direction' => 'up',
+            ],
+            'new_listings' => [
+                'label' => 'New Listings',
+                'value' => '0',
+                'delta' => '+0.0% Y/Y',
+                'direction' => 'up',
+            ],
+            'inventory' => [
+                'label' => 'Inventory',
+                'value' => '0',
+                'delta' => '+0.0% Y/Y',
+                'direction' => 'up',
+            ],
+            'months_supply' => [
+                'label' => 'Months Supply',
+                'value' => '0.0',
+                'delta' => '+0.0% Y/Y',
+                'direction' => 'up',
+            ],
+        ];
+
+        $saved = get_option('ccl_market_stats', []);
+
+        if (!is_array($saved)) {
+            $saved = [];
+        }
+
+        $stats = wp_parse_args($saved, $defaults);
+
+        foreach (['sales', 'new_listings', 'inventory', 'months_supply'] as $metric_key) {
+            if (!isset($stats[$metric_key]) || !is_array($stats[$metric_key])) {
+                $stats[$metric_key] = [];
+            }
+
+            $stats[$metric_key] = wp_parse_args($stats[$metric_key], $defaults[$metric_key]);
+        }
+
+        return $stats;
+    }
+
+    private function render_market_stats(): void {
+        $stats = $this->get_market_stats();
+
+        $metrics = [
+            $stats['sales'],
+            $stats['new_listings'],
+            $stats['inventory'],
+            $stats['months_supply'],
+        ];
+        ?>
+        <section class="ccl-market-dashboard" aria-labelledby="ccl-market-dashboard-title">
+            <div class="ccl-market-dashboard__header">
+                <span class="ccl-market-dashboard__eyebrow"><?php echo esc_html($stats['report_label']); ?></span>
+                <h2 id="ccl-market-dashboard-title">
+                    <span class="ccl-market-dashboard__focus"><?php echo esc_html($stats['headline_prefix']); ?></span>
+                    <?php echo esc_html($stats['headline_suffix']); ?>
+                </h2>
+                <p class="ccl-market-dashboard__copy">
+                    <?php echo esc_html('Track apartment sales, listings, inventory, and months of supply before choosing the building.'); ?>
+                </p>
+            </div>
+
+            <div class="ccl-market-dashboard__grid">
+                <?php foreach ($metrics as $metric) : ?>
+                    <article class="ccl-market-dashboard__metric">
+                        <span class="ccl-market-dashboard__label"><?php echo esc_html($metric['label']); ?></span>
+                        <strong class="ccl-market-dashboard__value"><?php echo esc_html($metric['value']); ?></strong>
+                        <span class="ccl-market-dashboard__delta"><?php echo esc_html($metric['delta']); ?></span>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="ccl-market-dashboard__actions">
+                <a href="/calgary-condos/#idx-search" target="_self" class="ccl-market-dashboard__button ccl-market-dashboard__button--primary">
+                    <?php echo esc_html('Search Calgary Condos'); ?>
+                </a>
+                <a href="/price-reduced-condos/" target="_self" class="ccl-market-dashboard__button ccl-market-dashboard__button--secondary">
+                    <?php echo esc_html('View Price Drops'); ?>
+                </a>
+            </div>
+        </section>
+        <?php
+    }
+
     public function render(array $atts = [], ?string $content = null): string {
         $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
         $idx_content = trim((string) $content);
@@ -163,6 +258,7 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
+            <?php $this->render_market_stats(); ?>
             <?php endif; ?>
 
             <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-live-calgary-listings-title">
