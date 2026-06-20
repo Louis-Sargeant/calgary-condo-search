@@ -20,7 +20,7 @@ final class Calgary_Condo_Community_Schools {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-lifestyle-hub ccl-school-community ccl-lifestyle-contrast-panel ccl-lifestyle-dark-fix" aria-labelledby="ccl-lifestyle-hub-title">
+        <section id="ccl-schools-lifestyle-section" class="ccl-section ccl-lifestyle-hub ccl-school-community ccl-lifestyle-contrast-panel ccl-lifestyle-dark-fix ccl-schools-lifestyle-section ccl-lifestyle-dark-final" aria-labelledby="ccl-lifestyle-hub-title">
             <div class="ccl-wrap">
                 <div class="ccl-lifestyle-hub__header">
                     <p class="ccl-lifestyle-hub__eyebrow"><?php echo esc_html((string) $atts['eyebrow']); ?></p>

@@ -3088,3 +3088,168 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-dark-fix a[target="_self"] {
   color: #ffffff !important;
 }
+
+/* FINAL CRO CONTRAST FIX: Schools, community, and lifestyle section */
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final {
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  margin: clamp(48px, 6vw, 86px) auto !important;
+  padding: clamp(48px, 7vw, 90px) clamp(22px, 5vw, 58px) !important;
+  border-radius: 38px !important;
+  color: #ffffff !important;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(255, 153, 0, 0.24), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(59, 130, 246, 0.18), transparent 30%),
+    radial-gradient(circle at 50% 105%, rgba(255, 255, 255, 0.08), transparent 26%),
+    linear-gradient(135deg, #05070d 0%, #0f172a 46%, #0A1A2F 100%) !important;
+  box-shadow:
+    0 34px 96px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255,255,255,0.08) !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-section,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-wrap,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-grid,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="cream"],
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="white"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-section,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-wrap,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-grid,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="cream"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="white"] {
+  background: transparent !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h1,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h2,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h3,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h4,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h1,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h2,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h3,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final h4 {
+  color: #ffffff !important;
+  text-shadow:
+    0 8px 26px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.45) !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final > * p,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final > * p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final p {
+  color: rgba(255, 255, 255, 0.84) !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.35) !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-eyebrow,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="eyebrow"],
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="category"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-eyebrow,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="eyebrow"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="category"] {
+  color: #FF9900 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-school-card,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-school-panel,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="school-card"],
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="risk"],
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="dashboard"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-school-card,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-school-panel,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="school-card"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="risk"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="dashboard"] {
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(10, 26, 47, 0.84)) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.10),
+    0 22px 58px rgba(0, 0, 0, 0.38) !important;
+  color: #ffffff !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card *,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel *,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector *,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard *,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card *,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel *,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector *,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard * {
+  color: #ffffff !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card p,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel p,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector p,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-card p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-panel p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector p,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-diagnostic-dashboard p {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__row,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="risk-row"],
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="metric-row"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__row,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="risk-row"],
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="metric-row"] {
+  background: rgba(255, 255, 255, 0.10) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 18px !important;
+  color: #ffffff !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.22) !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--green,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--green {
+  color: #46d39a !important;
+  background: #46d39a !important;
+  box-shadow: 0 0 18px #46d39a !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--orange,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--orange {
+  color: #FF9900 !important;
+  background: #FF9900 !important;
+  box-shadow: 0 0 18px #FF9900 !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--amber,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--amber {
+  color: #f6c453 !important;
+  background: #f6c453 !important;
+  box-shadow: 0 0 18px #f6c453 !important;
+}
+
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final button,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-button,
+#ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-btn,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final button,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-button,
+.ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-btn {
+  color: #0A1A2F !important;
+  background: #FF9900 !important;
+  border: 1px solid rgba(255,153,0,0.65) !important;
+  box-shadow: 0 18px 42px rgba(255,153,0,0.24) !important;
+  font-weight: 900 !important;
+}
