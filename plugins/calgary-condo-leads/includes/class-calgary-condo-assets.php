@@ -79,13 +79,13 @@ final class Calgary_Condo_Assets {
 
         ob_start();
         ?>
-        <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+        <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-section--white ccl-idx-shell" aria-labelledby="ccl-idx-title">
             <div class="ccl-wrap">
                 <div class="ccl-idx-shell__header">
                     <div>
                         <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
-                        <h2><?php echo esc_html($atts['title']); ?></h2>
-                        <p><?php echo esc_html($atts['subtitle']); ?></p>
+                        <h2 id="ccl-idx-title" class="ccl-idx-title"><?php echo esc_html($atts['title']); ?></h2>
+                        <p class="ccl-idx-copy"><?php echo esc_html($atts['subtitle']); ?></p>
                     </div>
                     <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="IDX Search Panel" data-requested-category="Condo Alerts" data-intent="Active listings request"><?php esc_html_e('Get Condo Alerts', 'calgary-condo-leads'); ?></button>
                 </div>

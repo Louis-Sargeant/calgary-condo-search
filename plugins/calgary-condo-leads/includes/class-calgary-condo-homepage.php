@@ -165,13 +165,13 @@ final class Calgary_Condo_Homepage {
 
             <?php endif; ?>
 
-            <section id="idx-search" class="ccl-section ccl-section--white ccl-section-light ccl-idx-shell ccl-tight-idx ccl-idx-premium-section" aria-labelledby="ccl-live-calgary-listings-title">
+            <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-section--white ccl-section-light ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-idx-title">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
                         <div>
                             <p class="ccl-eyebrow">Live Calgary Condo Search</p>
-                            <h2 id="ccl-live-calgary-listings-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
-                            <p><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
+                            <h2 id="ccl-idx-title" class="ccl-idx-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
+                            <p class="ccl-idx-copy"><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
                         </div>
                         <button type="button" class="ccl-small-link ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get condo alerts</button>
                     </div>
