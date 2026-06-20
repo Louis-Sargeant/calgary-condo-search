@@ -173,7 +173,7 @@ CSS;
         $summary = $this->e($stats['summary'] ?? 'Monthly Calgary market summary.');
 
         return <<<HTML
-<main class="ccl-market-page">
+<main class="ccl-inner-page-shell ccl-market-page">
     <section class="ccl-market-hero">
         <div class="ccl-market-wrap ccl-market-hero__inner">
             <div>

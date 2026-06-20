@@ -31,7 +31,7 @@ final class Calgary_Condo_Community_Schools {
                     <article class="ccl-school-community__luxury-card">
                         <h3><?php esc_html_e('Public & Catholic Schools', 'calgary-condo-leads'); ?></h3>
                         <p><?php esc_html_e('Review Calgary school options near the condo communities you are comparing.', 'calgary-condo-leads'); ?></p>
-                        <a class="ccl-school-community__pill" href="#" data-ccl-open-school-finder-modal><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></a>
+                        <a class="ccl-school-community__pill" href="/calgary-school-finder/" target="_self" data-ccl-open-school-finder-modal><?php esc_html_e('Open School Finder', 'calgary-condo-leads'); ?></a>
                     </article>
                     <article class="ccl-school-community__luxury-card">
                         <h3><?php esc_html_e('Explore Communities', 'calgary-condo-leads'); ?></h3>
@@ -59,7 +59,7 @@ final class Calgary_Condo_Community_Schools {
                         </div>
                         <div class="ccl-school-community__pills ccl-risk-dashboard__actions">
                             <a class="ccl-school-community__pill" href="/calgary-condo-buildings/" target="_self"><?php esc_html_e('Browse Buildings', 'calgary-condo-leads'); ?></a>
-                            <a class="ccl-school-community__pill ccl-risk-dashboard__cta" href="#" target="_self" data-ccl-open-building-risk-modal><?php esc_html_e('Request Building Risk Report', 'calgary-condo-leads'); ?></a>
+                            <a class="ccl-school-community__pill ccl-risk-dashboard__cta" href="/building-alerts/" target="_self" data-ccl-open-building-risk-modal><?php esc_html_e('Request Building Risk Report', 'calgary-condo-leads'); ?></a>
                         </div>
                     </article>
                 </div>

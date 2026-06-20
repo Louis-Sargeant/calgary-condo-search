@@ -102,7 +102,7 @@ final class Calgary_Condo_Building_CPT {
 
         $overview = $content ? '<div class="ccl-building-profile-overview">' . wp_kses_post($content) . '</div>' : '';
 
-        return '<div class="ccl-building-profile"><div class="ccl-building-profile-grid"><main class="ccl-building-profile-main">'
+        return '<div class="ccl-inner-page-shell ccl-building-profile"><div class="ccl-building-profile-grid"><main class="ccl-building-profile-main">'
             . $overview
             . $this->panel('Building Specs', $this->definition_list([
                 'Building Name' => 'post_title',

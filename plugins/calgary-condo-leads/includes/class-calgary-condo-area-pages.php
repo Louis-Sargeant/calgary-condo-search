@@ -194,7 +194,7 @@ final class Calgary_Condo_Area_Pages {
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/building-alert-request/">Get Building Alerts</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/building-alert-request/" target="_self">Get Building Alerts</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
@@ -219,7 +219,7 @@ HTML;
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
 
         return <<<HTML
-<main class="ccl-area-page ccl-area-page--{$slug}">
+<main class="ccl-inner-page-shell ccl-area-page ccl-area-page--{$slug}">
     <section class="ccl-section ccl-section--white ccl-compare-hero ccl-area-hero">
         <div class="ccl-wrap ccl-compare-hero__inner">
             <div>
