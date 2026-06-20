@@ -40,36 +40,36 @@ final class Calgary_Condo_Building_Directory {
 
     private const VISUAL_DIRECTORY_CARDS = [
         'Inner-City Condo Hubs' => [
-            ['title' => 'Beltline', 'slug' => 'beltline', 'category' => 'Inner-City Condo Hubs', 'url' => '/beltline/', 'description' => 'Central Beltline condo buildings and active on-site listing access.'],
-            ['title' => 'Downtown Core', 'slug' => 'downtown-core', 'category' => 'Inner-City Condo Hubs', 'url' => '/downtown-core/', 'description' => 'Downtown Core condo buildings close to offices, restaurants, and transit.'],
-            ['title' => 'Eau Claire', 'slug' => 'eau-claire', 'category' => 'Inner-City Condo Hubs', 'url' => '/eau-claire/', 'description' => 'Eau Claire condo buildings near the river pathway and downtown core.'],
-            ['title' => 'East Village', 'slug' => 'east-village', 'category' => 'Inner-City Condo Hubs', 'url' => '/east-village/', 'description' => 'East Village condo buildings near the library, river pathways, and downtown east amenities.'],
-            ['title' => 'Mission', 'slug' => 'mission', 'category' => 'Inner-City Condo Hubs', 'url' => '/mission/', 'description' => 'Mission condo buildings with inner-city walkability and river access.'],
-            ['title' => 'Victoria Park', 'slug' => 'victoria-park', 'category' => 'Inner-City Condo Hubs', 'url' => '/victoria-park/', 'description' => 'Victoria Park condo buildings near Stampede Park and the Beltline.'],
+            ['title' => 'Beltline', 'slug' => 'beltline', 'category' => 'Inner-City Condo Hubs', 'url' => '/beltline-condos/', 'description' => 'Central Beltline condo buildings and active on-site listing access.'],
+            ['title' => 'Downtown Core', 'slug' => 'downtown-core', 'category' => 'Inner-City Condo Hubs', 'url' => '/downtown-core-condos/', 'description' => 'Downtown Core condo buildings close to offices, restaurants, and transit.'],
+            ['title' => 'Eau Claire', 'slug' => 'eau-claire', 'category' => 'Inner-City Condo Hubs', 'url' => '/eau-claire-condos/', 'description' => 'Eau Claire condo buildings near the river pathway and downtown core.'],
+            ['title' => 'East Village', 'slug' => 'east-village', 'category' => 'Inner-City Condo Hubs', 'url' => '/east-village-condos/', 'description' => 'East Village condo buildings near the library, river pathways, and downtown east amenities.'],
+            ['title' => 'Mission', 'slug' => 'mission', 'category' => 'Inner-City Condo Hubs', 'url' => '/mission-condos/', 'description' => 'Mission condo buildings with inner-city walkability and river access.'],
+            ['title' => 'Victoria Park', 'slug' => 'victoria-park', 'category' => 'Inner-City Condo Hubs', 'url' => '/victoria-park-condos/', 'description' => 'Victoria Park condo buildings near Stampede Park and the Beltline.'],
         ],
         'Lifestyle & Walkability Areas' => [
-            ['title' => 'Kensington', 'slug' => 'kensington', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/kensington/', 'description' => 'Kensington condo buildings near shops, restaurants, pathways, and LRT access.'],
-            ['title' => 'Bridgeland', 'slug' => 'bridgeland', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/bridgeland/', 'description' => 'Bridgeland condo buildings with neighbourhood amenities and downtown access.'],
-            ['title' => 'Sunnyside', 'slug' => 'sunnyside', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/sunnyside/', 'description' => 'Sunnyside condo buildings near Kensington, LRT, and the Bow River pathway.'],
-            ['title' => 'Lower Mount Royal', 'slug' => 'lower-mount-royal', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/lower-mount-royal/', 'description' => 'Lower Mount Royal condo buildings near 17 Avenue and inner-city amenities.'],
-            ['title' => 'Marda Loop', 'slug' => 'marda-loop', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/marda-loop/', 'description' => 'Marda Loop condo buildings close to local shopping, dining, and southwest routes.'],
-            ['title' => 'Inglewood', 'slug' => 'inglewood', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/inglewood/', 'description' => 'Inglewood condo buildings near historic main-street amenities and river pathways.'],
+            ['title' => 'Kensington', 'slug' => 'kensington', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/kensington-condos/', 'description' => 'Kensington condo buildings near shops, restaurants, pathways, and LRT access.'],
+            ['title' => 'Bridgeland', 'slug' => 'bridgeland', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/bridgeland-condos/', 'description' => 'Bridgeland condo buildings with neighbourhood amenities and downtown access.'],
+            ['title' => 'Sunnyside', 'slug' => 'sunnyside', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/sunnyside-condos/', 'description' => 'Sunnyside condo buildings near Kensington, LRT, and the Bow River pathway.'],
+            ['title' => 'Lower Mount Royal', 'slug' => 'lower-mount-royal', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/lower-mount-royal-condos/', 'description' => 'Lower Mount Royal condo buildings near 17 Avenue and inner-city amenities.'],
+            ['title' => 'Marda Loop', 'slug' => 'marda-loop', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/marda-loop-condos/', 'description' => 'Marda Loop condo buildings close to local shopping, dining, and southwest routes.'],
+            ['title' => 'Inglewood', 'slug' => 'inglewood', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/inglewood-condos/', 'description' => 'Inglewood condo buildings near historic main-street amenities and river pathways.'],
         ],
         'Suburban Condo Markets' => [
-            ['title' => 'Seton', 'slug' => 'seton', 'category' => 'Suburban Condo Markets', 'url' => '/seton/', 'description' => 'Seton condo buildings near south Calgary retail, health, and recreation amenities.'],
-            ['title' => 'Mahogany', 'slug' => 'mahogany', 'category' => 'Suburban Condo Markets', 'url' => '/mahogany/', 'description' => 'Mahogany condo buildings with lake-community access and southeast amenities.'],
-            ['title' => 'Auburn Bay', 'slug' => 'auburn-bay', 'category' => 'Suburban Condo Markets', 'url' => '/auburn-bay/', 'description' => 'Auburn Bay condo buildings near the lake, hospital district, and southeast routes.'],
-            ['title' => 'Legacy', 'slug' => 'legacy', 'category' => 'Suburban Condo Markets', 'url' => '/legacy/', 'description' => 'Legacy condo buildings in a growing south Calgary suburban market.'],
-            ['title' => 'Sage Hill', 'slug' => 'sage-hill', 'category' => 'Suburban Condo Markets', 'url' => '/sage-hill/', 'description' => 'Sage Hill condo buildings near northwest shopping and ring-road access.'],
-            ['title' => 'University District', 'slug' => 'university-district', 'category' => 'Suburban Condo Markets', 'url' => '/university-district/', 'description' => 'University District condo buildings near campus, hospitals, retail, and parks.'],
+            ['title' => 'Seton', 'slug' => 'seton', 'category' => 'Suburban Condo Markets', 'url' => '/seton-condos/', 'description' => 'Seton condo buildings near south Calgary retail, health, and recreation amenities.'],
+            ['title' => 'Mahogany', 'slug' => 'mahogany', 'category' => 'Suburban Condo Markets', 'url' => '/mahogany-condos/', 'description' => 'Mahogany condo buildings with lake-community access and southeast amenities.'],
+            ['title' => 'Auburn Bay', 'slug' => 'auburn-bay', 'category' => 'Suburban Condo Markets', 'url' => '/auburn-bay-condos/', 'description' => 'Auburn Bay condo buildings near the lake, hospital district, and southeast routes.'],
+            ['title' => 'Legacy', 'slug' => 'legacy', 'category' => 'Suburban Condo Markets', 'url' => '/legacy-condos/', 'description' => 'Legacy condo buildings in a growing south Calgary suburban market.'],
+            ['title' => 'Sage Hill', 'slug' => 'sage-hill', 'category' => 'Suburban Condo Markets', 'url' => '/sage-hill-condos/', 'description' => 'Sage Hill condo buildings near northwest shopping and ring-road access.'],
+            ['title' => 'University District', 'slug' => 'university-district', 'category' => 'Suburban Condo Markets', 'url' => '/university-district-condos/', 'description' => 'University District condo buildings near campus, hospitals, retail, and parks.'],
         ],
         'Building Profile Searches' => [
-            ['title' => 'Luxury High-Rise Condos', 'slug' => 'luxury-high-rise-condos', 'category' => 'Building Profile Searches', 'url' => '/luxury-high-rise-condos/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
-            ['title' => 'Concrete Buildings', 'slug' => 'concrete-buildings', 'category' => 'Building Profile Searches', 'url' => '/concrete-buildings/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
-            ['title' => 'Pet-Friendly Condo Buildings', 'slug' => 'pet-friendly-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/pet-friendly-condo-buildings/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
-            ['title' => 'Buildings With Underground Parking', 'slug' => 'buildings-with-underground-parking', 'category' => 'Building Profile Searches', 'url' => '/buildings-with-underground-parking/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
-            ['title' => 'Newer Condo Buildings', 'slug' => 'newer-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/newer-condo-buildings/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
-            ['title' => 'Low-Rise Condo Buildings', 'slug' => 'low-rise-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/low-rise-condo-buildings/', 'description' => 'Active building-filtered listings are being connected. Request this list now.'],
+            ['title' => 'Luxury High-Rise Condos', 'slug' => 'luxury-high-rise-condos', 'category' => 'Building Profile Searches', 'url' => '/luxury-high-rise-condos/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Concrete Buildings', 'slug' => 'concrete-buildings', 'category' => 'Building Profile Searches', 'url' => '/concrete-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Pet-Friendly Condo Buildings', 'slug' => 'pet-friendly-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/pet-friendly-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Buildings With Underground Parking', 'slug' => 'buildings-with-underground-parking', 'category' => 'Building Profile Searches', 'url' => '/buildings-with-underground-parking/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Newer Condo Buildings', 'slug' => 'newer-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/newer-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Low-Rise Condo Buildings', 'slug' => 'low-rise-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/low-rise-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
         ],
     ];
 
@@ -84,22 +84,20 @@ final class Calgary_Condo_Building_Directory {
             $columns .= '<div class="ccl-visual-directory__column"><h3>' . esc_html($heading) . '</h3><div class="ccl-visual-directory__cards">' . $cards . '</div></div>';
         }
 
-        return '<section id="calgary-building-directory-database" class="ccl-visual-directory" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-visual-directory__header"><span class="ccl-visual-directory__eyebrow">Calgary Building Database</span><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p>Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p></div><div class="ccl-visual-directory__matrix">' . $columns . '</div></section>';
+        return '<section id="calgary-building-directory-database" class="ccl-visual-directory ccl-visual-directory--premium" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-visual-directory__header"><span class="ccl-visual-directory__eyebrow">Calgary Building Database</span><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p>Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p></div><div class="ccl-visual-directory__matrix">' . $columns . '</div></section>';
     }
 
     private function render_visual_directory_card(array $item): string {
-        $has_saved_search = !empty($item['saved_search_id']);
+        $has_saved_search = !empty($item['url']);
         $classes = 'ccl-visual-card ccl-visual-card--' . sanitize_html_class($item['slug']);
         if ('Building Profile Searches' === $item['category']) {
             $classes .= ' ccl-visual-card--profile';
         }
-        if (!$has_saved_search) {
-            $classes .= ' ccl-visual-card--pending';
-        }
 
-        $description = $item['description'] ?? 'Listings are being connected — request the active list now.';
-        $badge = $has_saved_search ? '' : '<span class="ccl-visual-card__badge">Active list pending</span>';
-        $cta = $has_saved_search ? '<span class="ccl-visual-card__cta">View Active Listings</span>' : '<span class="ccl-visual-card__cta">Request Active Listings</span>';
+        $description = $item['description'] ?? 'Browse active Calgary condo listing routes for this search.';
+        $badge = $has_saved_search ? '<span class="ccl-visual-card__badge">Live IDX Route</span>' : '';
+        $cta_text = 'Building Profile Searches' === $item['category'] ? 'View Matching Buildings' : 'View Active Condos';
+        $cta = '<span class="ccl-visual-card__cta">' . esc_html($cta_text) . '</span>';
 
         return '<a href="' . esc_url($item['url']) . '" target="_self" class="' . esc_attr($classes) . '"><span class="ccl-visual-card__overlay"></span><span class="ccl-visual-card__category">' . esc_html($item['category']) . '</span><span class="ccl-visual-card__title">' . esc_html($item['title']) . '</span>' . $badge . '<span class="ccl-visual-card__description">' . esc_html($description) . '</span>' . $cta . '</a>';
     }
