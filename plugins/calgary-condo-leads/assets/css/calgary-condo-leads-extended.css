@@ -2489,3 +2489,277 @@ body.admin-bar .ccl-floating-lead-widget {
     transform: none;
   }
 }
+
+/* Premium lifestyle, schools, and building-risk hub */
+.ccl-lifestyle-hub {
+  position: relative;
+  overflow: hidden;
+  margin: clamp(48px, 6vw, 84px) auto;
+  padding: clamp(34px, 5vw, 64px);
+  border-radius: 34px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255,153,0,0.20), transparent 28%),
+    radial-gradient(circle at 86% 28%, rgba(255,255,255,0.10), transparent 24%),
+    linear-gradient(135deg, rgba(8,13,23,0.98), rgba(10,26,47,0.96) 52%, rgba(18,30,48,0.94));
+  box-shadow: 0 30px 90px rgba(5,10,20,0.34);
+  isolation: isolate;
+}
+
+.ccl-lifestyle-hub::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.13;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
+  background-size: 42px 42px;
+  z-index: 0;
+}
+
+.ccl-lifestyle-hub > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ccl-lifestyle-hub .ccl-wrap { max-width: 1180px; }
+
+.ccl-lifestyle-hub__header { margin-bottom: clamp(28px, 4vw, 46px); }
+
+.ccl-lifestyle-hub__eyebrow,
+.ccl-lifestyle-hub__panel-kicker,
+.ccl-risk-inspector__kicker {
+  color: #d6a54a;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.ccl-lifestyle-hub h2 {
+  max-width: 820px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2rem, 4vw, 4.3rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+  font-weight: 950;
+}
+
+.ccl-lifestyle-hub__copy {
+  max-width: 680px;
+  margin-top: 18px;
+  color: rgba(255,255,255,0.72);
+  font-size: clamp(1rem, 1.45vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.ccl-lifestyle-hub__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(22px, 4vw, 42px);
+  align-items: stretch;
+}
+
+.ccl-lifestyle-hub__panel-stack {
+  display: grid;
+  gap: 18px;
+}
+
+.ccl-lifestyle-hub__panel,
+.ccl-risk-inspector {
+  background: rgba(255,255,255,0.095);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 28px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 18px 42px rgba(0,0,0,0.22);
+}
+
+.ccl-lifestyle-hub__panel { padding: clamp(22px, 3vw, 30px); }
+
+.ccl-lifestyle-hub__panel h3,
+.ccl-risk-inspector h3 {
+  margin: 10px 0 10px;
+  color: #ffffff;
+  font-size: clamp(1.3rem, 2vw, 1.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 900;
+}
+
+.ccl-lifestyle-hub__panel p,
+.ccl-risk-inspector p {
+  margin: 0;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.65;
+}
+
+.ccl-lifestyle-hub__primary-action {
+  margin-top: 20px;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 18px;
+  color: #0A1A2F;
+  background: #ffffff;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(255,255,255,0.14);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.ccl-lifestyle-hub__primary-action:hover,
+.ccl-lifestyle-hub__primary-action:focus-visible {
+  transform: translateY(-3px);
+  background: #fff4df;
+  box-shadow: 0 22px 46px rgba(255,255,255,0.20);
+}
+
+.ccl-lifestyle-hub__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.ccl-lifestyle-hub__community-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 58px;
+  border-radius: 18px;
+  padding: 14px 16px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 850;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+  transition: transform 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease, background 0.32s ease;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+.ccl-lifestyle-hub__community-link:hover,
+.ccl-lifestyle-hub__community-link:focus-visible {
+  transform: translateY(-4px) translateZ(0);
+  border-color: rgba(255,153,0,0.48);
+  background: rgba(255,255,255,0.15);
+  box-shadow:
+    0 20px 44px rgba(0,0,0,0.26),
+    0 0 26px rgba(255,153,0,0.14);
+}
+
+.ccl-risk-inspector {
+  padding: clamp(24px, 3.5vw, 34px);
+}
+
+.ccl-risk-inspector__header { margin-bottom: 18px; }
+
+.ccl-risk-inspector__rows {
+  display: grid;
+  gap: 12px;
+}
+
+.ccl-risk-inspector__row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.075);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ccl-risk-inspector__row:hover,
+.ccl-risk-inspector__row:focus-within {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.11);
+  border-color: rgba(255,153,0,0.30);
+  box-shadow: 0 14px 34px rgba(0,0,0,0.20);
+}
+
+.ccl-risk-inspector__row strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.ccl-risk-inspector__row p {
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.ccl-risk-inspector__badge {
+  width: 11px;
+  height: 11px;
+  margin-top: 6px;
+  border-radius: 999px;
+  box-shadow: 0 0 18px currentColor;
+}
+
+.ccl-risk-inspector__badge--green {
+  color: #46d39a;
+  background: #46d39a;
+}
+
+.ccl-risk-inspector__badge--orange {
+  color: #ff9900;
+  background: #ff9900;
+}
+
+.ccl-risk-inspector__badge--amber {
+  color: #f6c453;
+  background: #f6c453;
+}
+
+.ccl-risk-inspector__cta {
+  width: 100%;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 999px;
+  padding: 15px 18px;
+  color: #0A1A2F;
+  background: #FF9900;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(255,153,0,0.20);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.ccl-risk-inspector__cta:hover,
+.ccl-risk-inspector__cta:focus-visible {
+  transform: translateY(-3px);
+  background: #ffb13b;
+  box-shadow: 0 24px 52px rgba(255,153,0,0.28);
+}
+
+@media (max-width: 900px) {
+  .ccl-lifestyle-hub__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .ccl-lifestyle-hub { border-radius: 24px; }
+  .ccl-lifestyle-hub__actions { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ccl-lifestyle-hub__primary-action,
+  .ccl-lifestyle-hub__community-link,
+  .ccl-risk-inspector__row,
+  .ccl-risk-inspector__cta {
+    transition: none;
+  }
+
+  .ccl-lifestyle-hub__primary-action:hover,
+  .ccl-lifestyle-hub__community-link:hover,
+  .ccl-risk-inspector__row:hover,
+  .ccl-risk-inspector__cta:hover {
+    transform: none;
+  }
+}
