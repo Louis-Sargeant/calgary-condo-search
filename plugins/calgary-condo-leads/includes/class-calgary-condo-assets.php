@@ -44,6 +44,14 @@ final class Calgary_Condo_Assets {
             CCL_VERSION,
             true
         );
+
+        wp_enqueue_script(
+            'calgary-condo-keyword-search',
+            CCL_PLUGIN_URL . 'assets/js/calgary-condo-keyword-search.js',
+            [],
+            CCL_VERSION,
+            true
+        );
     }
 
     /**
