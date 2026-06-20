@@ -56,7 +56,7 @@ final class Calgary_Condo_Homepage {
 
         ob_start();
         ?>
-        <div class="ccl-page-shell ccl-home-tight ccl-home-search-first<?php echo $is_paginated_idx ? ' ccl-home-search-first--paginated' : ''; ?>" data-ccl-condo-home>
+        <div class="ccl-page-shell ccl-premium-homepage-shell ccl-home-tight ccl-home-search-first<?php echo $is_paginated_idx ? ' ccl-home-search-first--paginated' : ''; ?>" data-ccl-condo-home>
             <style>
                 #clean-calgary-hero,
                 #clean-calgary-hero * {
@@ -165,7 +165,7 @@ final class Calgary_Condo_Homepage {
 
             <?php endif; ?>
 
-            <section id="idx-search" class="ccl-section ccl-section--white ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-live-calgary-listings-title">
+            <section id="idx-search" class="ccl-section ccl-section--white ccl-section-light ccl-idx-shell ccl-tight-idx ccl-idx-premium-section" aria-labelledby="ccl-live-calgary-listings-title">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
                         <div>
@@ -173,7 +173,7 @@ final class Calgary_Condo_Homepage {
                             <h2 id="ccl-live-calgary-listings-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
                             <p><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
                         </div>
-                        <button type="button" class="ccl-small-link" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get condo alerts</button>
+                        <button type="button" class="ccl-small-link ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get condo alerts</button>
                     </div>
                     <?php
                     $keyword = isset($_GET['keyword']) ? sanitize_text_field(wp_unslash($_GET['keyword'])) : '';

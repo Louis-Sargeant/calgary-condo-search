@@ -3269,3 +3269,74 @@ body.admin-bar .ccl-floating-lead-widget {
   box-shadow: 0 18px 42px rgba(255,153,0,0.24) !important;
   font-weight: 900 !important;
 }
+
+/* Final homepage cohesion system */
+.ccl-premium-homepage-shell {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,153,0,0.12), transparent 28%),
+    radial-gradient(circle at 88% 28%, rgba(59,130,246,0.10), transparent 28%),
+    linear-gradient(180deg, #f6f1e7 0%, #f2eadc 34%, #efe5d6 100%);
+  color: #0A1A2F;
+}
+
+.ccl-premium-homepage-shell .ccl-section--dark,
+.ccl-premium-homepage-shell .ccl-lifestyle-dark-final,
+.ccl-premium-homepage-shell .ccl-market-dashboard {
+  color: #ffffff;
+}
+
+.ccl-premium-homepage-shell .ccl-section-light {
+  color: #0A1A2F;
+  background: rgba(255,255,255,0.88);
+}
+
+.ccl-premium-homepage-shell .ccl-section-light h1,
+.ccl-premium-homepage-shell .ccl-section-light h2,
+.ccl-premium-homepage-shell .ccl-section-light h3,
+.ccl-premium-homepage-shell .ccl-section-light strong {
+  color: #0A1A2F;
+}
+
+.ccl-premium-homepage-shell .ccl-section-light p,
+.ccl-premium-homepage-shell .ccl-section-light li {
+  color: rgba(10,26,47,0.72);
+}
+
+/* Premium IDX listing section */
+.ccl-premium-homepage-shell .ccl-idx-premium-section {
+  position: relative;
+  overflow: hidden;
+  margin: clamp(48px, 6vw, 86px) auto !important;
+  padding: clamp(36px, 5vw, 64px) clamp(18px, 4vw, 42px) !important;
+  border-radius: 34px !important;
+  color: #0A1A2F !important;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,153,0,0.12), transparent 30%),
+    linear-gradient(135deg, rgba(255,255,255,0.92), rgba(246,241,231,0.86)) !important;
+  border: 1px solid rgba(10,26,47,0.08) !important;
+  box-shadow: 0 26px 70px rgba(10,26,47,0.12) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-idx-premium-section h1,
+.ccl-premium-homepage-shell .ccl-idx-premium-section h2,
+.ccl-premium-homepage-shell .ccl-idx-premium-section h3,
+.ccl-premium-homepage-shell .ccl-idx-premium-section strong {
+  color: #0A1A2F !important;
+  text-shadow: none !important;
+}
+
+.ccl-premium-homepage-shell .ccl-idx-premium-section p,
+.ccl-premium-homepage-shell .ccl-idx-premium-section li,
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-idx-shell__header span {
+  color: rgba(10,26,47,0.72) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-eyebrow {
+  color: #B45309 !important;
+}
+
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-alert-button,
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-condo-alerts {
+  border-radius: 999px;
+  font-weight: 900;
+}
