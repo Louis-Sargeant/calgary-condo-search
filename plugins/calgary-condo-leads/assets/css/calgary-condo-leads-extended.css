@@ -1901,6 +1901,7 @@
   --ccl-visual-card-image: linear-gradient(135deg, rgba(10, 26, 47, 0.94), rgba(255, 153, 0, 0.68));
 }
 
+
 @media (max-width: 1024px) {
   .ccl-visual-directory__matrix {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2365,4 +2366,126 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-keyword-search-form .ccl-autocomplete-dropdown,
 .ccl-keyword-search-form .select2-container {
   display: none !important;
+}
+/* Premium glassmorphism skin for the Calgary building database visual directory. */
+.ccl-visual-directory--premium {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(54px, 7vw, 92px) clamp(18px, 4vw, 42px);
+  isolation: isolate;
+  background:
+    linear-gradient(135deg, rgba(10,26,47,0.96) 0%, rgba(14,38,71,0.92) 46%, rgba(255,153,0,0.28) 100%),
+    var(--ccl-visual-directory-bg, none);
+  background-size: cover;
+  background-position: center;
+  border-radius: 34px;
+  box-shadow: 0 28px 80px rgba(10,26,47,0.26);
+  color: #ffffff;
+}
+
+.ccl-visual-directory--premium::before,
+.ccl-visual-directory--premium::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(18px);
+  opacity: 0.7;
+  transform: translateZ(0);
+}
+
+.ccl-visual-directory--premium::before {
+  width: 360px;
+  height: 360px;
+  top: -120px;
+  right: -100px;
+  background: radial-gradient(circle, rgba(255,153,0,0.34), rgba(255,153,0,0));
+}
+
+.ccl-visual-directory--premium::after {
+  width: 420px;
+  height: 420px;
+  bottom: -170px;
+  left: -130px;
+  background: radial-gradient(circle, rgba(255,255,255,0.13), rgba(255,255,255,0));
+}
+
+.ccl-visual-directory--premium .ccl-visual-directory__eyebrow {
+  color: #FF9900;
+}
+
+.ccl-visual-directory--premium h2,
+.ccl-visual-directory--premium .ccl-visual-directory__title {
+  color: #ffffff;
+  text-shadow: 0 6px 22px rgba(0,0,0,0.30);
+}
+
+.ccl-visual-directory--premium .ccl-visual-directory__description,
+.ccl-visual-directory--premium .ccl-visual-directory__header p {
+  color: rgba(255,255,255,0.76);
+}
+
+.ccl-visual-directory--premium .ccl-visual-directory__column h3 {
+  color: rgba(255,255,255,0.92);
+}
+
+.ccl-visual-directory--premium .ccl-visual-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 124px;
+  border-radius: 20px;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.26);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.22);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateZ(0);
+  transition: all 0.35s ease-in-out;
+  will-change: transform, box-shadow, border-color;
+}
+
+.ccl-visual-directory--premium .ccl-visual-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.38)),
+    radial-gradient(circle at top right, rgba(255,153,0,0.18), transparent 45%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ccl-visual-directory--premium .ccl-visual-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ccl-visual-directory--premium .ccl-visual-card__overlay {
+  display: none;
+}
+
+.ccl-visual-directory--premium .ccl-visual-card:hover,
+.ccl-visual-directory--premium .ccl-visual-card:focus-visible {
+  transform: translateY(-6px) scale(1.015) translateZ(0);
+  border-color: rgba(255,153,0,0.56);
+  box-shadow:
+    0 28px 66px rgba(0,0,0,0.32),
+    0 0 0 1px rgba(255,153,0,0.24),
+    0 0 32px rgba(255,153,0,0.20);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ccl-visual-directory--premium .ccl-visual-card {
+    transition: none;
+  }
+
+  .ccl-visual-directory--premium .ccl-visual-card:hover,
+  .ccl-visual-directory--premium .ccl-visual-card:focus-visible {
+    transform: none;
+  }
 }
