@@ -1761,10 +1761,14 @@
 .ccl-visual-card {
   position: relative;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  min-height: 120px;
+  min-height: 190px;
+  gap: 8px;
+  padding: 18px;
   border-radius: 18px;
   text-decoration: none;
   background-color: #0A1A2F;
@@ -1796,8 +1800,54 @@
   font-weight: 800;
   font-size: 17px;
   line-height: 1.2;
-  padding: 18px;
+  padding: 0;
   text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+.ccl-visual-card__category,
+.ccl-visual-card__badge,
+.ccl-visual-card__description,
+.ccl-visual-card__cta {
+  position: relative;
+  z-index: 2;
+}
+
+.ccl-visual-card__category,
+.ccl-visual-card__badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 9px;
+  color: #0A1A2F;
+  background: rgba(255,255,255,0.9);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.ccl-visual-card__badge {
+  background: #F0C75E;
+}
+
+.ccl-visual-card__description {
+  color: rgba(255,255,255,0.86);
+  font-size: 13px;
+  line-height: 1.35;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+}
+
+.ccl-visual-card__cta {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #0A1A2F;
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .ccl-visual-card:hover,
