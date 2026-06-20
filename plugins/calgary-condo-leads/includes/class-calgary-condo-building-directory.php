@@ -97,7 +97,9 @@ final class Calgary_Condo_Building_Directory {
         $description = $item['description'] ?? 'Browse active Calgary condo listing routes for this search.';
         $badge = $has_saved_search ? '<span class="ccl-visual-card__badge">Live IDX Route</span>' : '';
         $cta_text = 'Building Profile Searches' === $item['category'] ? 'View Matching Buildings' : 'View Active Condos';
-        $cta = '<span class="ccl-visual-card__cta">' . esc_html($cta_text) . '</span>';
+        $lead_source = 'Building Profile Searches' === $item['category'] ? 'Building Profile Searches' : 'Calgary Building Database';
+        $intent = 'Building Profile Searches' === $item['category'] ? 'Building profile list request' : 'Active listings request';
+        $cta = '<span class="ccl-visual-card__cta" data-ccl-lead-open data-lead-source="' . esc_attr($lead_source) . '" data-requested-category="' . esc_attr($item['title']) . '" data-intent="' . esc_attr($intent) . '">' . esc_html($cta_text) . '</span>';
 
         return '<a href="' . esc_url($item['url']) . '" target="_self" class="' . esc_attr($classes) . '"><span class="ccl-visual-card__overlay"></span><span class="ccl-visual-card__category">' . esc_html($item['category']) . '</span><span class="ccl-visual-card__title">' . esc_html($item['title']) . '</span>' . $badge . '<span class="ccl-visual-card__description">' . esc_html($description) . '</span>' . $cta . '</a>';
     }
@@ -213,7 +215,7 @@ HTML;
                 <h2>Want alerts for a specific building?</h2>
                 <p>Tell us the building, budget, unit type, parking needs, and timing. We will watch the right listings and help compare the building before you book showings.</p>
             </div>
-            <a class="ccl-building-btn" href="/building-alerts/" target="_self">Set Building Alerts</a>
+            <button type="button" class="ccl-building-btn" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Alerts" data-intent="Building profile list request">Set Building Alerts</button>
         </div>
     </div>
 </section>

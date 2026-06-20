@@ -87,7 +87,7 @@ final class Calgary_Condo_Assets {
                         <h2><?php echo esc_html($atts['title']); ?></h2>
                         <p><?php echo esc_html($atts['subtitle']); ?></p>
                     </div>
-                    <a class="ccl-btn ccl-btn--dark" href="#condo-alerts" target="_self"><?php esc_html_e('Get Condo Alerts', 'calgary-condo-leads'); ?></a>
+                    <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="IDX Search Panel" data-requested-category="Condo Alerts" data-intent="Active listings request"><?php esc_html_e('Get Condo Alerts', 'calgary-condo-leads'); ?></button>
                 </div>
                 <div class="ccl-idx-shell__frame">
                     <?php echo $idx_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- IDX/plugin shortcode output must retain its scripts and markup. ?>
@@ -158,7 +158,7 @@ final class Calgary_Condo_Assets {
                 </div>
                 <div class="ccl-faq__cta">
                     <strong><?php esc_html_e('Not sure which building is safe to pursue?', 'calgary-condo-leads'); ?></strong>
-                    <a class="ccl-btn ccl-btn--primary" href="#condo-alerts" target="_self"><?php esc_html_e('Ask About A Building', 'calgary-condo-leads'); ?></a>
+                    <button type="button" class="ccl-btn ccl-btn--primary" data-ccl-lead-open data-lead-source="Building Risk Intelligence" data-requested-category="Building Risk Report" data-intent="Building risk report request"><?php esc_html_e('Ask About A Building', 'calgary-condo-leads'); ?></button>
                 </div>
             </div>
         </section>

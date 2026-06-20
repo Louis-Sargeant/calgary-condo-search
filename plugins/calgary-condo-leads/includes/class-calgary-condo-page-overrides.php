@@ -148,7 +148,7 @@ final class Calgary_Condo_Page_Overrides {
         </div>
         <div class="ccl-compare-hero__actions">
             <a class="ccl-btn ccl-btn--primary" href="#idx-search" target="_self">View Price Drop Condos</a>
-            <a class="ccl-btn ccl-btn--dark" href="/building-alerts/" target="_self">Get Price Drop Alerts</a>
+            <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="Price Drop Condos" data-requested-category="Price Drop Alerts" data-intent="Active listings request">Get Price Drop Alerts</button>
         </div>
     </div>
 </section>
@@ -169,7 +169,7 @@ HTML;
             <p>Price and photos are only the start. Strong Calgary condo buyers compare the building, fees, rules, documents, parking, storage, lifestyle fit, and resale path before making a move.</p>
         </div>
         <div class="ccl-compare-hero__actions">
-            <a class="ccl-btn ccl-btn--primary" href="#condo-alerts" target="_self">Request Building Comparison</a>
+            <button type="button" class="ccl-btn ccl-btn--primary" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Comparison" data-intent="Building profile list request">Request Building Comparison</button>
             <a class="ccl-btn ccl-btn--dark" href="tel:+14038006996">Call +1 (403) 800-6996</a>
         </div>
     </div>

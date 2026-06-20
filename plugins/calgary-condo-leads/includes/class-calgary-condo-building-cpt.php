@@ -175,7 +175,7 @@ final class Calgary_Condo_Building_CPT {
     }
 
     private function lead_sidebar(): string {
-        return '<div class="ccl-building-lead-card"><h2>' . esc_html__('Compare this building first', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Send the building name, budget, parking needs, pet needs, and timing. We will help compare the building before you chase the unit.', 'calgary-condo-leads') . '</p><a class="ccl-building-lead-card__button" href="' . esc_url('/building-alerts/') . '" target="_self">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</a><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
+        return '<div class="ccl-building-lead-card"><h2>' . esc_html__('Compare this building first', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Send the building name, budget, parking needs, pet needs, and timing. We will help compare the building before you chase the unit.', 'calgary-condo-leads') . '</p><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
     }
 
 }

@@ -499,3 +499,192 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
     max-width: 100%;
   }
 }
+
+/* Unified Calgary condo lead modal */
+.ccl-unified-lead-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: none;
+}
+
+.ccl-unified-lead-modal.is-active {
+  display: block;
+}
+
+.ccl-unified-lead-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 11, 20, 0.76);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.ccl-unified-lead-modal__panel {
+  position: relative;
+  width: min(560px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  margin: min(8vh, 70px) auto;
+  border-radius: 28px;
+  padding: clamp(24px, 4vw, 38px);
+  color: #ffffff;
+  background:
+    radial-gradient(circle at top right, rgba(255,153,0,0.18), transparent 34%),
+    rgba(10, 26, 47, 0.88);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 32px 92px rgba(0,0,0,0.45);
+}
+
+.admin-bar .ccl-unified-lead-modal__panel {
+  margin-top: min(10vh, 86px);
+}
+
+.ccl-unified-lead-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 30px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ccl-unified-lead-modal__eyebrow,
+.ccl-unified-lead-modal__context {
+  margin: 0 52px 10px 0;
+  color: #F0C75E;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.ccl-unified-lead-modal h2 {
+  margin: 0 44px 12px 0;
+  color: #fff;
+  font-size: clamp(28px, 5vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.ccl-unified-lead-modal__copy {
+  margin: 0 0 18px;
+  color: rgba(255,255,255,0.86);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.ccl-unified-lead-modal__context {
+  display: inline-flex;
+  max-width: 100%;
+  margin: 0 0 18px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(240,199,94,0.13);
+  color: #FFE3A1;
+  letter-spacing: .03em;
+  text-transform: none;
+}
+
+.ccl-unified-lead-modal__success {
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(46, 204, 113, 0.16);
+  color: #b9ffd4;
+  font-weight: 800;
+}
+
+.ccl-unified-lead-modal__form {
+  display: grid;
+  gap: 13px;
+}
+
+.ccl-unified-lead-modal__form label {
+  display: grid;
+  gap: 7px;
+  color: rgba(255,255,255,0.92);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.ccl-unified-lead-modal__form input,
+.ccl-unified-lead-modal__form textarea {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,0.95);
+  color: #0A1A2F;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.ccl-unified-lead-modal__form textarea {
+  min-height: 108px;
+  resize: vertical;
+}
+
+.ccl-unified-lead-modal__form input:focus,
+.ccl-unified-lead-modal__form textarea:focus,
+.ccl-unified-lead-modal__close:focus-visible,
+.ccl-unified-lead-modal__submit:focus-visible {
+  outline: 3px solid rgba(240,199,94,0.52);
+  outline-offset: 2px;
+}
+
+.ccl-unified-lead-modal__submit {
+  min-height: 54px;
+  margin-top: 4px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #F0C75E, #ff9900);
+  color: #0A1A2F;
+  font-weight: 950;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 18px 42px rgba(255,153,0,0.26);
+}
+
+.ccl-unified-lead-modal__trust {
+  margin: 0;
+  color: rgba(255,255,255,0.74);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.ccl-unified-lead-modal-is-open {
+  overflow: hidden;
+}
+
+button.ccl-floating-lead-widget,
+button.ccl-building-btn,
+button.ccl-building-lead-card__button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media (max-width: 620px) {
+  .ccl-unified-lead-modal__panel {
+    width: calc(100% - 20px);
+    margin: 10px auto;
+    border-radius: 22px;
+  }
+
+  .admin-bar .ccl-unified-lead-modal__panel {
+    margin-top: 46px;
+  }
+
+  .ccl-unified-lead-modal__submit {
+    width: 100%;
+  }
+}

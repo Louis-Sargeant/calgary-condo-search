@@ -397,6 +397,11 @@ final class Calgary_Condo_Leads {
             'budget' => isset($_POST['ccl_budget']) ? sanitize_text_field(wp_unslash($_POST['ccl_budget'])) : '',
             'timeline' => isset($_POST['ccl_timeline']) ? sanitize_text_field(wp_unslash($_POST['ccl_timeline'])) : '',
             'message' => isset($_POST['ccl_message']) ? sanitize_textarea_field(wp_unslash($_POST['ccl_message'])) : '',
+            'lead_source' => isset($_POST['ccl_lead_source']) ? sanitize_text_field(wp_unslash($_POST['ccl_lead_source'])) : 'Calgary Condo Portal',
+            'requested_category' => isset($_POST['ccl_requested_category']) ? sanitize_text_field(wp_unslash($_POST['ccl_requested_category'])) : 'General Calgary Condo Help',
+            'requested_page' => isset($_POST['ccl_requested_page']) ? sanitize_text_field(wp_unslash($_POST['ccl_requested_page'])) : '',
+            'requested_url' => isset($_POST['ccl_requested_url']) ? esc_url_raw(wp_unslash($_POST['ccl_requested_url'])) : '',
+            'intent' => isset($_POST['ccl_intent']) ? sanitize_text_field(wp_unslash($_POST['ccl_intent'])) : 'General inquiry',
         ];
 
         if ('' === $lead['name'] || !is_email($lead['email'])) {
@@ -463,6 +468,11 @@ final class Calgary_Condo_Leads {
                 sprintf(__('Budget: %s', 'calgary-condo-leads'), $lead['budget']),
                 sprintf(__('Timeline: %s', 'calgary-condo-leads'), $lead['timeline']),
                 sprintf(__('Message: %s', 'calgary-condo-leads'), $lead['message']),
+                sprintf(__('Lead source: %s', 'calgary-condo-leads'), $lead['lead_source'] ?? ''),
+                sprintf(__('Requested category: %s', 'calgary-condo-leads'), $lead['requested_category'] ?? ''),
+                sprintf(__('Requested page: %s', 'calgary-condo-leads'), $lead['requested_page'] ?? ''),
+                sprintf(__('Requested URL: %s', 'calgary-condo-leads'), $lead['requested_url'] ?? ''),
+                sprintf(__('Intent: %s', 'calgary-condo-leads'), $lead['intent'] ?? ''),
                 '',
                 sprintf(__('Lead ID: %d', 'calgary-condo-leads'), $post_id),
             ]

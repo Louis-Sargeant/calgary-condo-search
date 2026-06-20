@@ -76,7 +76,9 @@ final class Calgary_Condo_Intent_Capture {
                 'text' => 'Ask about documents, reserve fund signals, bylaws, insurance, special-assessment risk, pet rules, rental rules, and resale concerns.',
                 'button' => 'Ask About Building Risk',
                 'url' => '#building-risk-report',
-                'risk_modal' => true,
+                'lead_source' => 'Building Risk Intelligence',
+                'requested_category' => 'Building Risk Report',
+                'intent' => 'Building risk report request',
             ],
         ];
 
@@ -94,7 +96,7 @@ final class Calgary_Condo_Intent_Capture {
                         <article class="ccl-intent-card">
                             <h3><?php echo esc_html($card['label']); ?></h3>
                             <p><?php echo esc_html($card['text']); ?></p>
-                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>" target="_self" <?php echo !empty($card['risk_modal']) ? 'data-ccl-open-building-risk-modal' : ''; ?>><?php echo esc_html($card['button']); ?></a>
+                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>" target="_self" <?php echo isset($card['lead_source']) ? 'data-ccl-lead-open data-lead-source="' . esc_attr($card['lead_source']) . '" data-requested-category="' . esc_attr($card['requested_category']) . '" data-intent="' . esc_attr($card['intent']) . '"' : ''; ?>><?php echo esc_html($card['button']); ?></a>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -131,7 +133,7 @@ final class Calgary_Condo_Intent_Capture {
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
-                <button class="ccl-btn ccl-btn--primary" type="button" data-ccl-modal-open><?php echo esc_html($atts['button_text']); ?></button>
+                <button class="ccl-btn ccl-btn--primary" type="button" data-ccl-lead-open data-lead-source="Lead Modal Launch" data-requested-category="General Calgary Condo Help" data-intent="Help request"><?php echo esc_html($atts['button_text']); ?></button>
             </div>
         </section>
         <div class="ccl-lead-modal" data-ccl-modal hidden>

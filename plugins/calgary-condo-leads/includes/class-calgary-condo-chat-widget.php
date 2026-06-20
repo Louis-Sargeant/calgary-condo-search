@@ -13,10 +13,10 @@ final class Calgary_Condo_Chat_Widget {
             return;
         }
         ?>
-        <a href="/contact/" target="_self" class="ccl-floating-lead-widget" aria-label="Request Calgary condo help">
+        <button type="button" class="ccl-floating-lead-widget" aria-label="Request Calgary condo help" data-ccl-lead-open data-lead-source="Floating Help Button" data-requested-category="General Calgary Condo Help" data-intent="Help request">
             <span aria-hidden="true">✉</span>
             <span>Request Condo Help</span>
-        </a>
+        </button>
         <?php
     }
 }
