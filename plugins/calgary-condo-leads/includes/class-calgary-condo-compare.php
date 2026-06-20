@@ -44,7 +44,7 @@ final class Calgary_Condo_Compare {
                     <p>Price and photos are only the start. Strong Calgary condo buyers compare the building, fees, rules, documents, parking, storage, lifestyle fit, and resale path before making a move.</p>
                 </div>
                 <div class="ccl-compare-hero__actions">
-                    <a class="ccl-btn ccl-btn--primary" href="#building-comparison-request" target="_self">Request Building Comparison</a>
+                    <button type="button" class="ccl-btn ccl-btn--primary" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Comparison" data-intent="Building profile list request">Request Building Comparison</button>
                     <a class="ccl-btn ccl-btn--dark" href="tel:<?php echo esc_attr($phone_tel); ?>">Call <?php echo esc_html($phone_display); ?></a>
                 </div>
             </div>

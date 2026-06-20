@@ -75,7 +75,7 @@ final class Calgary_Condo_Intent_Capture {
                 'label' => 'I am worried about the building',
                 'text' => 'Ask about documents, reserve fund signals, bylaws, insurance, special-assessment risk, pet rules, rental rules, and resale concerns.',
                 'button' => 'Ask About Building Risk',
-                'url' => '#building-risk-report',
+                'url' => '',
                 'lead_source' => 'Building Risk Intelligence',
                 'requested_category' => 'Building Risk Report',
                 'intent' => 'Building risk report request',
@@ -96,7 +96,11 @@ final class Calgary_Condo_Intent_Capture {
                         <article class="ccl-intent-card">
                             <h3><?php echo esc_html($card['label']); ?></h3>
                             <p><?php echo esc_html($card['text']); ?></p>
-                            <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>" target="_self" <?php echo isset($card['lead_source']) ? 'data-ccl-lead-open data-lead-source="' . esc_attr($card['lead_source']) . '" data-requested-category="' . esc_attr($card['requested_category']) . '" data-intent="' . esc_attr($card['intent']) . '"' : ''; ?>><?php echo esc_html($card['button']); ?></a>
+                            <?php if (isset($card['lead_source'])) : ?>
+                                <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="<?php echo esc_attr($card['lead_source']); ?>" data-requested-category="<?php echo esc_attr($card['requested_category']); ?>" data-intent="<?php echo esc_attr($card['intent']); ?>"><?php echo esc_html($card['button']); ?></button>
+                            <?php else : ?>
+                                <a class="ccl-btn ccl-btn--dark" href="<?php echo esc_url($card['url']); ?>" target="_self"><?php echo esc_html($card['button']); ?></a>
+                            <?php endif; ?>
                         </article>
                     <?php endforeach; ?>
                 </div>
