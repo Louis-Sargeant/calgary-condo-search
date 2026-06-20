@@ -332,11 +332,11 @@ final class Calgary_Condo_Site_Sections {
                     <p class="ccl-site-footer__muted"><?php echo esc_html($atts['disclaimer']); ?></p>
                 </div>
                 <nav class="ccl-site-footer__links" aria-label="<?php esc_attr_e('Calgary Condo Search footer links', 'calgary-condo-leads'); ?>">
-                    <a href="/calgary-condos/">Calgary Condos</a>
-                    <a href="/condo-buildings/">Condo Buildings</a>
-                    <a href="/condo-value-report/">Condo Value Report</a>
-                    <a href="/market-report/">Market Report</a>
-                    <a href="/building-alerts/">Building Alerts</a>
+                    <a href="/calgary-condos/" target="_self">Calgary Condos</a>
+                    <a href="/condo-buildings/" target="_self">Condo Buildings</a>
+                    <a href="/condo-value-report/" target="_self">Condo Value Report</a>
+                    <a href="/market-report/" target="_self">Market Report</a>
+                    <a href="/building-alerts/" target="_self">Building Alerts</a>
                 </nav>
             </div>
         </footer>

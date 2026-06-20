@@ -44,7 +44,7 @@ final class Calgary_Condo_Compare {
                     <p>Price and photos are only the start. Strong Calgary condo buyers compare the building, fees, rules, documents, parking, storage, lifestyle fit, and resale path before making a move.</p>
                 </div>
                 <div class="ccl-compare-hero__actions">
-                    <a class="ccl-btn ccl-btn--primary" href="#building-comparison-request">Request Building Comparison</a>
+                    <a class="ccl-btn ccl-btn--primary" href="#building-comparison-request" target="_self">Request Building Comparison</a>
                     <a class="ccl-btn ccl-btn--dark" href="tel:<?php echo esc_attr($phone_tel); ?>">Call <?php echo esc_html($phone_display); ?></a>
                 </div>
             </div>
@@ -75,7 +75,7 @@ final class Calgary_Condo_Compare {
                     <h2>Send the buildings or areas you are considering.</h2>
                     <p>Get help narrowing the list before showings. Compare fees, bylaws, parking, storage, pet rules, documents, and resale path with a Calgary condo-focused plan.</p>
                 </div>
-                <a class="ccl-btn ccl-btn--primary" href="#condo-alerts">Send My Comparison Request</a>
+                <a class="ccl-btn ccl-btn--primary" href="#condo-alerts" target="_self">Send My Comparison Request</a>
             </div>
         </section>
         <?php
