@@ -123,7 +123,7 @@ final class Calgary_Condo_Page_Overrides {
         }
         ?>
         <style>
-            .ccl-price-drop-badge{position:absolute;left:8px;top:8px;z-index:20;display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border-radius:999px;background:#0A1A2F;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 18px rgba(10,26,47,.22);pointer-events:none}.ccl-price-drop-badge::before{content:"↓";display:inline-block;width:16px;height:16px;line-height:16px;text-align:center;border-radius:50%;background:#F0C75E;color:#0A1A2F;font-weight:900}.ccl-price-drop-host{position:relative!important}
+            .ccl-price-drop-badge{position:absolute;left:8px;top:8px;z-index:20;display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border-radius:999px;background:#0A1A2F;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;box-shadow:0 8px 18px rgba(10,26,47,.22);pointer-events:none}.ccl-price-drop-badge::before{content:"↓";display:inline-block;width:16px;height:16px;line-height:16px;text-align:center;border-radius:50%;background:#D4AF37;color:#0A1A2F;font-weight:900}.ccl-price-drop-host{position:relative!important}
         </style>
         <script>
         document.addEventListener('DOMContentLoaded', function () {

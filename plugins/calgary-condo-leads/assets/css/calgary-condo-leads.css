@@ -597,7 +597,7 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
 .ccl-unified-lead-modal__eyebrow,
 .ccl-unified-lead-modal__context {
   margin: 0 52px 10px 0;
-  color: #F0C75E;
+  color: #D4AF37;
   font-size: 12px;
   font-weight: 900;
   letter-spacing: .12em;
@@ -684,7 +684,7 @@ body.page-id-116 .ccl-section + [class*="mrp"] {
   margin-top: 4px;
   border: 0;
   border-radius: 16px;
-  background: linear-gradient(135deg, #F0C75E, #ff9900);
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%);
   color: #0A1A2F;
   font-weight: 950;
   font-size: 16px;
