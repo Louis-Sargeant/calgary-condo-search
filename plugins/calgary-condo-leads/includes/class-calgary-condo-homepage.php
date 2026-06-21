@@ -91,22 +91,51 @@ final class Calgary_Condo_Homepage {
                 }
 
                 @media (max-width: 767px) {
+                    .ccl-premium-homepage-shell {
+                        overflow-x: hidden !important;
+                    }
+
                     #clean-calgary-hero {
-                        min-height: 620px !important;
-                        padding: 64px 16px !important;
+                        min-height: 590px !important;
+                        padding: 56px 18px 82px !important;
+                        background-position: center top !important;
+                    }
+
+                    #clean-calgary-hero-overlay {
+                        background: linear-gradient(180deg, rgba(3,10,22,0.84) 0%, rgba(7,18,34,0.72) 46%, rgba(3,8,18,0.88) 100%) !important;
+                    }
+
+                    #clean-calgary-hero-content {
+                        max-width: 100% !important;
+                        overflow-x: hidden !important;
                     }
 
                     #clean-calgary-hero-title {
-                        font-size: clamp(2.2rem, 11vw, 3.9rem) !important;
-                        max-width: 760px !important;
+                        width: 100% !important;
+                        max-width: 354px !important;
+                        font-size: clamp(2rem, 10.2vw, 2.7rem) !important;
+                        line-height: 1.04 !important;
+                        letter-spacing: -0.04em !important;
+                        margin-bottom: 18px !important;
+                        overflow-wrap: anywhere !important;
+                        word-break: normal !important;
                     }
 
                     #clean-calgary-hero-title-line-two {
                         white-space: normal !important;
                     }
 
+                    #clean-calgary-hero-subtitle {
+                        max-width: 350px !important;
+                        font-size: 1rem !important;
+                        line-height: 1.48 !important;
+                        margin-bottom: 20px !important;
+                    }
+
                     #clean-calgary-hero-phone {
-                        font-size: 1.65rem !important;
+                        max-width: 340px !important;
+                        font-size: 1.28rem !important;
+                        line-height: 1.24 !important;
                     }
 
                     #calgary-explore-navbar-inner {
@@ -139,7 +168,7 @@ final class Calgary_Condo_Homepage {
                             id="ccl-hero-keyword-search"
                             name="keyword"
                             class="ccl-hero-workspace__input ccl-keyword-search-input"
-                            placeholder="Search Calgary condos by keyword, building, area, feature, or style..."
+                            placeholder="Search condos, buildings, or areas"
                             autocomplete="off"
                             autocapitalize="none"
                             spellcheck="false"
