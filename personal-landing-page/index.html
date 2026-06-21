@@ -324,6 +324,83 @@
       line-height: 1.5;
     }
 
+
+    .compliance-contact {
+      margin: 0 0 30px;
+      padding: clamp(28px, 4vw, 44px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(20, 20, 20, 0.96), rgba(31, 31, 31, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .compliance-branding {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .compliance-logo {
+      display: grid;
+      gap: 4px;
+      min-height: 106px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      place-content: center;
+    }
+
+    .compliance-logo strong {
+      color: var(--text);
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .compliance-logo span {
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .compliance-divider {
+      width: 1px;
+      height: 96px;
+      background: linear-gradient(180deg, transparent, var(--amber), transparent);
+    }
+
+    .compliance-details {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(1rem, 2vw, 1.14rem);
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .compliance-details dt {
+      color: var(--amber);
+      font-size: 0.76rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .compliance-details dd {
+      margin: 0;
+      color: var(--text);
+      font-weight: 700;
+    }
+
     .footer {
       display: grid;
       gap: 6px;
@@ -385,6 +462,16 @@
 
       .proof-points {
         grid-template-columns: 1fr;
+      }
+
+      .compliance-branding {
+        grid-template-columns: 1fr;
+      }
+
+      .compliance-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--amber), transparent);
       }
     }
 
@@ -467,6 +554,43 @@
           </ul>
         </div>
       </article>
+    </section>
+
+    <section class="compliance-contact" aria-labelledby="compliance-title">
+      <div class="compliance-branding" aria-label="Louis Sargeant and REAL Broker branding">
+        <div class="compliance-logo">
+          <strong>Louis Sargeant</strong>
+          <span>Sargeant Real Estate</span>
+        </div>
+        <div class="compliance-divider" aria-hidden="true"></div>
+        <div class="compliance-logo">
+          <strong>REAL Broker</strong>
+          <span>Brokerage</span>
+        </div>
+      </div>
+
+      <dl class="compliance-details">
+        <div>
+          <dt id="compliance-title">Brokerage</dt>
+          <dd>REAL Broker</dd>
+        </div>
+        <div>
+          <dt>Representative</dt>
+          <dd>Louis Sargeant</dd>
+        </div>
+        <div>
+          <dt>Phone</dt>
+          <dd><a href="tel:+14038006996">+1 (403) 800-6996</a></dd>
+        </div>
+        <div>
+          <dt>Email</dt>
+          <dd><a href="mailto:louis@sargeantrealestate.com">louis@sargeantrealestate.com</a></dd>
+        </div>
+        <div>
+          <dt>Brokerage Address</dt>
+          <dd>700, 1816 Crowchild Trail NW, Calgary, AB, T2M 3Y7</dd>
+        </div>
+      </dl>
     </section>
 
     <footer class="footer">
