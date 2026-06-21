@@ -152,8 +152,8 @@
       isolation: isolate;
       display: grid;
       place-items: center;
-      min-height: min(720px, calc(100vh - 104px));
-      padding: clamp(48px, 7vw, 74px) 0 clamp(48px, 7vw, 74px);
+      min-height: min(660px, calc(100vh - 92px));
+      padding: clamp(34px, 5.2vw, 58px) 0 clamp(34px, 5.2vw, 58px);
       text-align: center;
       background:
         radial-gradient(circle at center, #161F30 0%, #0B0F19 70%, #05070B 100%);
@@ -226,7 +226,7 @@
       display: inline-flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       color: #E6C687;
       font-size: 0.76rem;
       font-weight: 900;
@@ -248,7 +248,7 @@
       max-width: 920px;
       margin: 0 auto;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: clamp(3rem, 7.2vw, 6.9rem);
+      font-size: clamp(2.85rem, 6.2vw, 6.1rem);
       font-weight: 950;
       line-height: 0.88;
       letter-spacing: -0.085em;
@@ -271,15 +271,15 @@
 
     .subheadline {
       max-width: 790px;
-      margin: 34px auto 0;
+      margin: 22px auto 0;
       color: var(--muted);
       font-size: clamp(1.05rem, 2.3vw, 1.45rem);
       font-weight: 700;
       line-height: 1.5;
     }
 
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 18px; margin-top: 30px; }
-    .hero-actions-stack { width: min(100%, 520px); margin: 32px auto 0; flex-direction: column; align-items: stretch; gap: 14px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 18px; margin-top: 22px; }
+    .hero-actions-stack { width: min(100%, 520px); margin: 24px auto 0; flex-direction: column; align-items: stretch; gap: 12px; }
 
     .button {
       position: relative;
@@ -303,7 +303,7 @@
       border: 1px solid rgba(255, 244, 224, 0.72);
       background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 28%, #D4AF37 52%, #B38F43 82%, #7A5C1B 100%);
       color: #121212;
-      min-height: 72px;
+      min-height: 66px;
       width: 100%;
       border-radius: 20px;
       box-shadow: 0 0 22px rgba(212, 175, 55, 0.42), 0 18px 45px rgba(166, 124, 30, 0.34), inset 0 1px 0 rgba(255, 244, 224, 0.88);
@@ -331,7 +331,7 @@
 
     .button-secondary {
       width: 100%;
-      min-height: 66px;
+      min-height: 58px;
       border: 1px solid rgba(245, 229, 201, 0.74);
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(15, 23, 42, 0.72), rgba(18, 18, 18, 0.92));
@@ -364,7 +364,7 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       width: min(100%, 520px);
-      margin: 26px auto 0;
+      margin: 18px auto 0;
     }
 
     .city-block {
@@ -372,17 +372,22 @@
       grid-template-columns: auto 1fr;
       align-items: center;
       gap: 12px;
-      min-height: 74px;
+      min-height: 68px;
       padding: 14px 16px;
       border: 1px solid rgba(245, 229, 201, 0.18);
       border-radius: 16px;
       background: linear-gradient(180deg, rgba(15, 23, 42, 0.46), rgba(5, 7, 11, 0.72));
       opacity: 0.72;
+      text-decoration: none;
+      transition: transform 180ms ease, border-color 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
     }
 
+    .city-block:hover,
+    .city-block:focus-visible { border-color: rgba(212, 175, 55, 0.48); opacity: 0.88; transform: translateY(-2px); }
     .city-block.is-selected { border-color: rgba(212, 175, 55, 0.72); box-shadow: 0 0 16px rgba(212, 175, 55, 0.22), inset 0 1px 0 rgba(255, 244, 224, 0.08); opacity: 1; }
     .city-number { background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; font-family: Georgia, "Times New Roman", serif; font-size: 1.65rem; font-weight: 700; line-height: 1; }
-    .city-name { color: var(--champagne); font-size: 0.74rem; font-weight: 900; letter-spacing: 0.24em; text-transform: uppercase; text-align: left; }
+    .city-name { display: grid; gap: 3px; color: var(--champagne); font-size: 0.74rem; font-weight: 900; letter-spacing: 0.24em; text-transform: uppercase; text-align: left; }
+    .city-name small { color: rgba(245, 229, 201, 0.74); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; line-height: 1.25; text-transform: none; }
 
     .profile-grid { display: grid; grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr); gap: clamp(30px, 5vw, 64px); align-items: center; padding: 34px 0 72px; }
 
@@ -408,8 +413,8 @@
     .bio-card p { margin: 20px 0 0; color: var(--muted); font-size: 1.04rem; }
 
     .proof-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 0; padding: 0; list-style: none; }
-    .proof-points li { min-height: 100px; padding: 18px; border-radius: 18px; color: rgba(255, 250, 240, 0.9); font-size: 0.9rem; font-weight: 900; line-height: 1.25; background: linear-gradient(180deg, rgba(15, 23, 42, 0.58), rgba(18, 18, 18, 0.88)); border-color: rgba(212, 175, 55, 0.28); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 18px 42px rgba(5, 7, 11, 0.42), inset 0 1px 0 rgba(255, 244, 224, 0.12); }
-    .proof-points li::first-line { background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+    .proof-points li { min-height: 100px; padding: 18px; border-radius: 18px; color: rgba(255, 250, 240, 0.82); font-size: 0.92rem; font-weight: 850; line-height: 1.25; background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)), rgba(15,23,42,0.45); border: 1px solid rgba(212,175,55,0.32); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 14px 38px rgba(5,7,11,0.42), inset 0 1px 0 rgba(245,229,201,0.12); }
+    .proof-points li span { display: block; margin-bottom: 5px; background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; font-size: 1.04rem; font-weight: 950; }
 
     .disclosure { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line-strong); }
     .disclosure h3 { margin: 0 0 12px; color: var(--gold-soft); font-size: 0.9rem; letter-spacing: 0.14em; text-transform: uppercase; }
@@ -487,14 +492,14 @@
           <a class="text-link" href="/home-value/">What Is My Home Worth?</a>
         </div>
         <div class="city-grid" aria-label="City market navigation">
-          <div class="city-block" aria-label="Vancouver market">
+          <a class="city-block" href="https://chengsargeant.com" aria-label="Search Vancouver homes with Louis and Stacy">
             <span class="city-number">01</span>
-            <span class="city-name">Vancouver</span>
-          </div>
-          <div class="city-block is-selected" aria-label="Calgary market selected">
+            <span class="city-name">Vancouver <small>Search Vancouver homes with Louis &amp; Stacy</small></span>
+          </a>
+          <a class="city-block is-selected" href="https://louiss106.sg-host.com/calgary-condos/" aria-label="Search Calgary condos with Louis">
             <span class="city-number">02</span>
-            <span class="city-name">Calgary</span>
-          </div>
+            <span class="city-name">Calgary <small>Search Calgary condos with Louis</small></span>
+          </a>
         </div>
       </div>
     </section>
@@ -511,9 +516,9 @@
         <p>As a retired champion boxer, Louis approaches real estate with discipline, preparation, and a corner-man mindset: protect the client, read the room, and move with purpose. Licensed with REAL Broker in Alberta and British Columbia, he keeps the experience focused, premium, and personal.</p>
 
         <ul class="proof-points" aria-label="Louis Sargeant brand highlights">
-          <li>16+ years real estate experience</li>
-          <li>Calgary + Vancouver market guidance</li>
-          <li>Retired champion boxer mentality</li>
+          <li><span>16+ years</span> real estate experience</li>
+          <li><span>Calgary + Vancouver</span> market guidance</li>
+          <li><span>Retired champion boxer</span> mentality</li>
         </ul>
 
         <div class="disclosure" aria-labelledby="disclosure-title">
