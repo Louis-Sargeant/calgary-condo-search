@@ -488,6 +488,29 @@
     .compliance-logo-image { display: block; width: min(100%, 430px); height: auto; max-height: 190px; margin: 0 auto; object-fit: contain; filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.44)); }
     .compliance-details { display: grid; gap: 12px; margin: 0; color: var(--text); font-size: clamp(1rem, 2vw, 1.14rem); line-height: 1.45; text-align: center; }
     .compliance-details dd { margin: 0; color: var(--text); font-weight: 800; }
+    .social-connect { display: grid; gap: 14px; margin: 30px auto 0; padding-top: 24px; border-top: 1px solid var(--line); text-align: center; }
+    .social-connect-title { margin: 0; color: var(--gold-soft); font-size: 0.72rem; font-weight: 900; letter-spacing: 0.24em; text-transform: uppercase; }
+    .social-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 15px;
+      border: 1px solid rgba(212, 175, 55, 0.42);
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 244, 224, 0.06), rgba(15, 23, 42, 0.38));
+      color: rgba(245, 229, 201, 0.86);
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.12), inset 0 1px 0 rgba(255, 244, 224, 0.1);
+      transition: border-color 180ms ease, color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+    }
+    .social-link:hover,
+    .social-link:focus-visible { border-color: rgba(255, 244, 224, 0.72); color: var(--champagne); transform: translateY(-2px); box-shadow: 0 0 20px rgba(212, 175, 55, 0.22), 0 12px 30px rgba(5, 7, 11, 0.28), inset 0 1px 0 rgba(255, 244, 224, 0.16); }
 
     .footer { display: grid; gap: 6px; padding: 34px 0 8px; border-top: 1px solid var(--line); color: var(--muted); text-align: center; }
     .footer strong { color: var(--champagne); font-weight: 900; }
@@ -661,6 +684,17 @@
           <dd>700, 1816 Crowchild Trail NW, Calgary, AB, T2M 3Y7</dd>
         </div>
       </dl>
+
+      <div class="social-connect" aria-labelledby="social-connect-title">
+        <p class="social-connect-title" id="social-connect-title">Connect With Louis</p>
+        <div class="social-links" aria-label="Louis Sargeant social media links">
+          <a class="social-link" href="https://www.facebook.com/LouisSargeantRealestate/" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a class="social-link" href="https://www.linkedin.com/in/louis-sargeant-b5b5812b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="social-link" href="https://www.instagram.com/louissargeant.realestate/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a class="social-link" href="https://www.youtube.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">YouTube</a>
+          <a class="social-link" href="https://www.tiktok.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">TikTok</a>
+        </div>
+      </div>
     </section>
 
     <footer class="footer">
