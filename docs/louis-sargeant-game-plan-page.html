@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Louis Sargeant | Calgary Real Estate Game Plan | Real Broker</title>
+
+  <meta
+    name="description"
+    content="Louis Sargeant, licensed with Real Broker in Alberta and British Columbia. 16+ years real estate experience. Calgary and Vancouver real estate guidance with a fighter's mindset."
+  />
+
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#121212" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #121212;
+      --bg-soft: #181818;
+      --bg-panel: #1f1f1f;
+      --white: #ffffff;
+      --text: #f5f5f5;
+      --muted: #b8b8b8;
+      --muted-2: #8f8f8f;
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.28);
+      --amber: #f59e0b;
+      --amber-dark: #d97706;
+      --amber-soft: rgba(245, 158, 11, 0.18);
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      text-rendering: geometricPrecision;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.12), transparent 34%),
+        radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.06), transparent 28%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 24%);
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 68px 68px;
+      mask-image: linear-gradient(to bottom, black, transparent 75%);
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      border-bottom: 1px solid var(--line);
+      background: rgba(18, 18, 18, 0.86);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--amber);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      box-shadow: inset 0 0 0 1px rgba(245, 158, 11, 0.22);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-name {
+      font-size: 0.94rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(245, 158, 11, 0.58);
+      border-radius: 999px;
+      color: var(--amber);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .nav-pill:hover {
+      transform: translateY(-1px);
+      background: var(--amber-soft);
+      border-color: var(--amber);
+    }
+
+    .hero {
+      min-height: calc(100vh - 78px);
+      display: grid;
+      align-items: center;
+      padding: 88px 0 76px;
+    }
+
+    .hero-inner {
+      width: min(100% - 40px, 1040px);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.035);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--amber);
+      box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.12);
+    }
+
+    h1 {
+      margin: 0 auto;
+      max-width: 980px;
+      color: var(--white);
+      font-size: clamp(3.05rem, 8vw, 6.85rem);
+      line-height: 0.92;
+      letter-spacing: -0.085em;
+      font-weight: 900;
+    }
+
+    .subheadline {
+      max-width: 780px;
+      margin: 28px auto 0;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.36rem);
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      margin: 42px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      padding: 0 26px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease,
+        color 180ms ease,
+        border-color 180ms ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-amber {
+      background: var(--amber);
+      color: #15100a;
+      border: 1px solid var(--amber);
+      box-shadow:
+        0 0 0 7px rgba(245, 158, 11, 0.08),
+        0 20px 48px rgba(245, 158, 11, 0.28);
+    }
+
+    .btn-amber:hover {
+      background: #ffb027;
+      border-color: #ffb027;
+      box-shadow:
+        0 0 0 9px rgba(245, 158, 11, 0.12),
+        0 28px 60px rgba(245, 158, 11, 0.36);
+    }
+
+    .btn-white {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .btn-white:hover {
+      background: var(--white);
+      color: #121212;
+      border-color: var(--white);
+    }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 58px;
+      color: var(--white);
+      font-weight: 850;
+      text-decoration: underline;
+      text-decoration-color: var(--amber);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 7px;
+      transition: color 180ms ease, transform 180ms ease;
+      white-space: nowrap;
+    }
+
+    .text-link:hover {
+      color: var(--amber);
+      transform: translateY(-2px);
+    }
+
+    .proof-row {
+      margin: 48px auto 0;
+      max-width: 840px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .proof-card {
+      min-height: 96px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .proof-number {
+      display: block;
+      color: var(--white);
+      font-size: 1.38rem;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .proof-label {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .foundation {
+      padding: 96px 0 112px;
+      border-top: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent),
+        var(--bg);
+    }
+
+    .foundation-inner {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 46px;
+      align-items: stretch;
+    }
+
+    .portrait-card {
+      position: relative;
+      min-height: 620px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(245, 158, 11, 0.16), transparent 38%),
+        linear-gradient(180deg, #222, #111);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: calc(var(--radius-lg) - 12px);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .portrait-card::after {
+      content: "ALWAYS IN YOUR CORNER";
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 28px;
+      z-index: 3;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: clamp(2.1rem, 4.5vw, 4.7rem);
+      line-height: 0.9;
+      font-weight: 900;
+      letter-spacing: -0.075em;
+      text-transform: uppercase;
+    }
+
+    .portrait-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 620px;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(16%) contrast(1.05);
+      opacity: 0.9;
+    }
+
+    .portrait-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(180deg, transparent 36%, rgba(0, 0, 0, 0.86) 100%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.38), transparent 48%);
+      pointer-events: none;
+    }
+
+    .content-card {
+      padding: clamp(30px, 5vw, 52px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.035);
+      box-shadow: var(--shadow);
+    }
+
+    .section-kicker {
+      margin: 0 0 14px;
+      color: var(--amber);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+      max-width: 680px;
+      color: var(--white);
+      font-size: clamp(2.2rem, 4.2vw, 4.4rem);
+      line-height: 0.96;
+      letter-spacing: -0.075em;
+      font-weight: 900;
+    }
+
+    .section-intro {
+      margin: 24px 0 0;
+      max-width: 700px;
+      color: var(--muted);
+      font-size: 1.04rem;
+      line-height: 1.75;
+      font-weight: 500;
+    }
+
+    .track-record {
+      margin: 34px 0 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .track-item {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: rgba(18, 18, 18, 0.54);
+    }
+
+    .track-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-weight: 900;
+      border: 1px solid rgba(245, 158, 11, 0.34);
+    }
+
+    .track-item h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 850;
+      letter-spacing: -0.02em;
+    }
+
+    .track-item p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.58;
+    }
+
+    .disclosure {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+
+    .disclosure h2 {
+      margin: 0 0 12px;
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .disclosure p {
+      margin: 0 0 12px;
+      color: var(--muted-2);
+      font-size: 0.82rem;
+      line-height: 1.72;
+    }
+
+    .disclosure p:last-child {
+      margin-bottom: 0;
+    }
+
+    .bottom-cta {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 34px 0;
+      background: #0f0f0f;
+    }
+
+    .footer-inner {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--muted-2);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .footer-inner strong {
+      color: var(--white);
+    }
+
+    @media (max-width: 920px) {
+      .foundation-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-card {
+        min-height: 520px;
+      }
+
+      .portrait-card img {
+        min-height: 520px;
+      }
+
+      .proof-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .nav {
+        width: min(100% - 28px, var(--max));
+        min-height: 72px;
+      }
+
+      .brand-sub {
+        display: none;
+      }
+
+      .nav-pill {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 74px 0 68px;
+      }
+
+      .hero-inner {
+        width: min(100% - 28px, 1040px);
+      }
+
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn,
+      .text-link {
+        width: 100%;
+      }
+
+      .text-link {
+        justify-content: center;
+      }
+
+      .foundation {
+        padding: 72px 0 84px;
+      }
+
+      .foundation-inner {
+        width: min(100% - 28px, var(--max));
+        gap: 24px;
+      }
+
+      .portrait-card {
+        min-height: 460px;
+        border-radius: 22px;
+      }
+
+      .portrait-card img {
+        min-height: 460px;
+      }
+
+      .content-card {
+        border-radius: 22px;
+      }
+
+      .track-item {
+        grid-template-columns: 1fr;
+      }
+
+      .bottom-cta {
+        flex-direction: column;
+      }
+
+      .footer-inner {
+        width: min(100% - 28px, var(--max));
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="site-header" aria-label="Louis Sargeant site header">
+      <nav class="nav">
+        <a class="brand-lockup" href="/" aria-label="Louis Sargeant home">
+          <span class="brand-mark" aria-hidden="true">LS</span>
+          <span class="brand-text">
+            <span class="brand-name">Louis Sargeant</span>
+            <span class="brand-sub">Real Broker · AB &amp; BC</span>
+          </span>
+        </a>
+
+        <a class="nav-pill" href="https://louiss106.sg-host.com/calgary-condos/">
+          Search Calgary Condos
+        </a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            Always In Your Corner
+          </div>
+
+          <h1 id="hero-title">Your Calgary Real Estate Game Plan Starts Here.</h1>
+
+          <p class="subheadline">
+            16+ Years Local Experience. A Dedicated Fighter in Your Corner.
+            Licensed with Real Broker in AB &amp; BC.
+          </p>
+
+          <div class="hero-actions" aria-label="Primary real estate actions">
+            <a class="btn btn-amber" href="https://louiss106.sg-host.com/calgary-condos/">
+              Search Active Calgary Condos
+            </a>
+
+            <a class="btn btn-white" href="/strategy-call/">
+              Book Your 15-Minute Strategy Call
+            </a>
+
+            <a class="text-link" href="/home-value/">
+              What Is My Home Worth?
+            </a>
+          </div>
+
+          <div class="proof-row" aria-label="Louis Sargeant real estate proof points">
+            <div class="proof-card">
+              <span class="proof-number">16+</span>
+              <span class="proof-label">Years Experience</span>
+            </div>
+
+            <div class="proof-card">
+              <span class="proof-number">AB + BC</span>
+              <span class="proof-label">Licensed Guidance</span>
+            </div>
+
+            <div class="proof-card">
+              <span class="proof-number">REAL</span>
+              <span class="proof-label">Broker Network</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="foundation" aria-labelledby="foundation-title">
+        <div class="foundation-inner">
+          <aside class="portrait-card" aria-label="Louis Sargeant professional boxing and real estate brand image">
+            <img
+              src="assets/images/louis-sargeant-profile.jpg"
+              alt="Louis Sargeant, retired champion boxer and real estate professional"
+            />
+            <div class="portrait-overlay" aria-hidden="true"></div>
+          </aside>
+
+          <article class="content-card">
+            <p class="section-kicker">Fighter’s Mindset. Real Estate Strategy.</p>
+
+            <h2 class="section-title" id="foundation-title">
+              Premium guidance without the bloated IDX website.
+            </h2>
+
+            <p class="section-intro">
+              This page is built to do one job clearly: connect serious buyers,
+              sellers, investors, and relocating clients with the right next step.
+              For Calgary condo searches, the path is direct. For personal strategy,
+              the conversation starts with a focused game plan.
+            </p>
+
+            <div class="track-record">
+              <div class="track-item">
+                <div class="track-icon" aria-hidden="true">01</div>
+                <div>
+                  <h3>16+ years of real estate experience</h3>
+                  <p>
+                    Practical guidance shaped by market cycles, negotiation pressure,
+                    client decisions, and real transaction experience across Alberta
+                    and British Columbia.
+                  </p>
+                </div>
+              </div>
+
+              <div class="track-item">
+                <div class="track-icon" aria-hidden="true">02</div>
+                <div>
+                  <h3>Calgary and Vancouver real estate perspective</h3>
+                  <p>
+                    Guidance for Calgary buyers, sellers, condo shoppers, investors,
+                    and clients comparing opportunities between Alberta and British Columbia.
+                  </p>
+                </div>
+              </div>
+
+              <div class="track-item">
+                <div class="track-icon" aria-hidden="true">03</div>
+                <div>
+                  <h3>Retired champion boxer discipline</h3>
+                  <p>
+                    The brand is not decoration. The approach is preparation,
+                    direct communication, strong positioning, and staying in the client’s corner.
+                  </p>
+                </div>
+              </div>
+
+              <div class="track-item">
+                <div class="track-icon" aria-hidden="true">04</div>
+                <div>
+                  <h3>REAL Broker support</h3>
+                  <p>
+                    Licensed real estate services are provided through Real Broker,
+                    with professional guidance for clients navigating buying, selling,
+                    investing, or relocation decisions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="disclosure" aria-label="Regulatory disclosure">
+              <h2>Real Estate Board &amp; Regulatory Disclosure</h2>
+
+              <p>
+                Louis Sargeant is a licensed real estate professional with Real Broker
+                and provides real estate trading services in Alberta and British Columbia.
+                Real estate services are subject to applicable provincial legislation,
+                brokerage policies, board rules, and regulatory requirements.
+              </p>
+
+              <p>
+                Information on this website is provided for general informational and
+                marketing purposes only. It is not legal, financial, mortgage, tax,
+                appraisal, inspection, or investment advice. Buyers and sellers should
+                consult the appropriate licensed professionals before making decisions
+                based on property, financing, legal, or tax matters.
+              </p>
+
+              <p>
+                Property availability, listing details, pricing, measurements, strata
+                information, community data, taxes, fees, and market information can
+                change without notice and must be independently verified. No representation
+                or warranty is made regarding accuracy, completeness, or current availability
+                of any property or market information displayed or linked from this website.
+              </p>
+
+              <p>
+                Real Broker, brokerage trademarks, board names, MLS-related marks, and
+                third-party platforms referenced on this website belong to their respective
+                owners. Use of this website or submission of a form does not create agency
+                representation until confirmed through the required written agreements
+                and brokerage documentation.
+              </p>
+            </div>
+
+            <div class="bottom-cta" aria-label="Secondary foundation calls to action">
+              <a class="btn btn-amber" href="https://louiss106.sg-host.com/calgary-condos/">
+                Search Active Calgary Condos
+              </a>
+
+              <a class="btn btn-white" href="/strategy-call/">
+                Request My Game Plan
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span><strong>Louis Sargeant</strong> · Real Broker · Alberta &amp; British Columbia</span>
+        <span>Always In Your Corner</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
