@@ -851,7 +851,7 @@
 
 #calgary-building-directory-database .directory-link:hover,
 #calgary-building-directory-database .directory-link:focus {
-  border-color: #ff9900;
+  border-color: #D4AF37;
   box-shadow: 0 10px 24px rgba(255, 153, 0, 0.14);
   transform: translateY(-1px);
   text-decoration: none;
@@ -949,7 +949,7 @@
 }
 
 .ccl-building-amenities .is-confirmed span {
-  background: #ff9900;
+  background: #D4AF37;
   color: #111111;
 }
 
@@ -991,7 +991,7 @@
 }
 
 .ccl-building-profile-button {
-  background: #ff9900;
+  background: #D4AF37;
   color: #111111;
 }
 
@@ -1035,7 +1035,7 @@
 
 .ccl-building-database-link::after {
   content: "→";
-  color: #ff9900;
+  color: #D4AF37;
   font-weight: 900;
 }
 
@@ -1197,7 +1197,7 @@
 }
 
 .ccl-building-lead-card__button {
-  background: #ff9900;
+  background: #D4AF37;
   color: #111111;
 }
 
@@ -1361,12 +1361,12 @@
 }
 
 .ccl-building-profile__meta-card {
-  border-top: 5px solid #f97316;
+  border-top: 5px solid #D4AF37;
   padding: clamp(22px, 3vw, 30px);
 }
 
 .ccl-building-profile__eyebrow {
-  color: #f97316;
+  color: #D4AF37;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -1483,7 +1483,7 @@
 
 .ccl-building-risk-modal__submit,
 .ccl-school-community__pill {
-  background: #ff9900;
+  background: #D4AF37;
   border: 0;
   border-radius: 999px;
   color: #ffffff !important;
@@ -1602,7 +1602,7 @@
 }
 
 .ccl-school-finder-modal__close {
-  background: #f97316;
+  background: #D4AF37;
   border: 0;
   border-radius: 999px;
   color: #ffffff;
@@ -1632,7 +1632,7 @@
 }
 
 .ccl-school-finder-modal__tab:hover {
-  background: #f97316;
+  background: #D4AF37;
 }
 
 .ccl-school-finder-modal__iframe {
@@ -1711,7 +1711,7 @@
 .ccl-visual-directory__eyebrow {
   display: inline-flex;
   margin-bottom: 12px;
-  color: #FF9900;
+  color: #D4AF37;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -1828,7 +1828,7 @@
 }
 
 .ccl-visual-card__badge {
-  background: #F0C75E;
+  background: #D4AF37;
 }
 
 .ccl-visual-card__description {
@@ -1857,12 +1857,12 @@
 }
 
 .ccl-visual-card:focus-visible {
-  outline: 3px solid #FF9900;
+  outline: 3px solid #D4AF37;
   outline-offset: 3px;
 }
 
 .ccl-visual-card--profile {
-  border-left: 4px solid #FF9900;
+  border-left: 4px solid #D4AF37;
 }
 
 .ccl-visual-card--beltline,
@@ -2189,7 +2189,7 @@
   inset: 0 auto 0 0;
   width: var(--ccl-risk-level, 70%);
   border-radius: inherit;
-  background: linear-gradient(90deg, #FF9900, #f5c15b);
+  background: linear-gradient(90deg, #D4AF37, #f5c15b);
   box-shadow: 0 0 18px rgba(255,153,0,0.34);
 }
 
@@ -2314,7 +2314,7 @@
   padding: 10px 16px;
   font-weight: 800;
   color: #0A1A2F;
-  background: #FF9900;
+  background: #D4AF37;
 }
 
 #portal-lightbox-frame {
@@ -2441,7 +2441,7 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 .ccl-visual-directory--premium .ccl-visual-directory__eyebrow {
-  color: #FF9900;
+  color: #D4AF37;
 }
 
 .ccl-visual-directory--premium h2,
@@ -2590,7 +2590,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-hub .ccl-eyebrow,
 .ccl-lifestyle-hub__panel-kicker,
 .ccl-risk-inspector__kicker {
-  color: #FF9900 !important;
+  color: #D4AF37 !important;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.18em;
@@ -2773,8 +2773,8 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 .ccl-risk-inspector__badge--orange {
-  color: #ff9900 !important;
-  background: #ff9900;
+  color: #D4AF37 !important;
+  background: #D4AF37;
 }
 
 .ccl-risk-inspector__badge--amber {
@@ -2789,7 +2789,7 @@ body.admin-bar .ccl-floating-lead-widget {
   border-radius: 999px;
   padding: 15px 18px;
   color: #0A1A2F;
-  background: #FF9900;
+  background: #D4AF37;
   font-weight: 950;
   cursor: pointer;
   box-shadow: 0 18px 40px rgba(255,153,0,0.20);
@@ -2799,7 +2799,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-risk-inspector__cta:hover,
 .ccl-risk-inspector__cta:focus-visible {
   transform: translateY(-3px);
-  background: #ffb13b;
+  background: #E6C687;
   box-shadow: 0 24px 52px rgba(255,153,0,0.28);
 }
 
@@ -2901,7 +2901,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-school-lifestyle-section [class*="eyebrow"],
 .ccl-area-school-lifestyle .ccl-eyebrow,
 .ccl-area-school-lifestyle [class*="eyebrow"] {
-  color: #FF9900 !important;
+  color: #D4AF37 !important;
   letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
   font-weight: 900 !important;
@@ -2950,7 +2950,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-hub .ccl-btn,
 .ccl-lifestyle-hub button {
   color: #0A1A2F !important;
-  background: #FF9900 !important;
+  background: #D4AF37 !important;
   border: 1px solid rgba(255, 153, 0, 0.55) !important;
   box-shadow: 0 16px 34px rgba(255, 153, 0, 0.20) !important;
   font-weight: 900 !important;
@@ -3039,7 +3039,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-dark-fix [class*="eyebrow"],
 .ccl-lifestyle-dark-fix [class*="label"],
 .ccl-lifestyle-dark-fix [class*="category"] {
-  color: #FF9900 !important;
+  color: #D4AF37 !important;
   font-weight: 900 !important;
   letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
@@ -3100,8 +3100,8 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 .ccl-lifestyle-dark-fix .ccl-risk-inspector__badge--orange {
-  color: #FF9900 !important;
-  background: #FF9900 !important;
+  color: #D4AF37 !important;
+  background: #D4AF37 !important;
 }
 
 .ccl-lifestyle-dark-fix .ccl-risk-inspector__badge--amber {
@@ -3113,7 +3113,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-dark-fix .ccl-button,
 .ccl-lifestyle-dark-fix .ccl-btn {
   color: #0A1A2F !important;
-  background: #FF9900 !important;
+  background: #D4AF37 !important;
   border: 1px solid rgba(255,153,0,0.60) !important;
   box-shadow: 0 18px 42px rgba(255,153,0,0.24) !important;
   font-weight: 900 !important;
@@ -3122,7 +3122,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-lifestyle-dark-fix button:hover,
 .ccl-lifestyle-dark-fix .ccl-button:hover,
 .ccl-lifestyle-dark-fix .ccl-btn:hover {
-  background: #ffb13b !important;
+  background: #E6C687 !important;
   transform: translateY(-3px) !important;
 }
 
@@ -3195,7 +3195,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-eyebrow,
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="eyebrow"],
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final [class*="category"] {
-  color: #FF9900 !important;
+  color: #D4AF37 !important;
   font-weight: 900 !important;
   letter-spacing: 0.14em !important;
   text-transform: uppercase !important;
@@ -3274,9 +3274,9 @@ body.admin-bar .ccl-floating-lead-widget {
 
 #ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--orange,
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--orange {
-  color: #FF9900 !important;
-  background: #FF9900 !important;
-  box-shadow: 0 0 18px #FF9900 !important;
+  color: #D4AF37 !important;
+  background: #D4AF37 !important;
+  box-shadow: 0 0 18px #D4AF37 !important;
 }
 
 #ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-risk-inspector__badge--amber,
@@ -3293,7 +3293,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-button,
 .ccl-schools-lifestyle-section.ccl-lifestyle-dark-final .ccl-btn {
   color: #0A1A2F !important;
-  background: #FF9900 !important;
+  background: #D4AF37 !important;
   border: 1px solid rgba(255,153,0,0.65) !important;
   box-shadow: 0 18px 42px rgba(255,153,0,0.24) !important;
   font-weight: 900 !important;
@@ -3502,7 +3502,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .mr-custom-wrapper [class*="btn"] {
   border-radius: 999px !important;
   border: 1px solid rgba(255,153,0,0.55) !important;
-  background: #FF9900 !important;
+  background: #D4AF37 !important;
   color: #0A1A2F !important;
   font-weight: 900 !important;
   box-shadow: 0 12px 28px rgba(255,153,0,0.18) !important;
@@ -3519,7 +3519,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .mr-custom-wrapper [class*="button"]:hover,
 .mr-custom-wrapper [class*="btn"]:hover {
   transform: translateY(-2px) !important;
-  background: #ffb13b !important;
+  background: #E6C687 !important;
   box-shadow: 0 18px 38px rgba(255,153,0,0.26) !important;
 }
 
@@ -3603,4 +3603,184 @@ body.admin-bar .ccl-floating-lead-widget {
   border-radius: 24px !important;
   background: #ffffff !important;
   box-shadow: 0 18px 44px rgba(10,26,47,0.12) !important;
+}
+
+
+/* Louis Sargeant-inspired premium Calgary portal design system. Scoped to plugin-owned homepage output only. */
+.ccl-premium-homepage-shell {
+  --ccl-black: #121212;
+  --ccl-deep-navy: #0F172A;
+  --ccl-brand-navy: #0A1A2F;
+  --ccl-champagne: #F5E5C9;
+  --ccl-metallic-gold: #D4AF37;
+  --ccl-burnished-gold: #A67C1E;
+  --ccl-cream-text: #FFF4E0;
+  --ccl-muted-text: rgba(245, 229, 201, 0.74);
+  --ccl-glass-border: rgba(212, 175, 55, 0.30);
+  --ccl-gold-gradient: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%);
+  width: 100%;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(15,23,42,0.95), transparent 42%),
+    linear-gradient(135deg, #121212 0%, #0F172A 48%, #050505 100%) !important;
+  color: #FFF4E0;
+}
+
+.ccl-premium-homepage-shell .ccl-section,
+.ccl-premium-homepage-shell .ccl-section--white,
+.ccl-premium-homepage-shell .ccl-section-light,
+.ccl-premium-homepage-shell .ccl-home-explore,
+.ccl-premium-homepage-shell .ccl-lifestyle-hub,
+.ccl-premium-homepage-shell .ccl-building-database,
+.ccl-premium-homepage-shell .ccl-market-dashboard,
+.ccl-premium-homepage-shell .ccl-footer-cta,
+.ccl-premium-homepage-shell .ccl-idx-premium-section,
+.ccl-premium-homepage-shell .ccl-idx-premium-section.mr-custom-wrapper {
+  background: rgba(5, 7, 11, 0.58) !important;
+  color: var(--ccl-cream-text) !important;
+  border-color: var(--ccl-glass-border) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-hero h1,
+.ccl-premium-homepage-shell .ccl-hero-title,
+.ccl-premium-homepage-shell #clean-calgary-hero-title {
+  color: #FFF4E0 !important;
+  text-shadow: 0 8px 30px rgba(0,0,0,0.65) !important;
+}
+
+.ccl-premium-homepage-shell h1,
+.ccl-premium-homepage-shell h2,
+.ccl-premium-homepage-shell h3,
+.ccl-premium-homepage-shell strong,
+.ccl-premium-homepage-shell .ccl-idx-premium-section h1,
+.ccl-premium-homepage-shell .ccl-idx-premium-section h2,
+.ccl-premium-homepage-shell .ccl-idx-premium-section h3,
+.ccl-premium-homepage-shell .ccl-idx-premium-section strong {
+  color: #FFF4E0 !important;
+  font-weight: 950 !important;
+  letter-spacing: -0.055em;
+}
+
+.ccl-premium-homepage-shell p,
+.ccl-premium-homepage-shell li,
+.ccl-premium-homepage-shell .ccl-idx-premium-section p,
+.ccl-premium-homepage-shell .ccl-idx-premium-section li,
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-idx-shell__header span {
+  color: rgba(245, 229, 201, 0.74) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-gold-emphasis,
+.ccl-premium-homepage-shell .ccl-eyebrow,
+.ccl-premium-homepage-shell [class*="eyebrow"],
+.ccl-premium-homepage-shell .ccl-idx-premium-section .ccl-eyebrow {
+  color: #D4AF37 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ccl-premium-homepage-shell .ccl-button--primary,
+.ccl-premium-homepage-shell .ccl-primary-cta,
+.ccl-premium-homepage-shell button.ccl-primary-cta,
+.ccl-premium-homepage-shell a.ccl-primary-cta,
+.ccl-premium-homepage-shell .ccl-btn--primary,
+.ccl-premium-homepage-shell .ccl-alert-button,
+.ccl-premium-homepage-shell .ccl-condo-alerts,
+.ccl-premium-homepage-shell .ccl-hero-workspace__button,
+.ccl-premium-homepage-shell .ccl-keyword-search-submit,
+.ccl-premium-homepage-shell button[data-ccl-lead-open],
+.ccl-premium-homepage-shell a[data-ccl-lead-open],
+.ccl-premium-homepage-shell .ccl-floating-help-button,
+.ccl-premium-homepage-shell .ccl-button:not(.ccl-button--secondary),
+.ccl-premium-homepage-shell .ccl-btn:not(.ccl-button--secondary) {
+  color: #121212 !important;
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%) !important;
+  border: 1px solid rgba(245,229,201,0.42) !important;
+  box-shadow: 0 18px 42px rgba(212,175,55,0.26), inset 0 1px 0 rgba(255,255,255,0.48) !important;
+  border-radius: 999px !important;
+  font-weight: 950 !important;
+}
+
+.ccl-premium-homepage-shell .ccl-button--secondary,
+.ccl-premium-homepage-shell .ccl-secondary-cta,
+.ccl-premium-homepage-shell a.ccl-secondary-cta,
+.ccl-premium-homepage-shell #calgary-explore-navbar-nav .nav-item-link:not(:first-child) {
+  color: #F5E5C9 !important;
+  background: rgba(5, 7, 11, 0.52) !important;
+  border: 1px solid rgba(212,175,55,0.35) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 14px 34px rgba(0,0,0,0.28) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-button--primary:hover,
+.ccl-premium-homepage-shell .ccl-primary-cta:hover,
+.ccl-premium-homepage-shell .ccl-button--secondary:hover,
+.ccl-premium-homepage-shell .ccl-secondary-cta:hover,
+.ccl-premium-homepage-shell .ccl-btn:hover,
+.ccl-premium-homepage-shell .ccl-button:hover,
+.ccl-premium-homepage-shell .ccl-alert-button:hover,
+.ccl-premium-homepage-shell .ccl-hero-workspace__button:hover,
+.ccl-premium-homepage-shell #calgary-explore-navbar-nav .nav-item-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 54px rgba(212,175,55,0.32), 0 0 26px rgba(212,175,55,0.18) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-card,
+.ccl-premium-homepage-shell .ccl-panel,
+.ccl-premium-homepage-shell .ccl-visual-card,
+.ccl-premium-homepage-shell .ccl-personal-card,
+.ccl-premium-homepage-shell .ccl-risk-inspector,
+.ccl-premium-homepage-shell .ccl-market-dashboard__metric,
+.ccl-premium-homepage-shell .ccl-risk-inspector__row,
+.ccl-premium-homepage-shell .ccl-diagnostic-dashboard,
+.ccl-premium-homepage-shell .ccl-data-card,
+.ccl-premium-homepage-shell .ccl-building-card,
+.ccl-premium-homepage-shell .ccl-stat-tile {
+  background: rgba(5, 7, 11, 0.72) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(212,175,55,0.30) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 22px 58px rgba(0,0,0,0.34), 0 0 30px rgba(212,175,55,0.08) !important;
+  color: #FFF4E0 !important;
+}
+
+.ccl-premium-homepage-shell .ccl-card:hover,
+.ccl-premium-homepage-shell .ccl-panel:hover,
+.ccl-premium-homepage-shell .ccl-visual-card:hover,
+.ccl-premium-homepage-shell .ccl-risk-inspector__row:hover,
+.ccl-premium-homepage-shell .ccl-market-dashboard__metric:hover {
+  transform: translateY(-5px);
+  border-color: rgba(245,229,201,0.44) !important;
+  box-shadow: 0 30px 76px rgba(0,0,0,0.42), 0 0 34px rgba(212,175,55,0.16) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-hero-workspace {
+  background: rgba(5, 7, 11, 0.62) !important;
+  border: 1px solid rgba(212,175,55,0.30) !important;
+  box-shadow: 0 22px 58px rgba(0,0,0,0.34), 0 0 30px rgba(212,175,55,0.08) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-hero-workspace__input {
+  background: rgba(255,244,224,0.96) !important;
+  color: #121212 !important;
+  border-color: rgba(212,175,55,0.42) !important;
+}
+
+/* myRealPage iframe/listing internals can be outside parent CSS control; keep premium treatment on the safe plugin-owned wrapper. */
+.ccl-premium-homepage-shell .mr-custom-wrapper iframe {
+  background: #ffffff !important;
+  border: 1px solid rgba(212,175,55,0.30) !important;
+  box-shadow: 0 22px 58px rgba(0,0,0,0.34) !important;
+}
+
+@media (max-width: 767px) {
+  .ccl-premium-homepage-shell { overflow-x: hidden; }
+  .ccl-premium-homepage-shell #clean-calgary-hero-title { max-width: min(354px, 100%) !important; overflow-wrap: anywhere !important; }
+  .ccl-premium-homepage-shell .ccl-hero-workspace { width: min(100%, 360px) !important; }
+  .ccl-premium-homepage-shell .ccl-button,
+  .ccl-premium-homepage-shell .ccl-btn,
+  .ccl-premium-homepage-shell button,
+  .ccl-premium-homepage-shell #calgary-explore-navbar-nav a { min-height: 44px; }
 }
