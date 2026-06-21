@@ -13,8 +13,11 @@
       --text: #ffffff;
       --muted: #c9c9c9;
       --subtle: #8f8f8f;
-      --amber: #F59E0B;
-      --amber-dark: #d88705;
+      --gold-highlight: #F5E5C9;
+      --gold: #D4AF37;
+      --gold-deep: #A67C1E;
+      --amber: var(--gold);
+      --amber-dark: var(--gold-deep);
       --line: rgba(255, 255, 255, 0.14);
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
       --max: 1160px;
@@ -45,7 +48,7 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 50% 18%, rgba(245, 158, 11, 0.2), transparent 31rem),
+        radial-gradient(circle at 50% 18%, rgba(212, 175, 55, 0.2), transparent 31rem),
         radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.08), transparent 28rem),
         linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 24rem);
       z-index: -1;
@@ -105,7 +108,7 @@
       padding: 88px 0 104px;
       text-align: center;
       background:
-        radial-gradient(circle at 50% 32%, rgba(245, 158, 11, 0.18), transparent 28rem),
+        radial-gradient(circle at 50% 32%, rgba(212, 175, 55, 0.18), transparent 28rem),
         radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.09), transparent 24rem),
         linear-gradient(145deg, #08090b 0%, #111318 42%, #19140c 100%);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -120,7 +123,7 @@
       inset: -22%;
       z-index: -1;
       background:
-        radial-gradient(circle at 50% 38%, rgba(245, 158, 11, 0.18), transparent 22rem),
+        radial-gradient(circle at 50% 38%, rgba(212, 175, 55, 0.18), transparent 22rem),
         linear-gradient(115deg, transparent 0 24%, rgba(255, 255, 255, 0.05) 24% 25%, transparent 25% 100%);
       opacity: 0.9;
     }
@@ -147,8 +150,7 @@
       content: "";
       width: 38px;
       height: 1px;
-      background: var(--amber);
-      opacity: 0.7;
+      background: linear-gradient(90deg, transparent 0%, #D4AF37 50%, transparent 100%);
     }
 
     h1 {
@@ -165,11 +167,15 @@
     }
 
     .headline-accent {
-      color: var(--amber);
       display: inline-block;
+      background: linear-gradient(180deg, #F5E5C9 0%, #D4AF37 48%, #A67C1E 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
       text-shadow:
-        0 0 14px rgba(245, 158, 11, 0.48),
-        0 12px 34px rgba(245, 158, 11, 0.36);
+        0 0 14px rgba(212, 175, 55, 0.48),
+        0 12px 34px rgba(166, 124, 30, 0.36);
     }
 
     .subheadline {
@@ -217,15 +223,14 @@
     }
 
     .button-primary {
-      border: 1px solid var(--amber);
-      background: var(--amber);
-      color: #111111;
+      border: 1px solid var(--gold);
+      background: linear-gradient(90deg, #D4AF37 0%, #A67C1E 100%);
+      color: #171717;
       min-height: 72px;
       width: 100%;
       border-radius: 20px;
-      box-shadow:
-        0 0 28px rgba(245, 158, 11, 0.42),
-        0 20px 52px rgba(245, 158, 11, 0.28);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       font-size: clamp(1.02rem, 2vw, 1.22rem);
       font-weight: 950;
       letter-spacing: -0.01em;
@@ -233,11 +238,9 @@
 
     .button-primary:hover,
     .button-primary:focus-visible {
-      background: var(--amber-dark);
-      border-color: var(--amber-dark);
-      box-shadow:
-        0 0 34px rgba(245, 158, 11, 0.54),
-        0 24px 60px rgba(245, 158, 11, 0.34);
+      background: linear-gradient(90deg, #F5E5C9 0%, #D4AF37 48%, #A67C1E 100%);
+      border-color: var(--gold-highlight);
+      box-shadow: 0 0 26px rgba(212, 175, 55, 0.46);
     }
 
     .button-secondary {
@@ -273,9 +276,9 @@
 
     .text-link:hover,
     .text-link:focus-visible {
-      color: #ffbf3f;
+      color: var(--gold-highlight);
       transform: translateY(-1px);
-      text-shadow: 0 0 18px rgba(245, 158, 11, 0.34);
+      text-shadow: 0 0 18px rgba(212, 175, 55, 0.34);
     }
 
     .profile-grid {
@@ -300,7 +303,7 @@
       content: "";
       position: absolute;
       inset: 18px;
-      border: 1px solid rgba(245, 158, 11, 0.38);
+      border: 1px solid rgba(212, 175, 55, 0.38);
       border-radius: 20px;
       pointer-events: none;
       z-index: 1;
@@ -416,7 +419,7 @@
       border: 1px solid var(--line);
       border-radius: 24px;
       background:
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.12), transparent 70%),
+        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12), transparent 70%),
         rgba(255, 255, 255, 0.055);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
