@@ -3784,3 +3784,218 @@ body.admin-bar .ccl-floating-lead-widget {
   .ccl-premium-homepage-shell button,
   .ccl-premium-homepage-shell #calgary-explore-navbar-nav a { min-height: 44px; }
 }
+
+/* Final premium contrast enforcement: black-and-gold Calgary portal */
+.ccl-premium-homepage-shell,
+.ccl-premium-homepage-shell * {
+  text-rendering: geometricPrecision;
+}
+
+.ccl-premium-homepage-shell {
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.18), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(15,23,42,0.95), transparent 42%),
+    linear-gradient(135deg, #121212 0%, #0F172A 48%, #050505 100%) !important;
+  color: #FFF4E0 !important;
+}
+
+.ccl-premium-homepage-shell section,
+.ccl-premium-homepage-shell .ccl-section {
+  position: relative;
+}
+
+.ccl-premium-homepage-shell h1,
+.ccl-premium-homepage-shell h2,
+.ccl-premium-homepage-shell h3,
+.ccl-premium-homepage-shell h4,
+.ccl-premium-homepage-shell .ccl-section-title,
+.ccl-premium-homepage-shell .ccl-hero-title,
+.ccl-premium-homepage-shell .ccl-visual-directory__title,
+.ccl-premium-homepage-shell .ccl-card-title,
+.ccl-premium-homepage-shell .ccl-listing-title {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
+  font-weight: 950 !important;
+  text-shadow:
+    0 4px 18px rgba(0,0,0,0.72),
+    0 1px 2px rgba(0,0,0,0.85) !important;
+}
+
+.ccl-premium-homepage-shell p,
+.ccl-premium-homepage-shell li,
+.ccl-premium-homepage-shell .ccl-copy,
+.ccl-premium-homepage-shell .ccl-description,
+.ccl-premium-homepage-shell .ccl-card-copy,
+.ccl-premium-homepage-shell .ccl-visual-card__copy {
+  color: rgba(255,244,224,0.88) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.46) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-muted-copy {
+  color: rgba(255,244,224,0.78) !important;
+  opacity: 1 !important;
+}
+
+.ccl-premium-homepage-shell .ccl-eyebrow,
+.ccl-premium-homepage-shell .ccl-category-label,
+.ccl-premium-homepage-shell .ccl-active-marker,
+.ccl-premium-homepage-shell [class*="eyebrow"],
+.ccl-premium-homepage-shell [class*="category"],
+.ccl-premium-homepage-shell [class*="marker"] {
+  color: #F5E5C9 !important;
+  opacity: 1 !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  background: linear-gradient(90deg, #F5E5C9 0%, #D4AF37 48%, #A67C1E 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+}
+
+.ccl-premium-homepage-shell hr,
+.ccl-premium-homepage-shell .ccl-divider,
+.ccl-premium-homepage-shell .ccl-section-divider,
+.ccl-premium-homepage-shell .ccl-card-divider,
+.ccl-premium-homepage-shell [class*="divider"] {
+  border-color: rgba(212,175,55,0.52) !important;
+  opacity: 1 !important;
+}
+
+.ccl-premium-homepage-shell .ccl-card,
+.ccl-premium-homepage-shell .ccl-panel,
+.ccl-premium-homepage-shell .ccl-visual-card,
+.ccl-premium-homepage-shell .ccl-directory-card,
+.ccl-premium-homepage-shell .ccl-risk-inspector,
+.ccl-premium-homepage-shell .ccl-market-dashboard__metric {
+  border: 1px solid rgba(212,175,55,0.38) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-directory,
+.ccl-premium-homepage-shell .ccl-visual-directory-premium {
+  color: #ffffff !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card,
+.ccl-premium-homepage-shell .ccl-directory-card {
+  background:
+    linear-gradient(135deg, rgba(5,7,11,0.88), rgba(15,23,42,0.76)) !important;
+  border: 1px solid rgba(212,175,55,0.40) !important;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.46),
+    0 0 34px rgba(212,175,55,0.10) !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card *,
+.ccl-premium-homepage-shell .ccl-directory-card * {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card h3,
+.ccl-premium-homepage-shell .ccl-directory-card h3,
+.ccl-premium-homepage-shell .ccl-visual-card strong,
+.ccl-premium-homepage-shell .ccl-directory-card strong {
+  color: #ffffff !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card p,
+.ccl-premium-homepage-shell .ccl-directory-card p {
+  color: rgba(255,244,224,0.88) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card::before,
+.ccl-premium-homepage-shell .ccl-directory-card::before {
+  opacity: 1 !important;
+  background:
+    linear-gradient(135deg, rgba(0,0,0,0.58), rgba(0,0,0,0.82)) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-visual-card > *,
+.ccl-premium-homepage-shell .ccl-directory-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.ccl-premium-homepage-shell .ccl-button,
+.ccl-premium-homepage-shell .ccl-btn,
+.ccl-premium-homepage-shell .ccl-primary-cta,
+.ccl-premium-homepage-shell button:not(.components-button):not(.media-button):not(.button-link),
+.ccl-premium-homepage-shell a.ccl-button,
+.ccl-premium-homepage-shell a.ccl-btn {
+  color: #121212 !important;
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%) !important;
+  border: 1px solid rgba(245,229,201,0.50) !important;
+  opacity: 1 !important;
+  filter: none !important;
+  border-radius: 999px !important;
+  font-weight: 950 !important;
+  box-shadow:
+    0 18px 42px rgba(212,175,55,0.30),
+    inset 0 1px 0 rgba(255,255,255,0.48) !important;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, filter 0.24s ease !important;
+}
+
+.ccl-premium-homepage-shell .ccl-button:hover,
+.ccl-premium-homepage-shell .ccl-btn:hover,
+.ccl-premium-homepage-shell .ccl-primary-cta:hover,
+.ccl-premium-homepage-shell a.ccl-button:hover,
+.ccl-premium-homepage-shell a.ccl-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 26px 58px rgba(212,175,55,0.38),
+    0 0 30px rgba(212,175,55,0.18) !important;
+}
+
+.ccl-premium-homepage-shell input[type="text"],
+.ccl-premium-homepage-shell input[type="search"],
+.ccl-premium-homepage-shell select {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.ccl-premium-homepage-shell .ccl-hero input[type="text"],
+.ccl-premium-homepage-shell .ccl-hero-search input[type="text"],
+.ccl-premium-homepage-shell .ccl-hero-workspace input[type="text"] {
+  color: #121212 !important;
+  background: rgba(255,244,224,0.96) !important;
+  border: 1px solid rgba(212,175,55,0.44) !important;
+}
+
+.ccl-premium-homepage-shell .mr-custom-wrapper {
+  opacity: 1 !important;
+}
+
+.ccl-premium-homepage-shell .mr-custom-wrapper h1,
+.ccl-premium-homepage-shell .mr-custom-wrapper h2,
+.ccl-premium-homepage-shell .mr-custom-wrapper h3 {
+  color: #121212 !important;
+  text-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .ccl-premium-homepage-shell h1,
+  .ccl-premium-homepage-shell .ccl-hero-title {
+    font-size: clamp(2.5rem, 13vw, 4.5rem) !important;
+    line-height: 0.95 !important;
+    overflow-wrap: anywhere;
+  }
+
+  .ccl-premium-homepage-shell .ccl-button,
+  .ccl-premium-homepage-shell .ccl-btn,
+  .ccl-premium-homepage-shell .ccl-primary-cta {
+    min-height: 48px !important;
+    width: auto;
+    max-width: 100%;
+  }
+
+  .ccl-premium-homepage-shell {
+    overflow-x: hidden !important;
+  }
+}
