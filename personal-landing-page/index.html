@@ -45,8 +45,9 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.15), transparent 34rem),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 24rem);
+        radial-gradient(circle at 50% 18%, rgba(245, 158, 11, 0.2), transparent 31rem),
+        radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.08), transparent 28rem),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 24rem);
       z-index: -1;
     }
 
@@ -96,11 +97,37 @@
     }
 
     .hero {
+      position: relative;
+      isolation: isolate;
       display: grid;
       place-items: center;
       min-height: 72vh;
-      padding: 72px 0 86px;
+      padding: 88px 0 104px;
       text-align: center;
+      background:
+        radial-gradient(circle at 50% 32%, rgba(245, 158, 11, 0.18), transparent 28rem),
+        radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.09), transparent 24rem),
+        linear-gradient(145deg, #08090b 0%, #111318 42%, #19140c 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 30px 120px rgba(0, 0, 0, 0.55);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -22%;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(245, 158, 11, 0.18), transparent 22rem),
+        linear-gradient(115deg, transparent 0 24%, rgba(255, 255, 255, 0.05) 24% 25%, transparent 25% 100%);
+      opacity: 0.9;
+    }
+
+    .hero > div {
+      width: min(100%, 980px);
+      padding: 0 clamp(18px, 4vw, 42px);
     }
 
     .eyebrow {
@@ -127,19 +154,30 @@
     h1 {
       max-width: 920px;
       margin: 0 auto;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(3.1rem, 8vw, 7.6rem);
-      font-weight: 500;
-      line-height: 0.92;
-      letter-spacing: -0.07em;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(3.2rem, 8.2vw, 7.8rem);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.085em;
+      text-transform: uppercase;
+      text-wrap: balance;
+      text-shadow: 0 18px 48px rgba(0, 0, 0, 0.58);
+    }
+
+    .headline-accent {
+      color: var(--amber);
+      display: inline-block;
+      text-shadow:
+        0 0 14px rgba(245, 158, 11, 0.48),
+        0 12px 34px rgba(245, 158, 11, 0.36);
     }
 
     .subheadline {
       max-width: 790px;
-      margin: 30px auto 0;
+      margin: 34px auto 0;
       color: var(--muted);
       font-size: clamp(1.05rem, 2.3vw, 1.45rem);
-      font-weight: 500;
+      font-weight: 650;
       line-height: 1.5;
     }
 
@@ -152,6 +190,14 @@
       margin-top: 38px;
     }
 
+    .hero-actions-stack {
+      width: min(100%, 520px);
+      margin: 46px auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+
     .button {
       display: inline-flex;
       align-items: center;
@@ -162,7 +208,7 @@
       font-size: 0.96rem;
       font-weight: 800;
       text-decoration: none;
-      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
     }
 
     .button:hover,
@@ -174,39 +220,62 @@
       border: 1px solid var(--amber);
       background: var(--amber);
       color: #111111;
-      box-shadow: 0 18px 38px rgba(245, 158, 11, 0.22);
+      min-height: 72px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow:
+        0 0 28px rgba(245, 158, 11, 0.42),
+        0 20px 52px rgba(245, 158, 11, 0.28);
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
+      font-weight: 950;
+      letter-spacing: -0.01em;
     }
 
     .button-primary:hover,
     .button-primary:focus-visible {
       background: var(--amber-dark);
       border-color: var(--amber-dark);
+      box-shadow:
+        0 0 34px rgba(245, 158, 11, 0.54),
+        0 24px 60px rgba(245, 158, 11, 0.34);
     }
 
     .button-secondary {
-      border: 1px solid rgba(255, 255, 255, 0.72);
-      background: transparent;
+      width: 100%;
+      min-height: 66px;
+      border: 2px solid rgba(255, 255, 255, 0.86);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.035);
       color: var(--text);
+      font-size: clamp(0.98rem, 1.8vw, 1.1rem);
+      font-weight: 900;
     }
 
     .button-secondary:hover,
     .button-secondary:focus-visible {
       border-color: var(--text);
       background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px) scale(1.025);
     }
 
     .text-link {
-      color: var(--text);
-      font-weight: 800;
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 6px;
+      color: var(--amber);
+      font-weight: 900;
       text-decoration: underline;
       text-decoration-color: var(--amber);
       text-decoration-thickness: 2px;
       text-underline-offset: 7px;
+      transition: color 180ms ease, transform 180ms ease, text-shadow 180ms ease;
     }
 
     .text-link:hover,
     .text-link:focus-visible {
-      color: var(--amber);
+      color: #ffbf3f;
+      transform: translateY(-1px);
+      text-shadow: 0 0 18px rgba(245, 158, 11, 0.34);
     }
 
     .profile-grid {
@@ -416,7 +485,8 @@
 
       .hero {
         min-height: auto;
-        padding: 58px 0 66px;
+        padding: 64px 0 74px;
+        border-radius: 28px;
       }
 
       .hero-actions {
@@ -471,7 +541,9 @@
       }
 
       h1 {
-        font-size: clamp(3rem, 17vw, 4.8rem);
+        font-size: clamp(2.75rem, 15.8vw, 4.7rem);
+        line-height: 0.9;
+        letter-spacing: -0.075em;
       }
 
       .bio-card {
@@ -493,9 +565,9 @@
     <section class="hero" aria-labelledby="hero-title">
       <div>
         <div class="eyebrow">Calgary + Vancouver Real Estate Guidance</div>
-        <h1 id="hero-title">Your Calgary Real Estate Game Plan Starts Here.</h1>
+        <h1 id="hero-title">Your Calgary Real Estate <span class="headline-accent">Game Plan</span> Starts Here.</h1>
         <p class="subheadline">16+ Years Local Experience. A Dedicated Fighter in Your Corner. Licensed with Real Broker in AB &amp; BC.</p>
-        <div class="hero-actions" aria-label="Primary actions">
+        <div class="hero-actions hero-actions-stack" aria-label="Primary actions">
           <a class="button button-primary" href="https://louiss106.sg-host.com/calgary-condos/">Search Active Calgary Condos</a>
           <a class="button button-secondary" href="/strategy-call/">Book Your 15-Minute Strategy Call</a>
           <a class="text-link" href="/home-value/">What Is My Home Worth?</a>
