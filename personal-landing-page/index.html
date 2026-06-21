@@ -336,45 +336,30 @@
 
     .compliance-branding {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      gap: 22px;
-      align-items: center;
+      justify-items: center;
       margin-bottom: 30px;
       text-align: center;
     }
 
-    .compliance-logo {
-      display: grid;
-      gap: 4px;
-      min-height: 106px;
-      padding: 22px;
+    .compliance-logo-card {
+      width: min(100%, 560px);
+      padding: clamp(18px, 3vw, 30px);
       border: 1px solid var(--line);
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.04);
-      place-content: center;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.12), transparent 70%),
+        rgba(255, 255, 255, 0.055);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    .compliance-logo strong {
-      color: var(--text);
-      font-size: clamp(1.45rem, 3vw, 2.35rem);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      line-height: 1;
-      text-transform: uppercase;
-    }
-
-    .compliance-logo span {
-      color: var(--amber);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-
-    .compliance-divider {
-      width: 1px;
-      height: 96px;
-      background: linear-gradient(180deg, transparent, var(--amber), transparent);
+    .compliance-logo-image {
+      display: block;
+      width: min(100%, 430px);
+      height: auto;
+      max-height: 190px;
+      margin: 0 auto;
+      object-fit: contain;
+      filter: drop-shadow(0 14px 26px rgba(0, 0, 0, 0.38));
     }
 
     .compliance-details {
@@ -464,14 +449,8 @@
         grid-template-columns: 1fr;
       }
 
-      .compliance-branding {
-        grid-template-columns: 1fr;
-      }
-
-      .compliance-divider {
+      .compliance-logo-card {
         width: 100%;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--amber), transparent);
       }
     }
 
@@ -558,14 +537,8 @@
 
     <section class="compliance-contact" aria-labelledby="compliance-title">
       <div class="compliance-branding" aria-label="Louis Sargeant and REAL Broker branding">
-        <div class="compliance-logo">
-          <strong>Louis Sargeant</strong>
-          <span>Sargeant Real Estate</span>
-        </div>
-        <div class="compliance-divider" aria-hidden="true"></div>
-        <div class="compliance-logo">
-          <strong>REAL Broker</strong>
-          <span>Brokerage</span>
+        <div class="compliance-logo-card">
+          <img class="compliance-logo-image" src="louis-real-broker-logo.png" alt="Louis Sargeant, REAL Broker brokerage logo" />
         </div>
       </div>
 
