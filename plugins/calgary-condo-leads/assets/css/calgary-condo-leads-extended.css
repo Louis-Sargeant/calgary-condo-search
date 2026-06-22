@@ -3829,6 +3829,52 @@ body.admin-bar .ccl-floating-lead-widget {
   visibility: visible !important;
 }
 
+/* IDX card price/overlay safety: keep myRealPage prices readable above photo action overlays only. */
+.ccl-idx-premium-section .mrp-listing,
+.ccl-idx-premium-section [class*="mrp-listing"],
+.ccl-idx-premium-section [class*="listing-card"],
+.ccl-idx-premium-section [class*="listing-item"],
+.ccl-idx-premium-section [class*="property-card"],
+.ccl-idx-premium-section [class*="property-item"] {
+  position: relative !important;
+}
+
+.ccl-idx-premium-section .mrp-listing [class*="price"],
+.ccl-idx-premium-section [class*="mrp-listing"] [class*="price"],
+.ccl-idx-premium-section [class*="listing-card"] [class*="price"],
+.ccl-idx-premium-section [class*="listing-item"] [class*="price"],
+.ccl-idx-premium-section [class*="property-card"] [class*="price"],
+.ccl-idx-premium-section [class*="property-item"] [class*="price"] {
+  position: relative !important;
+  z-index: 20 !important;
+  isolation: isolate !important;
+}
+
+.ccl-idx-premium-section .mrp-listing :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]),
+.ccl-idx-premium-section [class*="mrp-listing"] :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]),
+.ccl-idx-premium-section [class*="listing-card"] :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]),
+.ccl-idx-premium-section [class*="listing-item"] :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]),
+.ccl-idx-premium-section [class*="property-card"] :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]),
+.ccl-idx-premium-section [class*="property-item"] :is([class*="favorite"], [class*="favourite"], [class*="share"], [class*="save"], [class*="saved"]):not([class*="price"]) {
+  top: 10px !important;
+  right: 10px !important;
+  bottom: auto !important;
+  left: auto !important;
+  max-width: calc(100% - 20px) !important;
+  z-index: 10 !important;
+}
+
+@media (max-width: 640px) {
+  .ccl-idx-premium-section .mrp-listing [class*="price"],
+  .ccl-idx-premium-section [class*="mrp-listing"] [class*="price"],
+  .ccl-idx-premium-section [class*="listing-card"] [class*="price"],
+  .ccl-idx-premium-section [class*="listing-item"] [class*="price"],
+  .ccl-idx-premium-section [class*="property-card"] [class*="price"],
+  .ccl-idx-premium-section [class*="property-item"] [class*="price"] {
+    z-index: 30 !important;
+  }
+}
+
 /* Tables/spec rows: prevent metadata clipping */
 .ccl-idx-premium-section table,
 .ccl-idx-premium-section tbody,
