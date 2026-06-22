@@ -817,14 +817,15 @@
   border: 1px solid rgba(10, 26, 47, 0.1);
   border-radius: 24px;
   box-shadow: 0 18px 44px rgba(10, 26, 47, 0.07);
-  padding: 22px;
+  padding: 26px 22px 24px;
 }
 
 .ccl-building-database-column h3 {
-  margin: 0 0 16px;
+  margin: 0 0 18px;
   color: #050505;
   font-size: 1.05rem;
   font-weight: 900;
+  line-height: 1.28;
 }
 
 .ccl-building-database-column ul {
@@ -839,13 +840,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 42px;
-  padding: 10px 12px;
+  gap: 10px;
+  min-height: 46px;
+  padding: 12px 14px;
   border: 1px solid rgba(10, 26, 47, 0.1);
   border-radius: 999px;
   background: #fffaf1;
   color: #111111;
   font-weight: 800;
+  line-height: 1.25;
   text-decoration: none;
 }
 
