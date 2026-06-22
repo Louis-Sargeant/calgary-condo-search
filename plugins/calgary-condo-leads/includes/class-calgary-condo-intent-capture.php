@@ -84,7 +84,7 @@ final class Calgary_Condo_Intent_Capture {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-section--white ccl-intent-capture" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+        <section class="ccl-section ccl-dark-luxury-section ccl-intent-capture" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
             <div class="ccl-wrap">
                 <div class="ccl-section__header">
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
@@ -130,7 +130,7 @@ final class Calgary_Condo_Intent_Capture {
 
         ob_start();
         ?>
-        <section class="ccl-lead-modal-launch ccl-section ccl-section--white" aria-label="<?php esc_attr_e('Calgary condo lead capture', 'calgary-condo-leads'); ?>">
+        <section class="ccl-lead-modal-launch ccl-section ccl-dark-luxury-section" aria-label="<?php esc_attr_e('Calgary condo lead capture', 'calgary-condo-leads'); ?>">
             <div class="ccl-wrap ccl-lead-modal-launch__inner">
                 <div>
                     <p class="ccl-eyebrow"><?php esc_html_e('Free Condo Guidance', 'calgary-condo-leads'); ?></p>
@@ -203,7 +203,7 @@ final class Calgary_Condo_Intent_Capture {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-next-step-band" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
+        <section class="ccl-section ccl-dark-luxury-section ccl-next-step-band" aria-label="<?php echo esc_attr($atts['eyebrow']); ?>">
             <div class="ccl-wrap ccl-next-step-band__inner">
                 <div>
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>

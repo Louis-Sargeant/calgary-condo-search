@@ -55,6 +55,22 @@ final class Calgary_Condo_Homepage {
         $is_paginated_idx = $page_number > 1;
 
         ob_start();
+        /*
+         * Homepage section mode inventory:
+         * - Hero (#clean-calgary-hero): ccl-dark-luxury-section.
+         * - Explore Calgary Condos navigation (#calgary-explore-navbar): ccl-dark-luxury-section.
+         * - Live Calgary Condo Listings / IDX wrapper (#idx-search): ccl-light-readable-section.
+         * - Paginated IDX note (.ccl-paginated-condo-note): ccl-light-readable-section.
+         * - Building database directory (#calgary-building-directory-database): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Buyer portal intro (.ccl-portal-intro): ccl-dark-luxury-section.
+         * - CTA choice cards (.ccl-intent-capture): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Calgary condo areas buyers ask about first (.ccl-area-grid): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Building directory / popular condo buildings (.ccl-building-section): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Schools & Community (#ccl-schools-lifestyle-section): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Building Risk Intelligence (.ccl-lead-modal-launch): ccl-dark-luxury-section (modal launch wrapper).
+         * - Market Stats (.ccl-market-snapshot when rendered): ccl-dark-luxury-section (shortcode-owned wrapper).
+         * - Footer / floating lead button: existing footer/lead modal presentation preserved.
+         */
         ?>
         <div class="ccl-page-shell ccl-premium-homepage-shell ccl-home-tight ccl-home-search-first<?php echo $is_paginated_idx ? ' ccl-home-search-first--paginated' : ''; ?>" data-ccl-condo-home>
             <style>
@@ -157,7 +173,7 @@ final class Calgary_Condo_Homepage {
             </style>
 
             <?php if (!$is_paginated_idx) : ?>
-            <section id="clean-calgary-hero" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
+            <section id="clean-calgary-hero" class="ccl-dark-luxury-section" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
                 <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.52) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
                 <div id="clean-calgary-hero-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
                     <h1 id="clean-calgary-hero-title" style="color: #FFF4E0 !important; font-size: clamp(2.85rem, 5.25vw, 5.15rem) !important; line-height: 0.98 !important; font-weight: 900 !important; letter-spacing: -0.052em !important; text-align: center !important; max-width: 1120px !important; margin: 0 auto 24px auto !important; text-shadow: 0 7px 28px rgba(0,0,0,0.9), 0 2px 6px rgba(0,0,0,0.85) !important;">Calgary Condos—<br><span id="clean-calgary-hero-title-line-two" style="white-space: nowrap !important;">Compared by Building First.</span></h1>
@@ -179,7 +195,7 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
-            <section id="calgary-explore-navbar" aria-labelledby="calgary-explore-navbar-title" style="background: rgba(5, 7, 11, 0.78) !important; color: #FFF4E0 !important; width: 100% !important; padding: 22px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(212,175,55,0.30) !important; box-shadow: 0 18px 44px rgba(0,0,0,0.22) !important; backdrop-filter: blur(16px) !important;">
+            <section id="calgary-explore-navbar" class="ccl-dark-luxury-section" aria-labelledby="calgary-explore-navbar-title" style="background: rgba(5, 7, 11, 0.78) !important; color: #FFF4E0 !important; width: 100% !important; padding: 22px 0 !important; box-sizing: border-box !important; border-bottom: 1px solid rgba(212,175,55,0.30) !important; box-shadow: 0 18px 44px rgba(0,0,0,0.22) !important; backdrop-filter: blur(16px) !important;">
                 <div id="calgary-explore-navbar-inner" style="max-width: 1180px !important; width: 100% !important; margin: 0 auto !important; padding: 0 20px !important; box-sizing: border-box !important;">
                     <h2 id="calgary-explore-navbar-title" style="color: #FFF4E0 !important; font-size: clamp(1.35rem, 2.25vw, 2rem) !important; line-height: 1.15 !important; font-weight: 800 !important; text-align: left !important; margin: 0 0 14px 0 !important;">Explore Calgary Condos</h2>
                     <nav id="calgary-explore-navbar-nav" class="ccl-region-nav" aria-label="Explore Calgary Condos" style="display: flex !important; flex-wrap: wrap !important; align-items: center !important; justify-content: flex-start !important; gap: 10px !important; width: 100% !important; overflow-x: auto !important; box-sizing: border-box !important;">
@@ -194,7 +210,7 @@ final class Calgary_Condo_Homepage {
 
             <?php endif; ?>
 
-            <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-section--white ccl-section-light ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-idx-title">
+            <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-light-readable-section ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-idx-title">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
                         <div>
@@ -219,7 +235,7 @@ final class Calgary_Condo_Homepage {
             </section>
 
             <?php if ($is_paginated_idx) : ?>
-                <section class="ccl-section ccl-section--white ccl-paginated-condo-note" aria-labelledby="ccl-paginated-condo-note-title">
+                <section class="ccl-section ccl-light-readable-section ccl-paginated-condo-note" aria-labelledby="ccl-paginated-condo-note-title">
                     <div class="ccl-wrap">
                         <p class="ccl-eyebrow">Calgary Condo Listings</p>
                         <h2 id="ccl-paginated-condo-note-title">Keep browsing active Calgary condos.</h2>
@@ -231,7 +247,7 @@ final class Calgary_Condo_Homepage {
 
             <?php echo do_shortcode('[ccl_building_database_directory]'); ?>
 
-            <section class="ccl-section ccl-section--white ccl-portal-intro" aria-labelledby="ccl-portal-intro-title">
+            <section class="ccl-section ccl-dark-luxury-section ccl-portal-intro" aria-labelledby="ccl-portal-intro-title">
                 <div class="ccl-wrap ccl-portal-intro__grid">
                     <div>
                         <p class="ccl-eyebrow">Buyer-Focused Calgary Condo Portal</p>
