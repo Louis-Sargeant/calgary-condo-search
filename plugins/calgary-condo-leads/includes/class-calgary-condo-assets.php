@@ -37,12 +37,6 @@ final class Calgary_Condo_Assets {
             CCL_VERSION
         );
 
-        wp_enqueue_style(
-            'calgary-condo-myrealpage-dark-luxury',
-            CCL_PLUGIN_URL . 'assets/css/myrealpage-idx-dark-luxury.css',
-            ['calgary-condo-leads-extended'],
-            CCL_VERSION
-        );
 
         wp_enqueue_script(
             'calgary-condo-school-modal',
