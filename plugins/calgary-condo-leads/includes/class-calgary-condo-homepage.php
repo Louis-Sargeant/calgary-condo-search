@@ -5,9 +5,8 @@ if (!defined('ABSPATH')) {
 
 final class Calgary_Condo_Homepage {
     private const SEARCH_SHORTCODES = [
-        // TODO: Replace this account-level citywide IDX feed with the exact Calgary condo saved-search ID once it is supplied from myRealPage admin.
-        // The previous default saved search, search-1439659, was removed from the main route because it loaded a Northwest-only result set.
-        'all' => '[mrp account_id=67196 context=recip perm_attr=tmpl~v2 ][/mrp]',
+        // Master city-wide Calgary condo saved search. Keep area-specific feeds on their dedicated routes.
+        'all' => '[mrp account_id=67196 listing_def=search-1478150 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'under-400k' => '[mrp account_id=67196 listing_def=search-1439371 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
     ];
