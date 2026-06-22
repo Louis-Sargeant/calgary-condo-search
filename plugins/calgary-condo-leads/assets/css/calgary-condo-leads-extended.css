@@ -3977,3 +3977,169 @@ body.admin-bar .ccl-floating-lead-widget {
   overflow: visible !important;
   height: auto !important;
 }
+
+/* =========================================================
+   IDX listing density control
+   Keep myRealPage data intact, but visually shorten long remarks
+   so cards stay scannable and conversion-focused.
+   ========================================================= */
+
+.ccl-idx-premium-section [class*="remarks"],
+.ccl-idx-premium-section [class*="description"],
+.ccl-idx-premium-section [class*="public-remarks"],
+.ccl-idx-premium-section [class*="listing-remarks"],
+.ccl-idx-premium-section [class*="listing-description"],
+.ccl-idx-premium-section [class*="property-description"] {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  max-height: 4.8em !important;
+  color: rgba(10, 26, 47, 0.78) !important;
+  font-size: 0.86rem !important;
+  line-height: 1.55 !important;
+}
+
+/* Fallback for generic IDX card paragraphs, but do not affect headings, prices, buttons, login, or controls. */
+.ccl-idx-premium-section [class*="listing-card"] p:not(:first-child),
+.ccl-idx-premium-section [class*="property-card"] p:not(:first-child),
+.ccl-idx-premium-section [class*="listing-item"] p:not(:first-child),
+.ccl-idx-premium-section [class*="property-item"] p:not(:first-child) {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  max-height: 4.8em !important;
+}
+
+.ccl-idx-premium-section .details,
+.ccl-idx-premium-section .more,
+.ccl-idx-premium-section a[href*="details"],
+.ccl-idx-premium-section button[class*="detail"],
+.ccl-idx-premium-section button[class*="more"],
+.ccl-idx-premium-section input[value="DETAILS"],
+.ccl-idx-premium-section input[value="MORE"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 38px !important;
+  padding: 0 18px !important;
+  margin-top: 10px !important;
+  border-radius: 999px !important;
+  background: #D4AF37 !important;
+  color: #121212 !important;
+  border: 1px solid rgba(166, 124, 30, 0.75) !important;
+  font-weight: 900 !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* =========================================================
+   Visual directory card readability repair
+   Fix unreadable white-on-white CTA pills in Live IDX Route cards.
+   ========================================================= */
+
+.ccl-dark-luxury-section .ccl-visual-card,
+.ccl-dark-luxury-section .ccl-directory-card,
+.ccl-visual-directory .ccl-visual-card,
+.ccl-visual-directory .ccl-directory-card {
+  background:
+    linear-gradient(135deg, rgba(5, 7, 11, 0.92), rgba(15, 23, 42, 0.84)) !important;
+  border: 1px solid rgba(212, 175, 55, 0.42) !important;
+  color: #FFF4E0 !important;
+  opacity: 1 !important;
+}
+
+.ccl-dark-luxury-section .ccl-visual-card h3,
+.ccl-dark-luxury-section .ccl-directory-card h3,
+.ccl-visual-directory .ccl-visual-card h3,
+.ccl-visual-directory .ccl-directory-card h3,
+.ccl-dark-luxury-section .ccl-visual-card strong,
+.ccl-dark-luxury-section .ccl-directory-card strong,
+.ccl-visual-directory .ccl-visual-card strong,
+.ccl-visual-directory .ccl-directory-card strong {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.78) !important;
+}
+
+.ccl-dark-luxury-section .ccl-visual-card p,
+.ccl-dark-luxury-section .ccl-directory-card p,
+.ccl-visual-directory .ccl-visual-card p,
+.ccl-visual-directory .ccl-directory-card p {
+  color: rgba(255, 244, 224, 0.88) !important;
+  opacity: 1 !important;
+}
+
+/* Directory card CTA buttons must be readable */
+.ccl-dark-luxury-section .ccl-visual-card a,
+.ccl-dark-luxury-section .ccl-directory-card a,
+.ccl-visual-directory .ccl-visual-card a,
+.ccl-visual-directory .ccl-directory-card a,
+.ccl-dark-luxury-section .ccl-visual-card button,
+.ccl-dark-luxury-section .ccl-directory-card button,
+.ccl-visual-directory .ccl-visual-card button,
+.ccl-visual-directory .ccl-directory-card button {
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%) !important;
+  color: #121212 !important;
+  border: 1px solid rgba(245, 229, 201, 0.55) !important;
+  border-radius: 999px !important;
+  font-weight: 950 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  box-shadow:
+    0 12px 26px rgba(212, 175, 55, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.48) !important;
+}
+
+.ccl-dark-luxury-section .ccl-visual-card a *,
+.ccl-dark-luxury-section .ccl-directory-card a *,
+.ccl-visual-directory .ccl-visual-card a *,
+.ccl-visual-directory .ccl-directory-card a *,
+.ccl-dark-luxury-section .ccl-visual-card button *,
+.ccl-dark-luxury-section .ccl-directory-card button *,
+.ccl-visual-directory .ccl-visual-card button *,
+.ccl-visual-directory .ccl-directory-card button * {
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  text-shadow: none !important;
+}
+
+.ccl-visual-directory .ccl-visual-card__badge,
+.ccl-dark-luxury-section .ccl-visual-card__badge {
+  background: #D4AF37 !important;
+  color: #121212 !important;
+  border: 1px solid rgba(245, 229, 201, 0.55) !important;
+  font-weight: 950 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .ccl-visual-directory .ccl-visual-card,
+  .ccl-visual-directory .ccl-directory-card {
+    min-height: 190px !important;
+  }
+
+  .ccl-visual-directory .ccl-visual-card a,
+  .ccl-visual-directory .ccl-directory-card a,
+  .ccl-visual-directory .ccl-visual-card button,
+  .ccl-visual-directory .ccl-directory-card button {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  .ccl-idx-premium-section [class*="remarks"],
+  .ccl-idx-premium-section [class*="description"],
+  .ccl-idx-premium-section [class*="listing-description"],
+  .ccl-idx-premium-section [class*="property-description"] {
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    max-height: 3.4em !important;
+  }
+}
