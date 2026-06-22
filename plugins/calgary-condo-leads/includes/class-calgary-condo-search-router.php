@@ -36,7 +36,16 @@ final class Calgary_Condo_Search_Router {
     }
 
     private function resolve_destination(string $query, string $status): string {
-        $clean_query = strtolower(trim(preg_replace('/\s+/', ' ', preg_replace('/[^a-z0-9$ ]+/', ' ', $query))));
+        $clean_query = $this->normalize_search_term($query, true);
+
+        $building_destination = $this->resolve_building_directory_destination($clean_query);
+        if ('' !== $building_destination) {
+            return $building_destination;
+        }
+
+        if ($this->is_address_like($clean_query)) {
+            return '/all-calgary-condos/';
+        }
 
         $routes = [
             '/southeast-calgary-condos/' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary', 'southeast calgary'],
@@ -47,7 +56,7 @@ final class Calgary_Condo_Search_Router {
 
         foreach ($routes as $destination => $aliases) {
             foreach ($aliases as $alias) {
-                if ($clean_query === $alias || str_contains($clean_query, $alias)) {
+                if ($this->term_matches($clean_query, $alias)) {
                     return $destination;
                 }
             }
@@ -66,6 +75,44 @@ final class Calgary_Condo_Search_Router {
         }
 
         return '/all-calgary-condos/';
+    }
+
+    private function resolve_building_directory_destination(string $clean_query): string {
+        if (!class_exists('Calgary_Condo_Building_Directory')) {
+            return '';
+        }
+
+        $routes = Calgary_Condo_Building_Directory::visual_directory_search_routes();
+        uksort($routes, static fn (string $first, string $second): int => strlen($second) <=> strlen($first));
+
+        foreach ($routes as $term => $destination) {
+            if ($this->term_matches($clean_query, $term)) {
+                return $destination;
+            }
+        }
+
+        return '';
+    }
+
+    private function normalize_search_term(string $term, bool $keep_dollar = false): string {
+        $pattern = $keep_dollar ? '/[^a-z0-9$ ]+/' : '/[^a-z0-9 ]+/';
+
+        return strtolower(trim((string) preg_replace('/\s+/', ' ', (string) preg_replace($pattern, ' ', $term))));
+    }
+
+    private function term_matches(string $clean_query, string $term): bool {
+        $clean_term = $this->normalize_search_term($term);
+
+        if ('' === $clean_term) {
+            return false;
+        }
+
+        return (bool) preg_match('/(^|\s)' . preg_quote($clean_term, '/') . '($|\s)/', $this->normalize_search_term($clean_query));
+    }
+
+    private function is_address_like(string $clean_query): bool {
+        return (bool) preg_match('/(^|\s)\d+(?!k)[a-z]?(\s|$)/', $clean_query)
+            || (bool) preg_match('/(^|\s)(?!\d+k(\s|$))[a-z]?\d[a-z0-9]*\d[a-z]?(\s|$)/', $clean_query);
     }
 
 }
