@@ -4188,3 +4188,80 @@ body.admin-bar .ccl-floating-lead-widget {
     max-height: 3.4em !important;
   }
 }
+
+/* =========================================================
+   Surgical QA override: visual directory headings + IDX price clearance
+   Scope: Calgary condo lead-gen page only
+   ========================================================= */
+
+/* 1) Make visual directory category headings fully readable */
+.ccl-visual-directory .ccl-visual-directory__column h3,
+.ccl-visual-directory .ccl-visual-directory__column h4,
+.ccl-visual-directory .ccl-visual-directory__column > strong,
+.ccl-dark-luxury-section .ccl-visual-directory__column h3,
+.ccl-dark-luxury-section .ccl-visual-directory__column h4,
+.ccl-dark-luxury-section .ccl-visual-directory__column > strong {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.78) !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* 2) Keep individual visual directory card names from clipping */
+.ccl-visual-directory .ccl-visual-card h3,
+.ccl-visual-directory .ccl-directory-card h3,
+.ccl-visual-directory .ccl-visual-card h4,
+.ccl-visual-directory .ccl-directory-card h4,
+.ccl-visual-directory .ccl-visual-card strong,
+.ccl-visual-directory .ccl-directory-card strong {
+  color: #F5E5C9 !important;
+  -webkit-text-fill-color: #F5E5C9 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  line-height: 1.25 !important;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* Give card content enough breathing room so badges do not sit over titles */
+.ccl-visual-directory .ccl-visual-card,
+.ccl-visual-directory .ccl-directory-card {
+  overflow: visible !important;
+  padding-top: 24px !important;
+}
+
+/* 3) IDX price clearance — do not redesign native myRealPage cards */
+.ccl-idx-premium-section .mrp-listing-item,
+.ccl-idx-premium-section .mrp-listing-card {
+  overflow: visible !important;
+}
+
+/* Keep action/overlay wrappers from physically sitting on top of price rows */
+.ccl-idx-premium-section .mrp-listing-item .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-card .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-item [class*="actions"],
+.ccl-idx-premium-section .mrp-listing-card [class*="actions"] {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin-top: 16px !important;
+  z-index: 2 !important;
+}
+
+/* Keep price/status row readable and above background, without changing IDX data */
+.ccl-idx-premium-section .mrp-listing-item [class*="price"],
+.ccl-idx-premium-section .mrp-listing-card [class*="price"] {
+  position: relative !important;
+  z-index: 4 !important;
+  display: block !important;
+  clear: both !important;
+  margin-bottom: 12px !important;
+  overflow: visible !important;
+}
