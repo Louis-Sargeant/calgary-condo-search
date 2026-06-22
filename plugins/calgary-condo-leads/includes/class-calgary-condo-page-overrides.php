@@ -248,7 +248,7 @@ SHORTCODES;
             <p>Use monthly market stats to understand supply, price pressure, inventory, and negotiation conditions before chasing listings. Then compare the individual building before booking showings.</p>
         </div>
         <div class="ccl-compare-hero__actions">
-            <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/#idx-search" target="_self">Search Calgary Condos</a>
+            <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/" target="_self">Search Calgary Condos</a>
             <a class="ccl-btn ccl-btn--dark" href="{$creb_url}" target="_blank" rel="noopener noreferrer">Open CREB Source</a>
         </div>
     </div>
@@ -278,7 +278,7 @@ HTML;
             <p>Search schools, commute, parks, walkability, nearby amenities, and condo lifestyle fit before you shortlist buildings or book showings.</p>
         </div>
         <div class="ccl-compare-hero__actions">
-            <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/#idx-search" target="_self">Search Calgary Condos</a>
+            <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/" target="_self">Search Calgary Condos</a>
             <a class="ccl-btn ccl-btn--dark" href="/calgary-condo-buildings/" target="_self">Compare Buildings</a>
         </div>
     </div>

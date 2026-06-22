@@ -18,7 +18,19 @@
     },
     {
       url: '/all-calgary-condos/',
-      terms: ['calgary', 'calgary condos', 'all calgary condos', 'all condos', 'citywide']
+      terms: ['calgary', 'calgary condos', 'all calgary condos', 'all condos', 'live calgary condos', 'search calgary condos', 'condos', 'citywide']
+    },
+    {
+      url: '/under-400k/',
+      terms: ['under 400k', 'under $400k', '400k']
+    },
+    {
+      url: '/price-reduced/',
+      terms: ['price reduced', 'reduced']
+    },
+    {
+      url: '/building-alerts/',
+      terms: ['building alerts', 'alerts']
     }
   ];
 
@@ -94,11 +106,6 @@
       baseUrl += '/';
     }
 
-    if (!keyword) {
-      window.location.href = baseUrl;
-      return;
-    }
-
-    window.location.href = baseUrl + '?keyword=' + encodeURIComponent(keyword);
+    window.location.href = toAbsoluteUrl(baseUrl);
   });
 })();

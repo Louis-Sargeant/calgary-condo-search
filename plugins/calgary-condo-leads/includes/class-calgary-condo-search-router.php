@@ -39,58 +39,35 @@ final class Calgary_Condo_Search_Router {
         $clean_query = strtolower(trim(preg_replace('/\s+/', ' ', preg_replace('/[^a-z0-9$ ]+/', ' ', $query))));
 
         $routes = [
-            'southeast' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary', 'southeast calgary'],
-            'southwest' => ['southwest', 'south west', 'sw', 'sw calgary', 'south west calgary', 'southwest calgary'],
-            'northwest' => ['northwest', 'north west', 'nw', 'nw calgary', 'north west calgary', 'northwest calgary'],
-            'northeast' => ['northeast', 'north east', 'ne', 'ne calgary', 'north east calgary', 'northeast calgary'],
+            '/southeast-calgary-condos/' => ['southeast', 'south east', 'se', 'se calgary', 'south east calgary', 'southeast calgary'],
+            '/southwest-calgary-condos/' => ['southwest', 'south west', 'sw', 'sw calgary', 'south west calgary', 'southwest calgary'],
+            '/northwest-calgary-condos/' => ['northwest', 'north west', 'nw', 'nw calgary', 'north west calgary', 'northwest calgary'],
+            '/northeast-calgary-condos/' => ['northeast', 'north east', 'ne', 'ne calgary', 'north east calgary', 'northeast calgary'],
         ];
 
-        foreach ($routes as $area => $aliases) {
+        foreach ($routes as $destination => $aliases) {
             foreach ($aliases as $alias) {
                 if ($clean_query === $alias || str_contains($clean_query, $alias)) {
-                    return '/calgary-condos/?ccl_area=' . $area . '#mrp-listings';
+                    return $destination;
                 }
             }
         }
 
-        if (str_contains($clean_query, 'downtown')) {
-            return '/downtown-calgary-condos/';
+        if (str_contains($clean_query, 'under 400k') || str_contains($clean_query, 'under $400k') || str_contains($clean_query, '400k')) {
+            return '/under-400k/';
         }
 
-        if (str_contains($clean_query, 'beltline')) {
-            return '/beltline-condos/';
+        if (str_contains($clean_query, 'price reduced') || str_contains($clean_query, 'reduced') || 'price-reduced' === $status || 'price-drops' === $status) {
+            return '/price-reduced/';
         }
 
-        if (str_contains($clean_query, 'luxury')) {
-            return '/calgary-luxury-condos/';
+        if (str_contains($clean_query, 'building alerts') || 'alerts' === $clean_query) {
+            return '/building-alerts/';
         }
 
-        if (str_contains($clean_query, '300')) {
-            return '/calgary-condos-under-300k/';
-        }
-
-        if (str_contains($clean_query, 'open house') || str_contains($clean_query, 'open houses')) {
-            return '/calgary-condos/?ccl_filter=open-houses#mrp-listings';
-        }
-
-        if (str_contains($clean_query, 'price drop') || str_contains($clean_query, 'reduced')) {
-            return '/calgary-condos/?ccl_filter=price-drops#mrp-listings';
-        }
-
-        if ('newest' === $status) {
-            return '/calgary-condos/?ccl_filter=newest#mrp-listings';
-        }
-
-        if ('price-reduced' === $status || 'price-drops' === $status) {
-            return '/calgary-condos/?ccl_filter=price-drops#mrp-listings';
-        }
-
-        if ('open-house' === $status || 'open-houses' === $status) {
-            return '/calgary-condos/?ccl_filter=open-houses#mrp-listings';
-        }
-
-        return '';
+        return '/all-calgary-condos/';
     }
+
 }
 
 new Calgary_Condo_Search_Router();

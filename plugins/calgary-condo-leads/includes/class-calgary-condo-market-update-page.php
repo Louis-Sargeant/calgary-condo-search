@@ -180,7 +180,7 @@ CSS;
                 <h1>{$headline}</h1>
                 <p>{$intro}</p>
                 <div class="ccl-market-actions">
-                    <a class="ccl-market-btn ccl-market-btn--gold" href="/calgary-condos/" target="_self">Search Calgary Condos</a>
+                    <a class="ccl-market-btn ccl-market-btn--gold" href="/all-calgary-condos/" target="_self">Search Calgary Condos</a>
                     <a class="ccl-market-btn ccl-market-btn--dark" href="/price-reduced-condos/" target="_self">View Price Drops</a>
                 </div>
             </div>
