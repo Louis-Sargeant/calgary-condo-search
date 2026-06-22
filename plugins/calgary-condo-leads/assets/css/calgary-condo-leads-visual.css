@@ -331,3 +331,81 @@ body .ccl-home-search-first .ccl-tight-idx__placeholder p {
   body .ccl-home-tabs { gap: 22px !important; }
   .ccl-compare-hero__inner { grid-template-columns: 1fr; }
 }
+
+/* =========================================================
+   myRealPage IDX: remove duplicate TOP action buttons only
+   Keep native bottom actions intact
+   Scope: Calgary condo IDX listing grid only
+   ========================================================= */
+
+/* Hide only the first/top duplicated action row inside each listing card */
+.ccl-idx-premium-section .mrp-listing-card > div:first-child .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-item > div:first-child .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-row-container > div:first-child .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-card > div:first-child .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-item > div:first-child .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-row-container > div:first-child .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-card > div:first-child .mrp-btn-container,
+.ccl-idx-premium-section .mrp-listing-item > div:first-child .mrp-btn-container,
+.ccl-idx-premium-section .mrp-listing-row-container > div:first-child .mrp-btn-container {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Keep the real/bottom action row visible and usable */
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-row-container > div:not(:first-child) .mrp-actions-wrapper,
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-row-container > div:not(:first-child) .mrp-buttons-block,
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-btn-container,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-btn-container,
+.ccl-idx-premium-section .mrp-listing-row-container > div:not(:first-child) .mrp-btn-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+/* Bottom Details / More buttons: readable, clickable, luxury-safe */
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-actions-wrapper a,
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-actions-wrapper button,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-actions-wrapper a,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-actions-wrapper button,
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-buttons-block a,
+.ccl-idx-premium-section .mrp-listing-card > div:not(:first-child) .mrp-buttons-block button,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-buttons-block a,
+.ccl-idx-premium-section .mrp-listing-item > div:not(:first-child) .mrp-buttons-block button {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  z-index: 4 !important;
+}
+
+/* Price/status rows must remain visible and not be covered */
+.ccl-idx-premium-section .mrp-listing-card [class*="price"],
+.ccl-idx-premium-section .mrp-listing-item [class*="price"],
+.ccl-idx-premium-section .mrp-listing-row-container [class*="price"] {
+  position: relative !important;
+  z-index: 5 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  clear: both !important;
+}
