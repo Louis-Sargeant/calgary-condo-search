@@ -1,0 +1,275 @@
+/* =========================================================
+   Calgary Condo Search / myRealPage IDX
+   2026 Dark Luxury Style Override
+
+   IMPORTANT:
+   This stylesheet is style-only.
+   It does not rebuild the myRealPage listing structure.
+   It avoids broad layout overrides that can break IDX cards.
+   ========================================================= */
+
+/* =========================================================
+   1. Root Listing Canvas & IDX Wrapper Background
+   ========================================================= */
+
+.mrp-container,
+#mrp-listings-wrapper,
+.mrp-viewport,
+.mrp-listings-wrapper,
+.mrp-results-wrapper,
+.mrp-listings-results,
+.mrp-search-results,
+.mrp-listing-results {
+  background: radial-gradient(circle at center, #161f30 0%, #0b0f19 70%, #05070b 100%) !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   2. Property Card Glassmorphic Skinning
+   Keep native myRealPage structure intact.
+   ========================================================= */
+
+.mrp-listing-item,
+.mrp-listing-card,
+.mrp-row,
+.mrp-listing-result,
+.mrp-property-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(214, 175, 55, 0.2) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34) !important;
+  color: #fff !important;
+}
+
+/* =========================================================
+   3. Listing Typography
+   High-contrast text without changing layout.
+   ========================================================= */
+
+.mrp-listing-item h1,
+.mrp-listing-item h2,
+.mrp-listing-item h3,
+.mrp-listing-item h4,
+.mrp-listing-item h5,
+.mrp-listing-item h6,
+.mrp-listing-item p,
+.mrp-listing-item span,
+.mrp-listing-item li,
+.mrp-listing-item td,
+.mrp-listing-item th,
+.mrp-listing-item strong,
+.mrp-listing-card h1,
+.mrp-listing-card h2,
+.mrp-listing-card h3,
+.mrp-listing-card h4,
+.mrp-listing-card h5,
+.mrp-listing-card h6,
+.mrp-listing-card p,
+.mrp-listing-card span,
+.mrp-listing-card li,
+.mrp-listing-card td,
+.mrp-listing-card th,
+.mrp-listing-card strong,
+.mrp-row h1,
+.mrp-row h2,
+.mrp-row h3,
+.mrp-row h4,
+.mrp-row h5,
+.mrp-row h6,
+.mrp-row p,
+.mrp-row span,
+.mrp-row li,
+.mrp-row td,
+.mrp-row th,
+.mrp-row strong {
+  color: #fff !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
+/* Native links: champagne gold */
+.mrp-listing-item a,
+.mrp-listing-card a,
+.mrp-row a,
+.mrp-listing-result a,
+.mrp-property-card a {
+  color: #f5e5c9 !important;
+  text-decoration-color: rgba(245, 229, 201, 0.55) !important;
+}
+
+/* Price text / price bars must stay readable */
+.mrp-listing-item [class*="price"],
+.mrp-listing-card [class*="price"],
+.mrp-row [class*="price"],
+.mrp-listing-result [class*="price"],
+.mrp-property-card [class*="price"] {
+  color: #fff !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-shadow: none !important;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+/* =========================================================
+   4. Remarks / Description Clamp
+   Prevent long text from stretching or distorting cards.
+   ========================================================= */
+
+.mrp-listing-item [class*="remarks"],
+.mrp-listing-item [class*="description"],
+.mrp-listing-item [class*="public-remarks"],
+.mrp-listing-item [class*="listing-description"],
+.mrp-listing-card [class*="remarks"],
+.mrp-listing-card [class*="description"],
+.mrp-listing-card [class*="public-remarks"],
+.mrp-listing-card [class*="listing-description"],
+.mrp-row [class*="remarks"],
+.mrp-row [class*="description"],
+.mrp-row [class*="public-remarks"],
+.mrp-row [class*="listing-description"] {
+  color: rgba(255, 255, 255, 0.9) !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.45 !important;
+  max-height: 2.9em !important;
+}
+
+/* =========================================================
+   5. Button Styling
+   Style buttons only. Do not restructure listing cards.
+   ========================================================= */
+
+.mrp-listing-item a[class*="detail"],
+.mrp-listing-item button[class*="detail"],
+.mrp-listing-item input[value="DETAILS"],
+.mrp-listing-item input[value="MORE"],
+.mrp-listing-card a[class*="detail"],
+.mrp-listing-card button[class*="detail"],
+.mrp-listing-card input[value="DETAILS"],
+.mrp-listing-card input[value="MORE"],
+.mrp-row a[class*="detail"],
+.mrp-row button[class*="detail"],
+.mrp-row input[value="DETAILS"],
+.mrp-row input[value="MORE"],
+.mrp-listing-item .details,
+.mrp-listing-item .more,
+.mrp-listing-card .details,
+.mrp-listing-card .more,
+.mrp-row .details,
+.mrp-row .more {
+  background: linear-gradient(135deg, #d4af37 0%, #a67c1e 100%) !important;
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  font-weight: 800 !important;
+  border-radius: 50px !important;
+  border: 1px solid rgba(245, 229, 201, 0.55) !important;
+  text-shadow: none !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin-top: 16px !important;
+  z-index: 4 !important;
+  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.24) !important;
+}
+
+/* Button child text must stay dark/readable */
+.mrp-listing-item a[class*="detail"] *,
+.mrp-listing-item button[class*="detail"] *,
+.mrp-listing-card a[class*="detail"] *,
+.mrp-listing-card button[class*="detail"] *,
+.mrp-row a[class*="detail"] *,
+.mrp-row button[class*="detail"] *,
+.mrp-listing-item .details *,
+.mrp-listing-item .more *,
+.mrp-listing-card .details *,
+.mrp-listing-card .more *,
+.mrp-row .details *,
+.mrp-row .more * {
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  text-shadow: none !important;
+}
+
+/* =========================================================
+   6. Safe Action Spacing
+   Keeps action areas away from price rows without rebuilding layout.
+   ========================================================= */
+
+.mrp-listing-item .mrp-actions-wrapper,
+.mrp-listing-card .mrp-actions-wrapper,
+.mrp-row .mrp-actions-wrapper,
+.mrp-listing-item .mrp-buttons-block,
+.mrp-listing-card .mrp-buttons-block,
+.mrp-row .mrp-buttons-block,
+.mrp-listing-item .mrp-btn-container,
+.mrp-listing-card .mrp-btn-container,
+.mrp-row .mrp-btn-container {
+  position: relative !important;
+  top: auto !important;
+  bottom: auto !important;
+  margin-top: 16px !important;
+  z-index: 3 !important;
+}
+
+/* =========================================================
+   7. Listing Images
+   Preserve native IDX image behavior.
+   Do not force new dimensions.
+   ========================================================= */
+
+.mrp-listing-item img,
+.mrp-listing-card img,
+.mrp-row img,
+.mrp-listing-result img,
+.mrp-property-card img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* =========================================================
+   8. Mobile Safety
+   Keep cards readable on smaller screens.
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .mrp-listing-item,
+  .mrp-listing-card,
+  .mrp-row,
+  .mrp-listing-result,
+  .mrp-property-card {
+    border-radius: 10px !important;
+  }
+
+  .mrp-listing-item [class*="remarks"],
+  .mrp-listing-item [class*="description"],
+  .mrp-listing-card [class*="remarks"],
+  .mrp-listing-card [class*="description"],
+  .mrp-row [class*="remarks"],
+  .mrp-row [class*="description"] {
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    max-height: 2.9em !important;
+  }
+
+  .mrp-listing-item .mrp-actions-wrapper,
+  .mrp-listing-card .mrp-actions-wrapper,
+  .mrp-row .mrp-actions-wrapper,
+  .mrp-listing-item .mrp-buttons-block,
+  .mrp-listing-card .mrp-buttons-block,
+  .mrp-row .mrp-buttons-block,
+  .mrp-listing-item .mrp-btn-container,
+  .mrp-listing-card .mrp-btn-container,
+  .mrp-row .mrp-btn-container {
+    margin-top: 14px !important;
+  }
+}
