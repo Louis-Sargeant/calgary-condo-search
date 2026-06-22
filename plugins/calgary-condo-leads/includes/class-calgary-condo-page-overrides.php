@@ -187,7 +187,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     private function home_menu_url(): string {
-        return home_url('/calgary-condos/');
+        return home_url('/');
     }
 
     private function price_reduced_layout(): string {

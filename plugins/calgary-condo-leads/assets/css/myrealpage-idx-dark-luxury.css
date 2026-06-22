@@ -89,6 +89,50 @@
   opacity: 1 !important;
 }
 
+
+/* =========================================================
+   3a. IDX Metadata / Spec Cell Text Recovery
+   Scope only to native myRealPage listing spec tables/cells.
+   ========================================================= */
+
+.ccl-idx-premium-section .mrp-listing-item table td,
+.ccl-idx-premium-section .mrp-listing-item table th,
+.ccl-idx-premium-section .mrp-listing-card table td,
+.ccl-idx-premium-section .mrp-listing-card table th,
+.ccl-idx-premium-section .mrp-row table td,
+.ccl-idx-premium-section .mrp-row table th,
+.ccl-idx-premium-section .mrp-listing-item [class*="spec"] td,
+.ccl-idx-premium-section .mrp-listing-card [class*="spec"] td,
+.ccl-idx-premium-section .mrp-row [class*="spec"] td,
+.ccl-idx-premium-section .mrp-listing-item [class*="meta"] td,
+.ccl-idx-premium-section .mrp-listing-card [class*="meta"] td,
+.ccl-idx-premium-section .mrp-row [class*="meta"] td {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  font-size: inherit !important;
+  line-height: 1.35 !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  visibility: visible !important;
+  white-space: normal !important;
+}
+
+.ccl-idx-premium-section .mrp-listing-item table td *,
+.ccl-idx-premium-section .mrp-listing-item table th *,
+.ccl-idx-premium-section .mrp-listing-card table td *,
+.ccl-idx-premium-section .mrp-listing-card table th *,
+.ccl-idx-premium-section .mrp-row table td *,
+.ccl-idx-premium-section .mrp-row table th * {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  opacity: 1 !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  visibility: visible !important;
+}
+
 /* Native links: champagne gold */
 .mrp-listing-item a,
 .mrp-listing-card a,
