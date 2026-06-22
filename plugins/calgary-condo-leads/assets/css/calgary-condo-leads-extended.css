@@ -4110,6 +4110,51 @@ body.admin-bar .ccl-floating-lead-widget {
   text-shadow: none !important;
 }
 
+/* Live IDX Route visual card CTA pill contrast override */
+.ccl-visual-directory.ccl-dark-luxury-section a.ccl-visual-card .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-visual-card .ccl-visual-card__cta,
+.ccl-dark-luxury-section .ccl-visual-card .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-directory-card .ccl-visual-card__cta,
+.ccl-dark-luxury-section .ccl-directory-card .ccl-visual-card__cta {
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 32%, #D4AF37 58%, #B38F43 100%) !important;
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  border: 1px solid rgba(245, 229, 201, 0.66) !important;
+  border-radius: 999px !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  box-shadow:
+    0 10px 22px rgba(212, 175, 55, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+.ccl-visual-directory.ccl-dark-luxury-section a.ccl-visual-card:hover .ccl-visual-card__cta,
+.ccl-visual-directory.ccl-dark-luxury-section a.ccl-visual-card:focus-visible .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-visual-card:hover .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-visual-card:focus-visible .ccl-visual-card__cta,
+.ccl-dark-luxury-section .ccl-visual-card:hover .ccl-visual-card__cta,
+.ccl-dark-luxury-section .ccl-visual-card:focus-visible .ccl-visual-card__cta {
+  background: linear-gradient(180deg, #FFF9EC 0%, #F0D99A 34%, #DDBB4B 62%, #A9822E 100%) !important;
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  box-shadow:
+    0 14px 28px rgba(212, 175, 55, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+}
+
+.ccl-visual-directory.ccl-dark-luxury-section a.ccl-visual-card .ccl-visual-card__cta *,
+.ccl-visual-directory .ccl-visual-card .ccl-visual-card__cta *,
+.ccl-dark-luxury-section .ccl-visual-card .ccl-visual-card__cta *,
+.ccl-visual-directory .ccl-directory-card .ccl-visual-card__cta *,
+.ccl-dark-luxury-section .ccl-directory-card .ccl-visual-card__cta * {
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+}
+
 .ccl-visual-directory .ccl-visual-card__badge,
 .ccl-dark-luxury-section .ccl-visual-card__badge {
   background: #D4AF37 !important;
