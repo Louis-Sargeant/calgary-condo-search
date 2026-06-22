@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 
 final class Calgary_Condo_Homepage {
     private const SEARCH_SHORTCODES = [
-        'all' => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2]',
+        'all' => '[mrp account_id=67196 searchform_def=idx.browse embed=true context=recip init_attr=omni-city%3ACalgary%5BCalgary%20%2Ccity%29%5D,property_type-DWELLING_TYPE%40APAR]',
         'under-400k' => '[mrp account_id=67196 listing_def=search-1439371 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
     ];
@@ -229,7 +229,7 @@ final class Calgary_Condo_Homepage {
                         </div>
                     <?php endif; ?>
                     <div class="ccl-idx-shell__frame">
-                        <?php echo do_shortcode('[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2]'); ?>
+                        <?php echo do_shortcode(self::SEARCH_SHORTCODES['all']); ?>
                     </div>
                 </div>
             </section>

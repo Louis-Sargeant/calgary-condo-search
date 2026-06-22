@@ -13,7 +13,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('CCL_VERSION', '1.0.106');
+define('CCL_VERSION', '1.0.107');
 define('CCL_PLUGIN_FILE', __FILE__);
 define('CCL_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('CCL_PLUGIN_URL', plugin_dir_url(__FILE__));
