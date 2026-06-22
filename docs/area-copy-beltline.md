@@ -34,7 +34,8 @@ Beltline is one of Calgary's most active condo areas for buyers who want walkabi
 [ccl_hero eyebrow="Beltline Condo Search" title="Beltline Condos For Sale" subtitle="Search Beltline condo listings and compare the building details that matter before booking a showing." primary_text="Search Beltline Condos" primary_url="#idx-search" secondary_text="Get Beltline Condo Alerts" secondary_url="#condo-alerts"]
 
 <div id="idx-search">
-    Add approved Beltline IDX shortcode or embed here.
+    [mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2]
+    [/mrp]
 </div>
 
 [ccl_value_cards]
