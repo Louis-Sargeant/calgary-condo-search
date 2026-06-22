@@ -4022,9 +4022,60 @@ body.admin-bar .ccl-floating-lead-widget {
   z-index: 3 !important;
 }
 
-/* Give card content enough breathing room so badges do not sit over titles */
+/* Give card content enough breathing room so badges, copy, and CTAs never collide */
+.ccl-visual-directory .ccl-visual-directory__cards {
+  gap: 20px !important;
+}
+
 .ccl-visual-directory .ccl-visual-card,
 .ccl-visual-directory .ccl-directory-card {
   overflow: visible !important;
-  padding-top: 24px !important;
+  min-height: 245px !important;
+  padding: 26px 22px 24px !important;
+  gap: 12px !important;
+  line-height: 1.45 !important;
+}
+
+.ccl-visual-directory .ccl-visual-card__category,
+.ccl-visual-directory .ccl-visual-card__badge {
+  max-width: 100% !important;
+  margin-bottom: 2px !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+}
+
+.ccl-visual-directory .ccl-visual-card__title,
+.ccl-visual-directory .ccl-visual-card h3,
+.ccl-visual-directory .ccl-directory-card h3 {
+  line-height: 1.32 !important;
+  margin-bottom: 4px !important;
+}
+
+.ccl-visual-directory .ccl-visual-card__description,
+.ccl-visual-directory .ccl-visual-card p,
+.ccl-visual-directory .ccl-directory-card p {
+  line-height: 1.55 !important;
+  margin-bottom: 6px !important;
+}
+
+.ccl-visual-directory .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-visual-card a,
+.ccl-visual-directory .ccl-directory-card a,
+.ccl-visual-directory .ccl-visual-card button,
+.ccl-visual-directory .ccl-directory-card button {
+  flex-shrink: 0 !important;
+  max-width: 100% !important;
+  margin-top: 4px !important;
+  padding: 10px 16px !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  white-space: normal !important;
+}
+
+@media (max-width: 768px) {
+  .ccl-visual-directory .ccl-visual-card,
+  .ccl-visual-directory .ccl-directory-card {
+    min-height: 270px !important;
+    padding: 24px 18px 22px !important;
+  }
 }
