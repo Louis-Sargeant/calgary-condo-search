@@ -80,6 +80,7 @@ final class Calgary_Condo_Area_Pages {
         'southwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northeast-calgary-condos' => '',
+        'beltline-condos' => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [

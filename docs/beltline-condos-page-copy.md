@@ -55,10 +55,11 @@ Use a Custom HTML block for the hero, then a Shortcode block for the myRealPage 
 Start with the proven working base shortcode:
 
 ```text
-[mrp account_id=67196 searchform_def=idx.browse embed=true context=recip]
+[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2]
+[/mrp]
 ```
 
-Do not add the Beltline filter until a separate filter test confirms the exact myRealPage parameter.
+Use the approved saved Beltline myRealPage search ID 1439738 for the live listings block.
 
 ## Lead section below IDX
 
