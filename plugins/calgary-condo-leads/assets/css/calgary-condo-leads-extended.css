@@ -3794,88 +3794,25 @@ body.admin-bar .ccl-floating-lead-widget {
   filter: none !important;
 }
 
-/* Listing cards: keep native light card readability, do not force dark mode */
+/* IDX listing internals: visibility repair only; native myRealPage card visuals are preserved. */
 .ccl-idx-premium-section .mrp-listing,
 .ccl-idx-premium-section [class*="mrp-listing"],
 .ccl-idx-premium-section [class*="listing-card"],
 .ccl-idx-premium-section [class*="listing-item"],
 .ccl-idx-premium-section [class*="property-card"],
-.ccl-idx-premium-section [class*="property-item"] {
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  opacity: 1 !important;
-  filter: none !important;
-  background: #ffffff !important;
-  color: #0A1A2F !important;
-  border: 1px solid rgba(10, 26, 47, 0.14) !important;
-  border-radius: 18px !important;
-  box-shadow: 0 16px 38px rgba(10, 26, 47, 0.12) !important;
-}
-
-/* Restore metadata/card internals */
+.ccl-idx-premium-section [class*="property-item"],
 .ccl-idx-premium-section .mrp-listing *,
 .ccl-idx-premium-section [class*="mrp-listing"] *,
 .ccl-idx-premium-section [class*="listing-card"] *,
 .ccl-idx-premium-section [class*="listing-item"] *,
 .ccl-idx-premium-section [class*="property-card"] *,
 .ccl-idx-premium-section [class*="property-item"] * {
-  opacity: 1 !important;
-  filter: none !important;
-  text-shadow: none !important;
-  visibility: visible !important;
+  height: auto !important;
   max-height: none !important;
-}
-
-/* Listing address/title text: dark and sharp on white cards */
-.ccl-idx-premium-section .mrp-listing h1,
-.ccl-idx-premium-section .mrp-listing h2,
-.ccl-idx-premium-section .mrp-listing h3,
-.ccl-idx-premium-section .mrp-listing h4,
-.ccl-idx-premium-section .mrp-listing strong,
-.ccl-idx-premium-section [class*="listing"] h1,
-.ccl-idx-premium-section [class*="listing"] h2,
-.ccl-idx-premium-section [class*="listing"] h3,
-.ccl-idx-premium-section [class*="listing"] h4,
-.ccl-idx-premium-section [class*="listing"] strong,
-.ccl-idx-premium-section [class*="address"],
-.ccl-idx-premium-section [class*="title"] {
-  color: #0A1A2F !important;
-  font-weight: 850 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.015em !important;
-}
-
-/* Listing metadata: readable, not faded */
-.ccl-idx-premium-section .mrp-listing p,
-.ccl-idx-premium-section .mrp-listing li,
-.ccl-idx-premium-section .mrp-listing span,
-.ccl-idx-premium-section .mrp-listing td,
-.ccl-idx-premium-section .mrp-listing th,
-.ccl-idx-premium-section [class*="listing-card"] p,
-.ccl-idx-premium-section [class*="listing-card"] li,
-.ccl-idx-premium-section [class*="listing-card"] span,
-.ccl-idx-premium-section [class*="listing-card"] td,
-.ccl-idx-premium-section [class*="listing-card"] th,
-.ccl-idx-premium-section [class*="property-card"] p,
-.ccl-idx-premium-section [class*="property-card"] li,
-.ccl-idx-premium-section [class*="property-card"] span,
-.ccl-idx-premium-section [class*="property-card"] td,
-.ccl-idx-premium-section [class*="property-card"] th {
-  color: rgba(10, 26, 47, 0.82) !important;
-  font-weight: 650 !important;
-  line-height: 1.35 !important;
-}
-
-/* Price text: strong dark text on light card */
-.ccl-idx-premium-section [class*="price"],
-.ccl-idx-premium-section .price,
-.ccl-idx-premium-section [class*="Price"] {
-  color: #0A1A2F !important;
-  font-weight: 950 !important;
+  overflow: visible !important;
   opacity: 1 !important;
   filter: none !important;
+  visibility: visible !important;
 }
 
 /* Listing images: prevent theme clipping/distortion */
@@ -3906,46 +3843,7 @@ body.admin-bar .ccl-floating-lead-widget {
   color: #0A1A2F !important;
 }
 
-/* Details / More buttons: premium gold, visible, readable */
-.ccl-idx-premium-section a:where(:not(.ab-item)),
-.ccl-idx-premium-section button,
-.ccl-idx-premium-section input[type="button"],
-.ccl-idx-premium-section input[type="submit"] {
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-/* Narrow visual treatment for common IDX card action buttons */
-.ccl-idx-premium-section a[href*="details"],
-.ccl-idx-premium-section a[href*="listing"],
-.ccl-idx-premium-section button[class*="detail"],
-.ccl-idx-premium-section button[class*="more"],
-.ccl-idx-premium-section input[value="DETAILS"],
-.ccl-idx-premium-section input[value="MORE"],
-.ccl-idx-premium-section .details,
-.ccl-idx-premium-section .more {
-  background: #D4AF37 !important;
-  color: #121212 !important;
-  border: 1px solid rgba(166, 124, 30, 0.72) !important;
-  border-radius: 10px !important;
-  font-weight: 900 !important;
-  text-decoration: none !important;
-  box-shadow: 0 10px 24px rgba(212, 175, 55, 0.24) !important;
-  transition: transform 0.22s ease, box-shadow 0.22s ease !important;
-}
-
-.ccl-idx-premium-section a[href*="details"]:hover,
-.ccl-idx-premium-section a[href*="listing"]:hover,
-.ccl-idx-premium-section button[class*="detail"]:hover,
-.ccl-idx-premium-section button[class*="more"]:hover,
-.ccl-idx-premium-section input[value="DETAILS"]:hover,
-.ccl-idx-premium-section input[value="MORE"]:hover,
-.ccl-idx-premium-section .details:hover,
-.ccl-idx-premium-section .more:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 16px 34px rgba(212, 175, 55, 0.34) !important;
-}
-
+/* IDX internals: only repair visibility; do not visually take over myRealPage controls. */
 /* myRealPage social/login/sort controls safety */
 .ccl-idx-premium-section [class*="login"],
 .ccl-idx-premium-section [class*="signup"],
@@ -3962,4 +3860,120 @@ body.admin-bar .ccl-floating-lead-widget {
 #wpadminbar .ccl-idx-premium-section,
 #wpadminbar .ccl-idx-premium-section * {
   all: unset;
+}
+
+
+/* Final homepage section modes: single visual source of truth. */
+.ccl-dark-luxury-section {
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.16), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(15,23,42,0.95), transparent 42%),
+    linear-gradient(135deg, #121212 0%, #0F172A 48%, #050505 100%) !important;
+  color: #FFF4E0 !important;
+}
+
+.ccl-dark-luxury-section h1,
+.ccl-dark-luxury-section h2,
+.ccl-dark-luxury-section h3,
+.ccl-dark-luxury-section h4,
+.ccl-dark-luxury-section strong {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.68) !important;
+}
+
+.ccl-dark-luxury-section p,
+.ccl-dark-luxury-section li,
+.ccl-dark-luxury-section span {
+  color: rgba(255,244,224,0.84) !important;
+  opacity: 1 !important;
+}
+
+.ccl-light-readable-section {
+  background: linear-gradient(135deg, #fff8ec 0%, #f3eadb 100%) !important;
+  color: #0A1A2F !important;
+}
+
+.ccl-light-readable-section h1,
+.ccl-light-readable-section h2,
+.ccl-light-readable-section h3,
+.ccl-light-readable-section h4,
+.ccl-light-readable-section strong {
+  color: #0A1A2F !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+.ccl-light-readable-section p,
+.ccl-light-readable-section li,
+.ccl-light-readable-section span {
+  color: rgba(10,26,47,0.78) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+
+.ccl-dark-luxury-section .ccl-card,
+.ccl-dark-luxury-section .ccl-panel,
+.ccl-dark-luxury-section .ccl-visual-card,
+.ccl-dark-luxury-section .ccl-directory-card,
+.ccl-dark-luxury-section .ccl-intent-card,
+.ccl-dark-luxury-section .ccl-info-card,
+.ccl-dark-luxury-section .ccl-link-card,
+.ccl-dark-luxury-section .ccl-portal-intro__panel,
+.ccl-dark-luxury-section .ccl-lifestyle-hub__panel,
+.ccl-dark-luxury-section .ccl-risk-inspector,
+.ccl-dark-luxury-section .ccl-building-card {
+  background: rgba(5, 7, 11, 0.78) !important;
+  border: 1px solid rgba(212,175,55,0.36) !important;
+  color: #FFF4E0 !important;
+  box-shadow: 0 22px 58px rgba(0,0,0,0.36) !important;
+  opacity: 1 !important;
+}
+
+.ccl-light-readable-section .ccl-card,
+.ccl-light-readable-section .ccl-panel {
+  background: rgba(255,255,255,0.94) !important;
+  border: 1px solid rgba(10,26,47,0.10) !important;
+  color: #0A1A2F !important;
+  box-shadow: 0 18px 42px rgba(10,26,47,0.10) !important;
+  opacity: 1 !important;
+}
+
+.ccl-dark-luxury-section .ccl-button,
+.ccl-dark-luxury-section .ccl-btn,
+.ccl-dark-luxury-section .ccl-primary-cta,
+.ccl-dark-luxury-section a.ccl-button {
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 50%, #B38F43 85%, #7A5C1B 100%) !important;
+  color: #121212 !important;
+  border: 1px solid rgba(245,229,201,0.48) !important;
+  border-radius: 999px !important;
+  font-weight: 950 !important;
+  opacity: 1 !important;
+}
+
+.ccl-light-readable-section .ccl-button,
+.ccl-light-readable-section .ccl-btn,
+.ccl-light-readable-section .ccl-primary-cta,
+.ccl-light-readable-section a.ccl-button {
+  background: #D4AF37 !important;
+  color: #121212 !important;
+  border: 1px solid rgba(166,124,30,0.72) !important;
+  border-radius: 999px !important;
+  font-weight: 950 !important;
+  opacity: 1 !important;
+}
+
+.ccl-light-readable-section .ccl-idx-shell__frame,
+.ccl-light-readable-section .ccl-idx-shell__frame * {
+  opacity: 1 !important;
+}
+
+.ccl-light-readable-section .ccl-idx-shell__frame,
+.ccl-light-readable-section .ccl-idx-shell__frame table,
+.ccl-light-readable-section .ccl-idx-shell__frame tbody,
+.ccl-light-readable-section .ccl-idx-shell__frame tr,
+.ccl-light-readable-section .ccl-idx-shell__frame td,
+.ccl-light-readable-section .ccl-idx-shell__frame th {
+  overflow: visible !important;
+  height: auto !important;
 }

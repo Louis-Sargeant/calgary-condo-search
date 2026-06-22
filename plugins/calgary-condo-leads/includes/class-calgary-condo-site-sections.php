@@ -200,7 +200,7 @@ final class Calgary_Condo_Site_Sections {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-buyer-path">
+        <section class="ccl-section ccl-dark-luxury-section ccl-buyer-path">
             <div class="ccl-wrap">
                 <div class="ccl-section__header">
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
@@ -243,7 +243,7 @@ final class Calgary_Condo_Site_Sections {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-building-cta">
+        <section class="ccl-section ccl-dark-luxury-section ccl-building-cta">
             <div class="ccl-wrap ccl-feature-band">
                 <div>
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
@@ -282,7 +282,7 @@ final class Calgary_Condo_Site_Sections {
 
         ob_start();
         ?>
-        <section class="ccl-section ccl-section--white ccl-seller-cta">
+        <section class="ccl-section ccl-dark-luxury-section ccl-seller-cta">
             <div class="ccl-wrap ccl-seller-card">
                 <div>
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
@@ -355,7 +355,7 @@ final class Calgary_Condo_Site_Sections {
     private function render_link_grid(array $atts, array $items, string $class_name): string {
         ob_start();
         ?>
-        <section class="ccl-section ccl-section--white <?php echo esc_attr($class_name); ?>">
+        <section class="ccl-section ccl-dark-luxury-section <?php echo esc_attr($class_name); ?>">
             <div class="ccl-wrap">
                 <div class="ccl-section__header">
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>
@@ -387,7 +387,7 @@ final class Calgary_Condo_Site_Sections {
     private function render_info_grid(array $atts, array $items, string $class_name): string {
         ob_start();
         ?>
-        <section class="ccl-section <?php echo esc_attr($class_name); ?>">
+        <section class="ccl-section ccl-dark-luxury-section <?php echo esc_attr($class_name); ?>">
             <div class="ccl-wrap">
                 <div class="ccl-section__header">
                     <p class="ccl-eyebrow"><?php echo esc_html($atts['eyebrow']); ?></p>

@@ -84,7 +84,7 @@ final class Calgary_Condo_Building_Directory {
             $columns .= '<div class="ccl-visual-directory__column"><h3>' . esc_html($heading) . '</h3><div class="ccl-visual-directory__cards">' . $cards . '</div></div>';
         }
 
-        return '<section id="calgary-building-directory-database" class="ccl-visual-directory ccl-visual-directory--premium" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-visual-directory__header"><span class="ccl-visual-directory__eyebrow">Calgary Building Database</span><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p>Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p></div><div class="ccl-visual-directory__matrix">' . $columns . '</div></section>';
+        return '<section id="calgary-building-directory-database" class="ccl-visual-directory ccl-dark-luxury-section ccl-visual-directory--premium" aria-labelledby="calgary-building-directory-database-title"><div class="ccl-visual-directory__header"><span class="ccl-visual-directory__eyebrow">Calgary Building Database</span><h2 id="calgary-building-directory-database-title">Browse Calgary Condo Buildings by Community &amp; Profile</h2><p>Start with the building, then compare the listing. Browse Calgary condo towers, low-rise buildings, concrete projects, luxury residences, and high-demand communities before booking showings.</p></div><div class="ccl-visual-directory__matrix">' . $columns . '</div></section>';
     }
 
     private function render_visual_directory_card(array $item): string {
@@ -195,7 +195,7 @@ HTML;
         $intro = $include_intro ? '<p>This is the starter Calgary building directory for all condo buyers — first-time buyers, downsizers, investors, downtown buyers, luxury buyers, and price-sensitive buyers. The next phase is individual building profile pages with building-specific listing feeds where the IDX data supports it.</p>' : '';
 
         return <<<HTML
-<section class="ccl-building-section">
+<section class="ccl-building-section ccl-dark-luxury-section">
     <div class="ccl-building-wrap">
         <p class="ccl-building-eyebrow">Building Directory</p>
         <h2>Popular Calgary condo buildings</h2>
@@ -208,7 +208,7 @@ HTML;
 
     private function cta(): string {
         return <<<HTML
-<section class="ccl-building-section ccl-building-section--soft">
+<section class="ccl-building-section ccl-building-section--soft ccl-dark-luxury-section">
     <div class="ccl-building-wrap">
         <div class="ccl-building-cta">
             <div>
