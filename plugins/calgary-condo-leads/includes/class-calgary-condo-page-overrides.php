@@ -24,8 +24,11 @@ final class Calgary_Condo_Page_Overrides {
     public function __construct() {
         add_filter('the_content', [$this, 'replace_page_content'], 999);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 20, 4);
+        add_filter('nav_menu_link_attributes', [$this, 'rewrite_home_menu_attributes'], 21, 4);
+        add_action('template_redirect', [$this, 'redirect_shortcode_contaminated_home_links'], 0);
         add_action('template_redirect', [$this, 'render_virtual_market_update_page'], 1);
         add_action('wp_footer', [$this, 'rewrite_market_links'], 99);
+        add_action('wp_footer', [$this, 'rewrite_home_links'], 100);
         add_action('wp_footer', [$this, 'add_price_drop_badges'], 100);
     }
 
@@ -57,6 +60,20 @@ final class Calgary_Condo_Page_Overrides {
         return $content;
     }
 
+    public function redirect_shortcode_contaminated_home_links(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = rawurldecode((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH));
+        if (false === strpos($path, '[ccl_homepage_tight]')) {
+            return;
+        }
+
+        wp_safe_redirect($this->home_menu_url(), 301);
+        exit;
+    }
+
     public function render_virtual_market_update_page(): void {
         if (is_admin()) {
             return;
@@ -84,6 +101,18 @@ final class Calgary_Condo_Page_Overrides {
         exit;
     }
 
+    public function rewrite_home_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
+        $title = isset($menu_item->title) ? strtolower(trim((string) $menu_item->title)) : '';
+        $href = isset($atts['href']) ? rawurldecode(strtolower((string) $atts['href'])) : '';
+
+        if ('home' === $title || false !== strpos($href, '[ccl_homepage_tight]')) {
+            $atts['href'] = $this->home_menu_url();
+            unset($atts['target'], $atts['rel']);
+        }
+
+        return $atts;
+    }
+
     public function rewrite_market_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
         $title = isset($menu_item->title) ? strtolower(trim((string) $menu_item->title)) : '';
         $href = isset($atts['href']) ? strtolower((string) $atts['href']) : '';
@@ -94,6 +123,28 @@ final class Calgary_Condo_Page_Overrides {
         }
 
         return $atts;
+    }
+
+    public function rewrite_home_links(): void {
+        if (is_admin()) {
+            return;
+        }
+        ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var homeUrl = <?php echo wp_json_encode($this->home_menu_url()); ?>;
+            document.querySelectorAll('a').forEach(function (link) {
+                var label = (link.textContent || '').trim().toLowerCase();
+                var href = (link.getAttribute('href') || '').toLowerCase();
+                if (label === 'home' || href.indexOf('[ccl_homepage_tight]') !== -1 || href.indexOf('%5bccl_homepage_tight%5d') !== -1) {
+                    link.setAttribute('href', homeUrl);
+                    link.removeAttribute('target');
+                    link.removeAttribute('rel');
+                }
+            });
+        });
+        </script>
+        <?php
     }
 
     public function rewrite_market_links(): void {
@@ -133,6 +184,10 @@ final class Calgary_Condo_Page_Overrides {
         });
         </script>
         <?php
+    }
+
+    private function home_menu_url(): string {
+        return home_url('/calgary-condos/');
     }
 
     private function price_reduced_layout(): string {
