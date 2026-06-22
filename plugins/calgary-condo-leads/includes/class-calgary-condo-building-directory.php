@@ -66,8 +66,8 @@ final class Calgary_Condo_Building_Directory {
         'Building Profile Searches' => [
             ['title' => 'Luxury High-Rise Condos', 'slug' => 'luxury-high-rise-condos', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/luxury-high-rise-condos/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Concrete Buildings', 'slug' => 'concrete-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/concrete-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
-            ['title' => 'Pet-Friendly Condo Buildings', 'slug' => 'pet-friendly-condo-buildings', 'aliases' => ['Pet-Friendly Buildings'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/pet-friendly-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
-            ['title' => 'Buildings With Underground Parking', 'slug' => 'buildings-with-underground-parking', 'aliases' => ['Underground Parking'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/underground-parking/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Pet-Friendly Buildings', 'slug' => 'pet-friendly-buildings', 'aliases' => ['Pet-Friendly Condo Buildings'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/pet-friendly-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Underground Parking', 'slug' => 'underground-parking', 'aliases' => ['Buildings With Underground Parking'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/underground-parking/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Newer Condo Buildings', 'slug' => 'newer-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/newer-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Low-Rise Condo Buildings', 'slug' => 'low-rise-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/low-rise-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
         ],
@@ -138,11 +138,9 @@ final class Calgary_Condo_Building_Directory {
         }
 
         $description = $item['description'] ?? 'Browse active Calgary condo listing routes for this search.';
-        $badge = $has_saved_search ? '<span class="ccl-visual-card__badge">Live IDX Route</span>' : '';
+        $badge = $has_saved_search ? '<span class="ccl-visual-card__badge">Active Listings</span>' : '';
         $cta_text = 'Building Profile Searches' === $item['category'] ? 'View Matching Buildings' : 'View Active Condos';
-        $lead_source = 'Building Profile Searches' === $item['category'] ? 'Building Profile Searches' : 'Calgary Building Database';
-        $intent = 'Building Profile Searches' === $item['category'] ? 'Building profile list request' : 'Active listings request';
-        $cta = '<span class="ccl-visual-card__cta" data-ccl-lead-open data-lead-source="' . esc_attr($lead_source) . '" data-requested-category="' . esc_attr($item['title']) . '" data-intent="' . esc_attr($intent) . '">' . esc_html($cta_text) . '</span>';
+        $cta = '<span class="ccl-visual-card__cta">' . esc_html($cta_text) . '</span>';
 
         return '<a href="' . esc_url($item['url']) . '" target="_self" class="' . esc_attr($classes) . '"><span class="ccl-visual-card__overlay"></span><span class="ccl-visual-card__category">' . esc_html($item['category']) . '</span><span class="ccl-visual-card__title">' . esc_html($item['title']) . '</span>' . $badge . '<span class="ccl-visual-card__description">' . esc_html($description) . '</span>' . $cta . '</a>';
     }
