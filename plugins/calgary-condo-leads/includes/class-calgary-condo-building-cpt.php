@@ -77,7 +77,8 @@ final class Calgary_Condo_Building_CPT {
         $profiles = [
             'luxury-high-rise-condos' => 'Luxury High-Rise',
             'concrete-buildings' => 'Concrete Buildings',
-            'pet-friendly-condo-buildings' => 'Pet-Friendly',
+            'pet-friendly-buildings' => 'Pet-Friendly Buildings',
+            'pet-friendly-condo-buildings' => 'Pet-Friendly Buildings',
             'underground-parking' => 'Underground Parking',
             'newer-condo-buildings' => 'Newer Condo Buildings',
             'low-rise-condo-buildings' => 'Low-Rise Condo Buildings',

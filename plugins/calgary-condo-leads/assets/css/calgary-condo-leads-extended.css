@@ -3840,7 +3840,7 @@ body.admin-bar .ccl-floating-lead-widget {
 
 /* =========================================================
    Visual directory card readability repair
-   Fix unreadable white-on-white CTA pills in Live IDX Route cards.
+   Fix unreadable white-on-white CTA pills in active listing cards.
    ========================================================= */
 
 .ccl-dark-luxury-section .ccl-visual-card,
@@ -3911,7 +3911,7 @@ body.admin-bar .ccl-floating-lead-widget {
   text-shadow: none !important;
 }
 
-/* Live IDX Route visual card CTA pill contrast override */
+/* Active listing visual card CTA pill contrast override */
 .ccl-visual-directory.ccl-dark-luxury-section a.ccl-visual-card .ccl-visual-card__cta,
 .ccl-visual-directory .ccl-visual-card .ccl-visual-card__cta,
 .ccl-dark-luxury-section .ccl-visual-card .ccl-visual-card__cta,
