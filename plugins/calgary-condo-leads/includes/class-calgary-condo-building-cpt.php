@@ -79,6 +79,8 @@ final class Calgary_Condo_Building_CPT {
             'concrete-buildings' => 'Concrete Buildings',
             'pet-friendly-condo-buildings' => 'Pet-Friendly',
             'underground-parking' => 'Underground Parking',
+            'newer-condo-buildings' => 'Newer Condo Buildings',
+            'low-rise-condo-buildings' => 'Low-Rise Condo Buildings',
             'price-reduced' => 'Price-Reduced',
             'under-400k' => 'Under $400K',
         ];

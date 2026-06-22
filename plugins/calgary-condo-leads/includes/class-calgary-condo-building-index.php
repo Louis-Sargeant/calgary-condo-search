@@ -33,6 +33,8 @@ final class Calgary_Condo_Building_Index {
         'concrete-buildings' => ['name' => 'Concrete Buildings', 'taxonomy' => 'ccl_building_profile'],
         'pet-friendly-condo-buildings' => ['name' => 'Pet-Friendly', 'taxonomy' => 'ccl_building_profile'],
         'underground-parking' => ['name' => 'Underground Parking', 'taxonomy' => 'ccl_building_profile'],
+        'newer-condo-buildings' => ['name' => 'Newer Condo Buildings', 'taxonomy' => 'ccl_building_profile'],
+        'low-rise-condo-buildings' => ['name' => 'Low-Rise Condo Buildings', 'taxonomy' => 'ccl_building_profile'],
     ];
 
     public function __construct() {
