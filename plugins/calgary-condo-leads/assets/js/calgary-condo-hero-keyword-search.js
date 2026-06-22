@@ -10,7 +10,7 @@
 
     var input = form.querySelector('#ccl-hero-keyword-search');
     var keyword = input && input.value ? input.value.trim() : '';
-    var baseUrl = form.getAttribute('action') || '/calgary-condos/';
+    var baseUrl = form.getAttribute('action') || '/all-calgary-condos/';
 
     if (baseUrl.indexOf('?') !== -1) {
       baseUrl = baseUrl.split('?')[0];

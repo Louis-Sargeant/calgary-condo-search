@@ -57,7 +57,7 @@ final class Calgary_Condo_Intent_Capture {
                 'label' => 'I want to browse condos',
                 'text' => 'Start with the live IDX search, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.',
                 'button' => 'Search Calgary Condos',
-                'url' => '/calgary-condos/#idx-search',
+                'url' => '/all-calgary-condos/',
             ],
             [
                 'label' => 'I want alerts',
@@ -196,7 +196,7 @@ final class Calgary_Condo_Intent_Capture {
                 'primary_text' => 'Get Condo Guidance',
                 'primary_url' => '/building-alerts/',
                 'secondary_text' => 'Search Listings',
-                'secondary_url' => '/calgary-condos/#idx-search',
+                'secondary_url' => '/all-calgary-condos/',
             ],
             'ccl_next_step_band'
         );

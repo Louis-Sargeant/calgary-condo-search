@@ -178,7 +178,7 @@ final class Calgary_Condo_Assets {
             [
                 'text' => 'Ready to compare Calgary condos with a plan?',
                 'primary_text' => 'Search Listings',
-                'primary_url' => '/calgary-condos/#idx-search',
+                'primary_url' => '/all-calgary-condos/',
                 'secondary_text' => 'Get Alerts',
                 'secondary_url' => '',
             ],
@@ -315,7 +315,7 @@ final class Calgary_Condo_Assets {
         );
 
         $actions = [
-            ['title' => 'Search Calgary Condos', 'text' => 'Browse current Calgary condo listings.', 'url' => '/calgary-condos/'],
+            ['title' => 'Search Calgary Condos', 'text' => 'Browse current Calgary condo listings.', 'url' => '/all-calgary-condos/'],
             ['title' => 'Set Building Alerts', 'text' => 'Watch specific buildings and areas.', 'url' => '/building-alerts/'],
             ['title' => 'Price Reduced Condos', 'text' => 'Review listings with price changes.', 'url' => '/price-reduced-condos/'],
             ['title' => 'Condo Value Report', 'text' => 'Estimate what your Calgary condo could sell for.', 'url' => '/condo-value-report/'],
