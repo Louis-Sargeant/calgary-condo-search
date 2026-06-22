@@ -3367,17 +3367,6 @@ body.admin-bar .ccl-floating-lead-widget {
   font-weight: 900;
 }
 
-/* myRealPage internal output safety wall */
-.ccl-idx-premium-section .mrp,
-.ccl-idx-premium-section [class*="mrp"],
-.ccl-idx-premium-section .listing,
-.ccl-idx-premium-section [class*="listing"],
-.ccl-idx-premium-section [class*="property"] {
-  opacity: initial;
-  filter: initial;
-  text-shadow: initial;
-}
-
 /* Louis Sargeant-inspired premium Calgary portal design system. Scoped to plugin-owned homepage output only. */
 .ccl-premium-homepage-shell {
   --ccl-black: #121212;
@@ -3744,125 +3733,6 @@ body.admin-bar .ccl-floating-lead-widget {
   }
 }
 
-/* Final myRealPage internal output safety wall */
-.ccl-idx-premium-section .mrp,
-.ccl-idx-premium-section [class*="mrp"],
-.ccl-idx-premium-section .listing,
-.ccl-idx-premium-section [class*="listing"],
-.ccl-idx-premium-section [class*="property"] {
-  opacity: initial;
-  filter: initial;
-  text-shadow: initial;
-}
-
-/* =========================================================
-   myRealPage IDX visibility repair — wrapper-safe override
-   Purpose: restore opacity, spacing, and button contrast
-   without changing IDX data or saved-search logic.
-   ========================================================= */
-
-/* Root IDX containers: restore full visibility and prevent clipping */
-.ccl-idx-premium-section,
-.ccl-idx-premium-section.mr-custom-wrapper,
-.ccl-idx-premium-section .mrp-container,
-.ccl-idx-premium-section #mrp-listings-wrapper,
-.ccl-idx-premium-section [id*="mrp"],
-.ccl-idx-premium-section [class*="mrp"],
-.ccl-idx-premium-section [class*="listing"],
-.ccl-idx-premium-section [class*="property"] {
-  opacity: 1 !important;
-  filter: none !important;
-  visibility: visible !important;
-}
-
-/* Stop theme/plugin clipping inside the visible IDX result area */
-.ccl-idx-premium-section .mrp-container,
-.ccl-idx-premium-section #mrp-listings-wrapper,
-.ccl-idx-premium-section [id*="mrp-list"],
-.ccl-idx-premium-section [class*="mrp-list"],
-.ccl-idx-premium-section [class*="listing-results"],
-.ccl-idx-premium-section [class*="listing-grid"],
-.ccl-idx-premium-section [class*="listing-list"],
-.ccl-idx-premium-section [class*="property-results"],
-.ccl-idx-premium-section [class*="property-grid"] {
-  height: auto !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  overflow: visible !important;
-  display: block !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
-
-/* IDX listing internals: visibility repair only; native myRealPage card visuals are preserved. */
-.ccl-idx-premium-section .mrp-listing,
-.ccl-idx-premium-section [class*="mrp-listing"],
-.ccl-idx-premium-section [class*="listing-card"],
-.ccl-idx-premium-section [class*="listing-item"],
-.ccl-idx-premium-section [class*="property-card"],
-.ccl-idx-premium-section [class*="property-item"],
-.ccl-idx-premium-section .mrp-listing *,
-.ccl-idx-premium-section [class*="mrp-listing"] *,
-.ccl-idx-premium-section [class*="listing-card"] *,
-.ccl-idx-premium-section [class*="listing-item"] *,
-.ccl-idx-premium-section [class*="property-card"] *,
-.ccl-idx-premium-section [class*="property-item"] * {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
-  opacity: 1 !important;
-  filter: none !important;
-  visibility: visible !important;
-}
-
-/* Listing images: prevent theme clipping/distortion */
-.ccl-idx-premium-section .mrp-listing img,
-.ccl-idx-premium-section [class*="listing-card"] img,
-.ccl-idx-premium-section [class*="property-card"] img,
-.ccl-idx-premium-section [class*="listing-item"] img,
-.ccl-idx-premium-section [class*="property-item"] img {
-  opacity: 1 !important;
-  filter: none !important;
-  max-width: 100% !important;
-  height: auto !important;
-  object-fit: cover !important;
-  visibility: visible !important;
-}
-
-/* Tables/spec rows: prevent metadata clipping */
-.ccl-idx-premium-section table,
-.ccl-idx-premium-section tbody,
-.ccl-idx-premium-section tr,
-.ccl-idx-premium-section td,
-.ccl-idx-premium-section th {
-  height: auto !important;
-  max-height: none !important;
-  overflow: visible !important;
-  opacity: 1 !important;
-  filter: none !important;
-  color: #0A1A2F !important;
-}
-
-/* IDX internals: only repair visibility; do not visually take over myRealPage controls. */
-/* myRealPage social/login/sort controls safety */
-.ccl-idx-premium-section [class*="login"],
-.ccl-idx-premium-section [class*="signup"],
-.ccl-idx-premium-section [class*="sort"],
-.ccl-idx-premium-section [class*="social"],
-.ccl-idx-premium-section a[href*="facebook"],
-.ccl-idx-premium-section a[href*="google"] {
-  opacity: 1 !important;
-  filter: none !important;
-  visibility: visible !important;
-}
-
-/* Prevent admin bar/menu from being affected */
-#wpadminbar .ccl-idx-premium-section,
-#wpadminbar .ccl-idx-premium-section * {
-  all: unset;
-}
-
-
 /* Final homepage section modes: single visual source of truth. */
 .ccl-dark-luxury-section {
   background:
@@ -3951,6 +3821,7 @@ body.admin-bar .ccl-floating-lead-widget {
   opacity: 1 !important;
 }
 
+
 .ccl-light-readable-section .ccl-button,
 .ccl-light-readable-section .ccl-btn,
 .ccl-light-readable-section .ccl-primary-cta,
@@ -3963,79 +3834,6 @@ body.admin-bar .ccl-floating-lead-widget {
   opacity: 1 !important;
 }
 
-.ccl-light-readable-section .ccl-idx-shell__frame,
-.ccl-light-readable-section .ccl-idx-shell__frame * {
-  opacity: 1 !important;
-}
-
-.ccl-light-readable-section .ccl-idx-shell__frame,
-.ccl-light-readable-section .ccl-idx-shell__frame table,
-.ccl-light-readable-section .ccl-idx-shell__frame tbody,
-.ccl-light-readable-section .ccl-idx-shell__frame tr,
-.ccl-light-readable-section .ccl-idx-shell__frame td,
-.ccl-light-readable-section .ccl-idx-shell__frame th {
-  overflow: visible !important;
-  height: auto !important;
-}
-
-/* =========================================================
-   IDX listing density control
-   Keep myRealPage data intact, but visually shorten long remarks
-   so cards stay scannable and conversion-focused.
-   ========================================================= */
-
-.ccl-idx-premium-section [class*="remarks"],
-.ccl-idx-premium-section [class*="description"],
-.ccl-idx-premium-section [class*="public-remarks"],
-.ccl-idx-premium-section [class*="listing-remarks"],
-.ccl-idx-premium-section [class*="listing-description"],
-.ccl-idx-premium-section [class*="property-description"] {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
-  line-clamp: 3 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  max-height: 4.8em !important;
-  color: rgba(10, 26, 47, 0.78) !important;
-  font-size: 0.86rem !important;
-  line-height: 1.55 !important;
-}
-
-/* Fallback for generic IDX card paragraphs, but do not affect headings, prices, buttons, login, or controls. */
-.ccl-idx-premium-section [class*="listing-card"] p:not(:first-child),
-.ccl-idx-premium-section [class*="property-card"] p:not(:first-child),
-.ccl-idx-premium-section [class*="listing-item"] p:not(:first-child),
-.ccl-idx-premium-section [class*="property-item"] p:not(:first-child) {
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
-  line-clamp: 3 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  max-height: 4.8em !important;
-}
-
-.ccl-idx-premium-section .details,
-.ccl-idx-premium-section .more,
-.ccl-idx-premium-section a[href*="details"],
-.ccl-idx-premium-section button[class*="detail"],
-.ccl-idx-premium-section button[class*="more"],
-.ccl-idx-premium-section input[value="DETAILS"],
-.ccl-idx-premium-section input[value="MORE"] {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 38px !important;
-  padding: 0 18px !important;
-  margin-top: 10px !important;
-  border-radius: 999px !important;
-  background: #D4AF37 !important;
-  color: #121212 !important;
-  border: 1px solid rgba(166, 124, 30, 0.75) !important;
-  font-weight: 900 !important;
-  text-decoration: none !important;
-  opacity: 1 !important;
-  filter: none !important;
-}
 
 /* =========================================================
    Visual directory card readability repair
@@ -4179,18 +3977,10 @@ body.admin-bar .ccl-floating-lead-widget {
     min-height: 44px !important;
   }
 
-  .ccl-idx-premium-section [class*="remarks"],
-  .ccl-idx-premium-section [class*="description"],
-  .ccl-idx-premium-section [class*="listing-description"],
-  .ccl-idx-premium-section [class*="property-description"] {
-    -webkit-line-clamp: 2 !important;
-    line-clamp: 2 !important;
-    max-height: 3.4em !important;
-  }
 }
 
 /* =========================================================
-   Surgical QA override: visual directory headings + IDX price clearance
+   Surgical QA override: visual directory headings
    Scope: Calgary condo lead-gen page only
    ========================================================= */
 
@@ -4234,34 +4024,4 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-visual-directory .ccl-directory-card {
   overflow: visible !important;
   padding-top: 24px !important;
-}
-
-/* 3) IDX price clearance — do not redesign native myRealPage cards */
-.ccl-idx-premium-section .mrp-listing-item,
-.ccl-idx-premium-section .mrp-listing-card {
-  overflow: visible !important;
-}
-
-/* Keep action/overlay wrappers from physically sitting on top of price rows */
-.ccl-idx-premium-section .mrp-listing-item .mrp-actions-wrapper,
-.ccl-idx-premium-section .mrp-listing-card .mrp-actions-wrapper,
-.ccl-idx-premium-section .mrp-listing-item [class*="actions"],
-.ccl-idx-premium-section .mrp-listing-card [class*="actions"] {
-  position: relative !important;
-  top: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  margin-top: 16px !important;
-  z-index: 2 !important;
-}
-
-/* Keep price/status row readable and above background, without changing IDX data */
-.ccl-idx-premium-section .mrp-listing-item [class*="price"],
-.ccl-idx-premium-section .mrp-listing-card [class*="price"] {
-  position: relative !important;
-  z-index: 4 !important;
-  display: block !important;
-  clear: both !important;
-  margin-bottom: 12px !important;
-  overflow: visible !important;
 }
