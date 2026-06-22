@@ -44,17 +44,51 @@
   }
 
   function termMatches(normalizedKeyword, term) {
-    var escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    var normalizedTerm = normalizeSearchTerm(term);
+
+    if (!normalizedTerm) {
+      return false;
+    }
+
+    var escapedTerm = normalizedTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     var termPattern = new RegExp('(^|\\s)' + escapedTerm + '($|\\s)');
 
     return termPattern.test(normalizedKeyword);
   }
 
+  function isAddressLike(normalizedKeyword) {
+    return /(^|\s)\d+(?!k)[a-z]?(\s|$)/.test(normalizedKeyword) || /(^|\s)(?!\d+k(\s|$))[a-z]?\d[a-z0-9]*\d[a-z]?(\s|$)/.test(normalizedKeyword);
+  }
+
+  function resolveBuildingDirectoryRoute(normalizedKeyword) {
+    var buildingRoutes = window.cclHeroKeywordSearch && window.cclHeroKeywordSearch.buildingRoutes ? window.cclHeroKeywordSearch.buildingRoutes : {};
+    var terms = Object.keys(buildingRoutes).sort(function (first, second) {
+      return second.length - first.length;
+    });
+
+    for (var index = 0; index < terms.length; index += 1) {
+      if (termMatches(normalizedKeyword, terms[index])) {
+        return buildingRoutes[terms[index]];
+      }
+    }
+
+    return '';
+  }
 
   function resolveKeywordRoute(keyword) {
     var normalizedKeyword = normalizeSearchTerm(keyword);
+    var buildingRoute = '';
 
     if (!normalizedKeyword) {
+      return '';
+    }
+
+    buildingRoute = resolveBuildingDirectoryRoute(normalizedKeyword);
+    if (buildingRoute) {
+      return buildingRoute;
+    }
+
+    if (isAddressLike(normalizedKeyword)) {
       return '';
     }
 

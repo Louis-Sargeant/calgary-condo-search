@@ -53,6 +53,14 @@ final class Calgary_Condo_Assets {
             CCL_VERSION,
             true
         );
+
+        wp_localize_script(
+            'calgary-condo-hero-keyword-search',
+            'cclHeroKeywordSearch',
+            [
+                'buildingRoutes' => class_exists('Calgary_Condo_Building_Directory') ? Calgary_Condo_Building_Directory::visual_directory_search_routes() : [],
+            ]
+        );
     }
 
     /**

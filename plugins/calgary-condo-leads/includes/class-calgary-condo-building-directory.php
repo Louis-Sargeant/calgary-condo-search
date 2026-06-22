@@ -66,12 +66,55 @@ final class Calgary_Condo_Building_Directory {
         'Building Profile Searches' => [
             ['title' => 'Luxury High-Rise Condos', 'slug' => 'luxury-high-rise-condos', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/luxury-high-rise-condos/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Concrete Buildings', 'slug' => 'concrete-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/concrete-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
-            ['title' => 'Pet-Friendly Condo Buildings', 'slug' => 'pet-friendly-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/pet-friendly-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
-            ['title' => 'Buildings With Underground Parking', 'slug' => 'buildings-with-underground-parking', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/underground-parking/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Pet-Friendly Condo Buildings', 'slug' => 'pet-friendly-condo-buildings', 'aliases' => ['Pet-Friendly Buildings'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/pet-friendly-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
+            ['title' => 'Buildings With Underground Parking', 'slug' => 'buildings-with-underground-parking', 'aliases' => ['Underground Parking'], 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/underground-parking/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Newer Condo Buildings', 'slug' => 'newer-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/newer-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
             ['title' => 'Low-Rise Condo Buildings', 'slug' => 'low-rise-condo-buildings', 'category' => 'Building Profile Searches', 'url' => '/calgary-condo-buildings/low-rise-condo-buildings/', 'description' => 'Browse active building-profile condo routes matched to this search.'],
         ],
     ];
+
+
+    /**
+     * Return normalized visual directory card destinations for search routing.
+     *
+     * @return array<string,string>
+     */
+    public static function visual_directory_search_routes(): array {
+        $routes = [];
+
+        foreach (self::VISUAL_DIRECTORY_CARDS as $items) {
+            foreach ($items as $item) {
+                if (empty($item['title']) || empty($item['url'])) {
+                    continue;
+                }
+
+                $terms = [(string) $item['title']];
+
+                if (!empty($item['aliases']) && is_array($item['aliases'])) {
+                    foreach ($item['aliases'] as $alias) {
+                        $terms[] = (string) $alias;
+                    }
+                }
+
+                if (!empty($item['slug'])) {
+                    $terms[] = str_replace('-', ' ', (string) $item['slug']);
+                }
+
+                foreach ($terms as $term) {
+                    $normalized = self::normalize_search_term($term);
+                    if ('' !== $normalized) {
+                        $routes[$normalized] = (string) $item['url'];
+                    }
+                }
+            }
+        }
+
+        return $routes;
+    }
+
+    private static function normalize_search_term(string $term): string {
+        return trim((string) preg_replace('/\s+/', ' ', (string) preg_replace('/[^a-z0-9]+/', ' ', strtolower($term))));
+    }
 
     public function database_shortcode(): string {
         $columns = '';
