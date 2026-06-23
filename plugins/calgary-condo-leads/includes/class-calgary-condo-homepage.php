@@ -50,7 +50,7 @@ final class Calgary_Condo_Homepage {
                 'summary' => 'Central high-rise condo living with strong walkability, restaurants, downtown access, and active inventory.',
                 'url' => '/beltline-condos/',
                 'x' => 46,
-                'y' => 48,
+                'y' => 52,
                 'status' => 'Live feed',
             ],
             [
@@ -58,8 +58,8 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Inner City Calgary',
                 'summary' => 'Walkable Sunnyside and Hillhurst market area near restaurants, river pathways, transit, and boutique condo options.',
                 'url' => '/kensington-condos/',
-                'x' => 42,
-                'y' => 39,
+                'x' => 39,
+                'y' => 38,
                 'status' => 'Live feed',
             ],
             [
@@ -67,7 +67,7 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Inner City Calgary',
                 'summary' => 'Neighbourhood condo market near river pathways, local shops, downtown access, and established urban amenities.',
                 'url' => '/bridgeland-condos/',
-                'x' => 55,
+                'x' => 60,
                 'y' => 39,
                 'status' => 'Next feed',
             ],
@@ -76,7 +76,7 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Inner City Calgary',
                 'summary' => 'Core condo towers close to office districts, CTrain access, restaurants, river pathways, and downtown services.',
                 'url' => '/downtown-calgary-condos/',
-                'x' => 50,
+                'x' => 49,
                 'y' => 45,
                 'status' => 'Next feed',
             ],
@@ -85,8 +85,8 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Inner City Calgary',
                 'summary' => 'Modern condo towers, river access, newer buildings, walkability, and an urban lifestyle feel.',
                 'url' => '/east-village-condos/',
-                'x' => 57,
-                'y' => 47,
+                'x' => 56,
+                'y' => 48,
                 'status' => 'Next feed',
             ],
             [
@@ -95,7 +95,7 @@ final class Calgary_Condo_Homepage {
                 'summary' => 'Popular inner-city condo pocket near 4th Street, restaurants, river pathways, and established urban amenities.',
                 'url' => '/mission-condos/',
                 'x' => 48,
-                'y' => 55,
+                'y' => 62,
                 'status' => 'Next feed',
             ],
             [
@@ -103,8 +103,8 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Suburban Condo Markets',
                 'summary' => 'Growing southeast condo market near the South Health Campus, shopping, recreation, and newer suburban amenities.',
                 'url' => '/seton-condos/',
-                'x' => 72,
-                'y' => 74,
+                'x' => 73,
+                'y' => 72,
                 'status' => 'Next feed',
             ],
             [
@@ -112,8 +112,8 @@ final class Calgary_Condo_Homepage {
                 'group' => 'Suburban Condo Markets',
                 'summary' => 'Lake-community condo market with southeast amenities, newer developments, and lifestyle-driven buyer appeal.',
                 'url' => '/mahogany-condos/',
-                'x' => 69,
-                'y' => 80,
+                'x' => 68,
+                'y' => 79,
                 'status' => 'Next feed',
             ],
         ];
@@ -165,7 +165,7 @@ final class Calgary_Condo_Homepage {
                     <aside class="ccl-condo-map-explorer__panel" aria-label="Calgary condo map guidance">
                         <p class="ccl-eyebrow">Building-first search lanes</p>
                         <h3>Choose the area, then compare the building.</h3>
-                        <p>Generic portals stop at bedrooms, bathrooms, price, and photos. This portal is built to push buyers toward the real condo questions: building quality, fees, bylaws, reserve fund signals, parking, storage, management, and resale risk.</p>
+                        <p>Move from area fit to building fit: fees, bylaws, reserve fund signals, parking, storage, management, and resale risk.</p>
 
                         <div class="ccl-condo-map-explorer__actions">
                             <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/">View All Calgary Condos</a>
