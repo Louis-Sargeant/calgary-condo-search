@@ -4372,3 +4372,242 @@ body.admin-bar .ccl-floating-lead-widget {
   opacity: 1 !important;
   visibility: visible !important;
 }
+
+/* ==========================================================================
+   Calgary Building Database — hard hover visibility lock
+   Scope: #calgary-building-directory-database only
+   Purpose: stop visual directory cards from ghosting/disappearing on hover.
+   ========================================================================== */
+
+#calgary-building-directory-database,
+#calgary-building-directory-database .ccl-visual-directory,
+#calgary-building-directory-database .ccl-visual-directory__matrix,
+#calgary-building-directory-database .ccl-visual-directory__column,
+#calgary-building-directory-database .ccl-visual-directory__cards {
+  opacity: 1 !important;
+  visibility: visible !important;
+  overflow: visible !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card,
+#calgary-building-directory-database .ccl-directory-card,
+#calgary-building-directory-database a.ccl-visual-card,
+#calgary-building-directory-database a.ccl-directory-card,
+#calgary-building-directory-database .ccl-visual-directory a.ccl-visual-card,
+#calgary-building-directory-database .ccl-visual-directory a.ccl-directory-card,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-visual-card,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-directory-card {
+  display: flex !important;
+  flex-direction: column !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+  transform: translateY(0) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
+  border: 1px solid rgba(245, 229, 201, 0.20) !important;
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    background 0.2s ease-in-out !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover,
+#calgary-building-directory-database .ccl-visual-card:focus,
+#calgary-building-directory-database .ccl-visual-card:focus-visible,
+#calgary-building-directory-database .ccl-directory-card:hover,
+#calgary-building-directory-database .ccl-directory-card:focus,
+#calgary-building-directory-database .ccl-directory-card:focus-visible,
+#calgary-building-directory-database a.ccl-visual-card:hover,
+#calgary-building-directory-database a.ccl-visual-card:focus,
+#calgary-building-directory-database a.ccl-visual-card:focus-visible,
+#calgary-building-directory-database a.ccl-directory-card:hover,
+#calgary-building-directory-database a.ccl-directory-card:focus,
+#calgary-building-directory-database a.ccl-directory-card:focus-visible,
+#calgary-building-directory-database .ccl-visual-directory a:hover,
+#calgary-building-directory-database .ccl-visual-directory a:focus,
+#calgary-building-directory-database .ccl-visual-directory a:focus-visible,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-visual-card:hover,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-visual-card:focus,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-visual-card:focus-visible,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-directory-card:hover,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-directory-card:focus,
+.ccl-dark-luxury-section#calgary-building-directory-database .ccl-directory-card:focus-visible {
+  display: flex !important;
+  flex-direction: column !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid #D4AF37 !important;
+  box-shadow:
+    0 10px 25px -5px rgba(212, 175, 55, 0.15),
+    0 24px 58px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(245, 229, 201, 0.18) !important;
+  transform: translateY(-4px) !important;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out,
+    border-color 0.2s ease-in-out,
+    background 0.2s ease-in-out !important;
+  z-index: 20 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card *,
+#calgary-building-directory-database .ccl-directory-card *,
+#calgary-building-directory-database a.ccl-visual-card *,
+#calgary-building-directory-database a.ccl-directory-card * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover *,
+#calgary-building-directory-database .ccl-visual-card:focus *,
+#calgary-building-directory-database .ccl-visual-card:focus-visible *,
+#calgary-building-directory-database .ccl-directory-card:hover *,
+#calgary-building-directory-database .ccl-directory-card:focus *,
+#calgary-building-directory-database .ccl-directory-card:focus-visible *,
+#calgary-building-directory-database a.ccl-visual-card:hover *,
+#calgary-building-directory-database a.ccl-visual-card:focus *,
+#calgary-building-directory-database a.ccl-visual-card:focus-visible *,
+#calgary-building-directory-database a.ccl-directory-card:hover *,
+#calgary-building-directory-database a.ccl-directory-card:focus *,
+#calgary-building-directory-database a.ccl-directory-card:focus-visible * {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__overlay,
+#calgary-building-directory-database .ccl-directory-card__overlay {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__overlay,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__overlay,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__overlay,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__overlay,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__overlay,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__overlay {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__category,
+#calgary-building-directory-database .ccl-visual-card__title,
+#calgary-building-directory-database .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-visual-card__description,
+#calgary-building-directory-database .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card__category,
+#calgary-building-directory-database .ccl-directory-card__title,
+#calgary-building-directory-database .ccl-directory-card__badge,
+#calgary-building-directory-database .ccl-directory-card__description,
+#calgary-building-directory-database .ccl-directory-card__cta {
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important;
+  z-index: 3 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__category,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__category,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__category,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__category,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__category,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__category {
+  color: #F5E5C9 !important;
+  -webkit-text-fill-color: #F5E5C9 !important;
+  text-shadow: none !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__title,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__title,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__title,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__title,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__title,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__title {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.42) !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__description,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__description,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__description,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__description,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__description,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__description {
+  color: rgba(255, 255, 255, 0.94) !important;
+  -webkit-text-fill-color: rgba(255, 255, 255, 0.94) !important;
+  text-shadow: none !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-directory-card__badge,
+#calgary-building-directory-database .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__badge,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__badge,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__badge,
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-visual-card:focus .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-directory-card:focus .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__cta {
+  opacity: 1 !important;
+  visibility: visible !important;
+  background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 24%, #D4AF37 50%, #B38F43 78%, #7A5C1B 100%) !important;
+  color: #121212 !important;
+  -webkit-text-fill-color: #121212 !important;
+  border-color: rgba(245, 229, 201, 0.62) !important;
+  text-shadow: none !important;
+  font-weight: 900 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__cta {
+  margin-top: auto !important;
+}
+
+#calgary-building-directory-database .ccl-directory-card__cta {
+  margin-top: auto !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card::before,
+#calgary-building-directory-database .ccl-visual-card::after,
+#calgary-building-directory-database .ccl-directory-card::before,
+#calgary-building-directory-database .ccl-directory-card::after,
+#calgary-building-directory-database .ccl-visual-card:hover::before,
+#calgary-building-directory-database .ccl-visual-card:hover::after,
+#calgary-building-directory-database .ccl-directory-card:hover::before,
+#calgary-building-directory-database .ccl-directory-card:hover::after {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #calgary-building-directory-database .ccl-visual-card,
+  #calgary-building-directory-database .ccl-directory-card,
+  #calgary-building-directory-database a.ccl-visual-card,
+  #calgary-building-directory-database a.ccl-directory-card,
+  #calgary-building-directory-database .ccl-visual-card:hover,
+  #calgary-building-directory-database .ccl-visual-card:focus,
+  #calgary-building-directory-database .ccl-visual-card:focus-visible,
+  #calgary-building-directory-database .ccl-directory-card:hover,
+  #calgary-building-directory-database .ccl-directory-card:focus,
+  #calgary-building-directory-database .ccl-directory-card:focus-visible {
+    transition: none !important;
+    transform: none !important;
+  }
+}
