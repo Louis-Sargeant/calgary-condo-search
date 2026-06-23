@@ -4175,3 +4175,132 @@ body.admin-bar .ccl-floating-lead-widget {
     width: 100% !important;
   }
 }
+
+/* Calgary Building Database — equal-height card alignment lock */
+#calgary-building-directory-database,
+#calgary-building-directory-database * {
+  box-sizing: border-box !important;
+}
+
+#calgary-building-directory-database .ccl-visual-directory__matrix {
+  align-items: stretch !important;
+}
+
+#calgary-building-directory-database .ccl-visual-directory__column {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  height: 100% !important;
+}
+
+#calgary-building-directory-database .ccl-visual-directory__cards {
+  display: grid !important;
+  grid-auto-rows: 1fr !important;
+  align-items: stretch !important;
+  height: 100% !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card,
+#calgary-building-directory-database .ccl-directory-card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  height: 100% !important;
+  min-height: 280px !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card > *,
+#calgary-building-directory-database .ccl-directory-card > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__category,
+#calgary-building-directory-database .ccl-directory-card__category {
+  display: block !important;
+  width: 100% !important;
+  min-height: 18px !important;
+  margin: 0 0 10px 0 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__title,
+#calgary-building-directory-database .ccl-directory-card__title {
+  display: block !important;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin: 0 0 12px 0 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__badge,
+#calgary-building-directory-database .ccl-directory-card__badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 0 14px 0 !important;
+  flex: 0 0 auto !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card::after,
+#calgary-building-directory-database .ccl-directory-card::after {
+  content: "" !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 1px !important;
+  margin: 0 0 16px 0 !important;
+  background: linear-gradient(
+    90deg,
+    rgba(245, 229, 201, 0.08) 0%,
+    rgba(212, 175, 55, 0.52) 50%,
+    rgba(245, 229, 201, 0.08) 100%
+  ) !important;
+  flex: 0 0 auto !important;
+  order: 40 !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__description,
+#calgary-building-directory-database .ccl-directory-card__description {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 0 18px 0 !important;
+  flex: 1 1 auto !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card__cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: auto !important;
+  align-self: flex-start !important;
+  flex: 0 0 auto !important;
+  min-height: 42px !important;
+}
+
+#calgary-building-directory-database .ccl-visual-card__overlay,
+#calgary-building-directory-database .ccl-directory-card__overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+/* Preserve mobile readability while keeping the card stack aligned */
+@media (max-width: 767px) {
+  #calgary-building-directory-database .ccl-visual-directory__cards {
+    grid-auto-rows: auto !important;
+  }
+
+  #calgary-building-directory-database .ccl-visual-card,
+  #calgary-building-directory-database .ccl-directory-card {
+    min-height: 240px !important;
+  }
+
+  #calgary-building-directory-database .ccl-visual-card__title,
+  #calgary-building-directory-database .ccl-directory-card__title {
+    min-height: auto !important;
+  }
+}
