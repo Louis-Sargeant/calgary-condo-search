@@ -2347,9 +2347,9 @@
 
 .ccl-floating-lead-widget {
   position: fixed;
-  right: 22px;
-  bottom: 22px;
-  z-index: 99998;
+  right: 24px;
+  bottom: 28px;
+  z-index: 70;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2375,12 +2375,12 @@ body.admin-bar .ccl-floating-lead-widget {
   bottom: 34px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   .ccl-floating-lead-widget {
-    right: 10px;
-    bottom: 8px;
-    max-width: calc(100vw - 20px);
-    padding: 8px 11px;
+    right: 12px;
+    bottom: 14px;
+    max-width: min(220px, calc(100vw - 24px));
+    padding: 8px 12px;
     gap: 6px;
     font-size: 0.78rem;
     line-height: 1.05;
@@ -2388,7 +2388,7 @@ body.admin-bar .ccl-floating-lead-widget {
   }
 
   body.admin-bar .ccl-floating-lead-widget {
-    bottom: 14px;
+    bottom: 18px;
   }
 }
 
@@ -3458,8 +3458,7 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-premium-homepage-shell .ccl-button--secondary,
 .ccl-premium-homepage-shell .ccl-secondary-cta,
-.ccl-premium-homepage-shell a.ccl-secondary-cta,
-.ccl-premium-homepage-shell #calgary-explore-navbar-nav .nav-item-link:not(:first-child) {
+.ccl-premium-homepage-shell a.ccl-secondary-cta {
   color: #F5E5C9 !important;
   background: rgba(5, 7, 11, 0.52) !important;
   border: 1px solid rgba(212,175,55,0.35) !important;
@@ -3474,8 +3473,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-premium-homepage-shell .ccl-btn:hover,
 .ccl-premium-homepage-shell .ccl-button:hover,
 .ccl-premium-homepage-shell .ccl-alert-button:hover,
-.ccl-premium-homepage-shell .ccl-hero-workspace__button:hover,
-.ccl-premium-homepage-shell #calgary-explore-navbar-nav .nav-item-link:hover {
+.ccl-premium-homepage-shell .ccl-hero-workspace__button:hover {
   transform: translateY(-3px);
   box-shadow: 0 24px 54px rgba(212,175,55,0.32), 0 0 26px rgba(212,175,55,0.18) !important;
 }
@@ -3528,8 +3526,7 @@ body.admin-bar .ccl-floating-lead-widget {
   .ccl-premium-homepage-shell .ccl-hero-workspace { width: min(100%, 360px) !important; }
   .ccl-premium-homepage-shell .ccl-button,
   .ccl-premium-homepage-shell .ccl-btn,
-  .ccl-premium-homepage-shell button,
-  .ccl-premium-homepage-shell #calgary-explore-navbar-nav a { min-height: 44px; }
+  .ccl-premium-homepage-shell button { min-height: 44px; }
 }
 
 /* Final premium contrast enforcement: black-and-gold Calgary portal */
