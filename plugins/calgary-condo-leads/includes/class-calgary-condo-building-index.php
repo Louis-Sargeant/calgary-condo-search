@@ -107,13 +107,13 @@ final class Calgary_Condo_Building_Index {
                         <?php echo $this->render_card(get_the_ID()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     <?php endwhile; ?>
                 </div>
-            <?php else : ?>
+            <?php elseif ('beltline' !== $slug) : ?>
                 <section class="ccl-building-profile-panel ccl-building-index__empty">
                     <p><?php esc_html_e('Building profiles for this category are being connected. For current listings and building guidance, request a condo shortlist.', 'calgary-condo-leads'); ?></p>
                 </section>
             <?php endif; ?>
             <?php echo $this->lead_card(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-            <?php echo $this->live_inventory_slot($term['name']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <?php echo $this->live_inventory_slot($slug, $term['name']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         </main>
         <?php
         wp_reset_postdata();
@@ -157,8 +157,9 @@ final class Calgary_Condo_Building_Index {
         return '<div class="ccl-building-lead-card"><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
     }
 
-    private function live_inventory_slot(string $community_name): string {
-        $beltline_mrp_shortcode = '';
+    private function live_inventory_slot(string $slug, string $community_name): string {
+        $beltline_mrp_shortcode = 'beltline' === $slug ? "[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2]
+[/mrp]" : '';
         $heading = sprintf(__('Live %s Condo Listings', 'calgary-condo-leads'), $community_name);
         $intro = sprintf(__('Browse current %s condo opportunities below. Use the building directory above to compare buildings, fees, bylaws, parking, storage, and resale fit before booking showings.', 'calgary-condo-leads'), $community_name);
 
@@ -167,7 +168,6 @@ final class Calgary_Condo_Building_Index {
         <section id="ccl-building-index-live-inventory" aria-labelledby="ccl-building-index-live-inventory-title">
             <h2 id="ccl-building-index-live-inventory-title"><?php echo esc_html($heading); ?></h2>
             <p><?php echo esc_html($intro); ?></p>
-            <!-- Paste your myRealPage [mrp_listings ...] shortcode here -->
             <?php
             if (!empty($beltline_mrp_shortcode)) {
                 echo do_shortcode($beltline_mrp_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
