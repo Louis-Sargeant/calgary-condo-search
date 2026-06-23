@@ -32,6 +32,7 @@ final class Calgary_Condo_Building_Directory {
     ];
 
     public function __construct() {
+        add_action('template_redirect', [$this, 'redirect_legacy_beltline_building_route'], 0);
         add_action('template_redirect', [$this, 'render_buildings_page'], 0);
         add_shortcode('ccl_building_directory', [$this, 'shortcode']);
         add_shortcode('ccl_building_database_directory', [$this, 'database_shortcode']);
@@ -40,7 +41,7 @@ final class Calgary_Condo_Building_Directory {
 
     private const VISUAL_DIRECTORY_CARDS = [
         'Inner-City Condo Hubs' => [
-            ['title' => 'Beltline', 'slug' => 'beltline', 'category' => 'Inner-City Condo Hubs', 'url' => '/calgary-condo-buildings/beltline/', 'description' => 'Central Beltline condo buildings and active on-site listing access.'],
+            ['title' => 'Beltline', 'slug' => 'beltline', 'category' => 'Inner-City Condo Hubs', 'url' => '/beltline-condos/', 'description' => 'Central Beltline condo buildings and active on-site listing access.'],
             ['title' => 'Downtown Core', 'slug' => 'downtown-core', 'category' => 'Inner-City Condo Hubs', 'url' => '/calgary-condo-buildings/downtown-core/', 'description' => 'Downtown Core condo buildings close to offices, restaurants, and transit.'],
             ['title' => 'Eau Claire', 'slug' => 'eau-claire', 'category' => 'Inner-City Condo Hubs', 'url' => '/calgary-condo-buildings/eau-claire/', 'description' => 'Eau Claire condo buildings near the river pathway and downtown core.'],
             ['title' => 'East Village', 'slug' => 'east-village', 'category' => 'Inner-City Condo Hubs', 'url' => '/calgary-condo-buildings/east-village/', 'description' => 'East Village condo buildings near the library, river pathways, and downtown east amenities.'],
@@ -152,6 +153,21 @@ final class Calgary_Condo_Building_Directory {
         }
 
         return do_shortcode('[mrp account_id=67196 listing_def=search-' . esc_attr($search_id) . ' context=recip perm_attr=tmpl~v2 ][/mrp]');
+    }
+
+
+    public function redirect_legacy_beltline_building_route(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        if ('calgary-condo-buildings/beltline' !== $path) {
+            return;
+        }
+
+        wp_safe_redirect(home_url('/beltline-condos/'), 301);
+        exit;
     }
 
     public function render_buildings_page(): void {
