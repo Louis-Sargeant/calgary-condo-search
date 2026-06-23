@@ -50,7 +50,7 @@ final class Calgary_Condo_Homepage {
          * Homepage section mode inventory:
          * - Hero (#clean-calgary-hero): ccl-dark-luxury-section.
          * - Explore Calgary Condos navigation (#calgary-explore-navbar): ccl-dark-luxury-section.
-         * - Search All Calgary Condos CTA (#idx-search): ccl-light-readable-section.
+         * - Search All Calgary Condos CTA (#idx-search): ccl-dark-luxury-section.
          * - Building database directory (#calgary-building-directory-database): ccl-dark-luxury-section (shortcode-owned wrapper).
          * - Buyer portal intro (.ccl-portal-intro): ccl-dark-luxury-section.
          * - CTA choice cards (.ccl-intent-capture): ccl-dark-luxury-section (shortcode-owned wrapper).
@@ -198,17 +198,17 @@ final class Calgary_Condo_Homepage {
             </section>
 
 
-            <section id="idx-search" class="ccl-section ccl-light-readable-section ccl-idx-shell ccl-home-master-feed-cta" aria-labelledby="ccl-idx-title">
+            <section id="idx-search" class="ccl-section ccl-dark-luxury-section ccl-idx-shell ccl-home-master-feed-cta ccl-home-search-bridge" aria-labelledby="ccl-idx-title">
                 <div class="ccl-wrap">
-                    <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
-                        <div>
+                    <div class="ccl-home-search-bridge__panel ccl-idx-shell__header ccl-idx-shell__header--compact">
+                        <div class="ccl-home-search-bridge__content">
                             <p class="ccl-eyebrow">Calgary Condo Search</p>
                             <h2 id="ccl-idx-title" class="ccl-idx-title">Search All Calgary Condos</h2>
                             <p class="ccl-idx-copy">View every active Calgary condo listing in one place, then narrow by building, area, price, and lifestyle fit.</p>
                         </div>
-                        <div class="ccl-idx-shell__actions">
+                        <div class="ccl-idx-shell__actions ccl-home-search-bridge__actions">
                             <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/" target="_self">View All Calgary Condos</a>
-                            <button type="button" class="ccl-small-link ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get Condo Alerts</button>
+                            <button type="button" class="ccl-btn ccl-btn--secondary ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get Condo Alerts</button>
                         </div>
                     </div>
                 </div>
