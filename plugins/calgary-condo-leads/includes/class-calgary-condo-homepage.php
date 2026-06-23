@@ -4,13 +4,6 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Homepage {
-    private const SEARCH_SHORTCODES = [
-        // Master city-wide Calgary condo saved search. Keep area-specific feeds on their dedicated routes.
-        'all' => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2 ][/mrp]',
-        'under-400k' => '[mrp account_id=67196 listing_def=search-1439371 context=recip perm_attr=tmpl~v2 ][/mrp]',
-        'price-drops' => '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]',
-    ];
-
     private const AREA_ROUTES = [
         'southeast' => '/southeast-calgary-condos/',
         'southwest' => '/southwest-calgary-condos/',
@@ -51,17 +44,13 @@ final class Calgary_Condo_Homepage {
 
     public function render(array $atts = [], ?string $content = null): string {
         $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
-        $idx_content = trim((string) $content);
-        $page_number = isset($_GET['_pg']) ? absint(wp_unslash($_GET['_pg'])) : 0;
-        $is_paginated_idx = $page_number > 1;
 
         ob_start();
         /*
          * Homepage section mode inventory:
          * - Hero (#clean-calgary-hero): ccl-dark-luxury-section.
          * - Explore Calgary Condos navigation (#calgary-explore-navbar): ccl-dark-luxury-section.
-         * - Live Calgary Condo Listings / IDX wrapper (#idx-search): ccl-light-readable-section.
-         * - Paginated IDX note (.ccl-paginated-condo-note): ccl-light-readable-section.
+         * - Search All Calgary Condos CTA (#idx-search): ccl-light-readable-section.
          * - Building database directory (#calgary-building-directory-database): ccl-dark-luxury-section (shortcode-owned wrapper).
          * - Buyer portal intro (.ccl-portal-intro): ccl-dark-luxury-section.
          * - CTA choice cards (.ccl-intent-capture): ccl-dark-luxury-section (shortcode-owned wrapper).
@@ -73,7 +62,7 @@ final class Calgary_Condo_Homepage {
          * - Footer / floating lead button: existing footer/lead modal presentation preserved.
          */
         ?>
-        <div class="ccl-page-shell ccl-premium-homepage-shell ccl-home-tight ccl-home-search-first<?php echo $is_paginated_idx ? ' ccl-home-search-first--paginated' : ''; ?>" data-ccl-condo-home>
+        <div class="ccl-page-shell ccl-premium-homepage-shell ccl-home-tight ccl-home-search-first" data-ccl-condo-home>
             <style>
                 #clean-calgary-hero,
                 #clean-calgary-hero * {
@@ -173,7 +162,6 @@ final class Calgary_Condo_Homepage {
                 }
             </style>
 
-            <?php if (!$is_paginated_idx) : ?>
             <section id="clean-calgary-hero" class="ccl-dark-luxury-section" aria-labelledby="clean-calgary-hero-title" style="background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b') !important; background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important; position: relative !important; width: 100% !important; min-height: 620px !important; padding: 90px 20px !important; display: flex !important; align-items: center !important; justify-content: center !important; box-sizing: border-box !important; overflow: hidden !important;">
                 <div id="clean-calgary-hero-overlay" style="background: rgba(0,0,0,0.52) !important; position: absolute !important; inset: 0 !important; z-index: 1 !important; pointer-events: none !important;"></div>
                 <div id="clean-calgary-hero-content" style="z-index: 2 !important; position: relative !important; width: 100% !important; max-width: 1180px !important; margin: 0 auto !important; text-align: center !important; color: #ffffff !important; box-sizing: border-box !important;">
@@ -209,42 +197,22 @@ final class Calgary_Condo_Homepage {
                 </div>
             </section>
 
-            <?php endif; ?>
 
-            <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-light-readable-section ccl-idx-shell ccl-tight-idx" aria-labelledby="ccl-idx-title">
+            <section id="idx-search" class="ccl-section ccl-light-readable-section ccl-idx-shell ccl-home-master-feed-cta" aria-labelledby="ccl-idx-title">
                 <div class="ccl-wrap">
                     <div class="ccl-idx-shell__header ccl-idx-shell__header--compact">
                         <div>
-                            <p class="ccl-eyebrow">Live Calgary Condo Search</p>
-                            <h2 id="ccl-idx-title" class="ccl-idx-title"><?php echo $is_paginated_idx ? esc_html(sprintf('Live Calgary Condo Listings — Page %d', $page_number)) : esc_html('Live Calgary Condo Listings'); ?></h2>
-                            <p class="ccl-idx-copy"><?php echo $is_paginated_idx ? esc_html('Continue browsing live Calgary condo listings without repeating the full search portal content on every IDX pagination page.') : esc_html('Search Calgary condos, save the right matches, and get building-first guidance before booking showings.'); ?></p>
+                            <p class="ccl-eyebrow">Calgary Condo Search</p>
+                            <h2 id="ccl-idx-title" class="ccl-idx-title">Search All Calgary Condos</h2>
+                            <p class="ccl-idx-copy">View every active Calgary condo listing in one place, then narrow by building, area, price, and lifestyle fit.</p>
                         </div>
-                        <button type="button" class="ccl-small-link ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get condo alerts</button>
-                    </div>
-                    <?php
-                    $keyword = isset($_GET['keyword']) ? sanitize_text_field(wp_unslash($_GET['keyword'])) : '';
-                    if ('' !== $keyword) :
-                        ?>
-                        <div class="ccl-keyword-search-notice" role="status">
-                            <?php echo esc_html(sprintf('Search request received: “%s”. Browse current Calgary condo listings below or request a custom match list.', $keyword)); ?>
+                        <div class="ccl-idx-shell__actions">
+                            <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/" target="_self">View All Calgary Condos</a>
+                            <button type="button" class="ccl-small-link ccl-alert-button" data-ccl-lead-open data-lead-source="Homepage" data-requested-category="Condo Alerts" data-intent="Active listings request">Get Condo Alerts</button>
                         </div>
-                    <?php endif; ?>
-                    <div class="ccl-idx-shell__frame">
-                        <?php echo do_shortcode(self::SEARCH_SHORTCODES['all']); ?>
                     </div>
                 </div>
             </section>
-
-            <?php if ($is_paginated_idx) : ?>
-                <section class="ccl-section ccl-light-readable-section ccl-paginated-condo-note" aria-labelledby="ccl-paginated-condo-note-title">
-                    <div class="ccl-wrap">
-                        <p class="ccl-eyebrow">Calgary Condo Listings</p>
-                        <h2 id="ccl-paginated-condo-note-title">Keep browsing active Calgary condos.</h2>
-                        <p>This paginated results view stays focused on live listings. Return to the main Calgary condo portal when you want building guides, area links, alerts, and buyer resources.</p>
-                        <a class="ccl-btn ccl-btn--primary" href="/calgary-condos/" target="_self">Back to Calgary Condo Portal</a>
-                    </div>
-                </section>
-            <?php else : ?>
 
             <?php echo do_shortcode('[ccl_building_database_directory]'); ?>
 
@@ -275,7 +243,6 @@ final class Calgary_Condo_Homepage {
             <?php echo do_shortcode('[ccl_school_community]'); ?>
 
             <?php echo do_shortcode('[ccl_lead_modal]'); ?>
-            <?php endif; ?>
 
         </div>
         <?php
