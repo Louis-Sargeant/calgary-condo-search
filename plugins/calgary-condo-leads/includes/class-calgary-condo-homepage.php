@@ -82,9 +82,9 @@ final class Calgary_Condo_Homepage {
     private function render_buyer_intent(): string {
         $cards = [
             ['title' => 'I want to browse condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/'],
-            ['title' => 'I want alerts', 'copy' => 'Get matching Calgary condo opportunities by area, budget, building, parking, pets, and timing.', 'button' => 'Set Up Condo Alerts', 'category' => 'Condo Alerts'],
             ['title' => 'I own a condo', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'button' => 'Get My Condo Value Report', 'category' => 'Condo Value Report'],
-            ['title' => 'I am worried about the building', 'copy' => 'Ask about bylaws, reserve fund signals, insurance, special assessments, parking, pets, rentals, and resale risk.', 'button' => 'Ask About Building Risk', 'category' => 'Building Risk Report'],
+            ['title' => '🎓 Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary’s top-ranked designated public and separate school boundaries.', 'button' => 'Set Up Condo Alerts', 'category' => 'Condo Alerts'],
+            ['title' => '🌳 Parks & Pet-Friendly Fields', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'button' => 'Ask About Building Risk', 'category' => 'Building Risk Report'],
         ];
         ob_start(); ?>
         <section class="ccl-section ccl-home-intent" aria-labelledby="ccl-home-intent-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Choose your path</p><h2 id="ccl-home-intent-title">One clear next step for every condo visitor.</h2><p>Browse live listings, set alerts, get a value report, or review a building risk before you move forward.</p></div><div class="ccl-home-intent__grid">
