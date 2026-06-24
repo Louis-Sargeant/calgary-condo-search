@@ -5064,3 +5064,149 @@ body.admin-bar .ccl-floating-lead-widget {
 @media (max-width:1024px) { #ccl-condo-map-explorer .ccl-condo-map-explorer__shell { grid-template-columns:1fr !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__map { min-height:430px !important; } }
 @media (max-width:767px) { #ccl-condo-map-explorer { padding:94px 0 58px !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__header { text-align:left !important; margin-bottom:24px !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__header h2, #ccl-condo-map-explorer .ccl-condo-map-explorer__header p { text-align:left !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__map { min-height:520px !important; border-radius:24px !important; } #ccl-condo-map-explorer .ccl-condo-map-pin { gap:6px !important; } #ccl-condo-map-explorer .ccl-condo-map-pin__label { font-size:.58rem !important; padding:3px 5px !important; } #ccl-condo-map-explorer .ccl-condo-map-pin__card { width:245px !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__panel { border-radius:24px !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__actions { flex-direction:column !important; align-items:stretch !important; } #ccl-condo-map-explorer .ccl-condo-map-explorer__actions .ccl-btn { width:100% !important; } }
 @media (prefers-reduced-motion:reduce) { #ccl-condo-map-explorer .ccl-condo-map-pin__dot::after { animation:none !important; } #ccl-condo-map-explorer .ccl-condo-map-pin__card { transition:none !important; } }
+
+/* =========================================================
+   Plugin CTA button unification — premium gold system
+   Keeps every plugin-owned CTA visually aligned with the
+   approved black/gold luxury treatment across pages, cards,
+   modals, IDX panels, and shortcode output.
+   ========================================================= */
+.ccl-premium-homepage-shell,
+.ccl-inner-page-shell,
+.ccl-section,
+.ccl-hero,
+.ccl-sticky-cta,
+.ccl-lead-magnet,
+.ccl-building-cta,
+.ccl-market-page,
+.ccl-visual-directory,
+.ccl-condo-map-explorer,
+#ccl-condo-map-explorer,
+#calgary-building-directory-database {
+  --ccl-premium-gold-button-bg: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 52%, #B38F43 84%, #7A5C1B 100%);
+  --ccl-premium-gold-button-bg-hover: linear-gradient(180deg, #FFF8E8 0%, #F5E5C9 22%, #D4AF37 54%, #A67C1E 100%);
+  --ccl-premium-gold-button-text: #121212;
+  --ccl-premium-gold-button-border: rgba(245, 229, 201, 0.64);
+  --ccl-premium-gold-button-shadow: 0 16px 34px rgba(212, 175, 55, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  --ccl-premium-gold-button-shadow-hover: 0 24px 52px rgba(212, 175, 55, 0.36), 0 0 28px rgba(212, 175, 55, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.58);
+}
+
+.ccl-premium-homepage-shell .ccl-btn,
+.ccl-premium-homepage-shell .ccl-button,
+.ccl-premium-homepage-shell .ccl-primary-cta,
+.ccl-premium-homepage-shell button:not(.components-button):not(.media-button):not(.button-link),
+.ccl-inner-page-shell .ccl-btn,
+.ccl-inner-page-shell .ccl-button,
+.ccl-inner-page-shell .ccl-primary-cta,
+.ccl-inner-page-shell .ccl-building-btn,
+.ccl-inner-page-shell .ccl-market-btn,
+.ccl-inner-page-shell .wp-block-button__link,
+.ccl-section .ccl-btn,
+.ccl-section .ccl-button,
+.ccl-section .ccl-primary-cta,
+.ccl-hero .ccl-btn,
+.ccl-sticky-cta .ccl-btn,
+.ccl-lead-magnet .ccl-btn,
+.ccl-building-cta .ccl-building-btn,
+.ccl-market-page .ccl-market-btn,
+.ccl-visual-directory .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card__cta,
+#ccl-condo-map-explorer .ccl-condo-map-explorer__actions .ccl-btn {
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 46px !important;
+  padding: 11px 22px !important;
+  border: 1px solid var(--ccl-premium-gold-button-border) !important;
+  border-radius: 999px !important;
+  background: var(--ccl-premium-gold-button-bg) !important;
+  color: var(--ccl-premium-gold-button-text) !important;
+  -webkit-text-fill-color: var(--ccl-premium-gold-button-text) !important;
+  box-shadow: var(--ccl-premium-gold-button-shadow) !important;
+  font-weight: 950 !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  cursor: pointer !important;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease !important;
+}
+
+.ccl-premium-homepage-shell .ccl-btn:hover,
+.ccl-premium-homepage-shell .ccl-btn:focus-visible,
+.ccl-premium-homepage-shell .ccl-button:hover,
+.ccl-premium-homepage-shell .ccl-button:focus-visible,
+.ccl-premium-homepage-shell .ccl-primary-cta:hover,
+.ccl-premium-homepage-shell .ccl-primary-cta:focus-visible,
+.ccl-premium-homepage-shell button:not(.components-button):not(.media-button):not(.button-link):hover,
+.ccl-premium-homepage-shell button:not(.components-button):not(.media-button):not(.button-link):focus-visible,
+.ccl-inner-page-shell .ccl-btn:hover,
+.ccl-inner-page-shell .ccl-btn:focus-visible,
+.ccl-inner-page-shell .ccl-button:hover,
+.ccl-inner-page-shell .ccl-button:focus-visible,
+.ccl-inner-page-shell .ccl-primary-cta:hover,
+.ccl-inner-page-shell .ccl-primary-cta:focus-visible,
+.ccl-inner-page-shell .ccl-building-btn:hover,
+.ccl-inner-page-shell .ccl-building-btn:focus-visible,
+.ccl-inner-page-shell .ccl-market-btn:hover,
+.ccl-inner-page-shell .ccl-market-btn:focus-visible,
+.ccl-inner-page-shell .wp-block-button__link:hover,
+.ccl-inner-page-shell .wp-block-button__link:focus-visible,
+.ccl-section .ccl-btn:hover,
+.ccl-section .ccl-btn:focus-visible,
+.ccl-section .ccl-button:hover,
+.ccl-section .ccl-button:focus-visible,
+.ccl-section .ccl-primary-cta:hover,
+.ccl-section .ccl-primary-cta:focus-visible,
+.ccl-hero .ccl-btn:hover,
+.ccl-hero .ccl-btn:focus-visible,
+.ccl-sticky-cta .ccl-btn:hover,
+.ccl-sticky-cta .ccl-btn:focus-visible,
+.ccl-lead-magnet .ccl-btn:hover,
+.ccl-lead-magnet .ccl-btn:focus-visible,
+.ccl-building-cta .ccl-building-btn:hover,
+.ccl-building-cta .ccl-building-btn:focus-visible,
+.ccl-market-page .ccl-market-btn:hover,
+.ccl-market-page .ccl-market-btn:focus-visible,
+.ccl-visual-directory .ccl-visual-card:hover .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-visual-card:focus-visible .ccl-visual-card__cta,
+.ccl-visual-directory .ccl-directory-card:hover .ccl-directory-card__cta,
+.ccl-visual-directory .ccl-directory-card:focus-visible .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-visual-card:hover .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-visual-card:focus-visible .ccl-visual-card__cta,
+#calgary-building-directory-database .ccl-directory-card:hover .ccl-directory-card__cta,
+#calgary-building-directory-database .ccl-directory-card:focus-visible .ccl-directory-card__cta,
+#ccl-condo-map-explorer .ccl-condo-map-explorer__actions .ccl-btn:hover,
+#ccl-condo-map-explorer .ccl-condo-map-explorer__actions .ccl-btn:focus-visible {
+  background: var(--ccl-premium-gold-button-bg-hover) !important;
+  border-color: rgba(245, 229, 201, 0.86) !important;
+  color: var(--ccl-premium-gold-button-text) !important;
+  -webkit-text-fill-color: var(--ccl-premium-gold-button-text) !important;
+  box-shadow: var(--ccl-premium-gold-button-shadow-hover) !important;
+  text-shadow: none !important;
+  transform: translateY(-2px) !important;
+}
+
+.ccl-premium-homepage-shell .ccl-btn *,
+.ccl-premium-homepage-shell .ccl-button *,
+.ccl-premium-homepage-shell .ccl-primary-cta *,
+.ccl-inner-page-shell .ccl-btn *,
+.ccl-inner-page-shell .ccl-button *,
+.ccl-inner-page-shell .ccl-primary-cta *,
+.ccl-section .ccl-btn *,
+.ccl-section .ccl-button *,
+.ccl-section .ccl-primary-cta *,
+.ccl-visual-directory .ccl-visual-card__cta *,
+.ccl-visual-directory .ccl-directory-card__cta *,
+#calgary-building-directory-database .ccl-visual-card__cta *,
+#calgary-building-directory-database .ccl-directory-card__cta * {
+  color: var(--ccl-premium-gold-button-text) !important;
+  -webkit-text-fill-color: var(--ccl-premium-gold-button-text) !important;
+  text-shadow: none !important;
+}
