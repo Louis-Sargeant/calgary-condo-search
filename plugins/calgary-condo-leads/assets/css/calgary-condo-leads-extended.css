@@ -5373,3 +5373,30 @@ body.admin-bar .ccl-floating-lead-widget {
   .ccl-home-card { padding: 22px; }
   .ccl-home-idx-frame__embed { padding: 10px; overflow-x: auto; }
 }
+
+/* ===========================================================================
+   Calgary Condo Hero Micro-Patch: Label Contrast + Floating Help Button Offset
+   Scope: isolated visual-only override appended to extended stylesheet.
+   Do not alter approved hero buttons, navigation pill cards, phone layouts,
+   myRealPage data links, or functional layout layers.
+   ========================================================================== */
+
+.ccl-premium-homepage-shell .ccl-hero-kicker,
+.ccl-premium-homepage-shell .ccl-section-kicker,
+.ccl-premium-homepage-shell .ccl-map-kicker,
+.ccl-premium-homepage-shell [class*="kicker"],
+.ccl-premium-homepage-shell [class*="eyebrow"],
+.ccl-premium-homepage-shell [class*="label"] {
+  font-weight: 700 !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+.ccl-premium-homepage-shell .btn-request-help,
+.ccl-premium-homepage-shell .ccl-request-help,
+.ccl-premium-homepage-shell .ccl-floating-help,
+.ccl-premium-homepage-shell .ccl-floating-help-button,
+.ccl-premium-homepage-shell [class*="request-condo-help"] {
+  position: relative !important;
+  right: 24px !important;
+  margin-left: auto !important;
+}
