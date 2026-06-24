@@ -236,10 +236,12 @@ final class Calgary_Condo_Site_Sections {
                 'title' => 'Want to watch a Calgary condo building?',
                 'subtitle' => 'Get building alerts, compare listings, and ask questions about fees, amenities, parking, pet rules, and resale value before you book a showing.',
                 'button_text' => 'Set Up Building Alerts',
-                'button_url' => '#condo-alerts',
+                'button_url' => '/contact/',
             ],
             'ccl_building_cta'
         );
+
+        $is_building_alerts_cta = 'Set Up Building Alerts' === $atts['button_text'];
 
         ob_start();
         ?>
@@ -250,7 +252,11 @@ final class Calgary_Condo_Site_Sections {
                     <h2><?php echo esc_html($atts['title']); ?></h2>
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
-                <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+                <?php if ($is_building_alerts_cta) : ?>
+                    <a href="<?php echo esc_url($atts['button_url']); ?>" target="_self" class="ccl-primary-cta ccl-lead-trigger" data-ccl-lead-open data-requested-category="Building Alerts" data-lead-source="Building Alerts Page" data-clicked-cta="Set Up Building Alerts"><?php echo esc_html($atts['button_text']); ?></a>
+                <?php else : ?>
+                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>" target="_self"><?php echo esc_html($atts['button_text']); ?></a>
+                <?php endif; ?>
             </div>
         </section>
         <?php
@@ -270,8 +276,8 @@ final class Calgary_Condo_Site_Sections {
                 'eyebrow' => 'Condo Owners',
                 'title' => 'Own a Calgary condo and want the real number?',
                 'subtitle' => 'Get a Calgary condo value check built around your building, recent sales, competition, condition, fees, and buyer demand.',
-                'button_text' => 'Request Condo Value Report',
-                'button_url' => '/condo-value-report/',
+                'button_text' => 'Get My Condo Value Report',
+                'button_url' => '/contact/',
                 'secondary_text' => 'Call Calgary Number',
             ],
             'ccl_seller_cta'
@@ -279,6 +285,7 @@ final class Calgary_Condo_Site_Sections {
 
         $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
         $phone_tel = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
+        $is_value_report_cta = 'Get My Condo Value Report' === $atts['button_text'];
 
         ob_start();
         ?>
@@ -290,7 +297,11 @@ final class Calgary_Condo_Site_Sections {
                     <p><?php echo esc_html($atts['subtitle']); ?></p>
                 </div>
                 <div class="ccl-seller-card__actions">
-                    <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>"><?php echo esc_html($atts['button_text']); ?></a>
+                    <?php if ($is_value_report_cta) : ?>
+                        <a href="<?php echo esc_url($atts['button_url']); ?>" target="_self" class="ccl-primary-cta ccl-lead-trigger" data-ccl-lead-open data-requested-category="Condo Value Report" data-lead-source="Building Alerts Page" data-clicked-cta="Get My Condo Value Report"><?php echo esc_html($atts['button_text']); ?></a>
+                    <?php else : ?>
+                        <a class="ccl-btn ccl-btn--primary" href="<?php echo esc_url($atts['button_url']); ?>" target="_self"><?php echo esc_html($atts['button_text']); ?></a>
+                    <?php endif; ?>
                     <a class="ccl-btn ccl-btn--dark" href="tel:<?php echo esc_attr($phone_tel); ?>"><?php echo esc_html($atts['secondary_text']); ?>: <?php echo esc_html($phone_display); ?></a>
                 </div>
             </div>

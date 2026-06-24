@@ -195,7 +195,7 @@ final class Calgary_Condo_Area_Pages {
 
 <!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button -->
-<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/building-alert-request/" target="_self">Get Building Alerts</a></div>
+<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="/contact/" target="_self" data-ccl-lead-open data-requested-category="Building Alerts" data-lead-source="Regional Condo Page" data-clicked-cta="Get Building Alerts">Get Building Alerts</a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
@@ -230,7 +230,7 @@ HTML;
             </div>
             <div class="ccl-compare-hero__actions">
                 <a href="#idx-search" target="_self" class="ccl-btn ccl-btn--primary ccl-region-cta-button">View {$label} Condos</a>
-                <a href="/building-alert-request/" target="_self" class="ccl-btn ccl-btn--dark ccl-region-alert-button">Get Building Alerts</a>
+                <a href="/contact/" target="_self" class="ccl-btn ccl-btn--dark ccl-region-alert-button ccl-lead-trigger" data-ccl-lead-open data-requested-category="Building Alerts" data-lead-source="Regional Condo Page" data-clicked-cta="Get Building Alerts">Get Building Alerts</a>
             </div>
         </div>
     </section>
