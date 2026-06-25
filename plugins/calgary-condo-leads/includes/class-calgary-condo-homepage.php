@@ -85,7 +85,7 @@ final class Calgary_Condo_Homepage {
         $cards = [
             ['title' => 'I want to browse condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/', 'icon' => $search_icon],
             ['title' => 'I own a condo', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'button' => 'Get My Condo Value Report', 'category' => 'Condo Value Report', 'icon' => $value_icon],
-            ['title' => '🎓 Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary's top-ranked designated public and separate school boundaries.', 'button' => 'Explore School Catchments', 'category' => 'Condo Alerts'],
+            ['title' => '🎓 Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary’s top-ranked designated public and separate school boundaries.', 'button' => 'Explore School Catchments', 'category' => 'Condo Alerts'],
             ['title' => '🌳 Parks & Pet-Friendly Fields', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'button' => 'Explore Pet-Friendly Areas', 'category' => 'Building Risk Report'],
         ];
         ob_start(); ?>
