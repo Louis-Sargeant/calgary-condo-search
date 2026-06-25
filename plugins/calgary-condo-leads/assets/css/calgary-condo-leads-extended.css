@@ -5375,20 +5375,6 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 /* ===========================================================================
-   Buyer-Intent Card Balance Patch: Scale down emoji icons on cards 3 & 4.
-   Cards 1 & 2 use 32 px SVG icons in a separate div; cards 3 & 4 rely on
-   emoji glyphs (🎓 🌳) inline in <h3>. On Apple / high-DPI displays these
-   emoji can render visually heavier than the SVG counterparts. Targeting
-   :nth-child(3/4) inside the intent grid is pure CSS — no PHP touched.
-   ========================================================================== */
-
-.ccl-home-intent__grid .ccl-home-intent-card:nth-child(3) h3,
-.ccl-home-intent__grid .ccl-home-intent-card:nth-child(4) h3 {
-  font-size: 1.08rem;
-  line-height: 1.3;
-}
-
-/* ===========================================================================
    Calgary Condo Hero Micro-Patch: Label Contrast + Floating Help Button Offset
    Scope: isolated visual-only override appended to extended stylesheet.
    Do not alter approved hero buttons, navigation pill cards, phone layouts,
