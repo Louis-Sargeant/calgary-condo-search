@@ -23,6 +23,12 @@ jobs:
             -x "*/.git/*" \
             -x "*/node_modules/*"
 
+      - name: PHP syntax check
+        run: |
+          find plugins/calgary-condo-leads -name '*.php' | while read f; do
+            php -l "$f" || exit 1
+          done
+
       - name: Verify package structure
         run: |
           unzip -l dist/calgary-condo-leads.zip

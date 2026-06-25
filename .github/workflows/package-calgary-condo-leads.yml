@@ -28,6 +28,12 @@ jobs:
           test -f plugins/calgary-condo-leads/assets/css/calgary-condo-leads.css
           test -f plugins/calgary-condo-leads/assets/css/calgary-condo-leads-extended.css
 
+      - name: PHP syntax check
+        run: |
+          find plugins/calgary-condo-leads -name '*.php' | while read f; do
+            php -l "$f" || exit 1
+          done
+
       - name: Create WordPress upload ZIP
         run: |
           rm -f calgary-condo-leads.zip
