@@ -5408,7 +5408,7 @@ body.admin-bar .ccl-floating-lead-widget {
 
 /* Typography hierarchy */
 .ccl-home-intent .ccl-home-section-heading h2 { font-weight: 700; }
-.ccl-home-intent .ccl-home-section-heading > p:not(.ccl-eyebrow) { font-weight: 300; opacity: 0.88; }
+.ccl-home-intent .ccl-home-section-heading > p:not(.ccl-eyebrow) { font-weight: 300; }
 
 /* Increase spacing between heading, trust strip, cards, and bottom CTA */
 .ccl-home-intent .ccl-home-section-heading { margin-bottom: 20px; }
@@ -5481,9 +5481,7 @@ body.admin-bar .ccl-floating-lead-widget {
     right: 0;
     margin: 0;
     padding: 10px 16px 14px;
-    background: rgba(17, 17, 17, 0.97);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: #111111;
     border-top: 1px solid rgba(212, 175, 55, 0.32);
     z-index: 800;
   }
