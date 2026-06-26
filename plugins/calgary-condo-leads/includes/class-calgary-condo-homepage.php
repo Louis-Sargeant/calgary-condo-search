@@ -131,16 +131,17 @@ final class Calgary_Condo_Homepage {
                         <?php if ($hero_success) : ?>
                             <p class="ccl-hero-lead-panel__success" role="status"><?php esc_html_e('Thanks — your Calgary condo alert request was received.', 'calgary-condo-leads'); ?></p>
                         <?php else : ?>
+                        <p class="ccl-hero-lead-panel__hook"><?php esc_html_e('Get Calgary Condo Alerts — New listings, price drops &amp; building intel', 'calgary-condo-leads'); ?></p>
                         <form class="ccl-hero-lead-panel__form" method="post" action="">
                             <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                             <input type="hidden" name="ccl_action" value="alert_form">
                             <input type="hidden" name="ccl_lead_source" value="Homepage Hero Lead Row">
                             <input type="hidden" name="ccl_requested_category" value="Condo Alerts">
                             <div class="ccl-hero-lead-panel__fields">
-                                <input type="text" name="ccl_name" placeholder="<?php esc_attr_e('Name', 'calgary-condo-leads'); ?>" autocomplete="name" required aria-label="<?php esc_attr_e('Name', 'calgary-condo-leads'); ?>">
-                                <input type="email" name="ccl_email" placeholder="<?php esc_attr_e('Email', 'calgary-condo-leads'); ?>" autocomplete="email" required aria-label="<?php esc_attr_e('Email', 'calgary-condo-leads'); ?>">
-                                <input type="tel" name="ccl_phone" placeholder="<?php esc_attr_e('Phone', 'calgary-condo-leads'); ?>" autocomplete="tel" aria-label="<?php esc_attr_e('Phone', 'calgary-condo-leads'); ?>">
-                                <button type="submit" class="ccl-home-cta ccl-home-cta--gold"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
+                                <input type="text" name="ccl_name" placeholder="<?php esc_attr_e('Your Name', 'calgary-condo-leads'); ?>" autocomplete="name" required aria-label="<?php esc_attr_e('Your Name', 'calgary-condo-leads'); ?>">
+                                <input type="email" name="ccl_email" placeholder="<?php esc_attr_e('Email Address', 'calgary-condo-leads'); ?>" autocomplete="email" required aria-label="<?php esc_attr_e('Email Address', 'calgary-condo-leads'); ?>">
+                                <input type="tel" name="ccl_phone" placeholder="<?php esc_attr_e('Phone Number', 'calgary-condo-leads'); ?>" autocomplete="tel" aria-label="<?php esc_attr_e('Phone Number', 'calgary-condo-leads'); ?>">
+                                <button type="submit" class="ccl-home-cta ccl-home-cta--gold ccl-hero-lead-panel__submit"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
                             </div>
                             <label class="ccl-hp" for="ccl-hero-lead-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?><input id="ccl-hero-lead-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off"></label>
                             <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('No spam. Calgary condo updates only.', 'calgary-condo-leads'); ?></p>

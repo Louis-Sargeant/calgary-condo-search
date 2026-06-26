@@ -5518,13 +5518,22 @@ body.admin-bar .ccl-floating-lead-widget {
 
 /* --- Hero inline lead capture panel --- */
 .ccl-hero-lead-panel {
-  width: min(1040px, 100%);
+  width: min(480px, 100%);
   margin: 16px auto 0;
-  padding: 12px 14px 10px;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 18px;
-  background: rgba(10, 18, 36, 0.72);
-  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26);
+  padding: 16px;
+  border: 1px solid #D4A843;
+  border-radius: 12px;
+  background: #1a1a1a;
+  box-sizing: border-box;
+}
+
+.ccl-hero-lead-panel__hook {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 12px !important;
+  text-shadow: none !important;
 }
 
 .ccl-hero-lead-panel__form {
@@ -5533,51 +5542,56 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-hero-lead-panel__fields {
   display: grid;
-  grid-template-columns: repeat(3, 1fr) auto;
+  grid-template-columns: 1fr;
   gap: 8px;
-  align-items: start;
-}
-
-@media (max-width: 960px) {
-  .ccl-hero-lead-panel__fields {
-    grid-template-columns: 1fr;
-  }
 }
 
 .ccl-hero-lead-panel__fields input[type="text"],
 .ccl-hero-lead-panel__fields input[type="email"],
 .ccl-hero-lead-panel__fields input[type="tel"] {
   width: 100%;
-  min-height: 44px;
-  padding: 10px 14px;
-  border: 1px solid rgba(245, 229, 201, 0.22);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.96);
-  color: #121212;
+  padding: 12px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #ffffff;
   font: inherit;
   font-size: 0.9rem;
   box-sizing: border-box;
 }
 
+.ccl-hero-lead-panel__fields input[type="text"]::placeholder,
+.ccl-hero-lead-panel__fields input[type="email"]::placeholder,
+.ccl-hero-lead-panel__fields input[type="tel"]::placeholder {
+  color: #888888;
+}
+
 .ccl-hero-lead-panel__fields input[type="text"]:focus,
 .ccl-hero-lead-panel__fields input[type="email"]:focus,
 .ccl-hero-lead-panel__fields input[type="tel"]:focus {
-  outline: 3px solid rgba(212, 175, 55, 0.52);
+  outline: 2px solid #D4A843;
   outline-offset: 1px;
-  border-color: rgba(212, 175, 55, 0.72);
+  border-color: #D4A843;
 }
 
-.ccl-hero-lead-panel__fields .ccl-home-cta {
-  white-space: nowrap;
-  min-height: 44px;
-  padding: 10px 18px;
-  font-size: 0.92rem;
+.ccl-hero-lead-panel__submit.ccl-home-cta {
+  width: 100%;
+  display: block;
+  background: #D4A843 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  padding: 14px !important;
+  border-radius: 8px !important;
+  border: none !important;
+  font-size: 1rem;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 .ccl-hero-lead-panel__trust {
-  color: rgba(245, 229, 201, 0.62) !important;
-  font-size: 0.75rem !important;
-  font-weight: 600 !important;
+  color: #999999 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
   margin: 8px 0 0 !important;
   text-align: center !important;
   text-shadow: none !important;
@@ -5701,13 +5715,6 @@ body.admin-bar .ccl-floating-lead-widget {
   }
 
   /* Hero lead panel: stack fields on mobile */
-  .ccl-hero-lead-panel__fields {
-    grid-template-columns: 1fr;
-  }
-
-  .ccl-hero-lead-panel__fields .ccl-home-cta {
-    width: 100%;
-  }
 
   .ccl-home-hero__primary-cta {
     width: 100%;
