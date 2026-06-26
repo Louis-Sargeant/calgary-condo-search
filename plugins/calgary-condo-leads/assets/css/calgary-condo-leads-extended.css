@@ -5540,7 +5540,7 @@ body.admin-bar .ccl-floating-lead-widget {
 
 @media (max-width: 960px) {
   .ccl-hero-lead-panel__fields {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
