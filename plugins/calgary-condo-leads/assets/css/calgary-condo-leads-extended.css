@@ -5525,9 +5525,10 @@ body.admin-bar .ccl-floating-lead-widget {
   width: min(420px, 100%);
   margin: 0 auto;
   padding: 18px;
-  border: 1px solid #D4A843;
+  border: 2px solid #D4A843;
   border-radius: 12px;
   background: #1a1a1a;
+  box-shadow: 0 0 18px rgba(212, 168, 67, 0.18);
   box-sizing: border-box;
 }
 
@@ -5557,14 +5558,14 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-hero-lead-panel__fields {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ccl-hero-lead-panel__fields input[type="text"],
 .ccl-hero-lead-panel__fields input[type="email"],
 .ccl-hero-lead-panel__fields input[type="tel"] {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #444;
   border-radius: 8px;
   background: #2a2a2a;
@@ -5591,12 +5592,12 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-hero-lead-panel__submit.ccl-home-cta {
   width: 100%;
   display: block;
-  background: #D4A843 !important;
-  color: #000000 !important;
+  background: transparent !important;
+  color: #D4A843 !important;
   font-weight: 700 !important;
-  padding: 14px !important;
+  padding: 11px !important;
   border-radius: 8px !important;
-  border: none !important;
+  border: 2px solid #D4A843 !important;
   font-size: 1rem;
   cursor: pointer;
   box-sizing: border-box;
