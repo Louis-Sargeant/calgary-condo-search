@@ -5506,7 +5506,7 @@ body.admin-bar .ccl-floating-lead-widget {
    Matches existing dark/gold luxury theme variables.
    ========================================================================== */
 
-/* --- Single primary hero CTA --- */
+/* --- Single primary hero CTA (ghost style) --- */
 .ccl-home-hero__primary-cta {
   min-height: 58px;
   min-width: min(320px, 100%);
@@ -5514,6 +5514,10 @@ body.admin-bar .ccl-floating-lead-widget {
   margin: 0 auto;
   font-size: 1rem;
   letter-spacing: -0.01em;
+  background: transparent !important;
+  border: 2px solid #D4A843 !important;
+  color: #D4A843 !important;
+  box-shadow: none !important;
 }
 
 /* --- Hero inline lead capture panel --- */
