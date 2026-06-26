@@ -131,7 +131,7 @@ final class Calgary_Condo_Homepage {
                         <?php if ($hero_success) : ?>
                             <p class="ccl-hero-lead-panel__success" role="status"><?php esc_html_e('Thanks — your Calgary condo alert request was received.', 'calgary-condo-leads'); ?></p>
                         <?php else : ?>
-                        <p class="ccl-hero-lead-panel__hook"><?php esc_html_e('Get Calgary Condo Alerts — New listings, price drops &amp; building intel', 'calgary-condo-leads'); ?></p>
+                        <p class="ccl-hero-lead-panel__hook"><?php esc_html_e('Get Calgary Condo Alerts — New listings, price drops & building intel', 'calgary-condo-leads'); ?></p>
                         <form class="ccl-hero-lead-panel__form" method="post" action="">
                             <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                             <input type="hidden" name="ccl_action" value="alert_form">
