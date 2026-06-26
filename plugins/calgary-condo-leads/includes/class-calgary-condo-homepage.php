@@ -125,13 +125,13 @@ final class Calgary_Condo_Homepage {
                 <div class="ccl-home-hero__content">
                     <p class="ccl-eyebrow">Calgary Condo Search</p>
                     <h1 id="clean-calgary-hero-title">Find the Right Calgary Condo Before You Book a Showing</h1>
-                    <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with building intelligence. Compare condo fees, bylaws, reserve fund health, parking, storage, and resale fit before booking a showing.</p>
+                    <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with building intelligence before you book a showing.</p>
                     <a class="ccl-home-cta ccl-home-cta--gold ccl-home-hero__primary-cta" href="<?php echo esc_url(home_url('/all-calgary-condos/')); ?>" target="_self">Search Calgary Condos</a>
                     <div class="ccl-hero-lead-panel" id="condo-alerts" aria-label="Get Calgary Condo Alerts">
                         <?php if ($hero_success) : ?>
                             <p class="ccl-hero-lead-panel__success" role="status"><?php esc_html_e('Thanks — your Calgary condo alert request was received.', 'calgary-condo-leads'); ?></p>
                         <?php else : ?>
-                        <p class="ccl-hero-lead-panel__hook"><?php esc_html_e('Get Calgary Condo Alerts — New listings, price drops & building intel', 'calgary-condo-leads'); ?></p>
+                        <p class="ccl-hero-lead-panel__hook"><?php esc_html_e('Get Calgary Condo Alerts', 'calgary-condo-leads'); ?></p>
                         <form class="ccl-hero-lead-panel__form" method="post" action="">
                             <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                             <input type="hidden" name="ccl_action" value="alert_form">
@@ -144,7 +144,7 @@ final class Calgary_Condo_Homepage {
                                 <button type="submit" class="ccl-home-cta ccl-home-cta--gold ccl-hero-lead-panel__submit"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
                             </div>
                             <label class="ccl-hp" for="ccl-hero-lead-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?><input id="ccl-hero-lead-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off"></label>
-                            <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('No spam. Calgary condo updates only.', 'calgary-condo-leads'); ?></p>
+                            <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('No spam. Condo updates.', 'calgary-condo-leads'); ?></p>
                         </form>
                         <?php endif; ?>
                     </div>
