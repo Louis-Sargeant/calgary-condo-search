@@ -5241,8 +5241,8 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-home-hero {
   position: relative;
-  min-height: 760px;
-  padding: clamp(78px, 10vw, 132px) 20px clamp(70px, 9vw, 112px);
+  min-height: auto;
+  padding: clamp(44px, 6vw, 72px) 20px clamp(28px, 4vw, 42px);
   display: grid;
   place-items: center;
   background-image: url('https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b');
@@ -5252,12 +5252,11 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 .ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(5, 7, 13, 0.92), rgba(10, 18, 36, 0.93) 44%, rgba(18, 18, 18, 0.97)); }
-.ccl-home-hero__content { width: min(1120px, 100%); margin: 0 auto; text-align: center; }
+.ccl-home-hero__content { width: min(1080px, 100%); margin: 0 auto; text-align: center; }
 .ccl-premium-homepage-shell .ccl-eyebrow { color: var(--ccl-gold); letter-spacing: .16em; text-transform: uppercase; font-weight: 900; }
-.ccl-home-hero h1 { margin: 0 auto 24px; max-width: 1050px; color: #FFF7E8; font-size: clamp(3rem, 6vw, 6.2rem); line-height: .95; letter-spacing: -.06em; font-weight: 950; text-shadow: 0 14px 44px rgba(0,0,0,.88); }
+.ccl-home-hero h1 { margin: 0 auto 16px; max-width: 940px; color: #FFF7E8; font-size: clamp(2.7rem, 5vw, 4.8rem); line-height: 1; letter-spacing: -.05em; font-weight: 950; text-shadow: 0 14px 44px rgba(0,0,0,.88); }
 .ccl-home-hero h1 span { display: block; }
-.ccl-home-hero__subtitle { max-width: 900px; margin: 0 auto 30px; color: var(--ccl-champagne); font-size: clamp(1.08rem, 1.7vw, 1.42rem); line-height: 1.55; font-weight: 700; }
-.ccl-home-hero__phone { color: var(--ccl-champagne); font-size: clamp(1.2rem, 2.5vw, 2.05rem); font-weight: 900; margin: 24px 0 0; }
+.ccl-home-hero__subtitle { max-width: 840px; margin: 0 auto 20px; color: var(--ccl-champagne); font-size: clamp(1rem, 1.35vw, 1.18rem); line-height: 1.5; font-weight: 700; }
 
 .ccl-home-search-card {
   display: grid;
@@ -5367,7 +5366,7 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 @media (max-width: 720px) {
-  .ccl-home-hero { min-height: auto; padding: 64px 16px 72px; }
+  .ccl-home-hero { min-height: auto; padding: 56px 16px 32px; }
   .ccl-home-hero h1 { font-size: clamp(2.45rem, 12vw, 3.45rem); letter-spacing: -.05em; }
   .ccl-home-search-card { grid-template-columns: 1fr; min-height: 0; padding: 10px; border-radius: 22px; }
   .ccl-home-search-card__input,
@@ -5507,41 +5506,35 @@ body.admin-bar .ccl-floating-lead-widget {
    Matches existing dark/gold luxury theme variables.
    ========================================================================== */
 
-/* --- Single primary hero CTA (replaces 5 quick-action pills) --- */
-.ccl-hero-match-cta {
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
+/* --- Single primary hero CTA --- */
+.ccl-home-hero__primary-cta {
   min-height: 58px;
-  padding-inline: clamp(22px, 4vw, 40px);
+  min-width: min(320px, 100%);
+  padding-inline: clamp(24px, 4vw, 38px);
+  margin: 0 auto;
+  font-size: 1rem;
   letter-spacing: -0.01em;
 }
 
 /* --- Hero inline lead capture panel --- */
 .ccl-hero-lead-panel {
-  width: min(680px, 100%);
-  margin: 28px auto 0;
-  padding: 22px 24px 18px;
-  border: 1px solid rgba(212, 175, 55, 0.55);
-  border-radius: 22px;
-  background: linear-gradient(145deg, rgba(18, 18, 18, 0.90), rgba(15, 23, 42, 0.84));
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(245, 229, 201, 0.06);
+  width: min(1040px, 100%);
+  margin: 16px auto 0;
+  padding: 12px 14px 10px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 18px;
+  background: rgba(10, 18, 36, 0.72);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.26);
 }
 
-.ccl-hero-lead-panel__offer {
-  color: #D4AF37 !important;
-  font-size: 0.82rem !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.12em !important;
-  text-transform: uppercase !important;
-  margin: 0 0 14px !important;
-  text-shadow: none !important;
+.ccl-hero-lead-panel__form {
+  margin: 0;
 }
 
 .ccl-hero-lead-panel__fields {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto;
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, .9fr) auto;
+  gap: 8px;
   align-items: start;
 }
 
@@ -5549,14 +5542,14 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-hero-lead-panel__fields input[type="email"],
 .ccl-hero-lead-panel__fields input[type="tel"] {
   width: 100%;
-  min-height: 48px;
-  padding: 11px 14px;
+  min-height: 44px;
+  padding: 10px 14px;
   border: 1px solid rgba(245, 229, 201, 0.22);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.96);
   color: #121212;
   font: inherit;
-  font-size: 0.93rem;
+  font-size: 0.9rem;
   box-sizing: border-box;
 }
 
@@ -5570,14 +5563,16 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-hero-lead-panel__fields .ccl-home-cta {
   white-space: nowrap;
-  min-height: 48px;
+  min-height: 44px;
+  padding: 10px 18px;
+  font-size: 0.92rem;
 }
 
 .ccl-hero-lead-panel__trust {
   color: rgba(245, 229, 201, 0.62) !important;
-  font-size: 0.78rem !important;
+  font-size: 0.75rem !important;
   font-weight: 600 !important;
-  margin: 10px 0 0 !important;
+  margin: 8px 0 0 !important;
   text-align: center !important;
   text-shadow: none !important;
 }
@@ -5586,7 +5581,7 @@ body.admin-bar .ccl-floating-lead-widget {
   color: #b9ffd4 !important;
   background: rgba(46, 204, 113, 0.14);
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 10px 12px;
   font-weight: 800;
   text-align: center;
   margin: 0 !important;
@@ -5598,19 +5593,18 @@ body.admin-bar .ccl-floating-lead-widget {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 6px 14px;
-  padding: 14px 20px;
-  background: rgba(10, 26, 47, 0.96);
+  gap: 4px 10px;
+  padding: 10px 20px;
+  background: rgba(10, 26, 47, 0.94);
   border-bottom: 1px solid rgba(212, 175, 55, 0.28);
-  font-size: 0.82rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #D4AF37;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #E8D6AE;
 }
 
 .ccl-cro-trust-strip span[aria-hidden="true"] {
-  color: rgba(212, 175, 55, 0.40);
+  color: rgba(212, 175, 55, 0.52);
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
@@ -5706,6 +5700,10 @@ body.admin-bar .ccl-floating-lead-widget {
   }
 
   .ccl-hero-lead-panel__fields .ccl-home-cta {
+    width: 100%;
+  }
+
+  .ccl-home-hero__primary-cta {
     width: 100%;
   }
 }

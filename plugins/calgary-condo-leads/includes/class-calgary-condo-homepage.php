@@ -116,7 +116,6 @@ final class Calgary_Condo_Homepage {
         <section class="ccl-section ccl-home-trust-risk" aria-labelledby="ccl-home-risk-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Trust, lifestyle, and risk checks</p><h2 id="ccl-home-risk-title">Buy the building with your eyes open.</h2><p>Use condo due diligence, school context, and community guidance to shortlist stronger Calgary condo options.</p></div><div class="ccl-home-trust-grid"><article class="ccl-home-card"><h3>Building-risk guidance</h3><p>Review reserve fund signals, bylaws, insurance, fee pressure, management, special-assessment risk, and resale fit before booking every showing.</p><button type="button" class="ccl-home-cta ccl-home-cta--gold" data-ccl-lead-open data-requested-category="Building Risk Report" data-lead-source="Homepage Trust Section" data-clicked-cta="Request Building Risk Guidance">Request Building Risk Guidance</button></article><article class="ccl-home-card"><h3>School and lifestyle finder</h3><p>Match your condo search to commute, school-area questions, parks, CTrain access, river pathways, groceries, and the way you actually live.</p><button type="button" class="ccl-home-cta ccl-home-cta--glass" data-ccl-lead-open data-requested-category="General Calgary Condo Help" data-lead-source="Homepage Trust Section" data-clicked-cta="Ask About Schools and Lifestyle">Ask About Schools and Lifestyle</button></article><article class="ccl-home-card"><h3>Community guidance</h3><p>Compare Beltline, Downtown Core, Eau Claire, Mission, East Village, Kensington, Bridgeland, Seton, Mahogany, and other Calgary condo markets.</p><a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url(home_url('/calgary-communities/')); ?>" target="_self">Explore Community Guidance</a></article></div></div></section><?php return (string) ob_get_clean(); }
 
     public function render(array $atts = [], ?string $content = null): string {
-        $phone_display = defined('CCL_CONTACT_PHONE_DISPLAY') ? CCL_CONTACT_PHONE_DISPLAY : '+1 (403) 800-6996';
         $phone_tel     = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
         $hero_success  = isset($_GET['ccl_status']) && 'success' === sanitize_key(wp_unslash($_GET['ccl_status']));
         ob_start(); ?>
@@ -127,34 +126,20 @@ final class Calgary_Condo_Homepage {
                     <p class="ccl-eyebrow">Calgary Condo Search</p>
                     <h1 id="clean-calgary-hero-title">Find the Right Calgary Condo Before You Book a Showing</h1>
                     <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with building intelligence. Compare condo fees, bylaws, reserve fund health, parking, storage, and resale fit before booking a showing.</p>
-                    <form action="<?php echo esc_url(home_url('/all-calgary-condos/')); ?>" method="get" target="_self" class="ccl-home-search-card ccl-keyword-search-form" role="search" aria-label="Calgary condo keyword search">
-                        <label class="screen-reader-text" for="ccl-hero-keyword-search">Search Calgary condos, buildings, or areas</label>
-                        <input type="search" id="ccl-hero-keyword-search" name="keyword" class="ccl-home-search-card__input ccl-keyword-search-input" placeholder="Search Calgary condos, buildings, or areas" autocomplete="off" autocapitalize="none" spellcheck="false">
-                        <button type="submit" class="ccl-home-cta ccl-home-cta--gold ccl-home-search-card__button ccl-keyword-search-submit">Search Calgary Condos</button>
-                    </form>
-                    <!-- Secondary CTA: visually below search, glass style so search stays primary -->
-                    <div class="ccl-home-quick-actions" aria-label="Secondary Calgary condo action">
-                        <button type="button" class="ccl-home-cta ccl-home-cta--glass ccl-hero-match-cta" data-ccl-lead-open data-lead-source="Homepage Hero Secondary CTA" data-requested-category="Condo Alerts" data-clicked-cta="Get My Free Calgary Condo Match Report">Get My Free Calgary Condo Match Report</button>
-                    </div>
-                    <!-- Hero lead capture panel: inline Name/Email/Phone form.
-                         To use Fluent Forms instead, replace the <form> block below with:
-                         <?php echo do_shortcode('[fluentform id="YOUR_FORM_ID"]'); ?>
-                         Create a Fluent Form with Name, Email, Phone fields and an
-                         admin notification email, then set YOUR_FORM_ID accordingly. -->
+                    <a class="ccl-home-cta ccl-home-cta--gold ccl-home-hero__primary-cta" href="<?php echo esc_url(home_url('/all-calgary-condos/')); ?>" target="_self">Search Calgary Condos</a>
                     <div class="ccl-hero-lead-panel" id="condo-alerts" aria-label="Get Calgary Condo Alerts">
-                        <p class="ccl-hero-lead-panel__offer">✦ Get Calgary Condo Alerts</p>
                         <?php if ($hero_success) : ?>
                             <p class="ccl-hero-lead-panel__success" role="status"><?php esc_html_e('Thanks — your Calgary condo alert request was received.', 'calgary-condo-leads'); ?></p>
                         <?php else : ?>
                         <form class="ccl-hero-lead-panel__form" method="post" action="">
                             <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                             <input type="hidden" name="ccl_action" value="alert_form">
-                            <input type="hidden" name="ccl_lead_source" value="Homepage Hero Lead Panel">
+                            <input type="hidden" name="ccl_lead_source" value="Homepage Hero Lead Row">
                             <input type="hidden" name="ccl_requested_category" value="Condo Alerts">
                             <div class="ccl-hero-lead-panel__fields">
-                                <input type="text" name="ccl_name" placeholder="<?php esc_attr_e('Your name', 'calgary-condo-leads'); ?>" autocomplete="name" required aria-label="<?php esc_attr_e('Name', 'calgary-condo-leads'); ?>">
-                                <input type="email" name="ccl_email" placeholder="<?php esc_attr_e('Email address', 'calgary-condo-leads'); ?>" autocomplete="email" required aria-label="<?php esc_attr_e('Email', 'calgary-condo-leads'); ?>">
-                                <input type="tel" name="ccl_phone" placeholder="<?php esc_attr_e('Phone (optional)', 'calgary-condo-leads'); ?>" autocomplete="tel" aria-label="<?php esc_attr_e('Phone', 'calgary-condo-leads'); ?>">
+                                <input type="text" name="ccl_name" placeholder="<?php esc_attr_e('Name', 'calgary-condo-leads'); ?>" autocomplete="name" required aria-label="<?php esc_attr_e('Name', 'calgary-condo-leads'); ?>">
+                                <input type="email" name="ccl_email" placeholder="<?php esc_attr_e('Email', 'calgary-condo-leads'); ?>" autocomplete="email" required aria-label="<?php esc_attr_e('Email', 'calgary-condo-leads'); ?>">
+                                <input type="tel" name="ccl_phone" placeholder="<?php esc_attr_e('Phone', 'calgary-condo-leads'); ?>" autocomplete="tel" aria-label="<?php esc_attr_e('Phone', 'calgary-condo-leads'); ?>">
                                 <button type="submit" class="ccl-home-cta ccl-home-cta--gold"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
                             </div>
                             <label class="ccl-hp" for="ccl-hero-lead-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?><input id="ccl-hero-lead-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off"></label>
@@ -162,12 +147,10 @@ final class Calgary_Condo_Homepage {
                         </form>
                         <?php endif; ?>
                     </div>
-                    <p class="ccl-home-hero__phone">Call Calgary Direct: <?php echo esc_html($phone_display); ?></p>
                 </div>
             </section>
-            <!-- CRO Trust Strip: factual signals immediately below hero -->
             <div class="ccl-cro-trust-strip" aria-label="<?php esc_attr_e('Calgary condo trust signals', 'calgary-condo-leads'); ?>">
-                <span>✔ Updated Daily</span><span aria-hidden="true"> · </span><span>✔ Local Calgary Expertise</span><span aria-hidden="true"> · </span><span>✔ Building-Aware Search</span>
+                <span>Updated Daily</span><span aria-hidden="true">·</span><span>Local Calgary Expertise</span><span aria-hidden="true">·</span><span>Building-Aware Search</span>
             </div>
             <?php echo $this->render_buyer_intent(); ?>
             <?php echo $this->render_area_first(); ?>
