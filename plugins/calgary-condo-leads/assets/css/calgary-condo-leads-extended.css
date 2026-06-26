@@ -5533,19 +5533,14 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-hero-lead-panel__fields {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+  grid-template-columns: repeat(3, 1fr) auto;
   gap: 8px;
   align-items: start;
 }
 
 @media (max-width: 960px) {
   .ccl-hero-lead-panel__fields {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .ccl-hero-lead-panel__fields .ccl-home-cta {
-    width: 100%;
-    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
