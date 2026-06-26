@@ -5491,3 +5491,213 @@ body.admin-bar .ccl-floating-lead-widget {
     border-radius: 14px;
   }
 }
+
+/* ==========================================================================
+   CRO Homepage Upgrade — Hero Lead Capture, Trust Strip, Value Cards,
+   Mobile Sticky Bar. Scoped to .ccl-home-hero / .ccl-cro-trust-strip /
+   .ccl-home-intent-card__micro / .ccl-mobile-sticky-bar.
+   Matches existing dark/gold luxury theme variables.
+   ========================================================================== */
+
+/* --- Single primary hero CTA (replaces 5 quick-action pills) --- */
+.ccl-hero-match-cta {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  min-height: 58px;
+  padding-inline: clamp(22px, 4vw, 40px);
+  letter-spacing: -0.01em;
+}
+
+/* --- Hero inline lead capture panel --- */
+.ccl-hero-lead-panel {
+  width: min(680px, 100%);
+  margin: 28px auto 0;
+  padding: 22px 24px 18px;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(18, 18, 18, 0.90), rgba(15, 23, 42, 0.84));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(245, 229, 201, 0.06);
+}
+
+.ccl-hero-lead-panel__offer {
+  color: #D4AF37 !important;
+  font-size: 0.82rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 14px !important;
+  text-shadow: none !important;
+}
+
+.ccl-hero-lead-panel__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr auto;
+  gap: 10px;
+  align-items: start;
+}
+
+.ccl-hero-lead-panel__fields input[type="text"],
+.ccl-hero-lead-panel__fields input[type="email"],
+.ccl-hero-lead-panel__fields input[type="tel"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 14px;
+  border: 1px solid rgba(245, 229, 201, 0.22);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #121212;
+  font: inherit;
+  font-size: 0.93rem;
+  box-sizing: border-box;
+}
+
+.ccl-hero-lead-panel__fields input[type="text"]:focus,
+.ccl-hero-lead-panel__fields input[type="email"]:focus,
+.ccl-hero-lead-panel__fields input[type="tel"]:focus {
+  outline: 3px solid rgba(212, 175, 55, 0.52);
+  outline-offset: 1px;
+  border-color: rgba(212, 175, 55, 0.72);
+}
+
+.ccl-hero-lead-panel__fields .ccl-home-cta {
+  white-space: nowrap;
+  min-height: 48px;
+}
+
+.ccl-hero-lead-panel__trust {
+  color: rgba(245, 229, 201, 0.62) !important;
+  font-size: 0.78rem !important;
+  font-weight: 600 !important;
+  margin: 10px 0 0 !important;
+  text-align: center !important;
+  text-shadow: none !important;
+}
+
+.ccl-hero-lead-panel__success {
+  color: #b9ffd4 !important;
+  background: rgba(46, 204, 113, 0.14);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 800;
+  text-align: center;
+  margin: 0 !important;
+}
+
+/* --- CRO Trust Strip: thin bar below hero --- */
+.ccl-cro-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 14px;
+  padding: 14px 20px;
+  background: rgba(10, 26, 47, 0.96);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #D4AF37;
+}
+
+.ccl-cro-trust-strip span[aria-hidden="true"] {
+  color: rgba(212, 175, 55, 0.40);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* --- Value cards: micro-capture line --- */
+.ccl-home-intent-card__micro {
+  color: #D4AF37 !important;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.04em !important;
+  line-height: 1.45 !important;
+  margin: 8px 0 14px !important;
+  padding: 7px 12px !important;
+  border-left: 2px solid rgba(212, 175, 55, 0.55);
+  background: rgba(212, 175, 55, 0.08);
+  border-radius: 0 8px 8px 0;
+  text-shadow: none !important;
+}
+
+/* --- Mobile sticky bar: Search Condos + Call Calgary Direct --- */
+.ccl-mobile-sticky-bar {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 720px) {
+  /* Suppress old mobile sticky so the new bar takes over */
+  .ccl-home-tight .ccl-intent-help-cta-wrap {
+    position: static !important;
+    background: none !important;
+    border: none !important;
+    padding: 28px 16px 8px !important;
+    z-index: auto !important;
+    margin-top: 0 !important;
+  }
+
+  /* New mobile sticky bar */
+  .ccl-mobile-sticky-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 820;
+    padding: 10px 14px 14px;
+    background: #0a1a2f;
+    border-top: 1px solid rgba(212, 175, 55, 0.38);
+    box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.48);
+  }
+
+  .ccl-mobile-sticky-bar__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-weight: 900;
+    font-size: 0.9rem;
+    text-decoration: none;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    transition: opacity 0.15s ease;
+  }
+
+  .ccl-mobile-sticky-bar__btn:active {
+    opacity: 0.82;
+  }
+
+  .ccl-mobile-sticky-bar__btn--search {
+    background: linear-gradient(180deg, #FFF4E0 0%, #E6C687 30%, #D4AF37 52%, #B38F43 84%, #7A5C1B 100%);
+    color: #121212 !important;
+    border: 1px solid rgba(245, 229, 201, 0.5);
+    box-shadow: 0 8px 22px rgba(212, 175, 55, 0.26);
+  }
+
+  .ccl-mobile-sticky-bar__btn--call {
+    background: linear-gradient(135deg, rgba(18, 18, 18, 0.92), rgba(15, 23, 42, 0.88));
+    color: #F5E5C9 !important;
+    border: 1px solid rgba(212, 175, 55, 0.42);
+  }
+
+  /* Add bottom padding to page so sticky bar doesn't cover content */
+  .ccl-home-tight {
+    padding-bottom: 76px !important;
+  }
+
+  /* Hero lead panel: stack fields on mobile */
+  .ccl-hero-lead-panel__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .ccl-hero-lead-panel__fields .ccl-home-cta {
+    width: 100%;
+  }
+}
