@@ -127,7 +127,7 @@ final class Calgary_Condo_Homepage {
                     <h1 id="clean-calgary-hero-title">Find the Right Calgary Condo Before You Book a Showing</h1>
                     <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with building intelligence before you book a showing.</p>
                     <a class="ccl-home-cta ccl-home-cta--gold ccl-home-hero__primary-cta" href="<?php echo esc_url(home_url('/all-calgary-condos/')); ?>" target="_self">Search Calgary Condos</a>
-                    <div class="ccl-hero-lead-panel" id="condo-alerts" aria-label="Get New Listings &amp; Price Drops First">
+                    <div class="ccl-hero-lead-panel" id="condo-alerts" aria-label="<?php esc_attr_e('Get New Listings & Price Drops First', 'calgary-condo-leads'); ?>">
                         <h2 class="ccl-hero-lead-panel__title"><?php esc_html_e('Get New Listings & Price Drops First', 'calgary-condo-leads'); ?></h2>
                         <p class="ccl-hero-lead-panel__support"><?php esc_html_e('New listings, price drops & building updates.', 'calgary-condo-leads'); ?></p>
                         <?php if ($hero_success) : ?>
