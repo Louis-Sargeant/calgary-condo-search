@@ -5254,7 +5254,7 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(5, 7, 13, 0.92), rgba(10, 18, 36, 0.93) 44%, rgba(18, 18, 18, 0.97)); }
 .ccl-home-hero__content { width: min(1080px, 100%); margin: 0 auto; text-align: center; }
 .ccl-premium-homepage-shell .ccl-eyebrow { color: var(--ccl-gold); letter-spacing: .16em; text-transform: uppercase; font-weight: 900; }
-.ccl-home-hero h1 { margin: 0 auto 16px; max-width: 940px; color: #FFF7E8; font-size: clamp(2.7rem, 5vw, 4.8rem); line-height: 1; letter-spacing: -.05em; font-weight: 950; text-shadow: 0 14px 44px rgba(0,0,0,.88); }
+.ccl-home-hero h1 { margin: 0 auto 16px; max-width: 940px; color: #FFF7E8; font-size: clamp(2.7rem, 5vw, 4.8rem); line-height: 1.1; letter-spacing: -.05em; font-weight: 950; text-shadow: 0 14px 44px rgba(0,0,0,.88); }
 .ccl-home-hero h1 span { display: block; }
 .ccl-home-hero__subtitle { max-width: 840px; margin: 0 auto 20px; color: var(--ccl-champagne); font-size: clamp(1rem, 1.35vw, 1.18rem); line-height: 1.5; font-weight: 700; }
 
@@ -5536,6 +5536,17 @@ body.admin-bar .ccl-floating-lead-widget {
   grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
   gap: 8px;
   align-items: start;
+}
+
+@media (max-width: 960px) {
+  .ccl-hero-lead-panel__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ccl-hero-lead-panel__fields .ccl-home-cta {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
 }
 
 .ccl-hero-lead-panel__fields input[type="text"],
