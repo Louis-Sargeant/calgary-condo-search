@@ -85,20 +85,18 @@ final class Calgary_Condo_Homepage {
         $school_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12.5V17c0 1.66 2.69 3 6 3s6-1.34 6-3v-4.5"/></svg>';
         $park_icon   = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M5 17l7-10 7 10H5z"/></svg>';
         $cards = [
-            ['title' => 'I want to browse condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'micro' => 'Live listings from Calgary\'s approved IDX feed, updated daily.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/', 'icon' => $search_icon],
-            ['title' => 'I own a condo', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'micro' => 'Free building-aware report. No obligation, no spam.', 'button' => 'Get My Condo Value Report', 'category' => 'Condo Value Report', 'icon' => $value_icon],
+            ['title' => 'I Want to Browse Condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'micro' => 'Live listings from Calgary\'s approved IDX feed, updated daily.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/', 'icon' => $search_icon],
+            ['title' => 'I Own a Condo', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'micro' => 'Free building-aware report. No obligation, no spam.', 'button' => 'Get My Condo Value Report', 'category' => 'Condo Value Report', 'icon' => $value_icon],
             ['title' => 'Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary&#8217;s top-ranked designated public and separate school boundaries.', 'micro' => 'Match your condo search to Calgary\'s best school zones.', 'button' => 'Explore School Catchments', 'category' => 'Condo Alerts', 'icon' => $school_icon],
-            ['title' => 'Parks &amp; Pet-Friendly Fields', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'micro' => 'Find off-leash parks and pathways walking distance from your condo.', 'button' => 'Explore Pet-Friendly Areas', 'category' => 'Building Risk Report', 'icon' => $park_icon],
+            ['title' => 'Parks &amp; Pet-Friendly Areas', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'micro' => 'Find off-leash parks and pathways walking distance from your condo.', 'button' => 'Explore Pet-Friendly Areas', 'category' => 'Building Risk Report', 'icon' => $park_icon],
         ];
         ob_start(); ?>
         <section class="ccl-section ccl-home-intent" aria-labelledby="ccl-home-intent-title">
         <div class="ccl-wrap">
         <div class="ccl-home-section-heading"><p class="ccl-eyebrow">Choose your path</p><h2 id="ccl-home-intent-title">One clear next step for every condo visitor.</h2><p>Browse live listings, set alerts, get a value report, or review a building risk before you move forward.</p></div>
-        <div class="ccl-intent-trust-strip" aria-label="Social proof"><span>1,200+ Active Listings</span><span aria-hidden="true"> · </span><span>500+ Happy Buyers</span><span aria-hidden="true"> · </span><span>10 Years in Calgary</span></div>
         <div class="ccl-home-intent__grid">
         <?php foreach ($cards as $card) : ?><article class="ccl-home-card ccl-home-intent-card"><?php if (!empty($card['icon'])) : ?><div class="ccl-intent-card-icon"><?php echo $card['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><?php endif; ?><h3><?php echo esc_html($card['title']); ?></h3><p><?php echo esc_html($card['copy']); ?></p><?php if (!empty($card['micro'])) : ?><p class="ccl-home-intent-card__micro"><?php echo esc_html($card['micro']); ?></p><?php endif; ?><?php if (isset($card['url'])) : ?><a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($card['url'])); ?>" target="_self"><?php echo esc_html($card['button']); ?></a><?php else : ?><button type="button" class="ccl-home-cta ccl-home-cta--gold" data-ccl-lead-open data-lead-source="Homepage Buyer Intent" data-requested-category="<?php echo esc_attr($card['category']); ?>" data-clicked-cta="<?php echo esc_attr($card['button']); ?>"><?php echo esc_html($card['button']); ?></button><?php endif; ?></article><?php endforeach; ?>
         </div>
-        <div class="ccl-intent-help-cta-wrap"><button type="button" class="ccl-home-cta ccl-home-cta--gold ccl-intent-help-cta" data-ccl-lead-open data-lead-source="Homepage Intent Section" data-requested-category="General Calgary Condo Help" data-clicked-cta="Request Condo Help">Request Condo Help</button></div>
         </div></section><?php return (string) ob_get_clean();
     }
 
@@ -127,16 +125,16 @@ final class Calgary_Condo_Homepage {
                 <div class="ccl-home-hero__overlay"></div>
                 <div class="ccl-home-hero__content">
                     <p class="ccl-eyebrow">Calgary Condo Search</p>
-                    <h1 id="clean-calgary-hero-title">Calgary Condos—<span>Compared by Building First.</span></h1>
-                    <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with a cleaner buyer path. Start with an area, building, or alert, then compare condo fees, bylaws, reserve fund signals, parking, storage, and resale fit before booking showings.</p>
+                    <h1 id="clean-calgary-hero-title">Find the Right Calgary Condo Before You Book a Showing</h1>
+                    <p class="ccl-home-hero__subtitle">Search active Calgary condo listings with building intelligence. Compare condo fees, bylaws, reserve fund health, parking, storage, and resale fit before booking a showing.</p>
                     <form action="<?php echo esc_url(home_url('/all-calgary-condos/')); ?>" method="get" target="_self" class="ccl-home-search-card ccl-keyword-search-form" role="search" aria-label="Calgary condo keyword search">
                         <label class="screen-reader-text" for="ccl-hero-keyword-search">Search Calgary condos, buildings, or areas</label>
                         <input type="search" id="ccl-hero-keyword-search" name="keyword" class="ccl-home-search-card__input ccl-keyword-search-input" placeholder="Search Calgary condos, buildings, or areas" autocomplete="off" autocapitalize="none" spellcheck="false">
                         <button type="submit" class="ccl-home-cta ccl-home-cta--gold ccl-home-search-card__button ccl-keyword-search-submit">Search Calgary Condos</button>
                     </form>
-                    <!-- Primary hero CTA: single value-offer replacing 5 quick-action pills -->
-                    <div class="ccl-home-quick-actions" aria-label="Primary Calgary condo action">
-                        <button type="button" class="ccl-home-cta ccl-home-cta--gold ccl-hero-match-cta" data-ccl-lead-open data-lead-source="Homepage Hero Primary CTA" data-requested-category="Condo Alerts" data-clicked-cta="Get My Free Calgary Condo Match Report">Get My Free Calgary Condo Match Report</button>
+                    <!-- Secondary CTA: visually below search, glass style so search stays primary -->
+                    <div class="ccl-home-quick-actions" aria-label="Secondary Calgary condo action">
+                        <button type="button" class="ccl-home-cta ccl-home-cta--glass ccl-hero-match-cta" data-ccl-lead-open data-lead-source="Homepage Hero Secondary CTA" data-requested-category="Condo Alerts" data-clicked-cta="Get My Free Calgary Condo Match Report">Get My Free Calgary Condo Match Report</button>
                     </div>
                     <!-- Hero lead capture panel: inline Name/Email/Phone form.
                          To use Fluent Forms instead, replace the <form> block below with:
@@ -160,16 +158,16 @@ final class Calgary_Condo_Homepage {
                                 <button type="submit" class="ccl-home-cta ccl-home-cta--gold"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
                             </div>
                             <label class="ccl-hp" for="ccl-hero-lead-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?><input id="ccl-hero-lead-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off"></label>
-                            <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('No spam. Direct Calgary condo help from Louis Sargeant.', 'calgary-condo-leads'); ?></p>
+                            <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('No spam. Calgary condo updates only.', 'calgary-condo-leads'); ?></p>
                         </form>
                         <?php endif; ?>
                     </div>
                     <p class="ccl-home-hero__phone">Call Calgary Direct: <?php echo esc_html($phone_display); ?></p>
                 </div>
             </section>
-            <!-- CRO Trust Strip: thin social-proof bar immediately below hero -->
+            <!-- CRO Trust Strip: factual signals immediately below hero -->
             <div class="ccl-cro-trust-strip" aria-label="<?php esc_attr_e('Calgary condo trust signals', 'calgary-condo-leads'); ?>">
-                <span>1,200+ Active Listings</span><span aria-hidden="true"> · </span><span>500+ Buyers Helped</span><span aria-hidden="true"> · </span><span>Updated Daily</span>
+                <span>✔ Updated Daily</span><span aria-hidden="true"> · </span><span>✔ Local Calgary Expertise</span><span aria-hidden="true"> · </span><span>✔ Building-Aware Search</span>
             </div>
             <?php echo $this->render_buyer_intent(); ?>
             <?php echo $this->render_area_first(); ?>

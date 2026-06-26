@@ -2375,6 +2375,14 @@ body.admin-bar .ccl-floating-lead-widget {
   bottom: 16px;
 }
 
+/* Hide floating Request Condo Help widget on desktop for the homepage — keeps hero clean */
+@media (min-width: 721px) {
+  body.page-id-116 .ccl-floating-lead-widget,
+  body:has(.ccl-home-tight) .ccl-floating-lead-widget {
+    display: none !important;
+  }
+}
+
 @media (max-width: 767px) {
   .ccl-floating-lead-widget {
     right: 12px;
@@ -5243,7 +5251,7 @@ body.admin-bar .ccl-floating-lead-widget {
   isolation: isolate;
 }
 
-.ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(5, 7, 13, 0.78), rgba(15, 23, 42, 0.8) 44%, rgba(18, 18, 18, 0.94)); }
+.ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(5, 7, 13, 0.92), rgba(10, 18, 36, 0.93) 44%, rgba(18, 18, 18, 0.97)); }
 .ccl-home-hero__content { width: min(1120px, 100%); margin: 0 auto; text-align: center; }
 .ccl-premium-homepage-shell .ccl-eyebrow { color: var(--ccl-gold); letter-spacing: .16em; text-transform: uppercase; font-weight: 900; }
 .ccl-home-hero h1 { margin: 0 auto 24px; max-width: 1050px; color: #FFF7E8; font-size: clamp(3rem, 6vw, 6.2rem); line-height: .95; letter-spacing: -.06em; font-weight: 950; text-shadow: 0 14px 44px rgba(0,0,0,.88); }
