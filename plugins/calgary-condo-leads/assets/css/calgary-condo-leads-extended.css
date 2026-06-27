@@ -5346,7 +5346,7 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-home-intent__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .ccl-home-intent-card { display: flex; flex-direction: column; min-height: 100%; }
-.ccl-home-intent-card > p:not(.ccl-home-intent-card__micro) { margin: 0 0 0; }
+.ccl-home-intent-card > p:not(.ccl-home-intent-card__micro) { margin: 0; }
 .ccl-home-intent-card .ccl-home-cta { margin-top: auto; width: 100%; }
 .ccl-home-area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .ccl-home-area-card strong { color: var(--ccl-gold); }
