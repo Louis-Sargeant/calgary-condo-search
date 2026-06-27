@@ -5346,7 +5346,8 @@ body.admin-bar .ccl-floating-lead-widget {
 
 .ccl-home-intent__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .ccl-home-intent-card { display: flex; flex-direction: column; min-height: 100%; }
-.ccl-home-intent-card .ccl-home-cta { margin-top: auto; }
+.ccl-home-intent-card > p:not(.ccl-home-intent-card__micro) { margin: 0; }
+.ccl-home-intent-card .ccl-home-cta { margin-top: auto; width: 100%; }
 .ccl-home-area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .ccl-home-area-card strong { color: var(--ccl-gold); }
 .ccl-home-building-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
@@ -5417,8 +5418,8 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-home-intent .ccl-home-section-heading h2 { font-weight: 700; }
 .ccl-home-intent .ccl-home-section-heading > p:not(.ccl-eyebrow) { font-weight: 300; }
 
-/* Increase spacing between heading, trust strip, cards, and bottom CTA */
-.ccl-home-intent .ccl-home-section-heading { margin-bottom: 20px; }
+/* Increase spacing between heading and cards (+24px, from 20px → 44px) */
+.ccl-home-intent .ccl-home-section-heading { margin-bottom: 44px; }
 .ccl-home-intent .ccl-home-intent__grid { margin-bottom: 0; }
 
 /* Trust strip */
@@ -5457,16 +5458,19 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-home-intent .ccl-home-intent__grid { align-items: stretch; }
 .ccl-home-intent-card { height: 100%; }
 
-/* Card hover: gold border glow + translateY lift */
+/* Card hover: metallic gold glow + translateY lift + button brightens */
 .ccl-home-intent-card {
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 .ccl-home-intent-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(212, 175, 55, 0.85);
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.16),
-              0 28px 64px rgba(0, 0, 0, 0.46),
-              0 0 32px rgba(212, 175, 55, 0.26);
+  transform: translateY(-6px);
+  border-color: rgba(212, 175, 55, 0.92);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.22),
+              0 28px 64px rgba(0, 0, 0, 0.48),
+              0 0 40px rgba(212, 175, 55, 0.32);
+}
+.ccl-home-intent-card:hover .ccl-home-cta {
+  filter: brightness(1.1);
 }
 
 /* Inline centered "Request Condo Help" CTA below cards — desktop */
