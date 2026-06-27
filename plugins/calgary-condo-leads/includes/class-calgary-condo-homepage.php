@@ -80,22 +80,33 @@ final class Calgary_Condo_Homepage {
     }
 
     private function render_buyer_intent(): string {
-        $search_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>';
-        $value_icon  = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V13h6v8"/><path d="M12 10v1m0 0c-.83 0-1.5.45-1.5 1s.67 1 1.5 1 1.5.45 1.5 1-.67 1-1.5 1M12 15v1"/></svg>';
-        $school_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12.5V17c0 1.66 2.69 3 6 3s6-1.34 6-3v-4.5"/></svg>';
-        $park_icon   = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M5 17l7-10 7 10H5z"/></svg>';
+        $search_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>';
+        $value_icon  = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V13h6v8"/><path d="M12 10v1m0 0c-.83 0-1.5.45-1.5 1s.67 1 1.5 1 1.5.45 1.5 1-.67 1-1.5 1M12 15v1"/></svg>';
+        $school_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12.5V17c0 1.66 2.69 3 6 3s6-1.34 6-3v-4.5"/></svg>';
+        $park_icon   = '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M5 17l7-10 7 10H5z"/></svg>';
         $cards = [
-            ['title' => 'I Want to Browse Condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'micro' => 'Live listings from Calgary\'s approved IDX feed, updated daily.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/', 'icon' => $search_icon],
-            ['title' => 'I Own a Condo', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'micro' => 'Free building-aware report. No obligation, no spam.', 'button' => 'Get My Condo Value Report', 'category' => 'Condo Value Report', 'icon' => $value_icon],
-            ['title' => 'Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary&#8217;s top-ranked designated public and separate school boundaries.', 'micro' => 'Match your condo search to Calgary\'s best school zones.', 'button' => 'Explore School Catchments', 'category' => 'Condo Alerts', 'icon' => $school_icon],
-            ['title' => 'Parks &amp; Pet-Friendly Areas', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'micro' => 'Find off-leash parks and pathways walking distance from your condo.', 'button' => 'Explore Pet-Friendly Areas', 'category' => 'Building Risk Report', 'icon' => $park_icon],
+            ['title' => 'Browse Calgary Condos', 'copy' => 'Search Calgary condo listings updated daily.', 'button' => 'Browse Listings →', 'url' => '/all-calgary-condos/', 'category' => 'Search Calgary Condos', 'icon' => $search_icon],
+            ['title' => 'Compare Condo Buildings', 'copy' => 'Compare buildings before you buy.', 'button' => 'Compare Buildings →', 'url' => '/calgary-condo-buildings/', 'category' => 'Compare Condo Buildings', 'icon' => $value_icon],
+            ['title' => 'Top School Catchments', 'copy' => 'Explore Calgary\'s top school catchments.', 'button' => 'Explore Schools →', 'url' => '/calgary-communities/#ccl-school-catchments', 'category' => 'Top School Catchments', 'icon' => $school_icon],
+            ['title' => 'Parks &amp; Pet-Friendly Areas', 'copy' => 'Discover parks, pathways and pet-friendly communities.', 'button' => 'Explore Communities →', 'url' => '/calgary-condo-buildings/pet-friendly-buildings/', 'category' => 'Parks and Pet-Friendly Areas', 'icon' => $park_icon],
         ];
         ob_start(); ?>
         <section class="ccl-section ccl-home-intent" aria-labelledby="ccl-home-intent-title">
         <div class="ccl-wrap">
-        <div class="ccl-home-section-heading"><p class="ccl-eyebrow">Choose your path</p><h2 id="ccl-home-intent-title">One clear next step for every condo visitor.</h2><p>Browse live listings, set alerts, get a value report, or review a building risk before you move forward.</p></div>
+        <div class="ccl-home-section-heading"><p class="ccl-eyebrow">Choose your path</p><h2 id="ccl-home-intent-title">Choose Your Calgary Condo Journey</h2><p>Browse live listings, compare condo buildings, explore top school catchments, or discover Calgary&#8217;s best parks and pet-friendly communities.</p></div>
         <div class="ccl-home-intent__grid">
-        <?php foreach ($cards as $card) : ?><article class="ccl-home-card ccl-home-intent-card"><?php if (!empty($card['icon'])) : ?><div class="ccl-intent-card-icon"><?php echo $card['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div><?php endif; ?><h3><?php echo esc_html($card['title']); ?></h3><p><?php echo esc_html($card['copy']); ?></p><?php if (!empty($card['micro'])) : ?><p class="ccl-home-intent-card__micro"><?php echo esc_html($card['micro']); ?></p><?php endif; ?><?php if (isset($card['url'])) : ?><a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($card['url'])); ?>" target="_self"><?php echo esc_html($card['button']); ?></a><?php else : ?><button type="button" class="ccl-home-cta ccl-home-cta--gold" data-ccl-lead-open data-lead-source="Homepage Buyer Intent" data-requested-category="<?php echo esc_attr($card['category']); ?>" data-clicked-cta="<?php echo esc_attr($card['button']); ?>"><?php echo esc_html($card['button']); ?></button><?php endif; ?></article><?php endforeach; ?>
+        <?php foreach ($cards as $card) : ?>
+            <article class="ccl-home-card ccl-home-intent-card">
+                <?php if (!empty($card['icon'])) : ?>
+                    <div class="ccl-intent-card-icon">
+                        <?php echo $card['icon']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                    </div>
+                <?php endif; ?>
+                <h3><?php echo esc_html($card['title']); ?></h3>
+                <p><?php echo esc_html($card['copy']); ?></p>
+                <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($card['url'])); ?>" target="_self" data-lead-source="Homepage Buyer Intent" data-requested-category="<?php echo esc_attr($card['category']); ?>" data-clicked-cta="<?php echo esc_attr($card['button']); ?>"><?php echo esc_html($card['button']); ?></a>
+            </article>
+        <?php endforeach; ?>
         </div>
         </div></section><?php return (string) ob_get_clean();
     }
