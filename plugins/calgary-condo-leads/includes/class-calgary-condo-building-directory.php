@@ -117,6 +117,15 @@ final class Calgary_Condo_Building_Directory {
         return trim((string) preg_replace('/\s+/', ' ', (string) preg_replace('/[^a-z0-9]+/', ' ', strtolower($term))));
     }
 
+    /**
+     * Return the hard-coded fallback building directory rows.
+     *
+     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     */
+    public static function fallback_buildings(): array {
+        return self::BUILDINGS;
+    }
+
     public function database_shortcode(): string {
         $columns = '';
         foreach (self::VISUAL_DIRECTORY_CARDS as $heading => $items) {
@@ -255,10 +264,22 @@ HTML;
             'update_post_meta_cache' => true,
         ]);
 
+        if (Calgary_Condo_Building_Data_Mode::is_array_first()) {
+            return !empty(self::BUILDINGS) ? self::BUILDINGS : $this->normalize_posts_to_buildings($posts);
+        }
+
         if (empty($posts)) {
             return self::BUILDINGS;
         }
 
+        return $this->normalize_posts_to_buildings($posts);
+    }
+
+    /**
+     * @param array<int,WP_Post> $posts
+     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     */
+    private function normalize_posts_to_buildings(array $posts): array {
         $buildings = [];
         foreach ($posts as $post) {
             $area  = (string) get_post_meta($post->ID, 'building_community', true);

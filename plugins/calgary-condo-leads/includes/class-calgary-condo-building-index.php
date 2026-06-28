@@ -89,6 +89,10 @@ final class Calgary_Condo_Building_Index {
      * @return array{name:string,taxonomy:string}|null Term metadata, or null if unrecognised.
      */
     private function resolve_term(string $slug): ?array {
+        if (Calgary_Condo_Building_Data_Mode::is_array_first() && isset(self::INDEX_TERMS[$slug])) {
+            return self::INDEX_TERMS[$slug];
+        }
+
         foreach (['ccl_building_community', 'ccl_building_profile'] as $taxonomy) {
             $term = get_term_by('slug', $slug, $taxonomy);
             if ($term instanceof WP_Term && !is_wp_error($term)) {
