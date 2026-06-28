@@ -20,6 +20,11 @@ final class Calgary_Condo_Building_Seeder {
     private const IMPORT_KEY_META = '_ccl_building_import_key';
     private const DUPLICATE_DETECTION_LIMIT = 2;
     private const MISMATCH_REPORT_POST_LIMIT = 1000;
+    private const LEGACY_POST_TYPES = [
+        'ccl_buildings',
+        'ccl_condo_building',
+        'ccl_condo_buildings',
+    ];
 
     /**
      * Source data stays hard-coded and unchanged in frontend files.
@@ -206,7 +211,9 @@ final class Calgary_Condo_Building_Seeder {
             }
 
             $existing_id = !empty($existing_ids) ? (int) $existing_ids[0] : 0;
+            $existing_post_type = $existing_id > 0 ? (string) get_post_type($existing_id) : '';
             $is_update = $existing_id > 0;
+            $needs_post_type_migration = $is_update && Calgary_Condo_Building_CPT::POST_TYPE !== $existing_post_type;
             $has_changes = !$is_update || $this->has_changes($existing_id, $prepared);
 
             if (!$has_changes) {
@@ -226,7 +233,18 @@ final class Calgary_Condo_Building_Seeder {
 
             if ($is_update) {
                 $counts['updated']++;
-                $rows[] = $this->row_result($prepared, 'updated', $write ? __('Updated.', 'calgary-condo-leads') : __('Would update.', 'calgary-condo-leads'), $existing_id);
+                if ($needs_post_type_migration) {
+                    $rows[] = $this->row_result(
+                        $prepared,
+                        'updated',
+                        $write
+                            ? sprintf(__('Updated and migrated post type from %1$s to %2$s.', 'calgary-condo-leads'), $existing_post_type, Calgary_Condo_Building_CPT::POST_TYPE)
+                            : sprintf(__('Would update and migrate post type from %1$s to %2$s.', 'calgary-condo-leads'), $existing_post_type, Calgary_Condo_Building_CPT::POST_TYPE),
+                        $existing_id
+                    );
+                } else {
+                    $rows[] = $this->row_result($prepared, 'updated', $write ? __('Updated.', 'calgary-condo-leads') : __('Would update.', 'calgary-condo-leads'), $existing_id);
+                }
             } else {
                 $counts['created']++;
                 $rows[] = $this->row_result($prepared, 'created', $write ? __('Created.', 'calgary-condo-leads') : __('Would create.', 'calgary-condo-leads'));
@@ -269,7 +287,7 @@ final class Calgary_Condo_Building_Seeder {
         }
 
         $query = new WP_Query([
-            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
+            'post_type' => $this->queryable_post_types(),
             'post_status' => 'any',
             'posts_per_page' => self::DUPLICATE_DETECTION_LIMIT,
             'fields' => 'ids',
@@ -285,7 +303,28 @@ final class Calgary_Condo_Building_Seeder {
         return array_map('intval', $query->posts);
     }
 
+    /**
+     * @return array<int,string>
+     */
+    private function queryable_post_types(): array {
+        $post_types = array_merge([Calgary_Condo_Building_CPT::POST_TYPE], self::LEGACY_POST_TYPES);
+        $normalized = [];
+        foreach ($post_types as $post_type) {
+            $candidate = sanitize_key((string) $post_type);
+            if ('' === $candidate || in_array($candidate, $normalized, true)) {
+                continue;
+            }
+            $normalized[] = $candidate;
+        }
+
+        return $normalized;
+    }
+
     private function has_changes(int $post_id, array $source): bool {
+        if ((string) get_post_type($post_id) !== Calgary_Condo_Building_CPT::POST_TYPE) {
+            return true;
+        }
+
         if (get_the_title($post_id) !== $source['name']) {
             return true;
         }
