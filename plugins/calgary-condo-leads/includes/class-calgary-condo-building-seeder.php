@@ -19,6 +19,7 @@ final class Calgary_Condo_Building_Seeder {
     private const DATA_MODE_NONCE_ACTION = 'ccl_building_data_mode_nonce';
     private const IMPORT_KEY_META = '_ccl_building_import_key';
     private const DUPLICATE_DETECTION_LIMIT = 2;
+    private const MISMATCH_REPORT_POST_LIMIT = 1000;
 
     /**
      * Source data stays hard-coded and unchanged in frontend files.
@@ -115,7 +116,7 @@ final class Calgary_Condo_Building_Seeder {
     }
 
     public function handle_dry_run(): void {
-        $this->assert_admin_request(self::DRY_RUN_NONCE_ACTION);
+        $this->assert_admin_request(self::DRY_RUN_NONCE_ACTION, 'ccl_building_seeder_nonce');
 
         $summary = $this->run_import(false);
         $data = [
@@ -129,12 +130,11 @@ final class Calgary_Condo_Building_Seeder {
 
         error_log('Calgary Condo Building Seeder dry-run: ' . wp_json_encode($summary['counts']));
 
-        wp_safe_redirect($this->admin_page_url());
-        exit;
+        $this->redirect_to_admin_page();
     }
 
     public function handle_import(): void {
-        $this->assert_admin_request(self::IMPORT_NONCE_ACTION);
+        $this->assert_admin_request(self::IMPORT_NONCE_ACTION, 'ccl_building_seeder_nonce');
 
         $confirm = isset($_POST['confirm_import']) ? sanitize_text_field(wp_unslash($_POST['confirm_import'])) : '';
         $token = isset($_POST['dry_run_token']) ? sanitize_text_field(wp_unslash($_POST['dry_run_token'])) : '';
@@ -156,18 +156,28 @@ final class Calgary_Condo_Building_Seeder {
 
         error_log('Calgary Condo Building Seeder import: ' . wp_json_encode($summary['counts']));
 
-        wp_safe_redirect($this->admin_page_url());
-        exit;
+        $this->redirect_to_admin_page();
     }
 
     public function handle_data_mode_update(): void {
         $this->assert_admin_request(self::DATA_MODE_NONCE_ACTION, 'ccl_building_data_mode_nonce');
 
-        $mode = isset($_POST['ccl_building_data_mode']) ? sanitize_text_field(wp_unslash($_POST['ccl_building_data_mode'])) : '';
-        update_option(Calgary_Condo_Building_Data_Mode::OPTION_KEY, Calgary_Condo_Building_Data_Mode::sanitize_mode($mode), false);
+        if (!isset($_POST['ccl_building_data_mode'])) {
+            $this->redirect_to_admin_page();
+        }
 
-        wp_safe_redirect($this->admin_page_url());
-        exit;
+        $mode = sanitize_key(wp_unslash($_POST['ccl_building_data_mode']));
+        $allowed_modes = [
+            Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST,
+            Calgary_Condo_Building_Data_Mode::MODE_ARRAY_FIRST,
+        ];
+        if (!in_array($mode, $allowed_modes, true)) {
+            $mode = Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST;
+        }
+
+        update_option(Calgary_Condo_Building_Data_Mode::OPTION_KEY, $mode, false);
+
+        $this->redirect_to_admin_page();
     }
 
     private function run_import(bool $write): array {
@@ -435,16 +445,18 @@ final class Calgary_Condo_Building_Seeder {
         ?>
         <h2><?php esc_html_e('Building data source mode', 'calgary-condo-leads'); ?></h2>
         <p><?php esc_html_e('Use this switch for controlled cutover or instant rollback between CPT-first and array-first fallback mode.', 'calgary-condo-leads'); ?></p>
+        <?php $cpt_mode_id = 'ccl_building_data_mode_cpt_first'; ?>
+        <?php $array_mode_id = 'ccl_building_data_mode_array_first'; ?>
         <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
             <input type="hidden" name="action" value="<?php echo esc_attr(self::DATA_MODE_ACTION); ?>" />
             <?php wp_nonce_field(self::DATA_MODE_NONCE_ACTION, 'ccl_building_data_mode_nonce'); ?>
-            <label>
-                <input type="radio" name="ccl_building_data_mode" value="<?php echo esc_attr(Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST); ?>" <?php checked($mode, Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST); ?> />
+            <input id="<?php echo esc_attr($cpt_mode_id); ?>" type="radio" name="ccl_building_data_mode" value="<?php echo esc_attr(Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST); ?>" <?php checked($mode, Calgary_Condo_Building_Data_Mode::MODE_CPT_FIRST); ?> />
+            <label for="<?php echo esc_attr($cpt_mode_id); ?>">
                 <?php esc_html_e('CPT-first mode (Phase 1 default)', 'calgary-condo-leads'); ?>
             </label>
             <br />
-            <label>
-                <input type="radio" name="ccl_building_data_mode" value="<?php echo esc_attr(Calgary_Condo_Building_Data_Mode::MODE_ARRAY_FIRST); ?>" <?php checked($mode, Calgary_Condo_Building_Data_Mode::MODE_ARRAY_FIRST); ?> />
+            <input id="<?php echo esc_attr($array_mode_id); ?>" type="radio" name="ccl_building_data_mode" value="<?php echo esc_attr(Calgary_Condo_Building_Data_Mode::MODE_ARRAY_FIRST); ?>" <?php checked($mode, Calgary_Condo_Building_Data_Mode::MODE_ARRAY_FIRST); ?> />
+            <label for="<?php echo esc_attr($array_mode_id); ?>">
                 <?php esc_html_e('Array-first fallback mode (instant rollback)', 'calgary-condo-leads'); ?>
             </label>
             <?php submit_button(__('Save data source mode', 'calgary-condo-leads')); ?>
@@ -458,6 +470,12 @@ final class Calgary_Condo_Building_Seeder {
         <h2><?php esc_html_e('Array ↔ CPT mismatch report', 'calgary-condo-leads'); ?></h2>
         <p><?php esc_html_e('Admin-only read-only report. This does not create, update, or delete any building posts.', 'calgary-condo-leads'); ?></p>
 
+        <?php if (!empty($report['cpt_limit_hit'])) : ?>
+            <div class="notice notice-warning inline" role="status">
+                <p><strong><?php echo esc_html(sprintf(__('Mismatch report is limited to the first %d ccl_building posts.', 'calgary-condo-leads'), self::MISMATCH_REPORT_POST_LIMIT)); ?></strong></p>
+            </div>
+        <?php endif; ?>
+
         <h3><?php esc_html_e('In hard-coded arrays but missing from ccl_building posts', 'calgary-condo-leads'); ?></h3>
         <?php $this->render_mismatch_rows($report['array_missing_in_cpt']); ?>
 
@@ -467,7 +485,7 @@ final class Calgary_Condo_Building_Seeder {
     }
 
     /**
-     * @return array{array_missing_in_cpt:array<int,array{name:string,community:string,key:string}>,cpt_missing_in_array:array<int,array{name:string,community:string,key:string}>}
+     * @return array{array_missing_in_cpt:array<int,array{name:string,community:string,key:string}>,cpt_missing_in_array:array<int,array{name:string,community:string,key:string}>,cpt_limit_hit:bool}
      */
     private function build_mismatch_report(): array {
         $array_rows = [];
@@ -488,13 +506,17 @@ final class Calgary_Condo_Building_Seeder {
         $cpt_rows = [];
         $posts = get_posts([
             'post_type' => 'ccl_building',
-            'post_status' => 'any',
-            'posts_per_page' => -1,
+            'post_status' => 'publish',
+            'posts_per_page' => self::MISMATCH_REPORT_POST_LIMIT + 1,
             'orderby' => 'title',
             'order' => 'ASC',
             'no_found_rows' => true,
             'update_post_meta_cache' => true,
         ]);
+        $cpt_limit_hit = count($posts) > self::MISMATCH_REPORT_POST_LIMIT;
+        if ($cpt_limit_hit) {
+            $posts = array_slice($posts, 0, self::MISMATCH_REPORT_POST_LIMIT);
+        }
 
         foreach ($posts as $post) {
             $name = sanitize_text_field((string) $post->post_title);
@@ -516,6 +538,7 @@ final class Calgary_Condo_Building_Seeder {
         return [
             'array_missing_in_cpt' => $array_missing_in_cpt,
             'cpt_missing_in_array' => $cpt_missing_in_array,
+            'cpt_limit_hit' => $cpt_limit_hit,
         ];
     }
 
@@ -539,9 +562,9 @@ final class Calgary_Condo_Building_Seeder {
             <tbody>
             <?php foreach ($rows as $row) : ?>
                 <tr>
-                    <td><?php echo esc_html((string) ($row['name'] ?? '')); ?></td>
-                    <td><?php echo esc_html((string) ($row['community'] ?? '')); ?></td>
-                    <td><code><?php echo esc_html((string) ($row['key'] ?? '')); ?></code></td>
+                    <td><?php echo esc_html($row['name']); ?></td>
+                    <td><?php echo esc_html($row['community']); ?></td>
+                    <td><code><?php echo esc_html($row['key']); ?></code></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -549,18 +572,23 @@ final class Calgary_Condo_Building_Seeder {
         <?php
     }
 
-    private function assert_admin_request(string $nonce_action, string $nonce_field = 'ccl_building_seeder_nonce'): void {
+    private function assert_admin_request(string $nonce_action, string $nonce_name): void {
         if (!current_user_can('manage_options')) {
             wp_die(esc_html__('You do not have permission to run this action.', 'calgary-condo-leads'));
         }
 
-        check_admin_referer($nonce_action, $nonce_field);
+        check_admin_referer($nonce_action, $nonce_name);
     }
 
     private function admin_page_url(): string {
         return add_query_arg([
             'page' => self::PAGE_SLUG,
         ], admin_url('tools.php'));
+    }
+
+    private function redirect_to_admin_page(): void {
+        wp_safe_redirect($this->admin_page_url());
+        exit;
     }
 
     private function dry_run_transient_key(): string {

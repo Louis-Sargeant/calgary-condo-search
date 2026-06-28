@@ -89,6 +89,8 @@ final class Calgary_Condo_Building_Index {
      * @return array{name:string,taxonomy:string}|null Term metadata, or null if unrecognised.
      */
     private function resolve_term(string $slug): ?array {
+        // Array-first mode intentionally bypasses live taxonomy lookup so the
+        // hard-coded route matrix can be restored instantly during rollback.
         if (Calgary_Condo_Building_Data_Mode::is_array_first() && isset(self::INDEX_TERMS[$slug])) {
             return self::INDEX_TERMS[$slug];
         }

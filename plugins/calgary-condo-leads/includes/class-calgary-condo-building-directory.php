@@ -252,6 +252,10 @@ HTML;
      * @return array<int,array{name:string,area:string,type:string,focus:string}>
      */
     private function get_buildings_data(): array {
+        if (Calgary_Condo_Building_Data_Mode::is_array_first()) {
+            return $this->get_array_first_buildings_data();
+        }
+
         // update_post_meta_cache is true by default in WP_Query; set explicitly
         // so that all meta is fetched in one query before the foreach loop.
         $posts = get_posts([
@@ -264,15 +268,32 @@ HTML;
             'update_post_meta_cache' => true,
         ]);
 
-        if (Calgary_Condo_Building_Data_Mode::is_array_first()) {
-            return !empty(self::BUILDINGS) ? self::BUILDINGS : $this->normalize_posts_to_buildings($posts);
-        }
-
         if (empty($posts)) {
             return self::BUILDINGS;
         }
 
         return $this->normalize_posts_to_buildings($posts);
+    }
+
+    /**
+     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     */
+    private function get_array_first_buildings_data(): array {
+        if (!empty(self::BUILDINGS)) {
+            return self::BUILDINGS;
+        }
+
+        $posts = get_posts([
+            'post_type'              => 'ccl_building',
+            'post_status'            => 'publish',
+            'posts_per_page'         => -1,
+            'orderby'                => 'title',
+            'order'                  => 'ASC',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => true,
+        ]);
+
+        return empty($posts) ? [] : $this->normalize_posts_to_buildings($posts);
     }
 
     /**
