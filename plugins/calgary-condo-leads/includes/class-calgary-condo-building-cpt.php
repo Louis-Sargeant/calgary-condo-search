@@ -17,6 +17,8 @@ final class Calgary_Condo_Building_CPT {
         add_action('init', [$this, 'register_post_type']);
         add_action('init', [$this, 'register_taxonomies']);
         add_action('init', [$this, 'ensure_default_terms'], 20);
+        add_action('admin_menu', [$this, 'ensure_buildings_admin_submenu'], 100);
+        add_action('admin_init', [$this, 'redirect_legacy_buildings_admin_screen']);
         add_filter('the_content', [$this, 'render_building_profile']);
     }
 
@@ -71,6 +73,56 @@ final class Calgary_Condo_Building_CPT {
                 'rewrite' => ['slug' => 'calgary-condo-buildings/profile'],
             ]);
         }
+    }
+
+    public function ensure_buildings_admin_submenu(): void {
+        $parent_slug = 'edit.php?post_type=ccl_lead';
+        $legacy_slug = 'edit.php?post_type=building';
+        $canonical_slug = 'edit.php?post_type=' . self::POST_TYPE;
+
+        remove_submenu_page($parent_slug, $legacy_slug);
+
+        global $submenu;
+        if (!isset($submenu[$parent_slug]) || !is_array($submenu[$parent_slug])) {
+            return;
+        }
+
+        foreach ($submenu[$parent_slug] as $item) {
+            if (!is_array($item)) {
+                continue;
+            }
+
+            if (($item[2] ?? '') === $canonical_slug) {
+                return;
+            }
+        }
+
+        add_submenu_page(
+            $parent_slug,
+            __('Buildings', 'calgary-condo-leads'),
+            __('Buildings', 'calgary-condo-leads'),
+            'edit_posts',
+            $canonical_slug
+        );
+    }
+
+    public function redirect_legacy_buildings_admin_screen(): void {
+        if (!is_admin()) {
+            return;
+        }
+
+        $post_type = '';
+        if (isset($_GET['post_type'])) {
+            $post_type = sanitize_key(wp_unslash($_GET['post_type']));
+        }
+
+        if ('building' !== $post_type) {
+            return;
+        }
+
+        $target_url = admin_url('edit.php?post_type=' . self::POST_TYPE);
+        wp_safe_redirect($target_url);
+        exit;
     }
 
 
