@@ -57,7 +57,8 @@ final class Calgary_Condo_Building_Index {
             return;
         }
 
-        if (!isset(self::INDEX_TERMS[$slug])) {
+        $term = $this->resolve_term($slug);
+        if (null === $term) {
             return;
         }
 
@@ -71,13 +72,34 @@ final class Calgary_Condo_Building_Index {
         status_header(200);
         nocache_headers();
         get_header();
-        echo $this->render_index($slug); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo $this->render_index($slug, $term); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         get_footer();
         exit;
     }
 
-    private function render_index(string $slug): string {
-        $term = self::INDEX_TERMS[$slug];
+    /**
+     * Resolve term metadata for a community/profile route slug.
+     *
+     * Checks the ccl_building_community and ccl_building_profile CPT taxonomy
+     * terms first (CPT-present scenario). Falls back to the hard-coded
+     * INDEX_TERMS constant when no live taxonomy term exists (CPT-absent
+     * scenario), preserving all existing routes.
+     *
+     * @param string $slug URL slug from the /calgary-condo-buildings/{slug}/ path.
+     * @return array{name:string,taxonomy:string}|null Term metadata, or null if unrecognised.
+     */
+    private function resolve_term(string $slug): ?array {
+        foreach (['ccl_building_community', 'ccl_building_profile'] as $taxonomy) {
+            $term = get_term_by('slug', $slug, $taxonomy);
+            if ($term instanceof WP_Term && !is_wp_error($term)) {
+                return ['name' => $term->name, 'taxonomy' => $taxonomy];
+            }
+        }
+
+        return self::INDEX_TERMS[$slug] ?? null;
+    }
+
+    private function render_index(string $slug, array $term): string {
         $query = new WP_Query([
             'post_type' => 'ccl_building',
             'post_status' => 'publish',
