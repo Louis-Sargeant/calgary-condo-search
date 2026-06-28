@@ -1,0 +1,442 @@
+<?php
+/**
+ * Admin-only dry-run building seeder/importer.
+ *
+ * @package CalgaryCondoLeads
+ */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+final class Calgary_Condo_Building_Seeder {
+    private const PAGE_SLUG = 'ccl-building-seeder';
+    private const DRY_RUN_ACTION = 'ccl_building_seeder_dry_run';
+    private const IMPORT_ACTION = 'ccl_building_seeder_import';
+    private const DRY_RUN_NONCE_ACTION = 'ccl_building_seeder_dry_run_nonce';
+    private const IMPORT_NONCE_ACTION = 'ccl_building_seeder_import_nonce';
+    private const IMPORT_KEY_META = '_ccl_building_import_key';
+
+    /**
+     * Source data stays hard-coded and unchanged in frontend files.
+     *
+     * @var array<int,array<string,string>>
+     */
+    private const SOURCE_BUILDINGS = [
+        ['name' => 'The Guardian', 'area' => 'Victoria Park / Beltline', 'type' => 'High-rise', 'focus' => 'Downtown access, views, newer tower product'],
+        ['name' => 'Keynote Urban Village', 'area' => 'Beltline / Victoria Park', 'type' => 'High-rise', 'focus' => 'Walkability, amenities, downtown lifestyle'],
+        ['name' => 'Arriva', 'area' => 'Victoria Park', 'type' => 'Luxury high-rise', 'focus' => 'Larger plans, premium building profile'],
+        ['name' => 'Sasso', 'area' => 'Victoria Park', 'type' => 'High-rise', 'focus' => 'Stampede Park access, Beltline value'],
+        ['name' => 'Vetro', 'area' => 'Victoria Park', 'type' => 'High-rise', 'focus' => 'Beltline location and amenity access'],
+        ['name' => 'Colours', 'area' => 'Beltline', 'type' => 'Concrete high-rise', 'focus' => 'Urban loft-style layouts'],
+        ['name' => 'Union Square', 'area' => 'Beltline', 'type' => 'Concrete high-rise', 'focus' => 'Central Beltline ownership'],
+        ['name' => 'Avenue West End', 'area' => 'Downtown West End', 'type' => 'Luxury high-rise', 'focus' => 'River pathway and downtown access'],
+        ['name' => 'Vogue', 'area' => 'Downtown West End', 'type' => 'High-rise', 'focus' => 'Downtown living, concierge-style positioning'],
+        ['name' => 'Princeton Grand', 'area' => 'Eau Claire', 'type' => 'Luxury low-rise', 'focus' => 'Premium riverfront positioning'],
+        ['name' => 'Churchill Estates', 'area' => 'Downtown Commercial Core', 'type' => 'Luxury tower', 'focus' => 'Large suites and central business district access'],
+        ['name' => 'Evolution', 'area' => 'East Village', 'type' => 'High-rise', 'focus' => 'River pathways, library, downtown east growth'],
+        ['name' => 'Verve', 'area' => 'East Village', 'type' => 'High-rise', 'focus' => 'Modern East Village lifestyle'],
+        ['name' => 'Ink', 'area' => 'East Village', 'type' => 'Entry-level high-rise', 'focus' => 'Entry-level downtown ownership'],
+        ['name' => 'Bridgeland Crossing', 'area' => 'Bridgeland', 'type' => 'Mid-rise', 'focus' => 'C-Train, river, inner-city neighbourhood feel'],
+        ['name' => 'Radius', 'area' => 'Bridgeland', 'type' => 'Concrete mid-rise', 'focus' => 'Modern building, inner-city lifestyle'],
+    ];
+
+    public function __construct() {
+        if (!is_admin()) {
+            return;
+        }
+
+        add_action('admin_menu', [$this, 'register_admin_page']);
+        add_action('admin_post_' . self::DRY_RUN_ACTION, [$this, 'handle_dry_run']);
+        add_action('admin_post_' . self::IMPORT_ACTION, [$this, 'handle_import']);
+    }
+
+    public function register_admin_page(): void {
+        add_management_page(
+            __('Calgary Building Seeder', 'calgary-condo-leads'),
+            __('Calgary Building Seeder', 'calgary-condo-leads'),
+            'manage_options',
+            self::PAGE_SLUG,
+            [$this, 'render_admin_page']
+        );
+    }
+
+    public function render_admin_page(): void {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('You do not have permission to access this page.', 'calgary-condo-leads'));
+        }
+
+        $dry_run_data = get_transient($this->dry_run_transient_key());
+        $import_data = get_transient($this->import_transient_key());
+        ?>
+        <div class="wrap">
+            <h1><?php esc_html_e('Calgary Condo Building Seeder (Admin Only)', 'calgary-condo-leads'); ?></h1>
+            <p><?php esc_html_e('Step 1 runs a dry-run and previews the results. Step 2 requires explicit confirmation before any writes.', 'calgary-condo-leads'); ?></p>
+
+            <h2><?php esc_html_e('Step 1: Dry-run (no writes)', 'calgary-condo-leads'); ?></h2>
+            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                <input type="hidden" name="action" value="<?php echo esc_attr(self::DRY_RUN_ACTION); ?>" />
+                <?php wp_nonce_field(self::DRY_RUN_NONCE_ACTION, 'ccl_building_seeder_nonce'); ?>
+                <?php submit_button(__('Run dry-run', 'calgary-condo-leads')); ?>
+            </form>
+
+            <?php if (is_array($dry_run_data) && !empty($dry_run_data['summary'])) : ?>
+                <h2><?php esc_html_e('Dry-run summary', 'calgary-condo-leads'); ?></h2>
+                <?php $this->render_summary($dry_run_data['summary']); ?>
+                <?php $this->render_rows($dry_run_data['summary']); ?>
+
+                <h2><?php esc_html_e('Step 2: Confirm import writes', 'calgary-condo-leads'); ?></h2>
+                <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                    <input type="hidden" name="action" value="<?php echo esc_attr(self::IMPORT_ACTION); ?>" />
+                    <input type="hidden" name="dry_run_token" value="<?php echo esc_attr((string) ($dry_run_data['token'] ?? '')); ?>" />
+                    <?php wp_nonce_field(self::IMPORT_NONCE_ACTION, 'ccl_building_seeder_nonce'); ?>
+                    <label>
+                        <input type="checkbox" name="confirm_import" value="yes" required />
+                        <?php esc_html_e('I confirm I want to create/update ccl_building posts using the dry-run preview above.', 'calgary-condo-leads'); ?>
+                    </label>
+                    <?php submit_button(__('Run confirmed import', 'calgary-condo-leads'), 'primary'); ?>
+                </form>
+            <?php endif; ?>
+
+            <?php if (is_array($import_data) && !empty($import_data['summary'])) : ?>
+                <h2><?php esc_html_e('Import results', 'calgary-condo-leads'); ?></h2>
+                <?php $this->render_summary($import_data['summary']); ?>
+                <?php $this->render_rows($import_data['summary']); ?>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    public function handle_dry_run(): void {
+        $this->assert_admin_request(self::DRY_RUN_NONCE_ACTION);
+
+        $summary = $this->run_import(false);
+        $data = [
+            'token' => wp_generate_uuid4(),
+            'summary' => $summary,
+            'created_at' => time(),
+        ];
+
+        set_transient($this->dry_run_transient_key(), $data, 30 * MINUTE_IN_SECONDS);
+        set_transient($this->import_transient_key(), null, MINUTE_IN_SECONDS);
+
+        error_log('Calgary Condo Building Seeder dry-run: ' . wp_json_encode($summary['counts']));
+
+        wp_safe_redirect($this->admin_page_url());
+        exit;
+    }
+
+    public function handle_import(): void {
+        $this->assert_admin_request(self::IMPORT_NONCE_ACTION);
+
+        $confirm = isset($_POST['confirm_import']) ? sanitize_text_field(wp_unslash($_POST['confirm_import'])) : '';
+        $token = isset($_POST['dry_run_token']) ? sanitize_text_field(wp_unslash($_POST['dry_run_token'])) : '';
+        $dry_run_data = get_transient($this->dry_run_transient_key());
+
+        if ('yes' !== $confirm || !is_array($dry_run_data) || $token === '' || !hash_equals((string) ($dry_run_data['token'] ?? ''), $token)) {
+            wp_die(esc_html__('Import confirmation is invalid or expired. Please run dry-run again.', 'calgary-condo-leads'));
+        }
+
+        $summary = $this->run_import(true);
+        set_transient(
+            $this->import_transient_key(),
+            [
+                'summary' => $summary,
+                'created_at' => time(),
+            ],
+            30 * MINUTE_IN_SECONDS
+        );
+
+        error_log('Calgary Condo Building Seeder import: ' . wp_json_encode($summary['counts']));
+
+        wp_safe_redirect($this->admin_page_url());
+        exit;
+    }
+
+    private function run_import(bool $write): array {
+        $counts = [
+            'created' => 0,
+            'updated' => 0,
+            'skipped' => 0,
+            'failed' => 0,
+        ];
+        $rows = [];
+
+        foreach (self::SOURCE_BUILDINGS as $source) {
+            $prepared = $this->prepare_source($source);
+
+            if ('' === $prepared['name'] || '' === $prepared['community']) {
+                $counts['failed']++;
+                $rows[] = $this->row_result($prepared, 'failed', __('Missing required name/community source fields.', 'calgary-condo-leads'));
+                continue;
+            }
+
+            $existing_ids = $this->find_existing_ids($prepared['import_key']);
+            if (count($existing_ids) > 1) {
+                $counts['failed']++;
+                $rows[] = $this->row_result($prepared, 'failed', __('Duplicate import key exists in current data.', 'calgary-condo-leads'));
+                continue;
+            }
+
+            $existing_id = !empty($existing_ids) ? (int) $existing_ids[0] : 0;
+            $is_update = $existing_id > 0;
+            $has_changes = !$is_update || $this->has_changes($existing_id, $prepared);
+
+            if (!$has_changes) {
+                $counts['skipped']++;
+                $rows[] = $this->row_result($prepared, 'skipped', __('Already up-to-date.', 'calgary-condo-leads'), $existing_id);
+                continue;
+            }
+
+            if ($write) {
+                $persisted_id = $this->persist_building($existing_id, $prepared);
+                if ($persisted_id <= 0) {
+                    $counts['failed']++;
+                    $rows[] = $this->row_result($prepared, 'failed', __('Unable to persist building.', 'calgary-condo-leads'), $existing_id);
+                    continue;
+                }
+            }
+
+            if ($is_update) {
+                $counts['updated']++;
+                $rows[] = $this->row_result($prepared, 'updated', $write ? __('Updated.', 'calgary-condo-leads') : __('Would update.', 'calgary-condo-leads'), $existing_id);
+            } else {
+                $counts['created']++;
+                $rows[] = $this->row_result($prepared, 'created', $write ? __('Created.', 'calgary-condo-leads') : __('Would create.', 'calgary-condo-leads'));
+            }
+        }
+
+        return [
+            'mode' => $write ? 'import' : 'dry-run',
+            'counts' => $counts,
+            'rows' => $rows,
+            'generated_at' => current_time('mysql'),
+        ];
+    }
+
+    private function prepare_source(array $source): array {
+        $name = sanitize_text_field((string) ($source['name'] ?? ''));
+        $area = sanitize_text_field((string) ($source['area'] ?? ''));
+        $type = sanitize_text_field((string) ($source['type'] ?? ''));
+        $focus = sanitize_text_field((string) ($source['focus'] ?? ''));
+        $community = $this->extract_community($area);
+
+        return [
+            'name' => $name,
+            'area' => $area,
+            'community' => $community,
+            'type' => $type,
+            'focus' => $focus,
+            'import_key' => $this->build_import_key($name, $community),
+        ];
+    }
+
+    /**
+     * @return array<int,int>
+     */
+    private function find_existing_ids(string $import_key): array {
+        if ('' === $import_key) {
+            return [];
+        }
+
+        $query = new WP_Query([
+            'post_type' => 'ccl_building',
+            'post_status' => 'any',
+            'posts_per_page' => 2,
+            'fields' => 'ids',
+            'meta_query' => [
+                [
+                    'key' => self::IMPORT_KEY_META,
+                    'value' => $import_key,
+                ],
+            ],
+            'no_found_rows' => true,
+        ]);
+
+        return array_map('intval', $query->posts);
+    }
+
+    private function has_changes(int $post_id, array $source): bool {
+        if (get_the_title($post_id) !== $source['name']) {
+            return true;
+        }
+
+        if ((string) get_post_field('post_content', $post_id) !== $source['focus']) {
+            return true;
+        }
+
+        if ((string) get_post_field('post_excerpt', $post_id) !== $source['area']) {
+            return true;
+        }
+
+        if ((string) get_post_meta($post_id, 'building_community', true) !== $source['community']) {
+            return true;
+        }
+
+        if ((string) get_post_meta($post_id, 'building_construction_type', true) !== $source['type']) {
+            return true;
+        }
+
+        if ((string) get_post_meta($post_id, self::IMPORT_KEY_META, true) !== $source['import_key']) {
+            return true;
+        }
+
+        $community_terms = wp_get_post_terms($post_id, 'ccl_building_community', ['fields' => 'names']);
+        if (is_wp_error($community_terms)) {
+            return true;
+        }
+
+        foreach ($community_terms as $term_name) {
+            if (0 === strcasecmp((string) $term_name, $source['community'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private function persist_building(int $existing_id, array $source): int {
+        $postarr = [
+            'post_type' => 'ccl_building',
+            'post_status' => 'publish',
+            'post_title' => $source['name'],
+            'post_content' => $source['focus'],
+            'post_excerpt' => $source['area'],
+        ];
+
+        if ($existing_id > 0) {
+            $postarr['ID'] = $existing_id;
+            $post_id = wp_update_post($postarr, true);
+        } else {
+            $post_id = wp_insert_post($postarr, true);
+        }
+
+        if (is_wp_error($post_id) || !$post_id) {
+            return 0;
+        }
+
+        update_post_meta($post_id, self::IMPORT_KEY_META, $source['import_key']);
+        update_post_meta($post_id, 'building_community', $source['community']);
+        update_post_meta($post_id, 'building_construction_type', $source['type']);
+
+        if (!empty($source['mrp_shortcode'])) {
+            update_post_meta($post_id, 'building_mrp_shortcode', (string) $source['mrp_shortcode']);
+        }
+
+        $term_result = wp_set_post_terms($post_id, [$source['community']], 'ccl_building_community', false);
+        if (is_wp_error($term_result)) {
+            return 0;
+        }
+
+        return (int) $post_id;
+    }
+
+    private function build_import_key(string $name, string $community): string {
+        $normalized_name = $this->normalize_for_key($name);
+        $normalized_community = $this->normalize_for_key($community);
+
+        return $normalized_name . '|' . $normalized_community;
+    }
+
+    private function normalize_for_key(string $value): string {
+        $value = strtolower(trim($value));
+        $value = remove_accents($value);
+        $value = (string) preg_replace('/[^a-z0-9]+/', ' ', $value);
+        $value = (string) preg_replace('/\s+/', ' ', $value);
+
+        return trim($value);
+    }
+
+    private function extract_community(string $area): string {
+        $parts = preg_split('/\//', $area);
+        if (is_array($parts)) {
+            foreach ($parts as $part) {
+                $candidate = trim((string) $part);
+                if ('' !== $candidate) {
+                    return $candidate;
+                }
+            }
+        }
+
+        return trim($area);
+    }
+
+    private function row_result(array $source, string $action, string $message, int $post_id = 0): array {
+        return [
+            'name' => $source['name'],
+            'community' => $source['community'],
+            'key' => $source['import_key'],
+            'action' => $action,
+            'message' => $message,
+            'post_id' => $post_id,
+        ];
+    }
+
+    private function render_summary(array $summary): void {
+        $counts = is_array($summary['counts'] ?? null) ? $summary['counts'] : [];
+        ?>
+        <p><strong><?php echo esc_html(sprintf(__('Mode: %s', 'calgary-condo-leads'), (string) ($summary['mode'] ?? ''))); ?></strong></p>
+        <ul>
+            <li><?php echo esc_html(sprintf(__('Created: %d', 'calgary-condo-leads'), (int) ($counts['created'] ?? 0))); ?></li>
+            <li><?php echo esc_html(sprintf(__('Updated: %d', 'calgary-condo-leads'), (int) ($counts['updated'] ?? 0))); ?></li>
+            <li><?php echo esc_html(sprintf(__('Skipped: %d', 'calgary-condo-leads'), (int) ($counts['skipped'] ?? 0))); ?></li>
+            <li><?php echo esc_html(sprintf(__('Failed: %d', 'calgary-condo-leads'), (int) ($counts['failed'] ?? 0))); ?></li>
+        </ul>
+        <?php
+    }
+
+    private function render_rows(array $summary): void {
+        $rows = is_array($summary['rows'] ?? null) ? $summary['rows'] : [];
+        if (empty($rows)) {
+            return;
+        }
+        ?>
+        <table class="widefat striped">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e('Building', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Community', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Import Key', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Action', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Details', 'calgary-condo-leads'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($rows as $row) : ?>
+                <tr>
+                    <td><?php echo esc_html((string) ($row['name'] ?? '')); ?></td>
+                    <td><?php echo esc_html((string) ($row['community'] ?? '')); ?></td>
+                    <td><code><?php echo esc_html((string) ($row['key'] ?? '')); ?></code></td>
+                    <td><?php echo esc_html((string) ($row['action'] ?? '')); ?></td>
+                    <td><?php echo esc_html((string) ($row['message'] ?? '')); ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
+    private function assert_admin_request(string $nonce_action): void {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('You do not have permission to run this action.', 'calgary-condo-leads'));
+        }
+
+        check_admin_referer($nonce_action, 'ccl_building_seeder_nonce');
+    }
+
+    private function admin_page_url(): string {
+        return add_query_arg([
+            'page' => self::PAGE_SLUG,
+        ], admin_url('tools.php'));
+    }
+
+    private function dry_run_transient_key(): string {
+        return 'ccl_building_seeder_dry_run_' . get_current_user_id();
+    }
+
+    private function import_transient_key(): string {
+        return 'ccl_building_seeder_import_' . get_current_user_id();
+    }
+}
+
+new Calgary_Condo_Building_Seeder();
