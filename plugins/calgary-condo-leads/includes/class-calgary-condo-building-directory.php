@@ -259,7 +259,7 @@ HTML;
         // update_post_meta_cache is true by default in WP_Query; set explicitly
         // so that all meta is fetched in one query before the foreach loop.
         $posts = get_posts([
-            'post_type'              => 'ccl_building',
+            'post_type'              => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status'            => 'publish',
             'posts_per_page'         => -1,
             'orderby'                => 'title',
@@ -284,7 +284,7 @@ HTML;
         }
 
         $posts = get_posts([
-            'post_type'              => 'ccl_building',
+            'post_type'              => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status'            => 'publish',
             'posts_per_page'         => -1,
             'orderby'                => 'title',
