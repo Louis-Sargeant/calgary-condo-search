@@ -211,10 +211,16 @@ final class Calgary_Condo_Building_Seeder {
             }
 
             $existing_id = !empty($existing_ids) ? (int) $existing_ids[0] : 0;
-            $existing_post_type = $existing_id > 0 ? (string) get_post_type($existing_id) : '';
+            $existing_post_type = '';
+            if ($existing_id > 0) {
+                $resolved_post_type = get_post_type($existing_id);
+                if (is_string($resolved_post_type)) {
+                    $existing_post_type = $resolved_post_type;
+                }
+            }
             $is_update = $existing_id > 0;
             $needs_post_type_migration = $is_update && Calgary_Condo_Building_CPT::POST_TYPE !== $existing_post_type;
-            $has_changes = !$is_update || $this->has_changes($existing_id, $prepared);
+            $has_changes = !$is_update || $this->has_changes($existing_id, $prepared, $existing_post_type);
 
             if (!$has_changes) {
                 $counts['skipped']++;
@@ -308,20 +314,25 @@ final class Calgary_Condo_Building_Seeder {
      */
     private function queryable_post_types(): array {
         $post_types = array_merge([Calgary_Condo_Building_CPT::POST_TYPE], self::LEGACY_POST_TYPES);
+        $seen = [];
         $normalized = [];
         foreach ($post_types as $post_type) {
             $candidate = sanitize_key((string) $post_type);
-            if ('' === $candidate || in_array($candidate, $normalized, true)) {
+            if ('' === $candidate || isset($seen[$candidate])) {
                 continue;
             }
+            $seen[$candidate] = true;
             $normalized[] = $candidate;
         }
 
         return $normalized;
     }
 
-    private function has_changes(int $post_id, array $source): bool {
-        if ((string) get_post_type($post_id) !== Calgary_Condo_Building_CPT::POST_TYPE) {
+    /**
+     * Returns true when data differs or when the existing post type is legacy.
+     */
+    private function has_changes(int $post_id, array $source, string $post_type): bool {
+        if ($post_type !== Calgary_Condo_Building_CPT::POST_TYPE) {
             return true;
         }
 
