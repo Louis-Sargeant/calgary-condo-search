@@ -16,6 +16,7 @@ final class Calgary_Condo_Building_Seeder {
     private const DRY_RUN_NONCE_ACTION = 'ccl_building_seeder_dry_run_nonce';
     private const IMPORT_NONCE_ACTION = 'ccl_building_seeder_import_nonce';
     private const IMPORT_KEY_META = '_ccl_building_import_key';
+    private const DUPLICATE_DETECTION_LIMIT = 2;
 
     /**
      * Source data stays hard-coded and unchanged in frontend files.
@@ -118,7 +119,7 @@ final class Calgary_Condo_Building_Seeder {
         ];
 
         set_transient($this->dry_run_transient_key(), $data, 30 * MINUTE_IN_SECONDS);
-        set_transient($this->import_transient_key(), null, MINUTE_IN_SECONDS);
+        delete_transient($this->import_transient_key());
 
         error_log('Calgary Condo Building Seeder dry-run: ' . wp_json_encode($summary['counts']));
 
@@ -220,6 +221,7 @@ final class Calgary_Condo_Building_Seeder {
         $type = sanitize_text_field((string) ($source['type'] ?? ''));
         $focus = sanitize_text_field((string) ($source['focus'] ?? ''));
         $community = $this->extract_community($area);
+        $mrp_shortcode = sanitize_text_field((string) ($source['mrp_shortcode'] ?? ''));
 
         return [
             'name' => $name,
@@ -227,6 +229,7 @@ final class Calgary_Condo_Building_Seeder {
             'community' => $community,
             'type' => $type,
             'focus' => $focus,
+            'mrp_shortcode' => $mrp_shortcode,
             'import_key' => $this->build_import_key($name, $community),
         ];
     }
@@ -242,7 +245,7 @@ final class Calgary_Condo_Building_Seeder {
         $query = new WP_Query([
             'post_type' => 'ccl_building',
             'post_status' => 'any',
-            'posts_per_page' => 2,
+            'posts_per_page' => self::DUPLICATE_DETECTION_LIMIT,
             'fields' => 'ids',
             'meta_query' => [
                 [
@@ -286,13 +289,11 @@ final class Calgary_Condo_Building_Seeder {
             return true;
         }
 
-        foreach ($community_terms as $term_name) {
-            if (0 === strcasecmp((string) $term_name, $source['community'])) {
-                return false;
-            }
+        if (count($community_terms) !== 1) {
+            return true;
         }
 
-        return true;
+        return 0 !== strcasecmp((string) $community_terms[0], $source['community']);
     }
 
     private function persist_building(int $existing_id, array $source): int {
@@ -319,7 +320,7 @@ final class Calgary_Condo_Building_Seeder {
         update_post_meta($post_id, 'building_community', $source['community']);
         update_post_meta($post_id, 'building_construction_type', $source['type']);
 
-        if (!empty($source['mrp_shortcode'])) {
+        if ('' !== (string) ($source['mrp_shortcode'] ?? '')) {
             update_post_meta($post_id, 'building_mrp_shortcode', (string) $source['mrp_shortcode']);
         }
 
@@ -348,13 +349,10 @@ final class Calgary_Condo_Building_Seeder {
     }
 
     private function extract_community(string $area): string {
-        $parts = preg_split('/\//', $area);
-        if (is_array($parts)) {
-            foreach ($parts as $part) {
-                $candidate = trim((string) $part);
-                if ('' !== $candidate) {
-                    return $candidate;
-                }
+        foreach (explode('/', $area) as $part) {
+            $candidate = trim((string) $part);
+            if ('' !== $candidate) {
+                return $candidate;
             }
         }
 
