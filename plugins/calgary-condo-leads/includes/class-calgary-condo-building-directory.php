@@ -243,13 +243,16 @@ HTML;
      * @return array<int,array{name:string,area:string,type:string,focus:string}>
      */
     private function get_buildings_data(): array {
+        // update_post_meta_cache is true by default in WP_Query; set explicitly
+        // so that all meta is fetched in one query before the foreach loop.
         $posts = get_posts([
-            'post_type'      => 'ccl_building',
-            'post_status'    => 'publish',
-            'posts_per_page' => -1,
-            'orderby'        => 'title',
-            'order'          => 'ASC',
-            'no_found_rows'  => true,
+            'post_type'              => 'ccl_building',
+            'post_status'            => 'publish',
+            'posts_per_page'         => -1,
+            'orderby'                => 'title',
+            'order'                  => 'ASC',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => true,
         ]);
 
         if (empty($posts)) {
@@ -260,6 +263,8 @@ HTML;
         foreach ($posts as $post) {
             $area  = (string) get_post_meta($post->ID, 'building_community', true);
             $type  = (string) get_post_meta($post->ID, 'building_construction_type', true);
+            // post_excerpt is used for the card focus line; empty strings render
+            // a blank <p> which is acceptable and consistent with the card template.
             $focus = trim(wp_strip_all_tags((string) $post->post_excerpt));
 
             $buildings[] = [
