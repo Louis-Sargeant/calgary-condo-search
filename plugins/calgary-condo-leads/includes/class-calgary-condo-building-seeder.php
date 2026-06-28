@@ -269,7 +269,7 @@ final class Calgary_Condo_Building_Seeder {
         }
 
         $query = new WP_Query([
-            'post_type' => 'ccl_building',
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => 'any',
             'posts_per_page' => self::DUPLICATE_DETECTION_LIMIT,
             'fields' => 'ids',
@@ -324,7 +324,7 @@ final class Calgary_Condo_Building_Seeder {
 
     private function persist_building(int $existing_id, array $source): int {
         $postarr = [
-            'post_type' => 'ccl_building',
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => 'publish',
             'post_title' => $source['name'],
             'post_content' => $source['focus'],
@@ -505,7 +505,7 @@ final class Calgary_Condo_Building_Seeder {
 
         $cpt_rows = [];
         $posts = get_posts([
-            'post_type' => 'ccl_building',
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => self::MISMATCH_REPORT_POST_LIMIT + 1,
             'orderby' => 'title',

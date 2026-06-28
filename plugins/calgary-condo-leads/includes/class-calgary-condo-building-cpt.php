@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Building_CPT {
+    public const POST_TYPE = 'ccl_building';
     private const FALLBACK = 'Details coming soon — verify building information before making decisions.';
 
     public function __construct() {
@@ -20,14 +21,15 @@ final class Calgary_Condo_Building_CPT {
     }
 
     public function register_post_type(): void {
-        if (post_type_exists('ccl_building')) {
+        if (post_type_exists(self::POST_TYPE)) {
             return;
         }
 
-        register_post_type('ccl_building', [
+        register_post_type(self::POST_TYPE, [
             'labels' => [
                 'name' => __('Calgary Condo Buildings', 'calgary-condo-leads'),
                 'singular_name' => __('Condo Building', 'calgary-condo-leads'),
+                'menu_name' => __('Buildings', 'calgary-condo-leads'),
                 'add_new_item' => __('Add New Condo Building', 'calgary-condo-leads'),
                 'edit_item' => __('Edit Condo Building', 'calgary-condo-leads'),
                 'view_item' => __('View Condo Building', 'calgary-condo-leads'),
@@ -37,6 +39,7 @@ final class Calgary_Condo_Building_CPT {
             'has_archive' => true,
             'rewrite' => ['slug' => 'calgary-condo-buildings'],
             'menu_icon' => 'dashicons-building',
+            'show_in_menu' => 'edit.php?post_type=ccl_lead',
             'show_in_rest' => true,
             'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'revisions'],
         ]);
@@ -44,7 +47,7 @@ final class Calgary_Condo_Building_CPT {
 
     public function register_taxonomies(): void {
         if (!taxonomy_exists('ccl_building_community')) {
-            register_taxonomy('ccl_building_community', ['ccl_building'], [
+            register_taxonomy('ccl_building_community', [self::POST_TYPE], [
                 'labels' => [
                     'name' => __('Building Communities', 'calgary-condo-leads'),
                     'singular_name' => __('Building Community', 'calgary-condo-leads'),
@@ -57,7 +60,7 @@ final class Calgary_Condo_Building_CPT {
         }
 
         if (!taxonomy_exists('ccl_building_profile')) {
-            register_taxonomy('ccl_building_profile', ['ccl_building'], [
+            register_taxonomy('ccl_building_profile', [self::POST_TYPE], [
                 'labels' => [
                     'name' => __('Building Profiles', 'calgary-condo-leads'),
                     'singular_name' => __('Building Profile', 'calgary-condo-leads'),
@@ -99,7 +102,7 @@ final class Calgary_Condo_Building_CPT {
         }
     }
     public function render_building_profile(string $content): string {
-        if (is_admin() || !is_singular('ccl_building') || !in_the_loop() || !is_main_query()) {
+        if (is_admin() || !is_singular(self::POST_TYPE) || !in_the_loop() || !is_main_query()) {
             return $content;
         }
 

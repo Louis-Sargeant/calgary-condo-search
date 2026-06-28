@@ -107,7 +107,7 @@ final class Calgary_Condo_Building_Index {
 
     private function render_index(string $slug, array $term): string {
         $query = new WP_Query([
-            'post_type' => 'ccl_building',
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => 24,
             'orderby' => 'title',
