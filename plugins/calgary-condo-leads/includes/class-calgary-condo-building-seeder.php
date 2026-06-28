@@ -115,6 +115,7 @@ final class Calgary_Condo_Building_Seeder {
                 <?php $this->render_rows($import_data['summary']); ?>
             <?php endif; ?>
 
+            <?php $this->render_admin_diagnostics(); ?>
             <?php $this->render_mismatch_report(); ?>
         </div>
         <?php
@@ -512,6 +513,107 @@ final class Calgary_Condo_Building_Seeder {
             <?php submit_button(__('Save data source mode', 'calgary-condo-leads')); ?>
         </form>
         <?php
+    }
+
+    private function render_admin_diagnostics(): void {
+        $counts = $this->build_post_type_status_counts(['building', Calgary_Condo_Building_CPT::POST_TYPE]);
+        $queryable_post_types = $this->queryable_post_types();
+        ?>
+        <h2><?php esc_html_e('Admin diagnostics (temporary)', 'calgary-condo-leads'); ?></h2>
+        <p><?php esc_html_e('Read-only diagnostics for troubleshooting Buildings admin visibility.', 'calgary-condo-leads'); ?></p>
+        <ul>
+            <li><?php echo esc_html(sprintf(__('CPT constant slug: %s', 'calgary-condo-leads'), Calgary_Condo_Building_CPT::POST_TYPE)); ?></li>
+            <li><?php echo esc_html(sprintf(__('Canonical admin list URL: %s', 'calgary-condo-leads'), admin_url('edit.php?post_type=' . Calgary_Condo_Building_CPT::POST_TYPE))); ?></li>
+            <li><?php echo esc_html(sprintf(__('Legacy admin list URL: %s', 'calgary-condo-leads'), admin_url('edit.php?post_type=building'))); ?></li>
+            <li><?php echo esc_html(sprintf(__('Seeder query post_type values: %s', 'calgary-condo-leads'), implode(', ', $queryable_post_types))); ?></li>
+            <li><?php esc_html_e('Seeder query post_status: any', 'calgary-condo-leads'); ?></li>
+            <li><?php echo esc_html(sprintf(__('Seeder write post_type: %s', 'calgary-condo-leads'), Calgary_Condo_Building_CPT::POST_TYPE)); ?></li>
+            <li><?php esc_html_e('Seeder write post_status: publish', 'calgary-condo-leads'); ?></li>
+        </ul>
+        <table class="widefat striped">
+            <thead>
+                <tr>
+                    <th><?php esc_html_e('Post Type', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Post Status', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Count', 'calgary-condo-leads'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($counts as $row) : ?>
+                    <tr>
+                        <td><code><?php echo esc_html($row['post_type']); ?></code></td>
+                        <td><code><?php echo esc_html($row['post_status']); ?></code></td>
+                        <td><?php echo esc_html((string) $row['count']); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
+    /**
+     * @param array<int,string> $post_types
+     * @return array<int,array{post_type:string,post_status:string,count:int}>
+     */
+    private function build_post_type_status_counts(array $post_types): array {
+        global $wpdb;
+
+        $normalized_types = [];
+        foreach ($post_types as $post_type) {
+            $candidate = sanitize_key((string) $post_type);
+            if ('' === $candidate || in_array($candidate, $normalized_types, true)) {
+                continue;
+            }
+            $normalized_types[] = $candidate;
+        }
+
+        if (empty($normalized_types)) {
+            return [];
+        }
+
+        $placeholders = implode(', ', array_fill(0, count($normalized_types), '%s'));
+        $sql = "SELECT post_type, post_status, COUNT(*) AS post_count
+            FROM {$wpdb->posts}
+            WHERE post_type IN ($placeholders)
+            GROUP BY post_type, post_status
+            ORDER BY post_type ASC, post_status ASC";
+        $prepared = $wpdb->prepare($sql, ...$normalized_types);
+        if (!is_string($prepared)) {
+            return [];
+        }
+
+        $results = $wpdb->get_results($prepared, ARRAY_A);
+        if (!is_array($results)) {
+            $results = [];
+        }
+
+        $rows = [];
+        $existing = [];
+        foreach ($results as $result) {
+            $post_type = sanitize_key((string) ($result['post_type'] ?? ''));
+            $post_status = sanitize_key((string) ($result['post_status'] ?? ''));
+            $count = (int) ($result['post_count'] ?? 0);
+            $key = $post_type . '|' . $post_status;
+            $existing[$key] = true;
+            $rows[] = [
+                'post_type' => $post_type,
+                'post_status' => $post_status,
+                'count' => $count,
+            ];
+        }
+
+        foreach ($normalized_types as $post_type) {
+            $key = $post_type . '|(none)';
+            if (!isset($existing[$key])) {
+                $rows[] = [
+                    'post_type' => $post_type,
+                    'post_status' => '(none)',
+                    'count' => 0,
+                ];
+            }
+        }
+
+        return $rows;
     }
 
     private function render_mismatch_report(): void {
