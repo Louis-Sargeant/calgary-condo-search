@@ -35,6 +35,7 @@ require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-risk-modal.
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-lead-modal.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-homepage.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-area-pages.php';
+require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-data-mode.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-directory.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-search-router.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-cpt.php';
