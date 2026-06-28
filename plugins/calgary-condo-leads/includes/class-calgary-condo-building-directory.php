@@ -232,9 +232,55 @@ CSS;
 HTML;
     }
 
+    /**
+     * Return the list of buildings to display in the directory.
+     *
+     * Queries published ccl_building CPT posts first and normalises each post
+     * into the same ['name','area','type','focus'] shape used by the hard-coded
+     * BUILDINGS constant. Falls back to the hard-coded constant when no
+     * published ccl_building posts exist (CPT-absent scenario).
+     *
+     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     */
+    private function get_buildings_data(): array {
+        // update_post_meta_cache is true by default in WP_Query; set explicitly
+        // so that all meta is fetched in one query before the foreach loop.
+        $posts = get_posts([
+            'post_type'              => 'ccl_building',
+            'post_status'            => 'publish',
+            'posts_per_page'         => -1,
+            'orderby'                => 'title',
+            'order'                  => 'ASC',
+            'no_found_rows'          => true,
+            'update_post_meta_cache' => true,
+        ]);
+
+        if (empty($posts)) {
+            return self::BUILDINGS;
+        }
+
+        $buildings = [];
+        foreach ($posts as $post) {
+            $area  = (string) get_post_meta($post->ID, 'building_community', true);
+            $type  = (string) get_post_meta($post->ID, 'building_construction_type', true);
+            // post_excerpt is used for the card focus line; empty strings render
+            // a blank <p> which is acceptable and consistent with the card template.
+            $focus = trim(wp_strip_all_tags((string) $post->post_excerpt));
+
+            $buildings[] = [
+                'name'  => $post->post_title,
+                'area'  => $area,
+                'type'  => $type,
+                'focus' => $focus,
+            ];
+        }
+
+        return $buildings;
+    }
+
     private function directory_section(bool $include_intro): string {
         $cards = '';
-        foreach (self::BUILDINGS as $building) {
+        foreach ($this->get_buildings_data() as $building) {
             $name = esc_html($building['name']);
             $area = esc_html($building['area']);
             $type = esc_html($building['type']);
