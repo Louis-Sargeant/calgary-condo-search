@@ -100,8 +100,35 @@ final class Calgary_Condo_Homepage {
         </div></section><?php return (string) ob_get_clean();
     }
 
-    private function render_area_first(): string { ob_start(); ?>
-        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Area-first search</p><h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2><p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p></div><div class="ccl-home-area-grid"><?php foreach ($this->area_cards() as $area) : ?><article class="ccl-home-card ccl-home-area-card"><span>Calgary condo area</span><h3><?php if (!empty($area['title_url'])) : ?><a class="ccl-home-area-card__title-link" href="<?php echo esc_url(home_url($area['title_url'])); ?>" target="_self"><?php echo esc_html($area['name']); ?></a><?php else : ?><?php echo esc_html($area['name']); ?><?php endif; ?></h3><p><?php echo esc_html($area['copy']); ?></p><a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($area['url'])); ?>" target="_self">View area condos →</a></article><?php endforeach; ?></div></div></section><?php return (string) ob_get_clean(); }
+    private function render_area_first(): string {
+        ob_start(); ?>
+        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title">
+            <div class="ccl-wrap">
+                <div class="ccl-home-section-heading">
+                    <p class="ccl-eyebrow">Area-first search</p>
+                    <h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2>
+                    <p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p>
+                </div>
+                <div class="ccl-home-area-grid">
+                    <?php foreach ($this->area_cards() as $area) : ?>
+                        <article class="ccl-home-card ccl-home-area-card">
+                            <span>Calgary condo area</span>
+                            <h3>
+                                <?php if (!empty($area['title_url'])) : ?>
+                                    <a class="ccl-home-area-card__title-link" href="<?php echo esc_url(home_url($area['title_url'])); ?>" target="_self"><?php echo esc_html($area['name']); ?></a>
+                                <?php else : ?>
+                                    <?php echo esc_html($area['name']); ?>
+                                <?php endif; ?>
+                            </h3>
+                            <p><?php echo esc_html($area['copy']); ?></p>
+                            <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($area['url'])); ?>" target="_self">View area condos →</a>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php return (string) ob_get_clean();
+    }
 
     private function render_building_first(): string { ob_start(); ?>
         <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Building-first search</p><h2 id="ccl-home-building-title">Search by building, not just price.</h2><p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p></div><div class="ccl-home-building-grid"><?php foreach ($this->building_cards() as $building) : ?><article class="ccl-home-card ccl-home-building-card"><span><?php echo esc_html($building['area']); ?></span><h3><?php echo esc_html($building['name']); ?></h3><p><?php echo esc_html($building['type']); ?> buyers should compare fees, documents, parking, storage, bylaws, insurance, management, and resale fit.</p><button type="button" class="ccl-home-cta ccl-home-cta--glass" data-ccl-lead-open data-requested-category="Building Risk Report" data-lead-source="Building Directory Card" data-clicked-cta="<?php echo esc_attr('Building profile request: ' . $building['name']); ?>">Ask About This Building</button></article><?php endforeach; ?></div></div></section><?php return (string) ob_get_clean(); }
