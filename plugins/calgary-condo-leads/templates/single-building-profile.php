@@ -32,6 +32,8 @@ $fields = [
     __('Rental Constraints', 'calgary-condo-leads') => 'ccl_building_rental_constraints',
     __('Parking', 'calgary-condo-leads') => 'ccl_building_parking',
 ];
+
+$inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
 ?>
 <section class="ccl-building-profile" aria-label="<?php esc_attr_e('Calgary condo building profile', 'calgary-condo-leads'); ?>">
     <div class="ccl-building-profile__grid">
@@ -48,7 +50,12 @@ $fields = [
         </aside>
         <div class="ccl-building-profile__idx">
             <div class="ccl-building-profile__idx-feed">
-                <!-- Dynamic Building IDX Feed Component -->
+                <h2><?php esc_html_e('Current Listings In This Building', 'calgary-condo-leads'); ?></h2>
+                <?php if ('' !== $inventory_shortcode) : ?>
+                    <?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                <?php else : ?>
+                    <p><?php esc_html_e('Live building-specific listings will appear here once the myRealPage saved search is connected for this address.', 'calgary-condo-leads'); ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>
