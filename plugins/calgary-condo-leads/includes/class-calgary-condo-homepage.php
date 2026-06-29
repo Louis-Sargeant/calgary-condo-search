@@ -45,7 +45,7 @@ final class Calgary_Condo_Homepage {
     /** @return array<int,array<string,string>> */
     private function area_cards(): array {
         return [
-            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.'],
+            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'title_url' => '/calgary-condo-buildings/beltline/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.'],
             ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.'],
             ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.'],
             ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.'],
