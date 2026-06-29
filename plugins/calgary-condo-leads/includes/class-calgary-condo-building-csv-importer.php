@@ -464,7 +464,13 @@ final class Calgary_Condo_Building_CSV_Importer {
 
         if ($existing_id > 0) {
             $postarr['ID'] = $existing_id;
-            $postarr['post_name'] = (string) get_post_field('post_name', $existing_id);
+            $existing_slug = get_post_field('post_name', $existing_id);
+            if (is_wp_error($existing_slug)) {
+                return 0;
+            }
+            if (is_string($existing_slug) && '' !== $existing_slug) {
+                $postarr['post_name'] = $existing_slug;
+            }
             $post_id = wp_update_post($postarr, true);
         } else {
             $post_id = wp_insert_post($postarr, true);
@@ -601,7 +607,6 @@ final class Calgary_Condo_Building_CSV_Importer {
         $value = strtolower(trim($value));
         $value = remove_accents($value);
         $value = (string) preg_replace('/[^a-z0-9]+/', ' ', $value);
-        $value = (string) preg_replace('/\s+/', ' ', $value);
 
         return trim($value);
     }
