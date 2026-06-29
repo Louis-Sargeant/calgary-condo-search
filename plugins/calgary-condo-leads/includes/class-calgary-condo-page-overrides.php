@@ -212,19 +212,19 @@ final class Calgary_Condo_Page_Overrides {
         $menu_order = 1;
 
         foreach ($ordered_top_level as $top_level_item) {
-            $top_level_item = clone $top_level_item;
-            $top_level_item->menu_item_parent = '0';
-            $top_level_item->menu_order = $menu_order++;
-            $ordered_items[] = $top_level_item;
+            $cloned_top_level_item = clone $top_level_item;
+            $cloned_top_level_item->menu_item_parent = '0';
+            $cloned_top_level_item->menu_order = $menu_order++;
+            $ordered_items[] = $cloned_top_level_item;
 
-            if ('browse_by_price' !== $this->primary_menu_key($top_level_item)) {
+            if ('browse_by_price' !== $this->primary_menu_key($cloned_top_level_item)) {
                 continue;
             }
 
             foreach ($ordered_price_items as $child_item) {
-                $child_item = clone $child_item;
-                $child_item->menu_order = $menu_order++;
-                $ordered_items[] = $child_item;
+                $cloned_child_item = clone $child_item;
+                $cloned_child_item->menu_order = $menu_order++;
+                $ordered_items[] = $cloned_child_item;
             }
         }
 
