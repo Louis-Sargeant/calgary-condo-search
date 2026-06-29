@@ -12,13 +12,96 @@ if (!defined('ABSPATH')) {
 final class Calgary_Condo_Building_CPT {
     public const POST_TYPE = 'ccl_building';
     private const FALLBACK = 'Details coming soon — verify building information before making decisions.';
+    private const META_BOX_ID = 'ccl-building-details';
+    private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
+    private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
+    private const META_FIELDS = [
+        'building_address' => [
+            'label' => 'Building Address',
+            'type' => 'text',
+        ],
+        'building_community' => [
+            'label' => 'Building Community',
+            'type' => 'text',
+        ],
+        'building_year_built' => [
+            'label' => 'Year Built',
+            'type' => 'text',
+        ],
+        'building_developer' => [
+            'label' => 'Building Developer',
+            'type' => 'text',
+        ],
+        'building_units' => [
+            'label' => 'Building Units',
+            'type' => 'text',
+        ],
+        'building_stories' => [
+            'label' => 'Building Stories',
+            'type' => 'text',
+        ],
+        'building_construction_type' => [
+            'label' => 'Construction Type',
+            'type' => 'text',
+        ],
+        'building_condo_fee_details' => [
+            'label' => 'Condo Fee Details',
+            'type' => 'textarea',
+        ],
+        'building_fee_inclusions' => [
+            'label' => 'Fee Inclusions',
+            'type' => 'textarea',
+        ],
+        'building_pet_rules' => [
+            'label' => 'Pet Rules',
+            'type' => 'textarea',
+        ],
+        'building_rental_rules' => [
+            'label' => 'Rental Rules',
+            'type' => 'textarea',
+        ],
+        'building_underground_parking' => [
+            'label' => 'Underground Parking',
+            'type' => 'textarea',
+        ],
+        'building_visitor_parking' => [
+            'label' => 'Visitor Parking',
+            'type' => 'textarea',
+        ],
+        'building_storage_lockers' => [
+            'label' => 'Storage Lockers',
+            'type' => 'textarea',
+        ],
+        'building_gym' => [
+            'label' => 'Gym',
+            'type' => 'textarea',
+        ],
+        'building_concierge' => [
+            'label' => 'Concierge',
+            'type' => 'textarea',
+        ],
+        'building_rooftop_deck' => [
+            'label' => 'Rooftop Deck',
+            'type' => 'textarea',
+        ],
+        'building_guest_suite' => [
+            'label' => 'Guest Suite',
+            'type' => 'textarea',
+        ],
+        'building_mrp_shortcode' => [
+            'label' => 'MRP Shortcode',
+            'type' => 'textarea',
+        ],
+    ];
 
     public function __construct() {
         add_action('init', [$this, 'register_post_type']);
         add_action('init', [$this, 'register_taxonomies']);
         add_action('init', [$this, 'ensure_default_terms'], 20);
+        add_action('add_meta_boxes', [$this, 'register_building_details_meta_box']);
         add_action('admin_menu', [$this, 'ensure_buildings_admin_submenu'], 100);
         add_action('admin_init', [$this, 'redirect_legacy_buildings_admin_screen']);
+        add_action('save_post_' . self::POST_TYPE, [$this, 'save_building_details']);
         add_filter('the_content', [$this, 'render_building_profile']);
     }
 
@@ -109,6 +192,53 @@ final class Calgary_Condo_Building_CPT {
         );
     }
 
+    public function register_building_details_meta_box(): void {
+        add_meta_box(
+            self::META_BOX_ID,
+            __('Building Details', 'calgary-condo-leads'),
+            [$this, 'render_building_details_meta_box'],
+            self::POST_TYPE,
+            'normal',
+            'default'
+        );
+    }
+
+    public function render_building_details_meta_box(\WP_Post $post): void {
+        wp_nonce_field(self::META_BOX_NONCE_ACTION, self::META_BOX_NONCE_NAME);
+        ?>
+        <table class="form-table" role="presentation">
+            <tbody>
+                <?php foreach (self::META_FIELDS as $meta_key => $field) : ?>
+                    <?php $value = (string) get_post_meta($post->ID, $meta_key, true); ?>
+                    <tr>
+                        <th scope="row">
+                            <label for="<?php echo esc_attr($meta_key); ?>"><?php echo esc_html__($field['label'], 'calgary-condo-leads'); ?></label>
+                        </th>
+                        <td>
+                            <?php if ('textarea' === $field['type']) : ?>
+                                <textarea
+                                    class="large-text"
+                                    rows="3"
+                                    id="<?php echo esc_attr($meta_key); ?>"
+                                    name="<?php echo esc_attr($meta_key); ?>"
+                                ><?php echo esc_textarea($value); ?></textarea>
+                            <?php else : ?>
+                                <input
+                                    class="regular-text"
+                                    type="text"
+                                    id="<?php echo esc_attr($meta_key); ?>"
+                                    name="<?php echo esc_attr($meta_key); ?>"
+                                    value="<?php echo esc_attr($value); ?>"
+                                />
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php
+    }
+
     public function redirect_legacy_buildings_admin_screen(): void {
         if (!is_admin()) {
             return;
@@ -126,6 +256,50 @@ final class Calgary_Condo_Building_CPT {
         $target_url = admin_url('edit.php?post_type=' . self::POST_TYPE);
         wp_safe_redirect($target_url);
         exit;
+    }
+
+    public function save_building_details(int $post_id): void {
+        if (!isset($_POST[self::META_BOX_NONCE_NAME])) {
+            return;
+        }
+
+        $nonce = sanitize_text_field(wp_unslash($_POST[self::META_BOX_NONCE_NAME]));
+        if (!wp_verify_nonce($nonce, self::META_BOX_NONCE_ACTION)) {
+            return;
+        }
+
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+
+        if (wp_is_post_revision($post_id) || wp_is_post_autosave($post_id)) {
+            return;
+        }
+
+        if (!current_user_can('edit_post', $post_id)) {
+            return;
+        }
+
+        foreach (self::META_FIELDS as $meta_key => $field) {
+            if (!isset($_POST[$meta_key])) {
+                continue;
+            }
+
+            $value = wp_unslash($_POST[$meta_key]);
+            $sanitized = 'textarea' === $field['type']
+                ? sanitize_textarea_field($value)
+                : sanitize_text_field($value);
+
+            if ('' === $sanitized) {
+                delete_post_meta($post_id, $meta_key);
+                continue;
+            }
+
+            update_post_meta($post_id, $meta_key, $sanitized);
+        }
+
+        $community = (string) get_post_meta($post_id, 'building_community', true);
+        wp_set_post_terms($post_id, '' === $community ? [] : [$community], 'ccl_building_community', false);
     }
 
 
