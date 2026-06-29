@@ -73,6 +73,30 @@ final class Calgary_Condo_Area_Pages {
             'subtitle' => 'Search Eau Claire condos and compare premium buildings, river proximity, fees, documents, and resale strength.',
             'guidance' => 'Eau Claire is a premium Calgary condo area where building quality, river proximity, concierge-style services, parking, storage, reserve fund health, and monthly fee inclusions can dramatically affect ownership cost and resale appeal.',
         ],
+        'kensington-condos' => [
+            'label' => 'Kensington',
+            'title' => 'Kensington Condos',
+            'subtitle' => 'Search Kensington condos and compare walkability, building quality, rules, fees, and resale fit.',
+            'guidance' => 'Kensington condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
+        ],
+        'bridgeland-condos' => [
+            'label' => 'Bridgeland',
+            'title' => 'Bridgeland Condos',
+            'subtitle' => 'Search Bridgeland condos and compare building details, fees, parking, and lifestyle fit.',
+            'guidance' => 'Bridgeland combines inner-city convenience, river pathways, and strong neighbourhood demand. Compare each building by construction type, fee trend, bylaws, parking, storage, pet rules, and future buyer appeal before booking showings.',
+        ],
+        'seton-condos' => [
+            'label' => 'Seton',
+            'title' => 'Seton Condos',
+            'subtitle' => 'Search Seton condos and compare newer southeast buildings, amenities, and ownership fit.',
+            'guidance' => 'Seton condo buyers usually compare newer southeast inventory near health, retail, and recreation hubs. To avoid surprises, review fee inclusions, parking configuration, storage, pet and rental rules, reserve planning, and resale positioning by building.',
+        ],
+        'mahogany-condos' => [
+            'label' => 'Mahogany',
+            'title' => 'Mahogany Condos',
+            'subtitle' => 'Search Mahogany condos and compare lake-community lifestyle, building quality, and resale path.',
+            'guidance' => 'Mahogany condo options can vary by building age, amenities, parking, storage, and fee structure. Compare bylaws, reserve fund health, pet and rental rules, and resale demand so the unit also fits your long-term ownership plan.',
+        ],
         'calgary-luxury-condos' => [
             'label' => 'Calgary Luxury Condos',
             'title' => 'Calgary Luxury Condos',
