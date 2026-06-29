@@ -5251,7 +5251,7 @@ body.admin-bar .ccl-floating-lead-widget {
   isolation: isolate;
 }
 
-.ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10, 10, 10, 0.92), rgba(18, 18, 18, 0.94) 50%, rgba(26, 26, 26, 0.96)); }
+.ccl-home-hero__overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(10, 10, 10, 0.55), rgba(18, 18, 18, 0.57) 50%, rgba(26, 26, 26, 0.60)); }
 .ccl-home-hero__content { width: min(920px, 100%); margin: 0 auto; text-align: center; }
 .ccl-premium-homepage-shell .ccl-eyebrow { color: var(--ccl-gold); letter-spacing: .16em; text-transform: uppercase; font-weight: 900; }
 .ccl-home-hero h1 { margin: 0 auto 14px; max-width: 860px; color: #ffffff; font-size: clamp(2rem, 4.1vw, 3.35rem); line-height: 1.12; letter-spacing: -.03em; font-weight: 900; text-shadow: 0 12px 36px rgba(0,0,0,.86); }
