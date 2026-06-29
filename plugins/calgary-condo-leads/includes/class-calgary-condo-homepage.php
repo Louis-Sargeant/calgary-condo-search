@@ -9,7 +9,7 @@ final class Calgary_Condo_Homepage {
         'southwest' => '/southwest-calgary-condos/',
         'northwest' => '/northwest-calgary-condos/',
         'northeast' => '/northeast-calgary-condos/',
-        'downtown' => '/downtown-calgary-condos/',
+        'downtown' => '/downtown-core-condos/',
         'beltline' => '/beltline-condos/',
     ];
 
