@@ -134,6 +134,7 @@ final class Calgary_Condo_Page_Overrides {
         $top_level_items = [];
         $price_items = [];
         $price_item_lookup = [];
+        $price_item_ids = [];
 
         foreach ($items as $index => $item) {
             if (!$item instanceof stdClass) {
@@ -146,6 +147,7 @@ final class Calgary_Condo_Page_Overrides {
                 if (null !== $price_key) {
                     $price_items[$index] = $item;
                     $price_item_lookup[$price_key] = $item;
+                    $price_item_ids[(int) ($item->ID ?? 0)] = true;
                 }
             }
         }
@@ -185,6 +187,10 @@ final class Calgary_Condo_Page_Overrides {
 
         if (empty($ordered_price_items)) {
             return $items;
+        }
+
+        foreach (array_keys($price_items) as $price_item_index) {
+            unset($top_level_items[$price_item_index]);
         }
 
         $browse_by_price_item = $this->build_browse_by_price_menu_item();
@@ -233,6 +239,9 @@ final class Calgary_Condo_Page_Overrides {
                 continue;
             }
             if ('0' !== (string) ($item->menu_item_parent ?? '0')) {
+                if (isset($price_item_ids[(int) ($item->ID ?? 0)])) {
+                    continue;
+                }
                 $ordered_items[] = $item;
             }
         }
