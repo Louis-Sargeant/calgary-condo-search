@@ -728,59 +728,130 @@ button.ccl-building-lead-card__button {
   }
 }
 
-/* Primary nav cleanup: compact Browse by Price dropdown. */
-.main-navigation .menu > li.ccl-menu-browse-by-price {
-  position: relative;
+/* ============================================================
+   Browse by Price – luxury dark / gold dropdown
+   Selectors intentionally broad (no hard dependency on any
+   single theme nav wrapper class) so the styles apply even
+   when the active theme wraps the menu in a different element.
+   ============================================================ */
+
+/* --- Parent item positioning -------------------------------- */
+li.ccl-menu-browse-by-price {
+  position: relative !important;
 }
 
-.main-navigation .menu > li.ccl-menu-browse-by-price > a {
+li.ccl-menu-browse-by-price > a {
   white-space: nowrap;
 }
 
-.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
-  margin-top: 0;
-  min-width: 220px;
-  padding: 8px 0;
-  border: 1px solid rgba(240, 199, 94, 0.38);
-  border-radius: 12px;
-  background: #121820;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+/* Active/ancestor gold tint on the parent trigger */
+li.ccl-menu-browse-by-price.current-menu-ancestor > a,
+li.ccl-menu-browse-by-price.current-menu-parent > a {
+  color: #D4AF37 !important;
 }
 
-.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a {
-  display: block;
-  padding: 8px 14px;
-  color: #fff;
-  font-size: 0.92rem;
-  line-height: 1.3;
+/* --- Sub-menu panel ----------------------------------------- */
+li.ccl-menu-browse-by-price > .sub-menu {
+  /* Reset any theme-injected defaults */
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 6px 0 8px !important;
+
+  /* Dark charcoal base with subtle translucency for glass feel */
+  background: rgba(14, 17, 24, 0.97) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+
+  /* Gold accent top border */
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  border-top: 2px solid #D4AF37 !important;
+  border-radius: 0 0 14px 14px !important;
+
+  /* Premium shadow */
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.18),
+    0 20px 50px rgba(0, 0, 0, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+
+  min-width: 230px;
+  width: max-content;
+  overflow: hidden;
+}
+
+/* --- Sub-menu items ----------------------------------------- */
+li.ccl-menu-browse-by-price > .sub-menu > li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+li.ccl-menu-browse-by-price > .sub-menu > li > a {
+  display: block !important;
+  padding: 10px 18px !important;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 0.91rem !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
   white-space: nowrap;
+  transition: background 140ms ease, color 140ms ease !important;
 }
 
-.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
-.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible,
-.main-navigation .menu > li.ccl-menu-browse-by-price.current-menu-ancestor > a {
-  color: #f0c75e;
+/* Hover / focus: gold text + subtle charcoal-gold highlight row */
+li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
+li.ccl-menu-browse-by-price > .sub-menu > li > a:focus,
+li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible {
+  color: #D4AF37 !important;
+  background: rgba(212, 175, 55, 0.10) !important;
+  outline: none !important;
 }
 
+/* Thin gold left-bar on hovered item */
+li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
+li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible {
+  padding-left: 22px !important;
+  border-left: 3px solid #D4AF37 !important;
+}
+
+/* Separator between items */
+li.ccl-menu-browse-by-price > .sub-menu > li + li > a {
+  border-top: 1px solid rgba(255, 255, 255, 0.055) !important;
+}
+
+/* --- Desktop: show/hide on hover / keyboard focus ----------- */
 @media (min-width: 783px) {
-  .main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 90;
+  li.ccl-menu-browse-by-price > .sub-menu {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 2px) !important;
+    left: 0 !important;
+    z-index: 99999 !important;
   }
 
-  .main-navigation .menu > li.ccl-menu-browse-by-price:hover > .sub-menu,
-  .main-navigation .menu > li.ccl-menu-browse-by-price:focus-within > .sub-menu {
-    display: block;
+  li.ccl-menu-browse-by-price:hover > .sub-menu,
+  li.ccl-menu-browse-by-price:focus-within > .sub-menu {
+    display: block !important;
+  }
+
+  /* Top corners square, bottom rounded (aligns flush under trigger) */
+  li.ccl-menu-browse-by-price > .sub-menu {
+    border-radius: 0 0 14px 14px !important;
   }
 }
 
+/* --- Mobile/touch: inline stacked ----------------------------- */
 @media (max-width: 782px) {
-  .main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
-    min-width: 0;
-    margin: 6px 0 0;
-    border-radius: 10px;
+  li.ccl-menu-browse-by-price > .sub-menu {
+    position: static !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 4px 0 8px !important;
+    border-top: 2px solid #D4AF37 !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35) !important;
+  }
+
+  li.ccl-menu-browse-by-price > .sub-menu > li > a {
+    padding: 11px 16px !important;
+    font-size: 0.95rem !important;
   }
 }
