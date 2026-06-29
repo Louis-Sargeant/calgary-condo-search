@@ -144,7 +144,7 @@ final class Calgary_Condo_Homepage {
                                 <button type="submit" class="ccl-home-cta ccl-home-cta--gold ccl-hero-lead-panel__submit"><?php esc_html_e('Send Me Condo Alerts', 'calgary-condo-leads'); ?></button>
                             </div>
                             <label class="ccl-hp" for="ccl-hero-lead-website"><?php esc_html_e('Website', 'calgary-condo-leads'); ?><input id="ccl-hero-lead-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off"></label>
-                            <p class="ccl-hero-lead-panel__trust"><?php esc_html_e('✓ Free Calgary condo alerts • No spam • Unsubscribe anytime', 'calgary-condo-leads'); ?></p>
+                            <p class="ccl-hero-lead-panel__trust"><span aria-hidden="true">✓ </span><?php esc_html_e('Free Calgary condo alerts • No spam • Unsubscribe anytime', 'calgary-condo-leads'); ?></p>
                         </form>
                         <?php endif; ?>
                     </div>
