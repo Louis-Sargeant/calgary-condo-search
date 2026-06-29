@@ -175,9 +175,25 @@ final class Calgary_Condo_Homepage {
     }
 
     private function render_live_idx(): string {
-        $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
+        $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2,ibf_property_type~DWELLING_TYPE%40APAR,ibf_price_to~300000 ][/mrp]';
         ob_start(); ?>
-        <section id="idx-search" class="ccl-section ccl-home-live-idx" aria-labelledby="ccl-home-idx-title"><div class="ccl-wrap"><div class="ccl-home-idx-frame"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Live IDX</p><h2 id="ccl-home-idx-title">Live Calgary Condo Listings</h2><p>Browse current listings after choosing your area, building, or alert path.</p></div><div class="ccl-home-idx-frame__embed"><?php echo do_shortcode($idx); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div></div></div></section><?php return (string) ob_get_clean();
+        <section id="idx-search" class="ccl-section ccl-home-live-idx" aria-labelledby="ccl-home-idx-title">
+            <div class="ccl-wrap">
+                <div class="ccl-home-idx-frame">
+                    <div class="ccl-home-section-heading">
+                        <p class="ccl-eyebrow">LIVE MLS®</p>
+                        <h2 id="ccl-home-idx-title">Calgary Condos Under $300,000</h2>
+                        <p>Browse live Calgary condo listings priced under $300,000, automatically updated through our myRealPage IDX feed.</p>
+                    </div>
+                    <div class="ccl-home-idx-frame__embed"><?php echo do_shortcode($idx); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+                    <div class="ccl-home-live-idx__actions">
+                        <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url('/under-300k/')); ?>" target="_self">View All Under $300K Condos</a>
+                        <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url(home_url('/building-alerts/')); ?>" target="_self">Get Instant Condo Alerts</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <?php return (string) ob_get_clean();
     }
 
     private function render_trust_risk(): string { ob_start(); ?>
