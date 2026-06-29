@@ -14,6 +14,11 @@ if (!defined('ABSPATH')) {
  */
 final class Calgary_Condo_Page_Overrides {
     /**
+     * Synthetic ID used for the generated Browse by Price parent menu item.
+     */
+    private const BROWSE_BY_PRICE_MENU_ID = 999991;
+
+    /**
      * Official CREB housing statistics page.
      */
     private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
@@ -23,6 +28,7 @@ final class Calgary_Condo_Page_Overrides {
      */
     public function __construct() {
         add_filter('the_content', [$this, 'replace_page_content'], 999);
+        add_filter('wp_nav_menu_objects', [$this, 'reorganize_primary_navigation'], 30, 2);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 20, 4);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_home_menu_attributes'], 21, 4);
         add_action('template_redirect', [$this, 'redirect_shortcode_contaminated_home_links'], 0);
@@ -111,6 +117,240 @@ final class Calgary_Condo_Page_Overrides {
         }
 
         return $atts;
+    }
+
+    /**
+     * Reorganize crowded primary navigation links into a compact Browse by Price dropdown.
+     *
+     * @param array<int,object> $items Menu items.
+     * @param stdClass          $args  Menu arguments.
+     * @return array<int,object>
+     */
+    public function reorganize_primary_navigation(array $items, $args): array {
+        if (is_admin() || empty($items)) {
+            return $items;
+        }
+
+        $top_level_items = [];
+        $price_items = [];
+        $price_item_lookup = [];
+
+        foreach ($items as $index => $item) {
+            if (!$item instanceof stdClass) {
+                continue;
+            }
+
+            if ('0' === (string) ($item->menu_item_parent ?? '0')) {
+                $top_level_items[$index] = $item;
+                $price_key = $this->price_menu_key((string) ($item->title ?? ''));
+                if (null !== $price_key) {
+                    $price_items[$index] = $item;
+                    $price_item_lookup[$price_key] = $item;
+                }
+            }
+        }
+
+        if (count($price_item_lookup) < 2) {
+            return $items;
+        }
+
+        $ordered_price_keys = [
+            'up_to_300k',
+            '300k_400k',
+            '400k_500k',
+            '500k_600k',
+            '600k_700k',
+            '700k_800k',
+            '800k_900k',
+            '900k_1m',
+            '1m_plus',
+        ];
+
+        $ordered_price_items = [];
+        foreach ($ordered_price_keys as $price_key) {
+            if (!isset($price_item_lookup[$price_key])) {
+                continue;
+            }
+
+            $item = clone $price_item_lookup[$price_key];
+            $item->menu_item_parent = (string) self::BROWSE_BY_PRICE_MENU_ID;
+            if ('up_to_300k' === $price_key) {
+                $item->title = 'Up to $300K';
+            } elseif ('300k_400k' === $price_key) {
+                $item->title = '$300K–$400K';
+            }
+
+            $ordered_price_items[] = $item;
+        }
+
+        if (empty($ordered_price_items)) {
+            return $items;
+        }
+
+        $browse_by_price_item = $this->build_browse_by_price_menu_item();
+        $top_level_items[] = $browse_by_price_item;
+
+        $ordered_top_level = [];
+        $top_level_order_keys = ['home', 'building_alerts', 'browse_by_price', 'price_reduced', 'market_stats'];
+        foreach ($top_level_order_keys as $order_key) {
+            foreach ($top_level_items as $index => $item) {
+                if ($this->primary_menu_key($item) !== $order_key) {
+                    continue;
+                }
+
+                $ordered_top_level[] = $item;
+                unset($top_level_items[$index]);
+                break;
+            }
+        }
+
+        foreach ($top_level_items as $item) {
+            $ordered_top_level[] = $item;
+        }
+
+        $ordered_items = [];
+        $menu_order = 1;
+
+        foreach ($ordered_top_level as $top_level_item) {
+            $top_level_item = clone $top_level_item;
+            $top_level_item->menu_item_parent = '0';
+            $top_level_item->menu_order = $menu_order++;
+            $ordered_items[] = $top_level_item;
+
+            if ('browse_by_price' !== $this->primary_menu_key($top_level_item)) {
+                continue;
+            }
+
+            foreach ($ordered_price_items as $child_item) {
+                $child_item = clone $child_item;
+                $child_item->menu_order = $menu_order++;
+                $ordered_items[] = $child_item;
+            }
+        }
+
+        foreach ($items as $item) {
+            if (!$item instanceof stdClass) {
+                continue;
+            }
+            if ('0' !== (string) ($item->menu_item_parent ?? '0')) {
+                $ordered_items[] = $item;
+            }
+        }
+
+        return $ordered_items;
+    }
+
+    /**
+     * Build synthetic parent menu item for the price dropdown.
+     */
+    private function build_browse_by_price_menu_item(): stdClass {
+        $item = new stdClass();
+        $item->ID = self::BROWSE_BY_PRICE_MENU_ID;
+        $item->db_id = 0;
+        $item->menu_item_parent = '0';
+        $item->object_id = 0;
+        $item->object = 'custom';
+        $item->type = 'custom';
+        $item->type_label = 'Custom Link';
+        $item->title = 'Browse by Price';
+        $item->url = '#';
+        $item->target = '';
+        $item->attr_title = '';
+        $item->description = '';
+        $item->classes = ['menu-item', 'menu-item-type-custom', 'menu-item-object-custom', 'menu-item-has-children', 'ccl-menu-browse-by-price'];
+        $item->xfn = '';
+        $item->status = 'publish';
+        $item->current = false;
+        $item->current_item_ancestor = false;
+        $item->current_item_parent = false;
+        $item->menu_order = 0;
+
+        return $item;
+    }
+
+    /**
+     * Resolve the canonical menu key for top-level order control.
+     */
+    private function primary_menu_key(stdClass $item): string {
+        $title = $this->normalize_menu_label((string) ($item->title ?? ''));
+
+        if ('browsebyprice' === $title) {
+            return 'browse_by_price';
+        }
+
+        if ('home' === $title) {
+            return 'home';
+        }
+
+        if (false !== strpos($title, 'buildingalerts')) {
+            return 'building_alerts';
+        }
+
+        if (false !== strpos($title, 'pricereduced')) {
+            return 'price_reduced';
+        }
+
+        if (false !== strpos($title, 'marketstats') || false !== strpos($title, 'marketupdate') || false !== strpos($title, 'marketreport') || false !== strpos($title, 'marketstatistics')) {
+            return 'market_stats';
+        }
+
+        return '';
+    }
+
+    /**
+     * Resolve a price menu item key by label.
+     */
+    private function price_menu_key(string $title): ?string {
+        $normalized = $this->normalize_menu_label($title);
+
+        if (false !== strpos($normalized, 'under300k')) {
+            return 'up_to_300k';
+        }
+
+        if (false !== strpos($normalized, 'under400k') || false !== strpos($normalized, '300k400k')) {
+            return '300k_400k';
+        }
+
+        if (false !== strpos($normalized, '400k500k')) {
+            return '400k_500k';
+        }
+
+        if (false !== strpos($normalized, '500k600k')) {
+            return '500k_600k';
+        }
+
+        if (false !== strpos($normalized, '600k700k')) {
+            return '600k_700k';
+        }
+
+        if (false !== strpos($normalized, '700k800k')) {
+            return '700k_800k';
+        }
+
+        if (false !== strpos($normalized, '800k900k')) {
+            return '800k_900k';
+        }
+
+        if (false !== strpos($normalized, '900k1m')) {
+            return '900k_1m';
+        }
+
+        if (false !== strpos($normalized, '1mplus') || false !== strpos($normalized, '1m+')) {
+            return '1m_plus';
+        }
+
+        return null;
+    }
+
+    /**
+     * Normalize menu labels for robust matching.
+     */
+    private function normalize_menu_label(string $value): string {
+        $value = html_entity_decode(strtolower(trim(wp_strip_all_tags($value))), ENT_QUOTES, 'UTF-8');
+        $value = str_replace(['–', '—', '-'], '', $value);
+        $value = preg_replace('/[^a-z0-9+]/', '', $value);
+
+        return (string) $value;
     }
 
     public function rewrite_market_menu_attributes(array $atts, $menu_item, $args, int $depth): array {

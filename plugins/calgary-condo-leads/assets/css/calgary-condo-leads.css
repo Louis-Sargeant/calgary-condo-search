@@ -727,3 +727,60 @@ button.ccl-building-lead-card__button {
     width: 100%;
   }
 }
+
+/* Primary nav cleanup: compact Browse by Price dropdown. */
+.main-navigation .menu > li.ccl-menu-browse-by-price {
+  position: relative;
+}
+
+.main-navigation .menu > li.ccl-menu-browse-by-price > a {
+  white-space: nowrap;
+}
+
+.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
+  margin-top: 0;
+  min-width: 220px;
+  padding: 8px 0;
+  border: 1px solid rgba(240, 199, 94, 0.38);
+  border-radius: 12px;
+  background: #121820;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a {
+  display: block;
+  padding: 8px 14px;
+  color: #fff;
+  font-size: 0.92rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
+.main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible,
+.main-navigation .menu > li.ccl-menu-browse-by-price.current-menu-ancestor > a {
+  color: #f0c75e;
+}
+
+@media (min-width: 783px) {
+  .main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 90;
+  }
+
+  .main-navigation .menu > li.ccl-menu-browse-by-price:hover > .sub-menu,
+  .main-navigation .menu > li.ccl-menu-browse-by-price:focus-within > .sub-menu {
+    display: block;
+  }
+}
+
+@media (max-width: 782px) {
+  .main-navigation .menu > li.ccl-menu-browse-by-price > .sub-menu {
+    min-width: 0;
+    margin: 6px 0 0;
+    border-radius: 10px;
+  }
+}
