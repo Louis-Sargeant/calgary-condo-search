@@ -757,10 +757,11 @@ li.ccl-menu-browse-by-price > .sub-menu {
   margin: 0 !important;
   padding: 6px 0 8px !important;
 
-  /* Dark charcoal base with subtle translucency for glass feel */
-  background: rgba(14, 17, 24, 0.97) !important;
+  /* Dark charcoal base – fully opaque fallback for browsers without backdrop-filter */
+  background: rgb(14, 17, 24) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
+  /* Translucent glass override for supporting browsers */
 
   /* Gold accent top border */
   border: 1px solid rgba(212, 175, 55, 0.35) !important;
@@ -778,6 +779,13 @@ li.ccl-menu-browse-by-price > .sub-menu {
   overflow: hidden;
 }
 
+/* Glass upgrade: translucent background only when backdrop-filter is supported */
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  li.ccl-menu-browse-by-price > .sub-menu {
+    background: rgba(14, 17, 24, 0.93) !important;
+  }
+}
+
 /* --- Sub-menu items ----------------------------------------- */
 li.ccl-menu-browse-by-price > .sub-menu > li {
   margin: 0 !important;
@@ -786,30 +794,26 @@ li.ccl-menu-browse-by-price > .sub-menu > li {
 
 li.ccl-menu-browse-by-price > .sub-menu > li > a {
   display: block !important;
-  padding: 10px 18px !important;
+  /* Consistent padding + transparent left border prevents layout shift on hover */
+  padding: 10px 18px 10px 15px !important;
+  border-left: 3px solid transparent !important;
   color: rgba(255, 255, 255, 0.88) !important;
   font-size: 0.91rem !important;
   font-weight: 500 !important;
   line-height: 1.35 !important;
   text-decoration: none !important;
   white-space: nowrap;
-  transition: background 140ms ease, color 140ms ease !important;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease !important;
 }
 
-/* Hover / focus: gold text + subtle charcoal-gold highlight row */
+/* Hover / focus: gold text + subtle charcoal-gold highlight row + gold left accent */
 li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
 li.ccl-menu-browse-by-price > .sub-menu > li > a:focus,
 li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible {
   color: #D4AF37 !important;
   background: rgba(212, 175, 55, 0.10) !important;
+  border-left-color: #D4AF37 !important;
   outline: none !important;
-}
-
-/* Thin gold left-bar on hovered item */
-li.ccl-menu-browse-by-price > .sub-menu > li > a:hover,
-li.ccl-menu-browse-by-price > .sub-menu > li > a:focus-visible {
-  padding-left: 22px !important;
-  border-left: 3px solid #D4AF37 !important;
 }
 
 /* Separator between items */
@@ -824,7 +828,7 @@ li.ccl-menu-browse-by-price > .sub-menu > li + li > a {
     position: absolute !important;
     top: calc(100% + 2px) !important;
     left: 0 !important;
-    z-index: 99999 !important;
+    z-index: 9999 !important;
   }
 
   li.ccl-menu-browse-by-price:hover > .sub-menu,
