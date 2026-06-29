@@ -5349,6 +5349,11 @@ body.admin-bar .ccl-floating-lead-widget {
 .ccl-home-intent-card > p:not(.ccl-home-intent-card__micro) { margin: 0; }
 .ccl-home-intent-card .ccl-home-cta { margin-top: auto; width: 100%; }
 .ccl-home-area-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.ccl-home-area-card { min-height: 100%; display: flex; flex-direction: column; }
+.ccl-home-area-card__title-link { color: inherit; text-decoration: none; }
+.ccl-home-area-card__title-link:hover,
+.ccl-home-area-card__title-link:focus-visible { color: var(--ccl-gold); }
+.ccl-home-area-card .ccl-home-cta { margin-top: auto; width: 100%; }
 .ccl-home-area-card strong { color: var(--ccl-gold); }
 .ccl-home-building-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .ccl-home-building-card { min-height: 260px; display: flex; flex-direction: column; }

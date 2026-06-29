@@ -43,6 +43,12 @@ final class Calgary_Condo_Area_Pages {
             'subtitle' => 'Search Downtown Calgary condos and compare lifestyle, fees, parking, storage, and resale strength.',
             'guidance' => 'Downtown Calgary condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
         ],
+        'downtown-core-condos' => [
+            'label' => 'Downtown Core',
+            'title' => 'Downtown Core Condos',
+            'subtitle' => 'Search Downtown Core condos and compare lifestyle, fees, parking, storage, and resale strength.',
+            'guidance' => 'Downtown Core condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
+        ],
         'beltline-condos' => [
             'label' => 'Beltline',
             'title' => 'Beltline Condos',

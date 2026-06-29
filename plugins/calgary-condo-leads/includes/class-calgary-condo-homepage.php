@@ -9,7 +9,7 @@ final class Calgary_Condo_Homepage {
         'southwest' => '/southwest-calgary-condos/',
         'northwest' => '/northwest-calgary-condos/',
         'northeast' => '/northeast-calgary-condos/',
-        'downtown' => '/downtown-calgary-condos/',
+        'downtown' => '/downtown-core-condos/',
         'beltline' => '/beltline-condos/',
     ];
 
@@ -46,14 +46,14 @@ final class Calgary_Condo_Homepage {
     private function area_cards(): array {
         return [
             ['name' => 'Beltline', 'url' => '/beltline-condos/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.'],
-            ['name' => 'Downtown Core', 'url' => '/downtown-calgary-condos/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.'],
-            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.'],
-            ['name' => 'Mission', 'url' => '/mission-condos/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.'],
-            ['name' => 'East Village', 'url' => '/east-village-condos/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.'],
-            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.'],
-            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.'],
-            ['name' => 'Seton', 'url' => '/seton-condos/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.'],
-            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.'],
+            ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.'],
+            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.'],
+            ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.'],
+            ['name' => 'East Village', 'url' => '/east-village-condos/', 'title_url' => '/calgary-condo-buildings/east-village/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.'],
+            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'title_url' => '/calgary-condo-buildings/kensington/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.'],
+            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'title_url' => '/calgary-condo-buildings/bridgeland/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.'],
+            ['name' => 'Seton', 'url' => '/seton-condos/', 'title_url' => '/calgary-condo-buildings/seton/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.'],
+            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'title_url' => '/calgary-condo-buildings/mahogany/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.'],
         ];
     }
 
@@ -100,8 +100,35 @@ final class Calgary_Condo_Homepage {
         </div></section><?php return (string) ob_get_clean();
     }
 
-    private function render_area_first(): string { ob_start(); ?>
-        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Area-first search</p><h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2><p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p></div><div class="ccl-home-area-grid"><?php foreach ($this->area_cards() as $area) : ?><a class="ccl-home-card ccl-home-area-card" href="<?php echo esc_url(home_url($area['url'])); ?>" target="_self"><span>Calgary condo area</span><h3><?php echo esc_html($area['name']); ?></h3><p><?php echo esc_html($area['copy']); ?></p><strong>View area condos →</strong></a><?php endforeach; ?></div></div></section><?php return (string) ob_get_clean(); }
+    private function render_area_first(): string {
+        ob_start(); ?>
+        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title">
+            <div class="ccl-wrap">
+                <div class="ccl-home-section-heading">
+                    <p class="ccl-eyebrow">Area-first search</p>
+                    <h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2>
+                    <p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p>
+                </div>
+                <div class="ccl-home-area-grid">
+                    <?php foreach ($this->area_cards() as $area) : ?>
+                        <article class="ccl-home-card ccl-home-area-card">
+                            <span>Calgary condo area</span>
+                            <h3>
+                                <?php if (!empty($area['title_url'])) : ?>
+                                    <a class="ccl-home-area-card__title-link" href="<?php echo esc_url(home_url($area['title_url'])); ?>" target="_self"><?php echo esc_html($area['name']); ?></a>
+                                <?php else : ?>
+                                    <?php echo esc_html($area['name']); ?>
+                                <?php endif; ?>
+                            </h3>
+                            <p><?php echo esc_html($area['copy']); ?></p>
+                            <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($area['url'])); ?>" target="_self">View area condos →</a>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php return (string) ob_get_clean();
+    }
 
     private function render_building_first(): string { ob_start(); ?>
         <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Building-first search</p><h2 id="ccl-home-building-title">Search by building, not just price.</h2><p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p></div><div class="ccl-home-building-grid"><?php foreach ($this->building_cards() as $building) : ?><article class="ccl-home-card ccl-home-building-card"><span><?php echo esc_html($building['area']); ?></span><h3><?php echo esc_html($building['name']); ?></h3><p><?php echo esc_html($building['type']); ?> buyers should compare fees, documents, parking, storage, bylaws, insurance, management, and resale fit.</p><button type="button" class="ccl-home-cta ccl-home-cta--glass" data-ccl-lead-open data-requested-category="Building Risk Report" data-lead-source="Building Directory Card" data-clicked-cta="<?php echo esc_attr('Building profile request: ' . $building['name']); ?>">Ask About This Building</button></article><?php endforeach; ?></div></div></section><?php return (string) ob_get_clean(); }
