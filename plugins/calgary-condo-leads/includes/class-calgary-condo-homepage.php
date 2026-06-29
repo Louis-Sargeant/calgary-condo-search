@@ -79,6 +79,25 @@ final class Calgary_Condo_Homepage {
         ];
     }
 
+    private function building_card_url(array $building): string {
+        $building_name = isset($building['name']) ? sanitize_text_field((string) $building['name']) : '';
+        if ('' === $building_name) {
+            return home_url('/contact/');
+        }
+
+        $post_type = class_exists('Calgary_Condo_Building_CPT') ? Calgary_Condo_Building_CPT::POST_TYPE : 'ccl_building';
+        $building_post = get_page_by_path(sanitize_title($building_name), OBJECT, $post_type);
+
+        if ($building_post instanceof WP_Post) {
+            $building_permalink = get_permalink($building_post->ID);
+            if (is_string($building_permalink) && '' !== $building_permalink) {
+                return $building_permalink;
+            }
+        }
+
+        return home_url('/contact/');
+    }
+
     private function render_buyer_intent(): string {
         $search_icon = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>';
         $value_icon  = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5Z"/><path d="M9 21V13h6v8"/><path d="M12 10v1m0 0c-.83 0-1.5.45-1.5 1s.67 1 1.5 1 1.5.45 1.5 1-.67 1-1.5 1M12 15v1"/></svg>';
@@ -130,8 +149,30 @@ final class Calgary_Condo_Homepage {
         <?php return (string) ob_get_clean();
     }
 
-    private function render_building_first(): string { ob_start(); ?>
-        <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Building-first search</p><h2 id="ccl-home-building-title">Search by building, not just price.</h2><p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p></div><div class="ccl-home-building-grid"><?php foreach ($this->building_cards() as $building) : ?><article class="ccl-home-card ccl-home-building-card"><span><?php echo esc_html($building['area']); ?></span><h3><?php echo esc_html($building['name']); ?></h3><p><?php echo esc_html($building['type']); ?> buyers should compare fees, documents, parking, storage, bylaws, insurance, management, and resale fit.</p><button type="button" class="ccl-home-cta ccl-home-cta--glass" data-ccl-lead-open data-requested-category="Building Risk Report" data-lead-source="Building Directory Card" data-clicked-cta="<?php echo esc_attr('Building profile request: ' . $building['name']); ?>">Ask About This Building</button></article><?php endforeach; ?></div></div></section><?php return (string) ob_get_clean(); }
+    private function render_building_first(): string {
+        ob_start(); ?>
+        <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title">
+            <div class="ccl-wrap">
+                <div class="ccl-home-section-heading">
+                    <p class="ccl-eyebrow">Building-first search</p>
+                    <h2 id="ccl-home-building-title">Search by building, not just price.</h2>
+                    <p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p>
+                </div>
+                <div class="ccl-home-building-grid">
+                    <?php foreach ($this->building_cards() as $building) : ?>
+                        <?php $building_url = $this->building_card_url($building); ?>
+                        <article class="ccl-home-card ccl-home-building-card">
+                            <span><?php echo esc_html($building['area']); ?></span>
+                            <h3><a href="<?php echo esc_url($building_url); ?>" target="_self"><?php echo esc_html($building['name']); ?></a></h3>
+                            <p><?php echo esc_html($building['type']); ?> buyers should compare fees, documents, parking, storage, bylaws, insurance, management, and resale fit.</p>
+                            <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url($building_url); ?>" target="_self">View Building Profile</a>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </section>
+        <?php return (string) ob_get_clean();
+    }
 
     private function render_live_idx(): string {
         $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
