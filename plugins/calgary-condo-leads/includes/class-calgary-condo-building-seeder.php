@@ -549,6 +549,111 @@ final class Calgary_Condo_Building_Seeder {
             </tbody>
         </table>
         <?php
+        $this->render_admin_list_query_diagnostics();
+    }
+
+    /**
+     * Simulate the admin list WP_Query for ccl_building and output the
+     * exact query args and SQL so the result can be compared against the
+     * raw post-count table above.
+     */
+    private function render_admin_list_query_diagnostics(): void {
+        $post_type = Calgary_Condo_Building_CPT::POST_TYPE;
+        $post_type_object = get_post_type_object($post_type);
+
+        $cpt_registered = ($post_type_object instanceof WP_Post_Type);
+        $cap_type = $cpt_registered ? (is_string($post_type_object->capability_type) ? $post_type_object->capability_type : 'array') : 'N/A';
+        $map_meta = $cpt_registered ? ($post_type_object->map_meta_cap ? 'true' : 'false') : 'N/A';
+        $show_ui = $cpt_registered ? ($post_type_object->show_ui ? 'true' : 'false') : 'N/A';
+        $edit_posts_cap = $cpt_registered ? (string) $post_type_object->cap->edit_posts : 'N/A';
+        $edit_others_cap = $cpt_registered ? (string) $post_type_object->cap->edit_others_posts : 'N/A';
+        $read_private_cap = $cpt_registered ? (string) $post_type_object->cap->read_private_posts : 'N/A';
+
+        $current_user_id = get_current_user_id();
+        $can_edit_others = $cpt_registered && current_user_can($post_type_object->cap->edit_others_posts);
+        $can_read_private = $cpt_registered && current_user_can($post_type_object->cap->read_private_posts);
+
+        // Build query args that mirror wp_edit_posts_query() for this CPT.
+        $query_args = [
+            'post_type'      => $post_type,
+            'post_status'    => 'publish',
+            'posts_per_page' => 20,
+            'paged'          => 1,
+        ];
+        if (!$can_edit_others) {
+            $query_args['author'] = $current_user_id;
+        }
+
+        $captured_sql = '';
+        $capture_fn = static function (string $sql, WP_Query $q) use ($post_type, &$captured_sql): string {
+            if ($q->get('post_type') === $post_type) {
+                $captured_sql = $sql;
+            }
+            return $sql;
+        };
+        add_filter('posts_request', $capture_fn, 99, 2);
+        $query = new WP_Query($query_args);
+        remove_filter('posts_request', $capture_fn, 99);
+        ?>
+        <h2><?php esc_html_e('Admin list query diagnostics', 'calgary-condo-leads'); ?></h2>
+        <p><?php esc_html_e('These details show exactly what WP_Query the admin list table would run for the Buildings CPT, and why it may return zero rows.', 'calgary-condo-leads'); ?></p>
+        <h3><?php esc_html_e('CPT registration', 'calgary-condo-leads'); ?></h3>
+        <table class="widefat striped">
+            <tbody>
+                <tr><th><?php esc_html_e('post_type registered', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($cpt_registered ? 'yes' : 'NO — post type not registered'); ?></code></td></tr>
+                <tr><th><?php esc_html_e('capability_type', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($cap_type); ?></code></td></tr>
+                <tr><th><?php esc_html_e('map_meta_cap', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($map_meta); ?></code></td></tr>
+                <tr><th><?php esc_html_e('show_ui', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($show_ui); ?></code></td></tr>
+                <tr><th><?php esc_html_e('cap->edit_posts', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($edit_posts_cap); ?></code></td></tr>
+                <tr><th><?php esc_html_e('cap->edit_others_posts', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($edit_others_cap); ?></code></td></tr>
+                <tr><th><?php esc_html_e('cap->read_private_posts', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($read_private_cap); ?></code></td></tr>
+            </tbody>
+        </table>
+        <h3><?php esc_html_e('Current user capability check', 'calgary-condo-leads'); ?></h3>
+        <table class="widefat striped">
+            <tbody>
+                <tr><th><?php esc_html_e('User ID', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html((string) $current_user_id); ?></code></td></tr>
+                <tr><th><?php esc_html_e('can edit_others_posts', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($can_edit_others ? 'YES' : 'NO — author filter will be applied'); ?></code></td></tr>
+                <tr><th><?php esc_html_e('can read_private_posts', 'calgary-condo-leads'); ?></th><td><code><?php echo esc_html($can_read_private ? 'YES' : 'NO — private posts excluded'); ?></code></td></tr>
+            </tbody>
+        </table>
+        <h3><?php esc_html_e('Simulated admin list WP_Query args', 'calgary-condo-leads'); ?></h3>
+        <pre style="background:#f6f7f7;padding:10px;overflow:auto;"><?php echo esc_html(print_r($query_args, true)); ?></pre>
+        <h3><?php esc_html_e('Actual SQL sent to database', 'calgary-condo-leads'); ?></h3>
+        <pre style="background:#f6f7f7;padding:10px;overflow:auto;"><?php echo esc_html('' !== $captured_sql ? $captured_sql : __('(could not capture SQL — posts_request filter may have been suppressed)', 'calgary-condo-leads')); ?></pre>
+        <h3><?php esc_html_e('Result from simulated query', 'calgary-condo-leads'); ?></h3>
+        <p>
+            <?php echo esc_html(sprintf(
+                /* translators: 1: found_posts count 2: post count */
+                __('found_posts: %1$d  |  posts returned: %2$d', 'calgary-condo-leads'),
+                (int) $query->found_posts,
+                count($query->posts)
+            )); ?>
+        </p>
+        <?php if (count($query->posts) > 0) : ?>
+            <table class="widefat striped">
+                <thead><tr>
+                    <th><?php esc_html_e('ID', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Title', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Status', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Author', 'calgary-condo-leads'); ?></th>
+                </tr></thead>
+                <tbody>
+                    <?php foreach ($query->posts as $building_post) : ?>
+                        <?php if (!($building_post instanceof WP_Post)) { continue; } ?>
+                        <tr>
+                            <td><?php echo esc_html((string) $building_post->ID); ?></td>
+                            <td><?php echo esc_html($building_post->post_title); ?></td>
+                            <td><code><?php echo esc_html($building_post->post_status); ?></code></td>
+                            <td><?php echo esc_html((string) $building_post->post_author); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p><strong><?php esc_html_e('Zero posts returned — check the SQL above for WHERE clauses restricting the result.', 'calgary-condo-leads'); ?></strong></p>
+        <?php endif; ?>
+        <?php
     }
 
     /**
