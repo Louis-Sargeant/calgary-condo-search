@@ -232,12 +232,15 @@ final class Calgary_Condo_Homepage {
             <style>
                 .ccl-home-area-card__photo {
                     display: block;
+                    /* 100% + 2× card padding (26px each side) to bleed edge-to-edge */
                     width: calc(100% + 52px);
                     height: 160px;
+                    /* Pull flush to card top and sides, then add space below */
                     margin: -26px -26px 16px;
                     object-fit: cover;
                 }
 
+                /* Equal height: flex column + min-height pushes CTA to bottom on shorter cards */
                 .ccl-home-area-card {
                     min-height: 360px;
                 }
