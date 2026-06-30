@@ -227,41 +227,101 @@ final class Calgary_Condo_Homepage {
                 <p class="ccl-home-area-empty" data-ccl-area-empty hidden>No communities match this filter yet. Try another area.</p>
             </div>
             <style>
-                .ccl-home-area-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
-                .ccl-home-area-filter{appearance:none;border:1px solid rgba(201,163,85,.45);background:#171717;color:#f4efe6;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .2s ease}
-                .ccl-home-area-filter:hover,.ccl-home-area-filter:focus-visible{border-color:rgba(201,163,85,.95);color:#fff;outline:none}
-                .ccl-home-area-filter.is-active{background:linear-gradient(135deg,#d4af37,#a67c2d);border-color:rgba(212,175,55,.95);color:#111;box-shadow:0 10px 22px rgba(0,0,0,.35)}
-                .ccl-home-area-empty{margin:16px 0 0;color:#d0c5b3}
+                .ccl-home-area-filters {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 10px;
+                    margin: 0 0 22px;
+                }
+
+                .ccl-home-area-filter {
+                    appearance: none;
+                    border: 1px solid rgba(201, 163, 85, 0.45);
+                    background: #171717;
+                    color: #f4efe6;
+                    border-radius: 999px;
+                    padding: 10px 16px;
+                    font-size: 13px;
+                    font-weight: 700;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+
+                .ccl-home-area-filter:hover,
+                .ccl-home-area-filter:focus-visible {
+                    border-color: rgba(201, 163, 85, 0.95);
+                    color: #fff;
+                    outline: none;
+                }
+
+                .ccl-home-area-filter.is-active {
+                    background: linear-gradient(135deg, #d4af37, #a67c2d);
+                    border-color: rgba(212, 175, 55, 0.95);
+                    color: #111;
+                    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+                }
+
+                .ccl-home-area-empty {
+                    margin: 16px 0 0;
+                    color: #d0c5b3;
+                }
             </style>
             <script>
-                (function(){
-                    var sections=document.querySelectorAll('[data-ccl-area-filter]');
-                    if(!sections.length){return;}
-                    sections.forEach(function(section){
-                        var buttons=section.querySelectorAll('.ccl-home-area-filter');
-                        var cards=section.querySelectorAll('.ccl-home-area-card');
-                        var emptyState=section.querySelector('[data-ccl-area-empty]');
-                        if(!buttons.length||!cards.length){return;}
-                        var applyFilter=function(filter){
-                            var visibleCount=0;
-                            cards.forEach(function(card){
-                                var tokens=(card.getAttribute('data-area-filters')||'').split(',').map(function(value){return value.trim();}).filter(function(value){return ''!==value;});
-                                var isVisible='all'===filter||tokens.indexOf(filter)!==-1;
-                                card.hidden=!isVisible;
-                                if(isVisible){visibleCount++;}
+                (function () {
+                    var sections = document.querySelectorAll('[data-ccl-area-filter]');
+                    if (!sections.length) {
+                        return;
+                    }
+
+                    sections.forEach(function (section) {
+                        var buttons = section.querySelectorAll('.ccl-home-area-filter');
+                        var cards = section.querySelectorAll('.ccl-home-area-card');
+                        var emptyState = section.querySelector('[data-ccl-area-empty]');
+
+                        if (!buttons.length || !cards.length) {
+                            return;
+                        }
+
+                        var applyFilter = function (filter) {
+                            var visibleCount = 0;
+
+                            cards.forEach(function (card) {
+                                var rawFilters = card.getAttribute('data-area-filters') || '';
+                                var splitFilters = rawFilters.split(',');
+                                var tokens = splitFilters
+                                    .map(function (value) {
+                                        return value.trim();
+                                    })
+                                    .filter(function (value) {
+                                        return '' !== value;
+                                    });
+                                var isVisible = 'all' === filter || tokens.includes(filter);
+
+                                card.hidden = !isVisible;
+                                if (isVisible) {
+                                    visibleCount++;
+                                }
                             });
-                            buttons.forEach(function(button){
-                                var isActive=button.getAttribute('data-area-filter')===filter;
-                                button.classList.toggle('is-active',isActive);
-                                button.setAttribute('aria-pressed',isActive?'true':'false');
+
+                            buttons.forEach(function (button) {
+                                var isActive = button.getAttribute('data-area-filter') === filter;
+                                button.classList.toggle('is-active', isActive);
+                                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
                             });
-                            if(emptyState){emptyState.hidden=visibleCount!==0;}
+
+                            if (emptyState) {
+                                emptyState.hidden = visibleCount !== 0;
+                            }
                         };
-                        buttons.forEach(function(button){
-                            button.addEventListener('click',function(){
-                                applyFilter(button.getAttribute('data-area-filter')||'all');
+
+                        buttons.forEach(function (button) {
+                            button.addEventListener('click', function () {
+                                applyFilter(button.getAttribute('data-area-filter') || 'all');
                             });
                         });
+
                         applyFilter('all');
                     });
                 })();
