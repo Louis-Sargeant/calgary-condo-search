@@ -203,14 +203,14 @@ final class Calgary_Condo_Homepage {
                 </div>
                 <div class="ccl-home-area-filters" role="toolbar" aria-label="Filter Calgary condo areas">
                     <?php foreach ($filters as $key => $label) : ?>
-                        <button type="button" class="ccl-home-area-filter ccl-home-area-filter<?php echo 'all' === $key ? ' is-active' : ''; ?>" data-area-filter="<?php echo esc_attr($key); ?>" aria-pressed="<?php echo 'all' === $key ? 'true' : 'false'; ?>">
+                        <button type="button" class="ccl-home-area-filter<?php echo 'all' === $key ? ' is-active' : ''; ?>" data-area-filter="<?php echo esc_attr($key); ?>" aria-pressed="<?php echo 'all' === $key ? 'true' : 'false'; ?>">
                             <?php echo esc_html($label); ?>
                         </button>
                     <?php endforeach; ?>
                 </div>
                 <div class="ccl-home-area-grid">
                     <?php foreach ($this->area_cards() as $area) : ?>
-                        <article class="ccl-home-card ccl-home-area-card" data-area-filters="<?php echo esc_attr((string) ($area['filters'] ?? '')); ?>">
+                        <article class="ccl-home-card ccl-home-area-card" data-area-filters="<?php echo esc_attr($area['filters'] ?? ''); ?>">
                             <span>Calgary condo area</span>
                             <h3>
                                 <?php if (!empty($area['title_url'])) : ?>
@@ -245,7 +245,7 @@ final class Calgary_Condo_Homepage {
                         var applyFilter=function(filter){
                             var visibleCount=0;
                             cards.forEach(function(card){
-                                var tokens=(card.getAttribute('data-area-filters')||'').split(',').map(function(value){return value.trim();});
+                                var tokens=(card.getAttribute('data-area-filters')||'').split(',').map(function(value){return value.trim();}).filter(function(value){return ''!==value;});
                                 var isVisible='all'===filter||tokens.indexOf(filter)!==-1;
                                 card.hidden=!isVisible;
                                 if(isVisible){visibleCount++;}
