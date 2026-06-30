@@ -10,6 +10,8 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Building_Index {
+    private const DEFAULT_CARD_IMAGE = 'https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b';
+
     private const INDEX_TERMS = [
         'beltline' => ['name' => 'Beltline', 'taxonomy' => 'ccl_building_community'],
         'downtown-core' => ['name' => 'Downtown Core', 'taxonomy' => 'ccl_building_community'],
@@ -153,7 +155,7 @@ final class Calgary_Condo_Building_Index {
         $active_label = '' !== $active_count ? $active_count : __('Connect IDX feed', 'calgary-condo-leads');
         $photo = get_the_post_thumbnail($post_id, 'medium_large', ['class' => 'ccl-building-index-card__image']);
         if (!$photo) {
-            $photo = '<span>' . esc_html__('Photo coming soon', 'calgary-condo-leads') . '</span>';
+            $photo = '<img src="' . esc_url(self::DEFAULT_CARD_IMAGE) . '" alt="' . esc_attr__('Calgary condo building', 'calgary-condo-leads') . '" class="ccl-building-index-card__image" />';
         }
 
         ob_start();
