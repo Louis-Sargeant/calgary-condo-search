@@ -5663,6 +5663,90 @@ body.admin-bar .ccl-floating-lead-widget {
   text-transform: none;
 }
 
+.ccl-cro-trust-strip:empty {
+  display: none !important;
+}
+
+.ccl-trust-strip--price-range {
+  width: 100%;
+  margin: 0;
+  padding: 18px 0;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.98) 0%, rgba(18, 18, 18, 0.98) 100%);
+}
+
+.ccl-trust-strip__grid--price-range {
+  display: grid;
+  gap: 0;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border: 1px solid #D4AF37;
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 46%, rgba(0, 0, 0, 0.28) 100%), #121212;
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 20px 44px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+.ccl-trust-strip__stat-card {
+  min-height: 100%;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.ccl-trust-strip__stat-card + .ccl-trust-strip__stat-card {
+  border-left: 1px solid rgba(212, 175, 55, 0.26);
+}
+
+.ccl-trust-strip__icon {
+  display: block;
+  margin-bottom: 10px;
+  color: #D4AF37;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.ccl-trust-strip__stat-card h3 {
+  margin: 0 0 8px;
+  color: #FFFFFF;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.ccl-trust-strip__stat-card p {
+  margin: 0;
+  color: #B9B9B9;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 980px) {
+  .ccl-trust-strip__grid--price-range {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ccl-trust-strip__stat-card:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .ccl-trust-strip__stat-card:nth-child(n + 3) {
+    border-top: 1px solid rgba(212, 175, 55, 0.26);
+  }
+}
+
+@media (max-width: 640px) {
+  .ccl-trust-strip__grid--price-range {
+    grid-template-columns: 1fr;
+  }
+
+  .ccl-trust-strip__stat-card {
+    border-left: 0 !important;
+  }
+
+  .ccl-trust-strip__stat-card + .ccl-trust-strip__stat-card {
+    border-top: 1px solid rgba(212, 175, 55, 0.26);
+  }
+}
+
 /* --- Value cards: micro-capture line --- */
 .ccl-home-intent-card__micro {
   color: #D4AF37 !important;
