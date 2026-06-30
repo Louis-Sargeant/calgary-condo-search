@@ -5724,7 +5724,7 @@ body.admin-bar .ccl-floating-lead-widget {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ccl-trust-strip__stat-card:nth-child(2n + 1) {
+  .ccl-trust-strip__stat-card:nth-child(odd) {
     border-left: 0;
   }
 

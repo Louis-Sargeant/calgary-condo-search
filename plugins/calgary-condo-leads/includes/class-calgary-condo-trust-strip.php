@@ -154,12 +154,25 @@ final class Calgary_Condo_Trust_Strip {
             return true;
         }
 
-        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        global $wp;
+        $path = isset($wp->request) ? trim((string) $wp->request, '/') : '';
         if ('' === $path) {
             return false;
         }
 
-        return (bool) preg_match('/(^|\/)(?:calgary-condos-)?(?:under-\d+k|\d+k-\d+k|\d+k-\d+m|1m-plus|luxury-condos|calgary-luxury-condos)$/', $path);
+        if (in_array($path, $price_slugs, true)) {
+            return true;
+        }
+
+        $normalized = 0 === strpos($path, 'calgary-condos-') ? substr($path, strlen('calgary-condos-')) : $path;
+
+        if (in_array($normalized, ['1m-plus', 'luxury-condos', 'calgary-luxury-condos'], true)) {
+            return true;
+        }
+
+        return 1 === preg_match('/^under-\d+k$/', $normalized)
+            || 1 === preg_match('/^\d+k-\d+k$/', $normalized)
+            || 1 === preg_match('/^\d+k-\d+m$/', $normalized);
     }
 }
 
