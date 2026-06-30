@@ -45,15 +45,15 @@ final class Calgary_Condo_Homepage {
     /** @return array<int,array<string,string>> */
     private function area_cards(): array {
         return [
-            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'title_url' => '/calgary-condo-buildings/beltline/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.', 'filters' => 'downtown,inner-city'],
-            ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.', 'filters' => 'downtown,inner-city'],
-            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.', 'filters' => 'downtown,inner-city'],
-            ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.', 'filters' => 'inner-city,sw'],
-            ['name' => 'East Village', 'url' => '/east-village-condos/', 'title_url' => '/calgary-condo-buildings/east-village/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.', 'filters' => 'downtown,inner-city,se'],
-            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'title_url' => '/calgary-condo-buildings/kensington/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.', 'filters' => 'inner-city,nw'],
-            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'title_url' => '/calgary-condo-buildings/bridgeland/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.', 'filters' => 'inner-city,ne'],
-            ['name' => 'Seton', 'url' => '/seton-condos/', 'title_url' => '/calgary-condo-buildings/seton/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.', 'filters' => 'se'],
-            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'title_url' => '/calgary-condo-buildings/mahogany/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.', 'filters' => 'se'],
+            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'title_url' => '/calgary-condo-buildings/beltline/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.', 'filters' => 'downtown,inner-city', 'photo' => 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.', 'filters' => 'downtown,inner-city', 'photo' => 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.', 'filters' => 'downtown,inner-city', 'photo' => 'https://images.unsplash.com/photo-1563213126-a4273aed2016?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.', 'filters' => 'inner-city,sw', 'photo' => 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'East Village', 'url' => '/east-village-condos/', 'title_url' => '/calgary-condo-buildings/east-village/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.', 'filters' => 'downtown,inner-city,se', 'photo' => 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'title_url' => '/calgary-condo-buildings/kensington/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.', 'filters' => 'inner-city,nw', 'photo' => 'https://images.unsplash.com/photo-1569880153113-76e33fc52d5f?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'title_url' => '/calgary-condo-buildings/bridgeland/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.', 'filters' => 'inner-city,ne', 'photo' => 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Seton', 'url' => '/seton-condos/', 'title_url' => '/calgary-condo-buildings/seton/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.', 'filters' => 'se', 'photo' => 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=800&q=80'],
+            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'title_url' => '/calgary-condo-buildings/mahogany/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.', 'filters' => 'se', 'photo' => 'https://images.unsplash.com/photo-1509909756405-be0199881695?auto=format&fit=crop&w=800&q=80'],
         ];
     }
 
@@ -211,6 +211,9 @@ final class Calgary_Condo_Homepage {
                 <div class="ccl-home-area-grid">
                     <?php foreach ($this->area_cards() as $area) : ?>
                         <article class="ccl-home-card ccl-home-area-card" data-area-filters="<?php echo esc_attr($area['filters'] ?? ''); ?>">
+                            <?php if (!empty($area['photo'])) : ?>
+                                <img class="ccl-home-area-card__photo" src="<?php echo esc_url($area['photo']); ?>" alt="<?php echo esc_attr($area['name'] . ' condos in Calgary'); ?>" loading="lazy">
+                            <?php endif; ?>
                             <span>Calgary condo area</span>
                             <h3>
                                 <?php if (!empty($area['title_url'])) : ?>
@@ -227,6 +230,21 @@ final class Calgary_Condo_Homepage {
                 <p class="ccl-home-area-empty" data-ccl-area-empty hidden>No communities match this filter yet. Try another area.</p>
             </div>
             <style>
+                .ccl-home-area-card__photo {
+                    display: block;
+                    /* 100% + 2× card padding (26px each side) to bleed edge-to-edge */
+                    width: calc(100% + 52px);
+                    height: 160px;
+                    /* Pull flush to card top and sides, then add space below */
+                    margin: -26px -26px 16px;
+                    object-fit: cover;
+                }
+
+                /* Equal height: flex column + min-height pushes CTA to bottom on shorter cards */
+                .ccl-home-area-card {
+                    min-height: 360px;
+                }
+
                 .ccl-home-area-filters {
                     display: flex;
                     flex-wrap: wrap;
