@@ -45,15 +45,15 @@ final class Calgary_Condo_Homepage {
     /** @return array<int,array<string,string>> */
     private function area_cards(): array {
         return [
-            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'title_url' => '/calgary-condo-buildings/beltline/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.'],
-            ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.'],
-            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.'],
-            ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.'],
-            ['name' => 'East Village', 'url' => '/east-village-condos/', 'title_url' => '/calgary-condo-buildings/east-village/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.'],
-            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'title_url' => '/calgary-condo-buildings/kensington/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.'],
-            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'title_url' => '/calgary-condo-buildings/bridgeland/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.'],
-            ['name' => 'Seton', 'url' => '/seton-condos/', 'title_url' => '/calgary-condo-buildings/seton/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.'],
-            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'title_url' => '/calgary-condo-buildings/mahogany/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.'],
+            ['name' => 'Beltline', 'url' => '/beltline-condos/', 'title_url' => '/calgary-condo-buildings/beltline/', 'copy' => 'High-rise choice, restaurants, nightlife, parks, and quick downtown access.', 'filters' => 'downtown,inner-city'],
+            ['name' => 'Downtown Core', 'url' => '/downtown-core-condos/', 'title_url' => '/calgary-condo-buildings/downtown-core/', 'copy' => 'Core towers near offices, transit, river pathways, and central services.', 'filters' => 'downtown,inner-city'],
+            ['name' => 'Eau Claire', 'url' => '/eau-claire-condos/', 'title_url' => '/calgary-condo-buildings/eau-claire/', 'copy' => 'Premium river-adjacent condos with downtown convenience and luxury positioning.', 'filters' => 'downtown,inner-city'],
+            ['name' => 'Mission', 'url' => '/mission-condos/', 'title_url' => '/calgary-condo-buildings/mission/', 'copy' => 'Walkable inner-city living near 4th Street, restaurants, and the river.', 'filters' => 'inner-city,sw'],
+            ['name' => 'East Village', 'url' => '/east-village-condos/', 'title_url' => '/calgary-condo-buildings/east-village/', 'copy' => 'Modern urban towers near the library, river pathways, and downtown east amenities.', 'filters' => 'downtown,inner-city,se'],
+            ['name' => 'Kensington', 'url' => '/kensington-condos/', 'title_url' => '/calgary-condo-buildings/kensington/', 'copy' => 'Boutique inner-city condo options around Sunnyside, Hillhurst, transit, and cafés.', 'filters' => 'inner-city,nw'],
+            ['name' => 'Bridgeland', 'url' => '/bridgeland-condos/', 'title_url' => '/calgary-condo-buildings/bridgeland/', 'copy' => 'Neighbourhood condo living with river access, local shops, and CTrain convenience.', 'filters' => 'inner-city,ne'],
+            ['name' => 'Seton', 'url' => '/seton-condos/', 'title_url' => '/calgary-condo-buildings/seton/', 'copy' => 'Southeast condo options near health, retail, recreation, and newer amenities.', 'filters' => 'se'],
+            ['name' => 'Mahogany', 'url' => '/mahogany-condos/', 'title_url' => '/calgary-condo-buildings/mahogany/', 'copy' => 'Lake-community condos with southeast lifestyle amenities and newer options.', 'filters' => 'se'],
         ];
     }
 
@@ -184,17 +184,33 @@ final class Calgary_Condo_Homepage {
     }
 
     private function render_area_first(): string {
+        $filters = [
+            'all'        => 'All',
+            'downtown'   => 'Downtown',
+            'inner-city' => 'Inner City',
+            'nw'         => 'NW',
+            'ne'         => 'NE',
+            'sw'         => 'SW',
+            'se'         => 'SE',
+        ];
         ob_start(); ?>
-        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title">
+        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title" data-ccl-area-filter>
             <div class="ccl-wrap">
                 <div class="ccl-home-section-heading">
                     <p class="ccl-eyebrow">Area-first search</p>
                     <h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2>
                     <p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p>
                 </div>
+                <div class="ccl-home-area-filters" role="toolbar" aria-label="Filter Calgary condo areas">
+                    <?php foreach ($filters as $key => $label) : ?>
+                        <button type="button" class="ccl-home-area-filter ccl-home-area-filter<?php echo 'all' === $key ? ' is-active' : ''; ?>" data-area-filter="<?php echo esc_attr($key); ?>" aria-pressed="<?php echo 'all' === $key ? 'true' : 'false'; ?>">
+                            <?php echo esc_html($label); ?>
+                        </button>
+                    <?php endforeach; ?>
+                </div>
                 <div class="ccl-home-area-grid">
                     <?php foreach ($this->area_cards() as $area) : ?>
-                        <article class="ccl-home-card ccl-home-area-card">
+                        <article class="ccl-home-card ccl-home-area-card" data-area-filters="<?php echo esc_attr((string) ($area['filters'] ?? '')); ?>">
                             <span>Calgary condo area</span>
                             <h3>
                                 <?php if (!empty($area['title_url'])) : ?>
@@ -208,7 +224,48 @@ final class Calgary_Condo_Homepage {
                         </article>
                     <?php endforeach; ?>
                 </div>
+                <p class="ccl-home-area-empty" data-ccl-area-empty hidden>No communities match this filter yet. Try another area.</p>
             </div>
+            <style>
+                .ccl-home-area-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+                .ccl-home-area-filter{appearance:none;border:1px solid rgba(201,163,85,.45);background:#171717;color:#f4efe6;border-radius:999px;padding:10px 16px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;transition:all .2s ease}
+                .ccl-home-area-filter:hover,.ccl-home-area-filter:focus-visible{border-color:rgba(201,163,85,.95);color:#fff;outline:none}
+                .ccl-home-area-filter.is-active{background:linear-gradient(135deg,#d4af37,#a67c2d);border-color:rgba(212,175,55,.95);color:#111;box-shadow:0 10px 22px rgba(0,0,0,.35)}
+                .ccl-home-area-empty{margin:16px 0 0;color:#d0c5b3}
+            </style>
+            <script>
+                (function(){
+                    var sections=document.querySelectorAll('[data-ccl-area-filter]');
+                    if(!sections.length){return;}
+                    sections.forEach(function(section){
+                        var buttons=section.querySelectorAll('.ccl-home-area-filter');
+                        var cards=section.querySelectorAll('.ccl-home-area-card');
+                        var emptyState=section.querySelector('[data-ccl-area-empty]');
+                        if(!buttons.length||!cards.length){return;}
+                        var applyFilter=function(filter){
+                            var visibleCount=0;
+                            cards.forEach(function(card){
+                                var tokens=(card.getAttribute('data-area-filters')||'').split(',').map(function(value){return value.trim();});
+                                var isVisible='all'===filter||tokens.indexOf(filter)!==-1;
+                                card.hidden=!isVisible;
+                                if(isVisible){visibleCount++;}
+                            });
+                            buttons.forEach(function(button){
+                                var isActive=button.getAttribute('data-area-filter')===filter;
+                                button.classList.toggle('is-active',isActive);
+                                button.setAttribute('aria-pressed',isActive?'true':'false');
+                            });
+                            if(emptyState){emptyState.hidden=visibleCount!==0;}
+                        };
+                        buttons.forEach(function(button){
+                            button.addEventListener('click',function(){
+                                applyFilter(button.getAttribute('data-area-filter')||'all');
+                            });
+                        });
+                        applyFilter('all');
+                    });
+                })();
+            </script>
         </section>
         <?php return (string) ob_get_clean();
     }
