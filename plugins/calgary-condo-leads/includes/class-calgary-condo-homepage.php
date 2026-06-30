@@ -146,7 +146,7 @@ final class Calgary_Condo_Homepage {
     private function building_card_url(array $building): string {
         $building_name = isset($building['name']) ? sanitize_text_field((string) $building['name']) : '';
         if ('' === $building_name) {
-            return add_query_arg('s', rawurlencode($building_name . ' condo'), home_url('/all-calgary-condos/'));
+            return home_url('/all-calgary-condos/');
         }
 
         $post_type = class_exists('Calgary_Condo_Building_CPT') ? Calgary_Condo_Building_CPT::POST_TYPE : 'ccl_building';
@@ -159,7 +159,7 @@ final class Calgary_Condo_Homepage {
             }
         }
 
-        return home_url('/contact/');
+        return add_query_arg('s', $building_name . ' condo', home_url('/all-calgary-condos/'));
     }
 
     private function render_buyer_intent(): string {
