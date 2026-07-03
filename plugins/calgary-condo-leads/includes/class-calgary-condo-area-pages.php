@@ -143,7 +143,7 @@ final class Calgary_Condo_Area_Pages {
             return;
         }
 
-        if ('southeast-calgary-condos' !== $slug && (is_page() || is_singular('page'))) {
+        if (!in_array($slug, ['southeast-calgary-condos', 'beltline-condos'], true) && (is_page() || is_singular('page'))) {
             return;
         }
 
