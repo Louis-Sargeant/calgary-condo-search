@@ -109,7 +109,7 @@ final class Calgary_Condo_Area_Pages {
             'label'    => 'Hillhurst',
             'title'    => 'Hillhurst Condos',
             'subtitle' => 'Search Hillhurst condos and compare walkability, building quality, rules, fees, and resale fit.',
-            'intro'    => 'Hillhurst offers inner-city condo options close to Kensington Village, SAIT, river pathways, transit, and downtown Calgary. Buyers should compare building age, condo fees, parking, storage, pet rules, and resale demand before choosing between older low-rise buildings and newer infill-style condo options.',
+            'intro'    => 'Hillhurst is home to the popular Kensington Village shopping and dining district, offering inner-city condo living near SAIT, the Bow River pathways, downtown Calgary, and the Sunnyside CTrain station. Buyers should compare building age, condo fees, parking, storage, pet rules, and resale demand before choosing between older low-rise buildings and newer infill-style condo options.',
             'guidance' => 'Hillhurst condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
             'lead_form_label' => 'Get Hillhurst Condo Alerts — Be the first to know about new listings, price changes, and Hillhurst condos that match your criteria.',
         ],
