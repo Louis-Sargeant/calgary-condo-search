@@ -859,3 +859,56 @@ li.ccl-menu-browse-by-price > .sub-menu > li + li > a {
     font-size: 0.95rem !important;
   }
 }
+
+/* --- Global dark theme ---------------------------------------- */
+body {
+  background: #0d0d0d;
+}
+
+p {
+  color: #f5f5f5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #f5f5f5;
+}
+
+.ccl-section {
+  background: #1a1a1a;
+}
+
+.ccl-beltline-lead-form,
+.ccl-alert-form {
+  background: #1a1a1a;
+  border: 1px solid #c9a84c;
+}
+
+.ccl-beltline-lead-form input,
+.ccl-alert-form input {
+  background: #2a2a2a;
+  color: #f5f5f5;
+}
+
+.ccl-beltline-lead-form label,
+.ccl-alert-form label {
+  color: #f5f5f5;
+}
+
+.ccl-trust-line {
+  color: #999999;
+}
+
+.ccl-area-guidance {
+  background: #111111;
+}
+
+.ccl-area-guidance,
+.ccl-area-guidance p,
+.ccl-area-guidance li {
+  color: #f5f5f5;
+}
