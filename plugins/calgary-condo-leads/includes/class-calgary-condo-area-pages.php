@@ -66,8 +66,8 @@ final class Calgary_Condo_Area_Pages {
             'label'    => 'Beltline',
             'title'    => 'Beltline Condos',
             'subtitle' => 'Search Beltline condos and compare the buildings that fit your budget, lifestyle, and timeline.',
-            'intro'    => 'Beltline is one of Calgary&#8217;s most walkable condo communities, offering easy access to downtown offices, restaurants, caf&#233;s, parks, and transit. Buyers can choose from affordable apartments to luxury high-rise residences, making Beltline a popular option for first-time buyers, professionals, investors, and downsizers.',
-            'guidance' => 'Beltline is one of Calgary&#8217;s most active condo areas, but not every building fits every buyer. Compare walkability, nightlife noise, age, construction, elevators, amenities, parking, short-term-rental rules, pet rules, and resale demand before chasing the best-looking unit.',
+            'intro'    => 'Beltline is one of Calgary’s most walkable condo communities, offering easy access to downtown offices, restaurants, cafés, parks, and transit. Buyers can choose from affordable apartments to luxury high-rise residences, making Beltline a popular option for first-time buyers, professionals, investors, and downsizers.',
+            'guidance' => 'Beltline is one of Calgary’s most active condo areas, but not every building fits every buyer. Compare walkability, nightlife noise, age, construction, elevators, amenities, parking, short-term-rental rules, pet rules, and resale demand before chasing the best-looking unit.',
         ],
         'east-village-condos' => [
             'label'    => 'East Village',
@@ -81,7 +81,7 @@ final class Calgary_Condo_Area_Pages {
             'title'    => 'Mission Condos',
             'subtitle' => 'Search Mission condos and compare walkability, building age, river access, rules, and resale fit.',
             'intro'    => 'Mission is a popular inner-city Calgary condo area for buyers who want restaurants, river pathways, 4th Street access, downtown convenience, and a strong walkable lifestyle. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, and resale fit.',
-            'guidance' => 'Mission condo buyers often want restaurants, river pathways, 4th Street access, and inner-city convenience. The best unit depends on the building&#8217;s age, parking, storage, noise exposure, pet rules, fee trend, documents, and long-term resale demand.',
+            'guidance' => 'Mission condo buyers often want restaurants, river pathways, 4th Street access, and inner-city convenience. The best unit depends on the building’s age, parking, storage, noise exposure, pet rules, fee trend, documents, and long-term resale demand.',
         ],
         'eau-claire-condos' => [
             'label'    => 'Eau Claire',
@@ -95,14 +95,14 @@ final class Calgary_Condo_Area_Pages {
             'title'    => 'Kensington Condos',
             'subtitle' => 'Search Kensington condos and compare walkability, building quality, rules, fees, and resale fit.',
             'intro'    => 'Kensington and Hillhurst are strong Calgary condo areas for buyers who want walkability, restaurants, shops, LRT access, river pathways, and a village-style inner-city lifestyle close to downtown. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
-            'guidance' => 'Kensington condo buyers often want village-style walkability, caf&#233;s, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
+            'guidance' => 'Kensington condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
         ],
         'hillhurst-condos' => [
             'label'    => 'Hillhurst',
             'title'    => 'Hillhurst Condos',
             'subtitle' => 'Search Hillhurst condos and compare walkability, building quality, rules, fees, and resale fit.',
-            'intro'    => 'Hillhurst is a walkable inner-city Calgary condo area near Kensington Road, caf&#233;s, restaurants, LRT access, and river pathways. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
-            'guidance' => 'Hillhurst condo buyers often want village-style walkability, caf&#233;s, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
+            'intro'    => 'Hillhurst is a walkable inner-city Calgary condo area near Kensington Road, cafés, restaurants, LRT access, and river pathways. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
+            'guidance' => 'Hillhurst condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
         ],
         'bridgeland-condos' => [
             'label'    => 'Bridgeland',
@@ -344,7 +344,7 @@ HTML;
         $label = esc_html((string) $area['label']);
         $title = esc_html((string) $area['title']);
         $subtitle = esc_html((string) $area['subtitle']);
-        $guidance = (string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.');
+        $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
         $idx_section = 'northwest-calgary-condos' === $slug
             ? $this->northwest_manual_idx_feed()
             : $this->regional_idx_section($slug, $label);
@@ -398,6 +398,7 @@ HTML;
         if ('' === $intro) {
             return '';
         }
+        $intro    = esc_html($intro);
         $label    = esc_html((string) $area['label']);
         $id_slug  = sanitize_html_class($slug);
         $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
