@@ -55,6 +55,14 @@ final class Calgary_Condo_Area_Pages {
             'intro'    => 'Downtown Calgary condo buying is building-specific. River proximity, Plus-15 access, concrete construction, views, concierge amenities, parking, storage, and fee levels can change value dramatically between towers.',
             'guidance' => 'Downtown Calgary condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
         ],
+        'downtown-condos' => [
+            'label'           => 'Downtown',
+            'title'           => 'Downtown Condos',
+            'subtitle'        => 'Search Downtown condos and compare walkability, building fit, fees, parking, storage, and resale strength.',
+            'intro'           => 'Downtown Calgary is one of the city’s strongest condo markets, offering quick access to office towers, river pathways, restaurants, transit, and entertainment. Buyers can find everything from established apartment-style condos to newer high-rise residences, making Downtown a strong option for professionals, investors, and buyers who want maximum walkability.',
+            'guidance'        => 'Downtown condo buyers often prioritize office access, transit, river pathways, and walkability. Compare each building’s fee structure, parking, storage, pet and rental rules, and resale demand before choosing by photos or price alone.',
+            'lead_form_label' => 'Get Downtown Condo Alerts — Be the first to know about new listings, price changes, and downtown condos that match your criteria.',
+        ],
         'downtown-core-condos' => [
             'label'    => 'Downtown Core',
             'title'    => 'Downtown Core Condos',
@@ -197,6 +205,7 @@ final class Calgary_Condo_Area_Pages {
         'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439655 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-calgary-condos'  => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
+        'downtown-condos'          => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
         'beltline-condos'          => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
     ];
 
@@ -211,6 +220,7 @@ final class Calgary_Condo_Area_Pages {
         'northwest-calgary-condos',
         'northeast-calgary-condos',
         'downtown-calgary-condos',
+        'downtown-condos',
         'beltline-condos',
     ];
 
@@ -400,6 +410,7 @@ HTML;
         }
         $intro    = esc_html($intro);
         $label    = esc_html((string) $area['label']);
+        $lead_label = esc_html((string) ($area['lead_form_label'] ?? ('Get ' . $label . ' Condo Alerts — Be the first to know about new listings, price changes, and condos that match your criteria.')));
         $id_slug  = sanitize_html_class($slug);
         $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
         $scheme   = is_ssl() ? 'https://' : 'http://';
@@ -415,7 +426,7 @@ HTML;
 </section>
 <section id="condo-alerts" class="ccl-section ccl-beltline-lead-form">
     <div class="ccl-wrap">
-        <p class="ccl-form__label">Get {$label} Condo Alerts &#8212; Be the first to know about new listings, price changes, and condos that match your criteria.</p>
+        <p class="ccl-form__label">{$lead_label}</p>
         <form class="ccl-form" method="post" action="{$action}">
             {$nonce}
             <input type="hidden" name="ccl_action" value="alert_form">
