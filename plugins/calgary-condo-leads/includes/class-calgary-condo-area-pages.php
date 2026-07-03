@@ -80,23 +80,23 @@ final class Calgary_Condo_Area_Pages {
         'east-village-condos' => [
             'label'    => 'East Village',
             'title'    => 'East Village Condos',
-            'subtitle' => 'Search East Village condos near the river, library, restaurants, pathways, and downtown east amenities.',
-            'intro'    => 'East Village appeals to buyers who want newer towers, river access, walkability, and an urban lifestyle close to downtown. Compare building age, parking, storage, amenities, short-term-rental rules, condo fees, and how much future supply may affect resale.',
-            'guidance' => 'East Village appeals to buyers who want newer towers, river access, walkability, and a more urban lifestyle. Compare building age, parking assignment, storage, amenities, short-term-rental rules, condo fees, and how much future supply may affect resale.',
+            'subtitle' => 'Search East Village condos and compare newer riverfront towers, amenities, fees, and long-term resale fit.',
+            'intro'    => 'East Village attracts buyers who want newer concrete towers, Bow River pathways, the Central Library district, and quick downtown access. Strong decisions come from comparing each building’s fee structure, amenities, parking setup, storage, rental rules, and how future tower supply may affect resale.',
+            'guidance' => 'East Village condo buyers often prioritize river access, newer construction, and urban convenience. Before booking showings, compare fee inclusions, parking assignment, storage, short-term-rental restrictions, amenity quality, and how similar units are reselling by building.',
         ],
         'mission-condos' => [
             'label'    => 'Mission',
             'title'    => 'Mission Condos',
-            'subtitle' => 'Search Mission condos and compare walkability, building age, river access, rules, and resale fit.',
-            'intro'    => 'Mission is a popular inner-city Calgary condo area for buyers who want restaurants, river pathways, 4th Street access, downtown convenience, and a strong walkable lifestyle. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, and resale fit.',
-            'guidance' => 'Mission condo buyers often want restaurants, river pathways, 4th Street access, and inner-city convenience. The best unit depends on the building’s age, parking, storage, noise exposure, pet rules, fee trend, documents, and long-term resale demand.',
+            'subtitle' => 'Search Mission condos and compare walkability, building quality, ownership costs, and resale strength.',
+            'intro'    => 'Mission remains one of Calgary’s most in-demand lifestyle condo communities, with 4th Street restaurants, Elbow River pathways, and fast downtown access. Compare building condition, condo fees, parking, storage, pet bylaws, and noise exposure before selecting a unit by photos alone.',
+            'guidance' => 'Mission condo searches usually balance lifestyle and building quality. Before you book showings, review age and maintenance history, fee trend, parking and storage setup, pet and rental rules, and how each building performs when similar units hit the market.',
         ],
         'eau-claire-condos' => [
             'label'    => 'Eau Claire',
             'title'    => 'Eau Claire Condos',
-            'subtitle' => 'Search Eau Claire condos and compare premium buildings, river proximity, fees, documents, and resale strength.',
-            'intro'    => 'Eau Claire is a premium Calgary condo area for buyers who want Bow River pathways, downtown access, stronger building amenities, walkability, and a quieter central lifestyle. Before booking a showing, compare the building, condo fees, parking, storage, amenities, view exposure, bylaws, and resale fit.',
-            'guidance' => 'Eau Claire is a premium Calgary condo area where building quality, river proximity, concierge-style services, parking, storage, reserve fund health, and monthly fee inclusions can dramatically affect ownership cost and resale appeal.',
+            'subtitle' => 'Search Eau Claire condos and compare premium riverfront buildings, services, fees, and resale path.',
+            'intro'    => 'Eau Claire is a premium inner-city condo market for buyers who want Bow River pathways, Prince’s Island Park access, and quieter luxury living near downtown. The right purchase comes from comparing concierge level, fee inclusions, parking and storage, view protection, and reserve fund strength by building.',
+            'guidance' => 'Eau Claire condo buying is highly building-specific. Compare service level, amenity quality, parking and storage access, reserve fund planning, and monthly fee inclusions so your ownership costs and future resale position are clear before offering.',
         ],
         'kensington-condos' => [
             'label'    => 'Kensington',
@@ -222,6 +222,18 @@ final class Calgary_Condo_Area_Pages {
         'downtown-calgary-condos',
         'downtown-condos',
         'beltline-condos',
+        'east-village-condos',
+        'mission-condos',
+        'eau-claire-condos',
+    ];
+
+    /**
+     * Area pages that should keep the existing myRealPage shortcode configured in page content.
+     */
+    private const PAGE_CONFIGURED_MRP_SHORTCODE_SLUGS = [
+        'east-village-condos',
+        'mission-condos',
+        'eau-claire-condos',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [
@@ -463,7 +475,7 @@ HTML;
     }
 
     private function regional_idx_section(string $slug, string $label): string {
-        $shortcode = trim((string) (self::REGIONAL_MRP_SHORTCODES[$slug] ?? ''));
+        $shortcode = $this->regional_mrp_shortcode($slug);
         $feed = '' !== $shortcode
             ? do_shortcode($shortcode)
             : '<p class="ccl-region-idx-placeholder">' . esc_html(sprintf(__('Live %s condo listings will appear here once the saved myRealPage search is connected.', 'calgary-condo-leads'), $label)) . '</p>';
@@ -479,6 +491,33 @@ HTML;
     </div>
 </section>
 HTML;
+    }
+
+    private function regional_mrp_shortcode(string $slug): string {
+        $configured = trim((string) (self::REGIONAL_MRP_SHORTCODES[$slug] ?? ''));
+        if ('' !== $configured) {
+            return $configured;
+        }
+
+        if (!in_array($slug, self::PAGE_CONFIGURED_MRP_SHORTCODE_SLUGS, true)) {
+            return '';
+        }
+
+        $existing_page = get_page_by_path($slug, OBJECT, 'page');
+        if (!$existing_page instanceof WP_Post) {
+            return '';
+        }
+
+        $content = (string) $existing_page->post_content;
+        if (preg_match('/(\[mrp[^\]]*\](?:.*?)\[\/mrp\])/is', $content, $matches)) {
+            return trim((string) ($matches[1] ?? ''));
+        }
+
+        if (preg_match('/(\[mrp[^\]]*\/\])/is', $content, $matches)) {
+            return trim((string) ($matches[1] ?? ''));
+        }
+
+        return '';
     }
 
 }
