@@ -408,9 +408,10 @@ HTML;
         if ('' === $intro) {
             return '';
         }
-        $intro    = esc_html($intro);
-        $label    = esc_html((string) $area['label']);
-        $lead_label = esc_html((string) ($area['lead_form_label'] ?? ('Get ' . $label . ' Condo Alerts — Be the first to know about new listings, price changes, and condos that match your criteria.')));
+        $intro      = esc_html($intro);
+        $raw_label  = (string) $area['label'];
+        $label      = esc_html($raw_label);
+        $lead_label = esc_html((string) ($area['lead_form_label'] ?? ('Get ' . $raw_label . ' Condo Alerts — Be the first to know about new listings, price changes, and condos that match your criteria.')));
         $id_slug  = sanitize_html_class($slug);
         $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
         $scheme   = is_ssl() ? 'https://' : 'http://';
