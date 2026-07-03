@@ -14,99 +14,178 @@ final class Calgary_Condo_Area_Pages {
 
     private const AREAS = [
         'all-calgary-condos' => [
-            'label' => 'All Calgary',
-            'title' => 'Calgary Condos',
+            'label'    => 'All Calgary',
+            'title'    => 'Calgary Condos',
             'subtitle' => 'Search all Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'intro'    => 'Calgary offers condo options across every quadrant, price range, and building type. Buyers compare fees, parking, storage, pet rules, reserve fund health, and resale fit before booking showings.',
             'guidance' => 'Calgary condo buyers have options across every quadrant, price range, and building type. Before choosing by price or photos alone, compare the condo corporation, fee inclusions, parking, storage, pet rules, rental rules, reserve fund, bylaws, and how similar units have sold in that specific building.',
         ],
         'southeast-calgary-condos' => [
-            'label' => 'Southeast Calgary',
-            'title' => 'Southeast Calgary Condos',
+            'label'    => 'Southeast Calgary',
+            'title'    => 'Southeast Calgary Condos',
             'subtitle' => 'Search Southeast Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'intro'    => 'Southeast Calgary offers newer suburban condo buildings near lake communities, retail hubs, transit, and established residential areas. Compare the building, fees, bylaws, parking, storage, and resale path before choosing by price alone.',
             'guidance' => 'Southeast Calgary condo buyers often compare lake communities, newer suburban buildings, transit access, shopping, parks, and ownership costs. Review the corporation, fee inclusions, parking, storage, pet rules, reserve fund, and resale fit before choosing by price alone.',
         ],
         'southwest-calgary-condos' => [
-            'label' => 'Southwest Calgary',
-            'title' => 'Southwest Calgary Condos',
+            'label'    => 'Southwest Calgary',
+            'title'    => 'Southwest Calgary Condos',
             'subtitle' => 'Search Southwest Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'intro'    => 'Southwest Calgary balances established inner-city access, C-Train convenience, parks, and quieter residential pockets. Compare fees, parking, storage, pet rules, reserve fund health, and resale fit before booking showings.',
             'guidance' => 'Southwest Calgary condo buyers often balance established inner-city access, C-Train convenience, parks, shopping, and quieter residential pockets. Compare older low-rise buildings differently than newer concrete or amenity-rich projects because fees, documents, and resale demand can vary block by block.',
         ],
         'northwest-calgary-condos' => [
-            'label' => 'Northwest Calgary',
-            'title' => 'Northwest Calgary Condos',
+            'label'    => 'Northwest Calgary',
+            'title'    => 'Northwest Calgary Condos',
             'subtitle' => 'Search Northwest Calgary condos with building-first guidance before you chase listings.',
+            'intro'    => 'Northwest Calgary condo searches often revolve around university access, hospitals, river pathways, and C-Train stations. Before booking showings, compare building age, envelope history, parking, storage, pet rules, and how similar units have been selling.',
             'guidance' => 'Northwest Calgary condo searches often revolve around university access, hospitals, river pathways, C-Train stations, and established communities. Before booking showings, check the building age, envelope history, parking setup, storage, pet rules, and how similar units have been selling.',
         ],
         'northeast-calgary-condos' => [
-            'label' => 'Northeast Calgary',
-            'title' => 'Northeast Calgary Condos',
+            'label'    => 'Northeast Calgary',
+            'title'    => 'Northeast Calgary Condos',
             'subtitle' => 'Search Northeast Calgary condos and narrow the right building, budget, and ownership fit.',
+            'intro'    => 'Northeast Calgary can offer practical condo budgets, airport access, transit options, and newer suburban communities. The right buy depends on the corporation, fee inclusions, parking, visitor parking, management, and the future buyer pool.',
             'guidance' => 'Northeast Calgary can offer practical condo budgets, airport access, transit options, and newer suburban communities. The right buy still depends on the specific corporation, fee inclusions, parking, visitor parking, management, insurance, bylaws, and future buyer pool.',
         ],
         'downtown-calgary-condos' => [
-            'label' => 'Downtown Calgary',
-            'title' => 'Downtown Calgary Condos',
+            'label'    => 'Downtown Calgary',
+            'title'    => 'Downtown Calgary Condos',
             'subtitle' => 'Search Downtown Calgary condos and compare lifestyle, fees, parking, storage, and resale strength.',
+            'intro'    => 'Downtown Calgary condo buying is building-specific. River proximity, Plus-15 access, concrete construction, views, concierge amenities, parking, storage, and fee levels can change value dramatically between towers.',
             'guidance' => 'Downtown Calgary condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
         ],
         'downtown-core-condos' => [
-            'label' => 'Downtown Core',
-            'title' => 'Downtown Core Condos',
+            'label'    => 'Downtown Core',
+            'title'    => 'Downtown Core Condos',
             'subtitle' => 'Search Downtown Core condos and compare lifestyle, fees, parking, storage, and resale strength.',
+            'intro'    => 'Downtown Core condo buying is building-specific. Plus-15 access, office core convenience, concrete construction, views, parking, storage, and fee levels can change value dramatically between towers.',
             'guidance' => 'Downtown Core condo buying is building-specific. River proximity, plus-15 access, office core convenience, concrete construction, views, concierge-style amenities, parking, storage, and fee levels can change value dramatically between towers.',
         ],
         'beltline-condos' => [
-            'label' => 'Beltline',
-            'title' => 'Beltline Condos',
+            'label'    => 'Beltline',
+            'title'    => 'Beltline Condos',
             'subtitle' => 'Search Beltline condos and compare the buildings that fit your budget, lifestyle, and timeline.',
+            'intro'    => 'Beltline is one of Calgary’s most walkable condo communities, offering easy access to downtown offices, restaurants, cafés, parks, and transit. Buyers can choose from affordable apartments to luxury high-rise residences, making Beltline a popular option for first-time buyers, professionals, investors, and downsizers.',
             'guidance' => 'Beltline is one of Calgary’s most active condo areas, but not every building fits every buyer. Compare walkability, nightlife noise, age, construction, elevators, amenities, parking, short-term-rental rules, pet rules, and resale demand before chasing the best-looking unit.',
         ],
         'east-village-condos' => [
-            'label' => 'East Village',
-            'title' => 'East Village Condos',
+            'label'    => 'East Village',
+            'title'    => 'East Village Condos',
             'subtitle' => 'Search East Village condos near the river, library, restaurants, pathways, and downtown east amenities.',
+            'intro'    => 'East Village appeals to buyers who want newer towers, river access, walkability, and an urban lifestyle close to downtown. Compare building age, parking, storage, amenities, short-term-rental rules, condo fees, and how much future supply may affect resale.',
             'guidance' => 'East Village appeals to buyers who want newer towers, river access, walkability, and a more urban lifestyle. Compare building age, parking assignment, storage, amenities, short-term-rental rules, condo fees, and how much future supply may affect resale.',
         ],
         'mission-condos' => [
-            'label' => 'Mission',
-            'title' => 'Mission Condos',
+            'label'    => 'Mission',
+            'title'    => 'Mission Condos',
             'subtitle' => 'Search Mission condos and compare walkability, building age, river access, rules, and resale fit.',
+            'intro'    => 'Mission is a popular inner-city Calgary condo area for buyers who want restaurants, river pathways, 4th Street access, downtown convenience, and a strong walkable lifestyle. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, and resale fit.',
             'guidance' => 'Mission condo buyers often want restaurants, river pathways, 4th Street access, and inner-city convenience. The best unit depends on the building’s age, parking, storage, noise exposure, pet rules, fee trend, documents, and long-term resale demand.',
         ],
         'eau-claire-condos' => [
-            'label' => 'Eau Claire',
-            'title' => 'Eau Claire Condos',
+            'label'    => 'Eau Claire',
+            'title'    => 'Eau Claire Condos',
             'subtitle' => 'Search Eau Claire condos and compare premium buildings, river proximity, fees, documents, and resale strength.',
+            'intro'    => 'Eau Claire is a premium Calgary condo area for buyers who want Bow River pathways, downtown access, stronger building amenities, walkability, and a quieter central lifestyle. Before booking a showing, compare the building, condo fees, parking, storage, amenities, view exposure, bylaws, and resale fit.',
             'guidance' => 'Eau Claire is a premium Calgary condo area where building quality, river proximity, concierge-style services, parking, storage, reserve fund health, and monthly fee inclusions can dramatically affect ownership cost and resale appeal.',
         ],
         'kensington-condos' => [
-            'label' => 'Kensington',
-            'title' => 'Kensington Condos',
+            'label'    => 'Kensington',
+            'title'    => 'Kensington Condos',
             'subtitle' => 'Search Kensington condos and compare walkability, building quality, rules, fees, and resale fit.',
+            'intro'    => 'Kensington and Hillhurst are strong Calgary condo areas for buyers who want walkability, restaurants, shops, LRT access, river pathways, and a village-style inner-city lifestyle close to downtown. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
             'guidance' => 'Kensington condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
         ],
+        'hillhurst-condos' => [
+            'label'    => 'Hillhurst',
+            'title'    => 'Hillhurst Condos',
+            'subtitle' => 'Search Hillhurst condos and compare walkability, building quality, rules, fees, and resale fit.',
+            'intro'    => 'Hillhurst is a walkable inner-city Calgary condo area near Kensington Road, cafés, restaurants, LRT access, and river pathways. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
+            'guidance' => 'Hillhurst condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
+        ],
         'bridgeland-condos' => [
-            'label' => 'Bridgeland',
-            'title' => 'Bridgeland Condos',
+            'label'    => 'Bridgeland',
+            'title'    => 'Bridgeland Condos',
             'subtitle' => 'Search Bridgeland condos and compare building details, fees, parking, and lifestyle fit.',
+            'intro'    => 'Bridgeland is a strong Calgary condo area for buyers who want inner-city access, restaurants, pathways, transit, river access, and a neighbourhood feel close to downtown. Before booking a showing, compare the building, condo fees, parking, storage, amenities, bylaws, pet rules, and resale fit.',
             'guidance' => 'Bridgeland combines inner-city convenience, river pathways, and strong neighbourhood demand. Compare each building by construction type, fee trend, bylaws, parking, storage, pet rules, and future buyer appeal before booking showings.',
         ],
+        'inglewood-condos' => [
+            'label'    => 'Inglewood',
+            'title'    => 'Inglewood Condos',
+            'subtitle' => 'Search Inglewood condos and compare building character, fees, rules, parking, and resale fit.',
+            'intro'    => 'Inglewood is a strong Calgary condo area for buyers who want character, local shops, restaurants, river pathways, downtown access, and a neighbourhood feel. Before booking a showing, compare the building, condo fees, parking, storage, bylaws, pet rules, and resale fit.',
+            'guidance' => 'Inglewood condo buyers want character, local shops, restaurants, river pathways, and downtown access. Compare the building age, parking, storage, bylaws, pet rules, fee trend, and long-term resale fit before chasing the best-looking listing.',
+        ],
+        'sunnyside-condos' => [
+            'label'    => 'Sunnyside',
+            'title'    => 'Sunnyside Condos',
+            'subtitle' => 'Search Sunnyside condos and compare building quality, walkability, fees, rules, and resale fit.',
+            'intro'    => 'Sunnyside is an inner-city Calgary condo area offering Bow River pathways, village-style walkability, transit access, and quick downtown connections. Compare building age, fees, parking, storage, pet rules, and resale fit before booking showings.',
+            'guidance' => 'Sunnyside condo buyers want Bow River pathways, village-style walkability, transit access, and quick downtown connections. Compare building age, fees, parking, storage, pet rules, and how similar units sell before booking showings.',
+        ],
+        'chinatown-condos' => [
+            'label'    => 'Chinatown',
+            'title'    => 'Chinatown Condos',
+            'subtitle' => 'Search Chinatown condos and compare central location, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Chinatown is a central Calgary condo area offering downtown access, transit connections, and an urban lifestyle close to shops, restaurants, and the river. Before booking a showing, compare the building, fees, parking, storage, bylaws, and resale fit.',
+            'guidance' => 'Chinatown condo buyers want central Calgary access, transit connections, and an urban lifestyle close to shops, restaurants, and the river. Compare the building, fees, parking, storage, bylaws, and resale fit before booking showings.',
+        ],
+        'crescent-heights-condos' => [
+            'label'    => 'Crescent Heights',
+            'title'    => 'Crescent Heights Condos',
+            'subtitle' => 'Search Crescent Heights condos and compare skyline views, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Crescent Heights offers inner-city Calgary condo options with skyline views, river pathways, transit access, and established neighbourhood character. Compare building age, fees, parking, storage, pet rules, and long-term resale before booking showings.',
+            'guidance' => 'Crescent Heights condo buyers want inner-city options with skyline views, river pathways, transit access, and established neighbourhood character. Compare building age, fees, parking, storage, pet rules, and long-term resale before booking showings.',
+        ],
+        'lower-mount-royal-condos' => [
+            'label'    => 'Lower Mount Royal',
+            'title'    => 'Lower Mount Royal Condos',
+            'subtitle' => 'Search Lower Mount Royal condos and compare 17th Avenue access, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Lower Mount Royal is a sought-after inner-city Calgary condo area near 17th Avenue, restaurants, shops, and downtown access. Before booking a showing, compare the building, fees, parking, storage, bylaws, pet rules, and resale strength.',
+            'guidance' => 'Lower Mount Royal condo buyers want proximity to 17th Avenue, restaurants, shops, and downtown. Before booking a showing, compare the building, fees, parking, storage, bylaws, pet rules, and resale strength in each specific building.',
+        ],
+        'cliff-bungalow-condos' => [
+            'label'    => 'Cliff Bungalow',
+            'title'    => 'Cliff Bungalow Condos',
+            'subtitle' => 'Search Cliff Bungalow condos and compare quiet inner-city living, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Cliff Bungalow is a quiet inner-city Calgary condo area near 4th Street, Mission restaurants, river pathways, and downtown access. Compare building age, fees, parking, storage, pet rules, and resale fit before booking showings.',
+            'guidance' => 'Cliff Bungalow condo buyers want a quiet inner-city area near 4th Street, Mission restaurants, river pathways, and downtown access. Compare building age, fees, parking, storage, pet rules, and resale fit before booking showings.',
+        ],
+        'bankview-condos' => [
+            'label'    => 'Bankview',
+            'title'    => 'Bankview Condos',
+            'subtitle' => 'Search Bankview condos and compare city views, inner-city access, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Bankview offers inner-city Calgary condo options with city views, 17th Avenue access, and a residential neighbourhood feel. Before booking a showing, compare the building, fees, parking, storage, bylaws, pet rules, and long-term resale fit.',
+            'guidance' => 'Bankview condo buyers want inner-city options with city views, 17th Avenue access, and a residential neighbourhood feel. Before booking a showing, compare the building, fees, parking, storage, bylaws, pet rules, and long-term resale fit.',
+        ],
+        'erlton-condos' => [
+            'label'    => 'Erlton',
+            'title'    => 'Erlton Condos',
+            'subtitle' => 'Search Erlton condos and compare Elbow River access, Stampede proximity, building quality, fees, rules, and resale fit.',
+            'intro'    => 'Erlton is a central Calgary condo area offering Stampede access, the Elbow River pathway, C-Train connections, and inner-city convenience. Compare the building, fees, parking, storage, pet rules, and resale fit before booking showings.',
+            'guidance' => 'Erlton condo buyers want central Calgary access, Stampede proximity, the Elbow River pathway, and C-Train connections. Compare the building, fees, parking, storage, pet rules, and resale fit before booking showings.',
+        ],
         'seton-condos' => [
-            'label' => 'Seton',
-            'title' => 'Seton Condos',
+            'label'    => 'Seton',
+            'title'    => 'Seton Condos',
             'subtitle' => 'Search Seton condos and compare newer southeast buildings, amenities, and ownership fit.',
+            'intro'    => 'Seton offers newer southeast Calgary condo options near health services, retail, and recreation hubs. Before booking a showing, compare fee inclusions, parking configuration, storage, pet and rental rules, reserve planning, and resale positioning by building.',
             'guidance' => 'Seton condo buyers usually compare newer southeast inventory near health, retail, and recreation hubs. To avoid surprises, review fee inclusions, parking configuration, storage, pet and rental rules, reserve planning, and resale positioning by building.',
         ],
         'mahogany-condos' => [
-            'label' => 'Mahogany',
-            'title' => 'Mahogany Condos',
+            'label'    => 'Mahogany',
+            'title'    => 'Mahogany Condos',
             'subtitle' => 'Search Mahogany condos and compare lake-community lifestyle, building quality, and resale path.',
+            'intro'    => 'Mahogany offers lake-community condo options with a distinct lifestyle, established amenities, and southeast Calgary convenience. Compare building age, parking, storage, fees, bylaws, reserve fund health, and resale fit before booking showings.',
             'guidance' => 'Mahogany condo options can vary by building age, amenities, parking, storage, and fee structure. Compare bylaws, reserve fund health, pet and rental rules, and resale demand so the unit also fits your long-term ownership plan.',
         ],
         'calgary-luxury-condos' => [
-            'label' => 'Calgary Luxury Condos',
-            'title' => 'Calgary Luxury Condos',
+            'label'    => 'Calgary Luxury Condos',
+            'title'    => 'Calgary Luxury Condos',
             'subtitle' => 'Search higher-end Calgary condos and compare the building, services, views, privacy, amenities, and resale path.',
+            'intro'    => 'Luxury condo buying in Calgary is not just about price. Compare construction quality, concierge services, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
             'guidance' => 'Luxury condo buying is not just price. Compare construction quality, concierge or security, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
         ],
     ];
@@ -119,6 +198,20 @@ final class Calgary_Condo_Area_Pages {
         'northeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439655 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-calgary-condos'  => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
         'beltline-condos'          => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
+    ];
+
+    /**
+     * Slugs that the PHP class always renders, overriding any matching WordPress page.
+     * Only includes slugs that have verified IDX shortcodes defined above.
+     */
+    private const AREA_PAGE_OVERRIDES = [
+        'all-calgary-condos',
+        'southeast-calgary-condos',
+        'southwest-calgary-condos',
+        'northwest-calgary-condos',
+        'northeast-calgary-condos',
+        'downtown-calgary-condos',
+        'beltline-condos',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [
@@ -151,7 +244,7 @@ final class Calgary_Condo_Area_Pages {
             return;
         }
 
-        if (!in_array($slug, ['southeast-calgary-condos', 'beltline-condos'], true) && (is_page() || is_singular('page'))) {
+        if (!in_array($slug, self::AREA_PAGE_OVERRIDES, true) && (is_page() || is_singular('page'))) {
             return;
         }
 
@@ -256,7 +349,7 @@ HTML;
             ? $this->northwest_manual_idx_feed()
             : $this->regional_idx_section($slug, $label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
-        $beltline_content = 'beltline-condos' === $slug ? $this->beltline_intro_blocks() : '';
+        $intro_content = $this->area_intro_blocks($area, $slug);
 
         return <<<HTML
 <main class="ccl-inner-page-shell ccl-area-page ccl-area-page--{$slug}">
@@ -274,7 +367,7 @@ HTML;
         </div>
     </section>
 
-    {$beltline_content}
+    {$intro_content}
 
     <section class="ccl-section ccl-area-guidance">
         <div class="ccl-wrap ccl-portal-intro__grid">
@@ -299,39 +392,47 @@ HTML;
 </main>
 HTML;
     }
-    private function beltline_intro_blocks(): string {
-        $nonce  = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
-        $scheme = is_ssl() ? 'https://' : 'http://';
-        $host   = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
-        $uri    = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
-        $action = esc_url(remove_query_arg('ccl_status', $scheme . $host . $uri) . '#condo-alerts');
+
+    private function area_intro_blocks(array $area, string $slug): string {
+        $intro = (string) ($area['intro'] ?? '');
+        if ('' === $intro) {
+            return '';
+        }
+        $intro    = esc_html($intro);
+        $label    = esc_html((string) $area['label']);
+        $id_slug  = sanitize_html_class($slug);
+        $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
+        $scheme   = is_ssl() ? 'https://' : 'http://';
+        $host     = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
+        $uri      = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
+        $action   = esc_url(remove_query_arg('ccl_status', $scheme . $host . $uri) . '#condo-alerts');
 
         return <<<HTML
 <section class="ccl-section ccl-beltline-intro">
     <div class="ccl-wrap">
-        <p>Beltline is one of Calgary&#8217;s most walkable condo communities, offering easy access to downtown offices, restaurants, caf&#233;s, parks, and transit. Buyers can choose from affordable apartments to luxury high-rise residences, making Beltline a popular option for first-time buyers, professionals, investors, and downsizers.</p>
+        <p>{$intro}</p>
     </div>
 </section>
 <section id="condo-alerts" class="ccl-section ccl-beltline-lead-form">
     <div class="ccl-wrap">
-        <p class="ccl-form__label">Get Beltline Condo Alerts &#8212; Be the first to know about new listings, price changes, and condos that match your criteria.</p>
+        <p class="ccl-form__label">Get {$label} Condo Alerts &#8212; Be the first to know about new listings, price changes, and condos that match your criteria.</p>
         <form class="ccl-form" method="post" action="{$action}">
             {$nonce}
             <input type="hidden" name="ccl_action" value="alert_form">
-            <input type="hidden" name="ccl_area" value="Beltline">
-            <label for="ccl-beltline-name">Your Name <span aria-hidden="true">*</span>
-                <input id="ccl-beltline-name" type="text" name="ccl_name" autocomplete="name" required>
+            <input type="hidden" name="ccl_area" value="{$label}">
+            <label for="ccl-{$id_slug}-name">Your Name <span aria-hidden="true">*</span>
+                <input id="ccl-{$id_slug}-name" type="text" name="ccl_name" autocomplete="name" required>
             </label>
-            <label for="ccl-beltline-email">Email Address <span aria-hidden="true">*</span>
-                <input id="ccl-beltline-email" type="email" name="ccl_email" autocomplete="email" required>
+            <label for="ccl-{$id_slug}-email">Email Address <span aria-hidden="true">*</span>
+                <input id="ccl-{$id_slug}-email" type="email" name="ccl_email" autocomplete="email" required>
             </label>
-            <label for="ccl-beltline-phone">Phone Number
-                <input id="ccl-beltline-phone" type="tel" name="ccl_phone" autocomplete="tel">
+            <label for="ccl-{$id_slug}-phone">Phone Number
+                <input id="ccl-{$id_slug}-phone" type="tel" name="ccl_phone" autocomplete="tel">
             </label>
-            <label class="ccl-hp" for="ccl-beltline-website">Website
-                <input id="ccl-beltline-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off">
+            <label class="ccl-hp" for="ccl-{$id_slug}-website">Website
+                <input id="ccl-{$id_slug}-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off">
             </label>
-            <button type="submit" class="ccl-btn ccl-btn--primary">Send Me Beltline Alerts</button>
+            <button type="submit" class="ccl-btn ccl-btn--primary">Send Me {$label} Alerts</button>
             <p class="ccl-form__note">No spam. Calgary condo updates only.</p>
         </form>
     </div>
