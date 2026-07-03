@@ -409,3 +409,51 @@ body .ccl-home-search-first .ccl-tight-idx__placeholder p {
   opacity: 1 !important;
   clear: both !important;
 }
+
+body .ccl-area-page--beltline-condos {
+  background: #0d0d0d !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) {
+  background: #1a1a1a !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-area-guidance {
+  background: #111111 !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-area-guidance .ccl-portal-intro__panel {
+  background: #1a1a1a !important;
+  border-color: #c9a84c !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h1,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h2,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h3,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h4,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h5,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) h6,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) p,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) li,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) label,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) .ccl-form__label,
+body .ccl-area-page--beltline-condos .ccl-section:not(.ccl-region-idx-section) .ccl-portal-intro__panel strong {
+  color: #f5f5f5 !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-beltline-lead-form {
+  background: #1a1a1a !important;
+  border: 1px solid #c9a84c !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-beltline-lead-form input,
+body .ccl-area-page--beltline-condos .ccl-beltline-lead-form select,
+body .ccl-area-page--beltline-condos .ccl-beltline-lead-form textarea {
+  background: #2a2a2a !important;
+  color: #f5f5f5 !important;
+}
+
+body .ccl-area-page--beltline-condos .ccl-beltline-lead-form .ccl-form__note,
+body .ccl-area-page--beltline-condos .ccl-trust-line {
+  color: #999999 !important;
+}
