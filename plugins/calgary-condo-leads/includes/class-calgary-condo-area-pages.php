@@ -109,15 +109,17 @@ final class Calgary_Condo_Area_Pages {
             'label'    => 'Hillhurst',
             'title'    => 'Hillhurst Condos',
             'subtitle' => 'Search Hillhurst condos and compare walkability, building quality, rules, fees, and resale fit.',
-            'intro'    => 'Hillhurst is a walkable inner-city Calgary condo area near Kensington Road, cafés, restaurants, LRT access, and river pathways. Before booking a showing, compare the building, condo fees, parking, storage, pet rules, amenities, bylaws, and resale fit.',
+            'intro'    => 'Hillhurst offers inner-city condo options close to Kensington Village, SAIT, river pathways, transit, and downtown Calgary. Buyers should compare building age, condo fees, parking, storage, pet rules, and resale demand before choosing between older low-rise buildings and newer infill-style condo options.',
             'guidance' => 'Hillhurst condo buyers often want village-style walkability, cafés, transit, and quick inner-city access. Before choosing by photos alone, compare condo fees, parking, storage, pet rules, reserve fund strength, and how each building performs for long-term resale demand.',
+            'lead_form_label' => 'Get Hillhurst Condo Alerts — Be the first to know about new listings, price changes, and Hillhurst condos that match your criteria.',
         ],
-        'bridgeland-condos' => [
-            'label'    => 'Bridgeland',
-            'title'    => 'Bridgeland Condos',
-            'subtitle' => 'Search Bridgeland condos and compare building details, fees, parking, and lifestyle fit.',
-            'intro'    => 'Bridgeland is a strong Calgary condo area for buyers who want inner-city access, restaurants, pathways, transit, river access, and a neighbourhood feel close to downtown. Before booking a showing, compare the building, condo fees, parking, storage, amenities, bylaws, pet rules, and resale fit.',
-            'guidance' => 'Bridgeland combines inner-city convenience, river pathways, and strong neighbourhood demand. Compare each building by construction type, fee trend, bylaws, parking, storage, pet rules, and future buyer appeal before booking showings.',
+        'bridgeland-riverside-condos' => [
+            'label'    => 'Bridgeland/Riverside',
+            'title'    => 'Bridgeland/Riverside Condos',
+            'subtitle' => 'Search Bridgeland/Riverside condos and compare building details, fees, parking, and lifestyle fit.',
+            'intro'    => 'Bridgeland/Riverside offers inner-city condo living with quick access to the Bow River pathway system, CTrain, cafés, restaurants, parks, and downtown Calgary. Buyers should compare building age, amenities, parking, storage, condo fees, and resale strength before choosing between established buildings and newer condo developments.',
+            'guidance' => 'Bridgeland/Riverside combines inner-city convenience, river pathways, and strong neighbourhood demand. Compare each building by construction type, fee trend, bylaws, parking, storage, pet rules, and future buyer appeal before booking showings.',
+            'lead_form_label' => 'Get Bridgeland/Riverside Condo Alerts — Be the first to know about new listings, price changes, and Bridgeland/Riverside condos that match your criteria.',
         ],
         'inglewood-condos' => [
             'label'    => 'Inglewood',
@@ -225,6 +227,8 @@ final class Calgary_Condo_Area_Pages {
         'east-village-condos',
         'mission-condos',
         'eau-claire-condos',
+        'hillhurst-condos',
+        'bridgeland-riverside-condos',
     ];
 
     /**
@@ -234,6 +238,8 @@ final class Calgary_Condo_Area_Pages {
         'east-village-condos',
         'mission-condos',
         'eau-claire-condos',
+        'hillhurst-condos',
+        'bridgeland-riverside-condos',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [
