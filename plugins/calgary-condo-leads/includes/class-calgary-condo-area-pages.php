@@ -248,6 +248,7 @@ HTML;
             ? $this->northwest_manual_idx_feed()
             : $this->regional_idx_section($slug, $label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
+        $beltline_content = 'beltline-condos' === $slug ? $this->beltline_intro_blocks() : '';
 
         return <<<HTML
 <main class="ccl-inner-page-shell ccl-area-page ccl-area-page--{$slug}">
@@ -264,6 +265,8 @@ HTML;
             </div>
         </div>
     </section>
+
+    {$beltline_content}
 
     <section class="ccl-section ccl-area-guidance">
         <div class="ccl-wrap ccl-portal-intro__grid">
@@ -288,6 +291,46 @@ HTML;
 </main>
 HTML;
     }
+    private function beltline_intro_blocks(): string {
+        $nonce  = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
+        $scheme = is_ssl() ? 'https://' : 'http://';
+        $host   = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
+        $uri    = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
+        $action = esc_url(remove_query_arg('ccl_status', $scheme . $host . $uri) . '#condo-alerts');
+
+        return <<<HTML
+<section class="ccl-section ccl-beltline-intro">
+    <div class="ccl-wrap">
+        <p>Beltline is one of Calgary&#8217;s most walkable condo communities, offering easy access to downtown offices, restaurants, caf&#233;s, parks, and transit. Buyers can choose from affordable apartments to luxury high-rise residences, making Beltline a popular option for first-time buyers, professionals, investors, and downsizers.</p>
+    </div>
+</section>
+<section id="condo-alerts" class="ccl-section ccl-beltline-lead-form">
+    <div class="ccl-wrap">
+        <p class="ccl-form__label">Get Beltline Condo Alerts &#8212; Be the first to know about new listings, price changes, and condos that match your criteria.</p>
+        <form class="ccl-form" method="post" action="{$action}">
+            {$nonce}
+            <input type="hidden" name="ccl_action" value="alert_form">
+            <input type="hidden" name="ccl_area" value="Beltline">
+            <label for="ccl-beltline-name">Your Name <span aria-hidden="true">*</span>
+                <input id="ccl-beltline-name" type="text" name="ccl_name" autocomplete="name" required>
+            </label>
+            <label for="ccl-beltline-email">Email Address <span aria-hidden="true">*</span>
+                <input id="ccl-beltline-email" type="email" name="ccl_email" autocomplete="email" required>
+            </label>
+            <label for="ccl-beltline-phone">Phone Number
+                <input id="ccl-beltline-phone" type="tel" name="ccl_phone" autocomplete="tel">
+            </label>
+            <label class="ccl-hp" for="ccl-beltline-website">Website
+                <input id="ccl-beltline-website" type="text" name="ccl_website" tabindex="-1" autocomplete="off">
+            </label>
+            <button type="submit" class="ccl-btn ccl-btn--primary">Send Me Beltline Alerts</button>
+            <p class="ccl-form__note">No spam. Calgary condo updates only.</p>
+        </form>
+    </div>
+</section>
+HTML;
+    }
+
     private function northwest_manual_idx_feed(): string {
         $northwest_feed = do_shortcode('[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]');
 
