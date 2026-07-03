@@ -170,8 +170,8 @@ final class Calgary_Condo_Homepage {
         $cards = [
             ['title' => 'Browse Calgary Condos', 'copy' => 'Start with the approved live Calgary condo search, then narrow by area, building, budget, and showing fit.', 'micro' => 'Live listings from Calgary\'s approved IDX feed, updated daily.', 'button' => 'Search Calgary Condos', 'url' => '/all-calgary-condos/', 'icon' => $search_icon],
             ['title' => 'Get My Condo Value', 'copy' => 'Request a building-aware value report that accounts for competition, fees, condition, and buyer demand.', 'micro' => 'Free building-aware report. No obligation, no spam.', 'button' => 'Get My Condo Value', 'category' => 'Condo Value Report', 'icon' => $value_icon],
-            ['title' => 'Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary&#8217;s top-ranked designated public and separate school boundaries.', 'micro' => 'Match your condo search to Calgary\'s best school zones.', 'button' => 'Explore School Catchments', 'url' => '/top-school-catchments/', 'category' => 'Condo Alerts', 'icon' => $school_icon],
-            ['title' => 'Parks &amp; Pet-Friendly Areas', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'micro' => 'Find off-leash parks and pathways walking distance from your condo.', 'button' => 'Explore Pet-Friendly Areas', 'url' => '/parks-pet-friendly-areas/', 'category' => 'Building Risk Report', 'icon' => $park_icon],
+            ['title' => 'Top School Catchments', 'copy' => 'Filter active condo listings dynamically mapped to Calgary&#8217;s top-ranked designated public and separate school boundaries.', 'micro' => 'Match your condo search to Calgary\'s best school zones.', 'button' => 'Explore School Catchments', 'url' => '/calgary-communities/', 'category' => 'Condo Alerts', 'icon' => $school_icon],
+            ['title' => 'Parks &amp; Pet-Friendly Areas', 'copy' => 'Locate premium buildings within immediate walking distance to inner-city off-leash dog runs, pathways, and green spaces.', 'micro' => 'Find off-leash parks and pathways walking distance from your condo.', 'button' => 'Explore Pet-Friendly Areas', 'url' => '/calgary-pet-friendly-condos/', 'category' => 'Building Risk Report', 'icon' => $park_icon],
         ];
         ob_start(); ?>
         <section class="ccl-section ccl-home-intent" aria-labelledby="ccl-home-intent-title">
@@ -409,8 +409,8 @@ final class Calgary_Condo_Homepage {
                     </div>
                     <div class="ccl-home-idx-frame__embed"><?php echo do_shortcode($idx); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
                     <div class="ccl-home-live-idx__actions">
-                        <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url('/under-300k/')); ?>" target="_self">View All Under $300K Condos</a>
-                        <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url(home_url('/building-alerts/')); ?>" target="_self">Get Instant Condo Alerts</a>
+                        <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url('/calgary-condos-under-300k/')); ?>" target="_self">View All Under $300K Condos</a>
+                        <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url(home_url('/building-alert-request/')); ?>" target="_self">Get Instant Condo Alerts</a>
                     </div>
                 </div>
             </div>
