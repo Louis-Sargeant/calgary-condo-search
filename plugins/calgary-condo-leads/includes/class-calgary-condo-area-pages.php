@@ -509,12 +509,9 @@ HTML;
         }
 
         $content = (string) $existing_page->post_content;
-        if (preg_match('/(\[mrp[^\]]*\](?:.*?)\[\/mrp\])/is', $content, $matches)) {
-            return trim((string) ($matches[1] ?? ''));
-        }
-
-        if (preg_match('/(\[mrp[^\]]*\/\])/is', $content, $matches)) {
-            return trim((string) ($matches[1] ?? ''));
+        $pattern = '/' . get_shortcode_regex(['mrp']) . '/s';
+        if (preg_match($pattern, $content, $matches)) {
+            return trim((string) ($matches[0] ?? ''));
         }
 
         return '';
