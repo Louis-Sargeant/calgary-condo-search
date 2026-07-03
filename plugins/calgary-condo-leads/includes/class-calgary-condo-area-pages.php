@@ -13,6 +13,12 @@ final class Calgary_Condo_Area_Pages {
     private const SEEDED_REGIONAL_PAGES_VERSION_OPTION = 'ccl_seed_regional_pages_version';
 
     private const AREAS = [
+        'all-calgary-condos' => [
+            'label' => 'All Calgary',
+            'title' => 'Calgary Condos',
+            'subtitle' => 'Search all Calgary condos, then compare the building, fees, rules, parking, storage, and resale path before booking showings.',
+            'guidance' => 'Calgary condo buyers have options across every quadrant, price range, and building type. Before choosing by price or photos alone, compare the condo corporation, fee inclusions, parking, storage, pet rules, rental rules, reserve fund, bylaws, and how similar units have sold in that specific building.',
+        ],
         'southeast-calgary-condos' => [
             'label' => 'Southeast Calgary',
             'title' => 'Southeast Calgary Condos',
@@ -106,11 +112,13 @@ final class Calgary_Condo_Area_Pages {
     ];
 
     private const REGIONAL_MRP_SHORTCODES = [
-        'southeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439654 context=recip perm_attr=tmpl~v2]',
+        'all-calgary-condos'       => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2][/mrp]',
+        'southeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439652 context=recip perm_attr=tmpl~v2][/mrp]',
         'southwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
-        'northeast-calgary-condos' => '',
-        'beltline-condos' => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
+        'northeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439655 context=recip perm_attr=tmpl~v2][/mrp]',
+        'downtown-calgary-condos'  => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
+        'beltline-condos'          => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [
