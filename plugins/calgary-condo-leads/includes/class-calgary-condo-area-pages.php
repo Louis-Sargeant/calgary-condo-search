@@ -370,7 +370,7 @@ final class Calgary_Condo_Area_Pages {
 <!-- /wp:heading -->
 
 <!-- wp:shortcode -->
-{$shortcode}
+
 <!-- /wp:shortcode -->
 HTML;
     }
