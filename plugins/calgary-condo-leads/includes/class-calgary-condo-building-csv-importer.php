@@ -13,9 +13,12 @@ final class Calgary_Condo_Building_CSV_Importer {
     private const PAGE_SLUG = 'ccl-building-csv-importer';
     private const DRY_RUN_ACTION = 'ccl_building_csv_importer_dry_run';
     private const IMPORT_ACTION = 'ccl_building_csv_importer_import';
+    private const BUNDLED_DRY_RUN_ACTION = 'ccl_building_bundled_csv_dry_run';
     private const DRY_RUN_NONCE_ACTION = 'ccl_building_csv_importer_dry_run_nonce';
     private const IMPORT_NONCE_ACTION = 'ccl_building_csv_importer_import_nonce';
+    private const BUNDLED_DRY_RUN_NONCE_ACTION = 'ccl_building_bundled_csv_dry_run_nonce';
     private const CSV_FILE_FIELD = 'ccl_building_csv_file';
+    private const BUNDLED_CSV_FILE = 'buildings-50.csv';
 
     private const REQUIRED_COLUMNS = [
         'building_name',
@@ -23,24 +26,61 @@ final class Calgary_Condo_Building_CSV_Importer {
     ];
 
     private const OPTIONAL_COLUMNS = [
-        'building_address' => 'text',
-        'building_year_built' => 'text',
-        'building_developer' => 'text',
-        'building_units' => 'text',
-        'building_stories' => 'text',
-        'building_construction_type' => 'text',
-        'building_condo_fee_details' => 'textarea',
-        'building_fee_inclusions' => 'textarea',
-        'building_pet_rules' => 'textarea',
-        'building_rental_rules' => 'textarea',
-        'building_underground_parking' => 'textarea',
-        'building_visitor_parking' => 'textarea',
-        'building_storage_lockers' => 'textarea',
-        'building_gym' => 'textarea',
-        'building_concierge' => 'textarea',
-        'building_rooftop_deck' => 'textarea',
-        'building_guest_suite' => 'textarea',
-        'building_mrp_shortcode' => 'textarea',
+        'building_address'                      => 'text',
+        'building_year_built'                   => 'text',
+        'building_developer'                    => 'text',
+        'building_units'                        => 'text',
+        'building_stories'                      => 'text',
+        'building_construction_type'            => 'text',
+        'building_condo_fee_details'            => 'textarea',
+        'building_fee_inclusions'               => 'textarea',
+        'building_pet_rules'                    => 'textarea',
+        'building_rental_rules'                 => 'textarea',
+        'building_underground_parking'          => 'textarea',
+        'building_visitor_parking'              => 'textarea',
+        'building_storage_lockers'              => 'textarea',
+        'building_gym'                          => 'textarea',
+        'building_concierge'                    => 'textarea',
+        'building_rooftop_deck'                 => 'textarea',
+        'building_guest_suite'                  => 'textarea',
+        'building_mrp_shortcode'                => 'textarea',
+        // Phase 2 fields.
+        'building_area'                         => 'text',
+        'building_amenities'                    => 'textarea',
+        'building_pet_policy'                   => 'textarea',
+        'building_parking_notes'                => 'textarea',
+        'building_storage_notes'                => 'textarea',
+        'building_condo_fee_notes'              => 'textarea',
+        'building_bylaws_notes'                 => 'textarea',
+        'building_reserve_fund_notes'           => 'textarea',
+        'building_insurance_notes'              => 'textarea',
+        'building_special_assessment_notes'     => 'textarea',
+        'building_idx_search_id'                => 'text',
+        'building_active_listing_count_fallback' => 'text',
+    ];
+
+    /**
+     * Short/alias column names mapped to canonical building_* meta keys.
+     * Applied after lowercasing; columns not in this map pass through unchanged.
+     *
+     * @var array<string,string>
+     */
+    private const COLUMN_ALIASES = [
+        'address'                    => 'building_address',
+        'building_type'              => 'building_construction_type',
+        'year_built'                 => 'building_year_built',
+        'floors'                     => 'building_stories',
+        'area'                       => 'building_area',
+        'amenities'                  => 'building_amenities',
+        'pet_policy'                 => 'building_pet_policy',
+        'parking_notes'              => 'building_parking_notes',
+        'storage_notes'              => 'building_storage_notes',
+        'condo_fee_notes'            => 'building_condo_fee_notes',
+        'bylaws_notes'               => 'building_bylaws_notes',
+        'reserve_fund_notes'         => 'building_reserve_fund_notes',
+        'insurance_notes'            => 'building_insurance_notes',
+        'special_assessment_notes'   => 'building_special_assessment_notes',
+        'active_listing_count_fallback' => 'building_active_listing_count_fallback',
     ];
 
     private const DUPLICATE_DETECTION_LIMIT = 2;
@@ -53,6 +93,7 @@ final class Calgary_Condo_Building_CSV_Importer {
         add_action('admin_menu', [$this, 'register_admin_page']);
         add_action('admin_post_' . self::DRY_RUN_ACTION, [$this, 'handle_dry_run']);
         add_action('admin_post_' . self::IMPORT_ACTION, [$this, 'handle_import']);
+        add_action('admin_post_' . self::BUNDLED_DRY_RUN_ACTION, [$this, 'handle_bundled_dry_run']);
     }
 
     public function register_admin_page(): void {
@@ -72,10 +113,22 @@ final class Calgary_Condo_Building_CSV_Importer {
 
         $dry_run_data = get_transient($this->dry_run_transient_key());
         $import_data = get_transient($this->import_transient_key());
+        $bundled_path = CCL_PLUGIN_DIR . 'data/' . self::BUNDLED_CSV_FILE;
         ?>
         <div class="wrap">
             <h1><?php esc_html_e('Calgary Building CSV Importer', 'calgary-condo-leads'); ?></h1>
             <p><?php esc_html_e('Step 1 uploads a CSV and runs a dry-run preview. Step 2 requires explicit confirmation before any writes.', 'calgary-condo-leads'); ?></p>
+
+            <?php if (file_exists($bundled_path)) : ?>
+                <h2><?php esc_html_e('Bundled CSV: buildings-50.csv', 'calgary-condo-leads'); ?></h2>
+                <p><?php esc_html_e('Run a dry-run from the bundled 50-building CSV included with this plugin.', 'calgary-condo-leads'); ?></p>
+                <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
+                    <input type="hidden" name="action" value="<?php echo esc_attr(self::BUNDLED_DRY_RUN_ACTION); ?>" />
+                    <?php wp_nonce_field(self::BUNDLED_DRY_RUN_NONCE_ACTION, 'ccl_building_bundled_csv_nonce'); ?>
+                    <?php submit_button(__('Dry-run bundled buildings-50.csv', 'calgary-condo-leads'), 'secondary'); ?>
+                </form>
+                <hr />
+            <?php endif; ?>
 
             <h2><?php esc_html_e('Step 1: Dry-run (no writes)', 'calgary-condo-leads'); ?></h2>
             <form method="post" enctype="multipart/form-data" action="<?php echo esc_url(admin_url('admin-post.php')); ?>">
@@ -155,6 +208,43 @@ final class Calgary_Condo_Building_CSV_Importer {
         $this->redirect_to_admin_page();
     }
 
+    public function handle_bundled_dry_run(): void {
+        $this->assert_admin_request(self::BUNDLED_DRY_RUN_NONCE_ACTION, 'ccl_building_bundled_csv_nonce');
+
+        $rows = $this->parse_bundled_csv();
+        $summary = $this->run_import($rows, false);
+        $data = [
+            'token' => wp_generate_uuid4(),
+            'rows' => $rows,
+            'summary' => $summary,
+            'created_at' => time(),
+        ];
+
+        set_transient($this->dry_run_transient_key(), $data, 30 * MINUTE_IN_SECONDS);
+        delete_transient($this->import_transient_key());
+
+        $this->redirect_to_admin_page();
+    }
+
+    /**
+     * Parse the bundled plugin CSV file from the data directory.
+     *
+     * @return array<int,array<string,mixed>>
+     */
+    private function parse_bundled_csv(): array {
+        $path = CCL_PLUGIN_DIR . 'data/' . self::BUNDLED_CSV_FILE;
+        if (!file_exists($path)) {
+            wp_die(esc_html__('Bundled CSV file not found.', 'calgary-condo-leads'));
+        }
+
+        $handle = fopen($path, 'rb');
+        if (false === $handle) {
+            wp_die(esc_html__('Unable to read bundled CSV file.', 'calgary-condo-leads'));
+        }
+
+        return $this->parse_csv_handle($handle);
+    }
+
     /**
      * @return array<int,array<string,mixed>>
      */
@@ -187,6 +277,16 @@ final class Calgary_Condo_Building_CSV_Importer {
             wp_die(esc_html__('Unable to read uploaded CSV.', 'calgary-condo-leads'));
         }
 
+        return $this->parse_csv_handle($handle);
+    }
+
+    /**
+     * Parse rows from an open CSV file handle. Closes the handle when done.
+     *
+     * @param resource $handle Open file handle positioned at the start of the file.
+     * @return array<int,array<string,mixed>>
+     */
+    private function parse_csv_handle($handle): array {
         $header_row = fgetcsv($handle);
         if (!is_array($header_row) || empty($header_row)) {
             fclose($handle);
@@ -376,6 +476,7 @@ final class Calgary_Condo_Building_CSV_Importer {
     private function prepare_row(array $row): array {
         $name = sanitize_text_field((string) ($row['building_name'] ?? ''));
         $community = sanitize_text_field((string) ($row['building_community'] ?? ''));
+        $slug = sanitize_title((string) ($row['slug'] ?? ''));
         $meta = [
             'building_community' => $community,
         ];
@@ -400,6 +501,7 @@ final class Calgary_Condo_Building_CSV_Importer {
             'row_number' => (int) ($row['_row_number'] ?? 0),
             'name' => $name,
             'community' => $community,
+            'slug' => $slug,
             'meta' => $meta,
             'provided_columns' => $provided_columns,
             'import_key' => $this->build_import_key($name, $community),
@@ -473,6 +575,10 @@ final class Calgary_Condo_Building_CSV_Importer {
             }
             $post_id = wp_update_post($postarr, true);
         } else {
+            $provided_slug = (string) ($prepared['slug'] ?? '');
+            if ('' !== $provided_slug) {
+                $postarr['post_name'] = $provided_slug;
+            }
             $post_id = wp_insert_post($postarr, true);
         }
 
@@ -593,7 +699,8 @@ final class Calgary_Condo_Building_CSV_Importer {
     }
 
     private function normalize_column_name(string $column_name): string {
-        return strtolower(trim($column_name));
+        $normalized = strtolower(trim($column_name));
+        return self::COLUMN_ALIASES[$normalized] ?? $normalized;
     }
 
     private function build_import_key(string $name, string $community): string {

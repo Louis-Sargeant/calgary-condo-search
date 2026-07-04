@@ -212,7 +212,7 @@ final class Calgary_Condo_Building_Directory {
     private function styles(): string {
         return <<<'CSS'
 <style>
-.ccl-building-page{background:#f6f7f8;color:#0A1A2F}.ccl-building-wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}.ccl-building-hero{position:relative;overflow:hidden;background:#07162a;color:#fff;padding:92px 0;min-height:560px;display:flex;align-items:center}.ccl-building-hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(7,22,42,.96) 0%,rgba(7,22,42,.83) 36%,rgba(7,22,42,.48) 68%,rgba(7,22,42,.2) 100%),linear-gradient(180deg,rgba(7,22,42,.14),rgba(7,22,42,.38)),var(--ccl-building-hero-image);background-size:cover;background-position:center;transform:scale(1.02);opacity:1}.ccl-building-hero:after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(to top,rgba(7,22,42,.88),transparent)}.ccl-building-hero__inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.92fr) minmax(320px,.42fr);gap:34px;align-items:center}.ccl-building-eyebrow{margin:0 0 14px;color:#F0C75E;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}.ccl-building-hero h1{margin:0 0 18px;color:#fff;font-size:clamp(42px,5vw,72px);line-height:.96;letter-spacing:-.05em;text-shadow:0 12px 34px rgba(0,0,0,.35)}.ccl-building-hero p{margin:0;color:rgba(255,255,255,.9);font-size:18px;line-height:1.6;max-width:760px}.ccl-building-visual{display:none}.ccl-building-searchbox{background:rgba(10,26,47,.58);border:1px solid rgba(255,255,255,.26);border-radius:26px;padding:24px;backdrop-filter:blur(13px);box-shadow:0 24px 70px rgba(0,0,0,.28)}.ccl-building-searchbox strong{display:block;color:#fff;font-size:24px;margin-bottom:10px}.ccl-building-searchbox span{display:block;color:rgba(255,255,255,.82);line-height:1.5}.ccl-building-section{padding:58px 0;background:#fff}.ccl-building-section--soft{background:#f6f7f8}.ccl-building-section h2{margin:0 0 12px;font-size:clamp(30px,4vw,48px);letter-spacing:-.04em;line-height:1}.ccl-building-section p{max-width:820px;color:#4b5563;line-height:1.7;font-size:17px}.ccl-building-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}.ccl-building-card{background:#fff;border:1px solid rgba(10,26,47,.1);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(10,26,47,.07);min-height:190px}.ccl-building-card span{display:inline-block;background:#F0C75E;color:#0A1A2F;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;margin-bottom:12px}.ccl-building-card h3{margin:0 0 8px;font-size:22px;line-height:1.1}.ccl-building-card p{font-size:14px;line-height:1.55;margin:0;color:#4b5563}.ccl-building-card small{display:block;margin-top:12px;color:#64748b;font-weight:800}.ccl-building-cta{background:#0A1A2F;color:#fff;border-radius:28px;padding:34px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.ccl-building-cta h2{color:#fff;margin:0 0 8px}.ccl-building-cta p{color:rgba(255,255,255,.78);margin:0}.ccl-building-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;background:#F0C75E;color:#0A1A2F;text-decoration:none;font-weight:900;white-space:nowrap}@media(max-width:980px){.ccl-building-hero{min-height:520px}.ccl-building-hero__inner,.ccl-building-cta{grid-template-columns:1fr}.ccl-building-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.ccl-building-hero{padding:62px 0;min-height:520px}.ccl-building-grid{grid-template-columns:1fr}.ccl-building-btn{width:100%}}
+.ccl-building-page{background:#f6f7f8;color:#0A1A2F}.ccl-building-wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}.ccl-building-hero{position:relative;overflow:hidden;background:#07162a;color:#fff;padding:92px 0;min-height:560px;display:flex;align-items:center}.ccl-building-hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(7,22,42,.96) 0%,rgba(7,22,42,.83) 36%,rgba(7,22,42,.48) 68%,rgba(7,22,42,.2) 100%),linear-gradient(180deg,rgba(7,22,42,.14),rgba(7,22,42,.38)),var(--ccl-building-hero-image);background-size:cover;background-position:center;transform:scale(1.02);opacity:1}.ccl-building-hero:after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(to top,rgba(7,22,42,.88),transparent)}.ccl-building-hero__inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.92fr) minmax(320px,.42fr);gap:34px;align-items:center}.ccl-building-eyebrow{margin:0 0 14px;color:#F0C75E;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}.ccl-building-hero h1{margin:0 0 18px;color:#fff;font-size:clamp(42px,5vw,72px);line-height:.96;letter-spacing:-.05em;text-shadow:0 12px 34px rgba(0,0,0,.35)}.ccl-building-hero p{margin:0;color:rgba(255,255,255,.9);font-size:18px;line-height:1.6;max-width:760px}.ccl-building-visual{display:none}.ccl-building-searchbox{background:rgba(10,26,47,.58);border:1px solid rgba(255,255,255,.26);border-radius:26px;padding:24px;backdrop-filter:blur(13px);box-shadow:0 24px 70px rgba(0,0,0,.28)}.ccl-building-searchbox strong{display:block;color:#fff;font-size:24px;margin-bottom:10px}.ccl-building-searchbox span{display:block;color:rgba(255,255,255,.82);line-height:1.5}.ccl-building-section{padding:58px 0;background:#fff}.ccl-building-section--soft{background:#f6f7f8}.ccl-building-section h2{margin:0 0 12px;font-size:clamp(30px,4vw,48px);letter-spacing:-.04em;line-height:1}.ccl-building-section p{max-width:820px;color:#4b5563;line-height:1.7;font-size:17px}.ccl-building-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}.ccl-building-card{background:#fff;border:1px solid rgba(10,26,47,.1);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(10,26,47,.07);min-height:190px}.ccl-building-card span{display:inline-block;background:#F0C75E;color:#0A1A2F;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;margin-bottom:12px}.ccl-building-card h3{margin:0 0 8px;font-size:22px;line-height:1.1}.ccl-building-card p{font-size:14px;line-height:1.55;margin:0;color:#4b5563}.ccl-building-card small{display:block;margin-top:12px;color:#64748b;font-weight:800}.ccl-building-card__cta{display:inline-block;margin-top:14px;color:#0A1A2F;font-weight:900;font-size:13px;text-decoration:underline;text-underline-offset:3px}.ccl-building-cta{background:#0A1A2F;color:#fff;border-radius:28px;padding:34px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.ccl-building-cta h2{color:#fff;margin:0 0 8px}.ccl-building-cta p{color:rgba(255,255,255,.78);margin:0}.ccl-building-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;background:#F0C75E;color:#0A1A2F;text-decoration:none;font-weight:900;white-space:nowrap}@media(max-width:980px){.ccl-building-hero{min-height:520px}.ccl-building-hero__inner,.ccl-building-cta{grid-template-columns:1fr}.ccl-building-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.ccl-building-hero{padding:62px 0;min-height:520px}.ccl-building-grid{grid-template-columns:1fr}.ccl-building-btn{width:100%}}
 </style>
 CSS;
     }
@@ -298,7 +298,7 @@ HTML;
 
     /**
      * @param array<int,WP_Post> $posts
-     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     * @return array<int,array{name:string,area:string,type:string,focus:string,permalink:string}>
      */
     private function normalize_posts_to_buildings(array $posts): array {
         $buildings = [];
@@ -308,12 +308,14 @@ HTML;
             // post_excerpt is used for the card focus line; empty strings render
             // a blank <p> which is acceptable and consistent with the card template.
             $focus = trim(wp_strip_all_tags((string) $post->post_excerpt));
+            $permalink = get_permalink($post->ID);
 
             $buildings[] = [
-                'name'  => $post->post_title,
-                'area'  => $area,
-                'type'  => $type,
-                'focus' => $focus,
+                'name'      => $post->post_title,
+                'area'      => $area,
+                'type'      => $type,
+                'focus'     => $focus,
+                'permalink' => is_string($permalink) ? $permalink : '',
             ];
         }
 
@@ -327,7 +329,20 @@ HTML;
             $area = esc_html($building['area']);
             $type = esc_html($building['type']);
             $focus = esc_html($building['focus']);
-            $cards .= <<<HTML
+            $permalink = esc_url($building['permalink'] ?? '');
+
+            if ($permalink) {
+                $cards .= <<<HTML
+<article class="ccl-building-card">
+    <span>{$type}</span>
+    <h3>{$name}</h3>
+    <p>{$focus}</p>
+    <small>{$area}</small>
+    <a href="{$permalink}" class="ccl-building-card__cta">View Building Profile</a>
+</article>
+HTML;
+            } else {
+                $cards .= <<<HTML
 <article class="ccl-building-card">
     <span>{$type}</span>
     <h3>{$name}</h3>
@@ -335,6 +350,7 @@ HTML;
     <small>{$area}</small>
 </article>
 HTML;
+            }
         }
 
         $intro = $include_intro ? '<p>This is the starter Calgary building directory for all condo buyers — first-time buyers, downsizers, investors, downtown buyers, luxury buyers, and price-sensitive buyers. The next phase is individual building profile pages with building-specific listing feeds where the IDX data supports it.</p>' : '';

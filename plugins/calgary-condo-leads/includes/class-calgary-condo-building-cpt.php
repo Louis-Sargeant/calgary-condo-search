@@ -24,6 +24,10 @@ final class Calgary_Condo_Building_CPT {
             'label' => 'Building Community',
             'type' => 'text',
         ],
+        'building_area' => [
+            'label' => 'Display Area',
+            'type' => 'text',
+        ],
         'building_year_built' => [
             'label' => 'Year Built',
             'type' => 'text',
@@ -48,6 +52,10 @@ final class Calgary_Condo_Building_CPT {
             'label' => 'Condo Fee Details',
             'type' => 'textarea',
         ],
+        'building_condo_fee_notes' => [
+            'label' => 'Condo Fee Notes',
+            'type' => 'textarea',
+        ],
         'building_fee_inclusions' => [
             'label' => 'Fee Inclusions',
             'type' => 'textarea',
@@ -56,8 +64,16 @@ final class Calgary_Condo_Building_CPT {
             'label' => 'Pet Rules',
             'type' => 'textarea',
         ],
+        'building_pet_policy' => [
+            'label' => 'Pet Policy',
+            'type' => 'textarea',
+        ],
         'building_rental_rules' => [
             'label' => 'Rental Rules',
+            'type' => 'textarea',
+        ],
+        'building_bylaws_notes' => [
+            'label' => 'Bylaws Notes',
             'type' => 'textarea',
         ],
         'building_underground_parking' => [
@@ -68,8 +84,20 @@ final class Calgary_Condo_Building_CPT {
             'label' => 'Visitor Parking',
             'type' => 'textarea',
         ],
+        'building_parking_notes' => [
+            'label' => 'Parking Notes',
+            'type' => 'textarea',
+        ],
         'building_storage_lockers' => [
             'label' => 'Storage Lockers',
+            'type' => 'textarea',
+        ],
+        'building_storage_notes' => [
+            'label' => 'Storage Notes',
+            'type' => 'textarea',
+        ],
+        'building_amenities' => [
+            'label' => 'Amenities',
             'type' => 'textarea',
         ],
         'building_gym' => [
@@ -87,6 +115,26 @@ final class Calgary_Condo_Building_CPT {
         'building_guest_suite' => [
             'label' => 'Guest Suite',
             'type' => 'textarea',
+        ],
+        'building_insurance_notes' => [
+            'label' => 'Insurance Notes',
+            'type' => 'textarea',
+        ],
+        'building_reserve_fund_notes' => [
+            'label' => 'Reserve Fund Notes',
+            'type' => 'textarea',
+        ],
+        'building_special_assessment_notes' => [
+            'label' => 'Special Assessment Notes',
+            'type' => 'textarea',
+        ],
+        'building_idx_search_id' => [
+            'label' => 'IDX Search ID',
+            'type' => 'text',
+        ],
+        'building_active_listing_count_fallback' => [
+            'label' => 'Active Listing Count Fallback',
+            'type' => 'text',
         ],
         'building_mrp_shortcode' => [
             'label' => 'MRP Shortcode',
@@ -348,17 +396,21 @@ final class Calgary_Condo_Building_CPT {
                 'Number of Units' => 'building_units',
                 'Number of Stories' => 'building_stories',
                 'Construction Type' => 'building_construction_type',
+                'Amenities' => 'building_amenities',
             ]))
             . $this->panel('Condo Fees & Ownership Notes', $this->definition_list([
                 'Condo Fee Details' => 'building_condo_fee_details',
+                'Condo Fee Notes' => 'building_condo_fee_notes',
                 'Fee Inclusions' => 'building_fee_inclusions',
                 'Insurance Notes' => 'building_insurance_notes',
-                'Reserve Fund Study Status' => 'building_reserve_fund_status',
+                'Reserve Fund Notes' => 'building_reserve_fund_notes',
                 'Special Assessment Notes' => 'building_special_assessment_notes',
             ]))
             . $this->panel('Bylaws & Restrictions', $this->definition_list([
                 'Pet Rules' => 'building_pet_rules',
+                'Pet Policy' => 'building_pet_policy',
                 'Rental Rules' => 'building_rental_rules',
+                'Bylaws Notes' => 'building_bylaws_notes',
                 'Short-Term Rental Restrictions' => 'building_short_term_rental_rules',
                 'Age Limits' => 'building_age_limits',
                 'Smoking Rules' => 'building_smoking_rules',
@@ -368,7 +420,9 @@ final class Calgary_Condo_Building_CPT {
             . $this->panel('Parking, Storage & Amenities', $this->definition_list([
                 'Underground Parking' => 'building_underground_parking',
                 'Visitor Parking' => 'building_visitor_parking',
+                'Parking Notes' => 'building_parking_notes',
                 'Storage Lockers' => 'building_storage_lockers',
+                'Storage Notes' => 'building_storage_notes',
                 'Bike Storage' => 'building_bike_storage',
                 'Gym' => 'building_gym',
                 'Concierge' => 'building_concierge',
@@ -388,13 +442,17 @@ final class Calgary_Condo_Building_CPT {
         }
 
         $value = get_post_meta(get_the_ID(), $key, true);
-        return is_scalar($value) && '' !== trim((string) $value) ? (string) $value : self::FALLBACK;
+        return is_scalar($value) && '' !== trim((string) $value) ? (string) $value : '';
     }
 
     private function definition_list(array $fields): string {
         $html = '<dl class="ccl-building-profile-list">';
         foreach ($fields as $label => $key) {
-            $html .= '<div><dt>' . esc_html($label) . '</dt><dd>' . wp_kses_post($this->field($key)) . '</dd></div>';
+            $value = $this->field($key);
+            if ('' === $value) {
+                continue;
+            }
+            $html .= '<div><dt>' . esc_html($label) . '</dt><dd>' . wp_kses_post($value) . '</dd></div>';
         }
         return $html . '</dl>';
     }
@@ -404,8 +462,22 @@ final class Calgary_Condo_Building_CPT {
     }
 
     private function inventory(): string {
-        $shortcode = trim((string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true));
-        $body = $shortcode ? do_shortcode($shortcode) : '<p>' . esc_html__('Live building-specific listings will appear here once the myRealPage saved search is connected for this address.', 'calgary-condo-leads') . '</p>';
+        $post_id = get_the_ID();
+        $shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+        $idx_search_id = trim((string) get_post_meta($post_id, 'building_idx_search_id', true));
+
+        if ($shortcode) {
+            $body = do_shortcode($shortcode);
+        } elseif ($idx_search_id) {
+            $body = do_shortcode('[mrp account_id=67196 listing_def=search-' . esc_attr($idx_search_id) . ' context=recip perm_attr=tmpl~v2 ][/mrp]');
+        } else {
+            $alert_url = esc_url(home_url('/building-alert-request/'));
+            $body = '<p>' . esc_html__('Active listing count requires a connected building-specific IDX search.', 'calgary-condo-leads') . '</p>'
+                . '<a href="' . $alert_url . '" class="ccl-building-lead-card__button">'
+                . esc_html__('Request building alerts for this condo building.', 'calgary-condo-leads')
+                . '</a>';
+        }
+
         return '<section class="ccl-building-profile-panel ccl-building-inventory-slot"><h2>' . esc_html__('Current Listings In This Building', 'calgary-condo-leads') . '</h2>' . $body . '</section>';
     }
 
