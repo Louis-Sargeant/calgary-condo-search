@@ -184,29 +184,13 @@ final class Calgary_Condo_Homepage {
     }
 
     private function render_area_first(): string {
-        $filters = [
-            'all'        => 'All',
-            'downtown'   => 'Downtown',
-            'inner-city' => 'Inner City',
-            'nw'         => 'NW',
-            'ne'         => 'NE',
-            'sw'         => 'SW',
-            'se'         => 'SE',
-        ];
         ob_start(); ?>
-        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title" data-ccl-area-filter>
+        <section class="ccl-section ccl-home-area-first" aria-labelledby="ccl-home-area-title">
             <div class="ccl-wrap">
                 <div class="ccl-home-section-heading">
                     <p class="ccl-eyebrow">Area-first search</p>
                     <h2 id="ccl-home-area-title">Choose your Calgary condo area first.</h2>
                     <p>Pick the lifestyle lane before comparing fees, bylaws, parking, storage, and resale fit.</p>
-                </div>
-                <div class="ccl-home-area-filters" role="toolbar" aria-label="Filter Calgary condo areas">
-                    <?php foreach ($filters as $key => $label) : ?>
-                        <button type="button" class="ccl-home-area-filter<?php echo 'all' === $key ? ' is-active' : ''; ?>" data-area-filter="<?php echo esc_attr($key); ?>" aria-pressed="<?php echo 'all' === $key ? 'true' : 'false'; ?>">
-                            <?php echo esc_html($label); ?>
-                        </button>
-                    <?php endforeach; ?>
                 </div>
                 <div class="ccl-home-area-grid">
                     <?php foreach ($this->area_cards() as $area) : ?>
@@ -221,7 +205,6 @@ final class Calgary_Condo_Homepage {
                         </article>
                     <?php endforeach; ?>
                 </div>
-                <p class="ccl-home-area-empty" data-ccl-area-empty hidden>No communities match this filter yet. Try another area.</p>
             </div>
             <style>
                 .ccl-home-area-card__photo {
@@ -238,106 +221,7 @@ final class Calgary_Condo_Homepage {
                 .ccl-home-area-card {
                     min-height: 360px;
                 }
-
-                .ccl-home-area-filters {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 10px;
-                    margin: 0 0 22px;
-                }
-
-                .ccl-home-area-filter {
-                    appearance: none;
-                    border: 1px solid rgba(201, 163, 85, 0.45);
-                    background: #171717;
-                    color: #f4efe6;
-                    border-radius: 999px;
-                    padding: 10px 16px;
-                    font-size: 13px;
-                    font-weight: 700;
-                    letter-spacing: 0.04em;
-                    text-transform: uppercase;
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                }
-
-                .ccl-home-area-filter:hover,
-                .ccl-home-area-filter:focus-visible {
-                    border-color: rgba(201, 163, 85, 0.95);
-                    color: #fff;
-                    outline: none;
-                }
-
-                .ccl-home-area-filter.is-active {
-                    background: linear-gradient(135deg, #d4af37, #a67c2d);
-                    border-color: rgba(212, 175, 55, 0.95);
-                    color: #111;
-                    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-                }
-
-                .ccl-home-area-empty {
-                    margin: 16px 0 0;
-                    color: #d0c5b3;
-                }
             </style>
-            <script>
-                (function () {
-                    var sections = document.querySelectorAll('[data-ccl-area-filter]');
-                    if (!sections.length) {
-                        return;
-                    }
-
-                    sections.forEach(function (section) {
-                        var buttons = section.querySelectorAll('.ccl-home-area-filter');
-                        var cards = section.querySelectorAll('.ccl-home-area-card');
-                        var emptyState = section.querySelector('[data-ccl-area-empty]');
-
-                        if (!buttons.length || !cards.length) {
-                            return;
-                        }
-
-                        var applyFilter = function (filter) {
-                            var visibleCount = 0;
-
-                            cards.forEach(function (card) {
-                                var rawFilters = card.getAttribute('data-area-filters') || '';
-                                var splitFilters = rawFilters.split(',');
-                                var tokens = splitFilters
-                                    .map(function (value) {
-                                        return value.trim();
-                                    })
-                                    .filter(function (value) {
-                                        return '' !== value;
-                                    });
-                                var isVisible = 'all' === filter || tokens.includes(filter);
-
-                                card.hidden = !isVisible;
-                                if (isVisible) {
-                                    visibleCount++;
-                                }
-                            });
-
-                            buttons.forEach(function (button) {
-                                var isActive = button.getAttribute('data-area-filter') === filter;
-                                button.classList.toggle('is-active', isActive);
-                                button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-                            });
-
-                            if (emptyState) {
-                                emptyState.hidden = visibleCount !== 0;
-                            }
-                        };
-
-                        buttons.forEach(function (button) {
-                            button.addEventListener('click', function () {
-                                applyFilter(button.getAttribute('data-area-filter') || 'all');
-                            });
-                        });
-
-                        applyFilter('all');
-                    });
-                })();
-            </script>
         </section>
         <?php return (string) ob_get_clean();
     }
