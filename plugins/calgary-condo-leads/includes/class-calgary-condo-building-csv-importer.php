@@ -239,7 +239,15 @@ final class Calgary_Condo_Building_CSV_Importer {
 
         $handle = fopen($path, 'rb');
         if (false === $handle) {
-            wp_die(esc_html__('Unable to read bundled CSV file.', 'calgary-condo-leads'));
+            wp_die(
+                esc_html(
+                    sprintf(
+                        /* translators: %s: file path */
+                        __('Unable to read bundled CSV file: %s', 'calgary-condo-leads'),
+                        basename($path)
+                    )
+                )
+            );
         }
 
         return $this->parse_csv_handle($handle);
