@@ -215,13 +215,7 @@ final class Calgary_Condo_Homepage {
                                 <img class="ccl-home-area-card__photo" src="<?php echo esc_url($area['photo']); ?>" alt="<?php echo esc_attr($area['name'] . ' condos in Calgary'); ?>" loading="lazy">
                             <?php endif; ?>
                             <span>Calgary condo area</span>
-                            <h3>
-                                <?php if (!empty($area['title_url'])) : ?>
-                                    <a class="ccl-home-area-card__title-link" href="<?php echo esc_url(home_url($area['title_url'])); ?>" target="_self"><?php echo esc_html($area['name']); ?></a>
-                                <?php else : ?>
-                                    <?php echo esc_html($area['name']); ?>
-                                <?php endif; ?>
-                            </h3>
+                            <h3><?php echo esc_html($area['name']); ?></h3>
                             <p><?php echo esc_html($area['copy']); ?></p>
                             <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url($area['url'])); ?>" target="_self">View area condos →</a>
                         </article>
