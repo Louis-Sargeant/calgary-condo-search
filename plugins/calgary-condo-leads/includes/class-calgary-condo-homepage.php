@@ -256,16 +256,14 @@ final class Calgary_Condo_Homepage {
                         <article class="ccl-home-card ccl-home-building-card">
                             <span><?php echo esc_html($building['area']); ?></span>
                             <?php if (!empty($building['image'])) : ?>
-                                <a href="<?php echo esc_url($building_url); ?>" target="_self">
-                                    <img src="<?php echo esc_url((string) $building['image']); ?>" alt="<?php echo esc_attr($building['name'] . ' condo building in Calgary'); ?>" loading="lazy" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;margin:0 0 14px;">
-                                </a>
+                                <img src="<?php echo esc_url((string) $building['image']); ?>" alt="<?php echo esc_attr($building['name'] . ' condo building in Calgary'); ?>" loading="lazy" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;margin:0 0 14px;">
                             <?php endif; ?>
-                            <h3><a href="<?php echo esc_url($building_url); ?>" target="_self"><?php echo esc_html($building['name']); ?></a></h3>
+                            <h3><?php echo esc_html($building['name']); ?></h3>
                             <p><?php echo esc_html($building['type']); ?> in <?php echo esc_html($building['area']); ?>.</p>
                             <?php if (!empty($highlights)) : ?>
                                 <p><?php echo esc_html(implode(' • ', $highlights)); ?></p>
                             <?php endif; ?>
-                            <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url($building_url); ?>" target="_self">View Building Profile</a>
+                            <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url($building_url); ?>" target="_self">View Building Profile</a>
                         </article>
                     <?php endforeach; ?>
                 </div>
