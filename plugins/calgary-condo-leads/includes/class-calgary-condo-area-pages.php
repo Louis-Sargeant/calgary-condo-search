@@ -241,7 +241,7 @@ final class Calgary_Condo_Area_Pages {
         'northeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439655 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-calgary-condos'  => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-condos'          => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
-        'beltline-condos'          => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
+        'beltline-condos' => '[mrp account_id=67196 listing_def=search-1440048 context=recip perm_attr=tmpl~v2][/mrp]',
     'mahogany-condos' => '[mrp account_id=67196 listing_def=search-1440072 context=recip perm_attr=tmpl~v2][/mrp]',
     ];
 
