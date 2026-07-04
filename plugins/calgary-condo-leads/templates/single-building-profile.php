@@ -11,15 +11,15 @@ if (!defined('ABSPATH')) {
 
 $post_id = get_the_ID();
 
-if (!function_exists('ccl_building_profile_meta_value')) {
-    function ccl_building_profile_meta_value(int $post_id, string $meta_key): string {
+if (!function_exists('ccl_building_profile_meta_raw')) {
+    function ccl_building_profile_meta_raw(int $post_id, string $meta_key): string {
         $value = get_post_meta($post_id, $meta_key, true);
 
         if (is_scalar($value) && '' !== trim((string) $value)) {
             return (string) $value;
         }
 
-        return __('To be verified', 'calgary-condo-leads');
+        return '';
     }
 }
 
@@ -34,18 +34,29 @@ $fields = [
 ];
 
 $inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+
+$has_missing = false;
 ?>
 <section class="ccl-building-profile" aria-label="<?php esc_attr_e('Calgary condo building profile', 'calgary-condo-leads'); ?>">
     <div class="ccl-building-profile__grid">
         <aside class="ccl-building-profile__meta" aria-label="<?php esc_attr_e('Building metadata', 'calgary-condo-leads'); ?>">
             <div class="ccl-building-profile__meta-card">
                 <p class="ccl-building-profile__eyebrow"><?php esc_html_e('Building Snapshot', 'calgary-condo-leads'); ?></p>
-                <?php foreach ($fields as $label => $meta_key) : ?>
+                <?php foreach ($fields as $label => $meta_key) :
+                    $raw = ccl_building_profile_meta_raw((int) $post_id, $meta_key);
+                    if ('' === $raw) {
+                        $has_missing = true;
+                        continue;
+                    }
+                ?>
                     <div class="ccl-building-profile__meta-row">
                         <span class="ccl-building-profile__meta-label"><?php echo esc_html($label); ?></span>
-                        <span class="ccl-building-profile__meta-value"><?php echo esc_html(ccl_building_profile_meta_value((int) $post_id, $meta_key)); ?></span>
+                        <span class="ccl-building-profile__meta-value"><?php echo esc_html($raw); ?></span>
                     </div>
                 <?php endforeach; ?>
+                <?php if ($has_missing) : ?>
+                    <p class="ccl-building-profile__meta-note"><?php esc_html_e('Some details are still being verified. Contact us for specifics on this building.', 'calgary-condo-leads'); ?></p>
+                <?php endif; ?>
             </div>
         </aside>
         <div class="ccl-building-profile__idx">
