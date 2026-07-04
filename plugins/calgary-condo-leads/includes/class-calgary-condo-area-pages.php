@@ -205,6 +205,13 @@ final class Calgary_Condo_Area_Pages {
             'intro'    => 'Luxury condo buying in Calgary is not just about price. Compare construction quality, concierge services, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
             'guidance' => 'Luxury condo buying is not just price. Compare construction quality, concierge or security, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
         ],
+        'calgary-pet-friendly-condos' => [
+            'label'    => 'Pet-Friendly',
+            'title'    => 'Pet-Friendly Calgary Condos',
+            'subtitle' => 'Search Calgary condos that welcome cats, dogs, and pet-friendly living.',
+            'intro'    => 'Find Calgary condos where pets are permitted according to MLS listing information. Browse buildings that allow cats, dogs, or both, compare condo rules, nearby parks, walking paths, amenities, and community features before choosing your next home.',
+            'guidance' => 'Pet-friendly condo buying in Calgary requires verifying the bylaws directly. MLS pet permissions are a starting point, but each building may restrict pet size, breed, or count. Before offering, confirm the current pet rules, weight limits, and any upcoming bylaw changes in that specific corporation.',
+        ],
     ];
 
     private const REGIONAL_MRP_SHORTCODES = [
@@ -215,7 +222,8 @@ final class Calgary_Condo_Area_Pages {
         'northeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439655 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-calgary-condos'  => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
         'downtown-condos'          => '[mrp account_id=67196 listing_def=search-1440045 context=recip perm_attr=tmpl~v2][/mrp]',
-        'beltline-condos'          => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
+        'beltline-condos'              => '[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2][/mrp]',
+        'calgary-pet-friendly-condos'  => '[mrp_responsive_search search_id="1440077"]',
     ];
 
     /**
@@ -236,6 +244,7 @@ final class Calgary_Condo_Area_Pages {
         'eau-claire-condos',
         'hillhurst-condos',
         'bridgeland-riverside-condos',
+        'calgary-pet-friendly-condos',
     ];
 
     /**
