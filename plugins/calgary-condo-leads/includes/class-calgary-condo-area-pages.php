@@ -205,6 +205,32 @@ final class Calgary_Condo_Area_Pages {
             'intro'    => 'Luxury condo buying in Calgary is not just about price. Compare construction quality, concierge services, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
             'guidance' => 'Luxury condo buying is not just price. Compare construction quality, concierge or security, elevator access, parking count, storage, view protection, amenities, privacy, fee inclusions, building reputation, and the depth of the future buyer pool.',
         ],
+        'top-school-catchments-2' => [
+            'label'             => 'Top School Catchments',
+            'title'             => 'Top School Catchments',
+            'subtitle'          => 'Search Calgary condos within top public, separate, and specialized school catchment areas. Compare communities, commute times, amenities, and resale value before choosing your next home.',
+            'intro'             => 'Calgary school catchments can have a major impact on lifestyle, long-term resale value, and buyer demand. Browse condo listings located near sought-after school boundaries while comparing neighbourhood amenities, transit access, parks, recreation, and everyday convenience.',
+            'guidance'          => 'School catchments and enrollment policies can change. Always verify school boundaries directly with the Calgary Board of Education or Calgary Catholic School District before making a purchase decision.',
+            'hero_eyebrow'      => 'Calgary Condo Lifestyle Search',
+            'guidance_eyebrow'  => 'School Catchment Buyer Guidance',
+            'primary_cta_text'  => 'Search School Catchment Condos',
+            'idx_heading'       => 'Live Top School Catchment Condo Listings',
+            'idx_copy'          => 'Browse current Calgary condo listings near top school catchment areas, then compare commute, amenities, ownership costs, and resale fit before booking showings.',
+            'dark_premium_hero' => true,
+        ],
+        'pet-friendly-calgary-condos' => [
+            'label'             => 'Parks & Pet-Friendly Areas',
+            'title'             => 'Parks & Pet-Friendly Areas',
+            'subtitle'          => 'Search Calgary pet-friendly condos near off-leash parks, pathways, river walks, and green spaces while comparing building rules, amenities, and lifestyle.',
+            'intro'             => 'Discover Calgary condos close to off-leash parks, pathways, dog-friendly walking areas, and outdoor recreation. Compare communities with convenient access to river pathways, green spaces, parks, transit, shops, and daily amenities while reviewing condo rules, pet restrictions, parking, storage, and ownership costs.',
+            'guidance'          => 'Every condominium has its own pet bylaws, including rules around pet size, number of pets, and permitted pet types. Always review the condominium bylaws and board regulations before purchasing.',
+            'hero_eyebrow'      => 'Calgary Condo Lifestyle Search',
+            'guidance_eyebrow'  => 'Pet-Friendly Buyer Guidance',
+            'primary_cta_text'  => 'Search Pet-Friendly Condos',
+            'idx_heading'       => 'Live Parks & Pet-Friendly Condo Listings',
+            'idx_copy'          => 'Browse current Calgary pet-friendly condo listings near parks and pathways, then compare bylaws, amenities, ownership costs, and long-term resale fit before booking showings.',
+            'dark_premium_hero' => true,
+        ],
     ];
 
     private const REGIONAL_MRP_SHORTCODES = [
@@ -236,6 +262,8 @@ final class Calgary_Condo_Area_Pages {
         'eau-claire-condos',
         'hillhurst-condos',
         'bridgeland-riverside-condos',
+        'top-school-catchments-2',
+        'pet-friendly-calgary-condos',
     ];
 
     /**
@@ -247,6 +275,8 @@ final class Calgary_Condo_Area_Pages {
         'eau-claire-condos',
         'hillhurst-condos',
         'bridgeland-riverside-condos',
+        'top-school-catchments-2',
+        'pet-friendly-calgary-condos',
     ];
 
     private const SEEDED_REGIONAL_PAGES = [
@@ -376,27 +406,32 @@ HTML;
     }
 
     private function layout(array $area, string $slug): string {
-        $label = esc_html((string) $area['label']);
+        $raw_label = (string) $area['label'];
+        $label = esc_html($raw_label);
         $title = esc_html((string) $area['title']);
         $subtitle = esc_html((string) $area['subtitle']);
+        $hero_eyebrow = esc_html((string) ($area['hero_eyebrow'] ?? 'Calgary Condo Search'));
+        $guidance_eyebrow = esc_html((string) ($area['guidance_eyebrow'] ?? ($raw_label . ' Buyer Guidance')));
+        $primary_cta_text = esc_html((string) ($area['primary_cta_text'] ?? ('View ' . $raw_label . ' Condos')));
+        $hero_theme_class = !empty($area['dark_premium_hero']) ? ' ccl-dark-luxury-section' : ' ccl-section--white';
         $guidance = esc_html((string) ($area['guidance'] ?? 'Use the live IDX search, then compare the building details that influence long-term ownership and resale.'));
         $idx_section = 'northwest-calgary-condos' === $slug
             ? $this->northwest_manual_idx_feed()
-            : $this->regional_idx_section($slug, $label);
+            : $this->regional_idx_section($slug, $area, $raw_label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
         $intro_content = $this->area_intro_blocks($area, $slug);
 
         return <<<HTML
 <main class="ccl-inner-page-shell ccl-area-page ccl-area-page--{$slug}">
-    <section class="ccl-section ccl-section--white ccl-compare-hero ccl-area-hero">
+    <section class="ccl-section ccl-compare-hero ccl-area-hero{$hero_theme_class}">
         <div class="ccl-wrap ccl-compare-hero__inner">
             <div>
-                <p class="ccl-eyebrow">Calgary Condo Search</p>
+                <p class="ccl-eyebrow">{$hero_eyebrow}</p>
                 <h1>{$title}</h1>
                 <p>{$subtitle}</p>
             </div>
             <div class="ccl-compare-hero__actions">
-                <a href="#idx-search" target="_self" class="ccl-btn ccl-btn--primary ccl-region-cta-button">View {$label} Condos</a>
+                <a href="#idx-search" target="_self" class="ccl-btn ccl-btn--primary ccl-region-cta-button">{$primary_cta_text}</a>
                 <a href="/contact/" target="_self" class="ccl-btn ccl-btn--dark ccl-region-alert-button ccl-lead-trigger" data-ccl-lead-open data-requested-category="Building Alerts" data-lead-source="Regional Condo Page" data-clicked-cta="Get Building Alerts">Get Building Alerts</a>
             </div>
         </div>
@@ -407,7 +442,7 @@ HTML;
     <section class="ccl-section ccl-area-guidance">
         <div class="ccl-wrap ccl-portal-intro__grid">
             <div>
-                <p class="ccl-eyebrow">{$label} Buyer Guidance</p>
+                <p class="ccl-eyebrow">{$guidance_eyebrow}</p>
                 <h2>Compare the building before the unit.</h2>
                 <p>{$guidance}</p>
             </div>
@@ -487,8 +522,11 @@ HTML;
 HTML;
     }
 
-    private function regional_idx_section(string $slug, string $label): string {
+    private function regional_idx_section(string $slug, array $area, string $raw_label): string {
         $shortcode = $this->regional_mrp_shortcode($slug);
+        $label = esc_html($raw_label);
+        $idx_heading = esc_html((string) ($area['idx_heading'] ?? ('Live ' . $raw_label . ' Condo Listings')));
+        $idx_copy = esc_html((string) ($area['idx_copy'] ?? ('Browse current ' . $raw_label . ' condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.')));
         $feed = '' !== $shortcode
             ? do_shortcode($shortcode)
             : '<p class="ccl-region-idx-placeholder">' . esc_html(sprintf(__('Live %s condo listings will appear here once the saved myRealPage search is connected.', 'calgary-condo-leads'), $label)) . '</p>';
@@ -496,8 +534,8 @@ HTML;
         return <<<HTML
 <section id="idx-search" class="ccl-idx-premium-section mr-custom-wrapper ccl-section ccl-section--white ccl-region-idx-section" aria-labelledby="ccl-idx-title">
     <div class="ccl-wrap">
-        <h2 id="ccl-idx-title" class="ccl-idx-title">Live {$label} Condo Listings</h2>
-        <p class="ccl-idx-copy">Browse current {$label} condo listings below, then compare the building, fees, rules, parking, storage, and resale fit before booking showings.</p>
+        <h2 id="ccl-idx-title" class="ccl-idx-title">{$idx_heading}</h2>
+        <p class="ccl-idx-copy">{$idx_copy}</p>
         <div class="ccl-region-idx-feed">
             {$feed}
         </div>
