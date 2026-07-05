@@ -19,7 +19,6 @@ final class Calgary_Condo_Building_Index {
         'east-village' => ['name' => 'East Village', 'taxonomy' => 'ccl_building_community'],
         'mission' => ['name' => 'Mission', 'taxonomy' => 'ccl_building_community'],
         'victoria-park' => ['name' => 'Victoria Park', 'taxonomy' => 'ccl_building_community'],
-        'kensington' => ['name' => 'Kensington', 'taxonomy' => 'ccl_building_community'],
         'bridgeland' => ['name' => 'Bridgeland', 'taxonomy' => 'ccl_building_community'],
         'sunnyside' => ['name' => 'Sunnyside', 'taxonomy' => 'ccl_building_community'],
         'lower-mount-royal' => ['name' => 'Lower Mount Royal', 'taxonomy' => 'ccl_building_community'],
@@ -91,6 +90,10 @@ final class Calgary_Condo_Building_Index {
      * @return array{name:string,taxonomy:string}|null Term metadata, or null if unrecognised.
      */
     private function resolve_term(string $slug): ?array {
+        if ('kensington' === $slug) {
+            return null;
+        }
+
         // Array-first mode intentionally bypasses live taxonomy lookup so the
         // hard-coded route matrix can be restored instantly during rollback.
         if (Calgary_Condo_Building_Data_Mode::is_array_first() && isset(self::INDEX_TERMS[$slug])) {

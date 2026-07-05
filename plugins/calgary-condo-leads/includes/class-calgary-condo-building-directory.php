@@ -49,7 +49,6 @@ final class Calgary_Condo_Building_Directory {
             ['title' => 'Victoria Park', 'slug' => 'victoria-park', 'category' => 'Inner-City Condo Hubs', 'url' => '/calgary-condo-buildings/victoria-park/', 'description' => 'Victoria Park condo buildings near Stampede Park and the Beltline.'],
         ],
         'Lifestyle & Walkability Areas' => [
-            ['title' => 'Kensington', 'slug' => 'kensington', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/calgary-condo-buildings/kensington/', 'description' => 'Kensington condo buildings near shops, restaurants, pathways, and LRT access.'],
             ['title' => 'Bridgeland', 'slug' => 'bridgeland', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/calgary-condo-buildings/bridgeland/', 'description' => 'Bridgeland condo buildings with neighbourhood amenities and downtown access.'],
             ['title' => 'Sunnyside', 'slug' => 'sunnyside', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/calgary-condo-buildings/sunnyside/', 'description' => 'Sunnyside condo buildings near Kensington, LRT, and the Bow River pathway.'],
             ['title' => 'Lower Mount Royal', 'slug' => 'lower-mount-royal', 'category' => 'Lifestyle & Walkability Areas', 'url' => '/calgary-condo-buildings/lower-mount-royal/', 'description' => 'Lower Mount Royal condo buildings near 17 Avenue and inner-city amenities.'],
