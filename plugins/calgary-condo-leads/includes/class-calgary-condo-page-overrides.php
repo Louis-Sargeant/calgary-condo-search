@@ -139,6 +139,7 @@ final class Calgary_Condo_Page_Overrides {
             $wp_query->is_singular = true;
         }
 
+        self::$virtual_page_slug = 'building-alerts';
         status_header(200);
         nocache_headers();
         get_header();
@@ -166,6 +167,7 @@ final class Calgary_Condo_Page_Overrides {
             $wp_query->is_singular = true;
         }
 
+        self::$virtual_page_slug = 'browse-calgary-condos-by-price';
         status_header(200);
         nocache_headers();
         get_header();
