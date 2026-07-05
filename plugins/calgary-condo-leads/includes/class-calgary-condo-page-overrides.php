@@ -24,6 +24,11 @@ final class Calgary_Condo_Page_Overrides {
     private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
 
     /**
+     * Slug of the currently-active virtual page, used for wp_footer hooks that check is_page().
+     */
+    private static string $virtual_page_slug = '';
+
+    /**
      * Wire filters.
      */
     public function __construct() {
@@ -31,7 +36,12 @@ final class Calgary_Condo_Page_Overrides {
         add_filter('wp_nav_menu_objects', [$this, 'reorganize_primary_navigation'], 30, 2);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_market_menu_attributes'], 20, 4);
         add_filter('nav_menu_link_attributes', [$this, 'rewrite_home_menu_attributes'], 21, 4);
+        add_filter('nav_menu_link_attributes', [$this, 'rewrite_building_alerts_menu_attributes'], 22, 4);
+        add_filter('nav_menu_link_attributes', [$this, 'rewrite_browse_by_price_menu_attributes'], 23, 4);
         add_action('template_redirect', [$this, 'redirect_shortcode_contaminated_home_links'], 0);
+        add_action('template_redirect', [$this, 'render_virtual_building_alerts_page'], 1);
+        add_action('template_redirect', [$this, 'render_virtual_browse_by_price_page'], 1);
+        add_action('template_redirect', [$this, 'render_virtual_price_reduced_page'], 1);
         add_action('template_redirect', [$this, 'render_virtual_market_update_page'], 1);
         add_action('wp_footer', [$this, 'rewrite_market_links'], 99);
         add_action('wp_footer', [$this, 'rewrite_home_links'], 100);
@@ -105,6 +115,113 @@ final class Calgary_Condo_Page_Overrides {
         echo '</main>';
         get_footer();
         exit;
+    }
+
+    public function render_virtual_building_alerts_page(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        if (!in_array($path, ['building-alerts', 'building-alerts-2'], true)) {
+            return;
+        }
+
+        if ('building-alerts-2' === $path) {
+            wp_safe_redirect(home_url('/building-alerts/'), 301);
+            exit;
+        }
+
+        global $wp_query;
+        if ($wp_query instanceof WP_Query) {
+            $wp_query->is_404 = false;
+            $wp_query->is_page = true;
+            $wp_query->is_singular = true;
+        }
+
+        self::$virtual_page_slug = 'building-alerts';
+        status_header(200);
+        nocache_headers();
+        get_header();
+        echo '<main id="primary" class="site-main ccl-virtual-building-alerts">';
+        echo do_shortcode($this->building_alerts_layout()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</main>';
+        get_footer();
+        exit;
+    }
+
+    public function render_virtual_browse_by_price_page(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        if ('browse-calgary-condos-by-price' !== $path) {
+            return;
+        }
+
+        global $wp_query;
+        if ($wp_query instanceof WP_Query) {
+            $wp_query->is_404 = false;
+            $wp_query->is_page = true;
+            $wp_query->is_singular = true;
+        }
+
+        self::$virtual_page_slug = 'browse-calgary-condos-by-price';
+        status_header(200);
+        nocache_headers();
+        get_header();
+        echo '<main id="primary" class="site-main ccl-virtual-browse-by-price">';
+        echo do_shortcode($this->browse_by_price_layout()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</main>';
+        get_footer();
+        exit;
+    }
+
+    public function render_virtual_price_reduced_page(): void {
+        if (is_admin()) {
+            return;
+        }
+
+        $path = trim((string) parse_url((string) ($_SERVER['REQUEST_URI'] ?? ''), PHP_URL_PATH), '/');
+        if ('price-reduced-condos' !== $path) {
+            return;
+        }
+
+        global $wp_query;
+        if ($wp_query instanceof WP_Query) {
+            $wp_query->is_404 = false;
+            $wp_query->is_page = true;
+            $wp_query->is_singular = true;
+        }
+
+        self::$virtual_page_slug = 'price-reduced-condos';
+        status_header(200);
+        nocache_headers();
+        get_header();
+        echo '<main id="primary" class="site-main ccl-virtual-price-reduced">';
+        echo do_shortcode($this->price_reduced_layout()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '</main>';
+        get_footer();
+        exit;
+    }
+
+    public function rewrite_building_alerts_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
+        $href = isset($atts['href']) ? strtolower((string) $atts['href']) : '';
+        if (false !== strpos($href, 'building-alerts-2')) {
+            $atts['href'] = home_url('/building-alerts/');
+        }
+
+        return $atts;
+    }
+
+    public function rewrite_browse_by_price_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
+        $title = isset($menu_item->title) ? $this->normalize_menu_label((string) $menu_item->title) : '';
+        if ('browsebyprice' === $title) {
+            $atts['href'] = home_url('/browse-calgary-condos-by-price/');
+        }
+
+        return $atts;
     }
 
     public function rewrite_home_menu_attributes(array $atts, $menu_item, $args, int $depth): array {
@@ -262,7 +379,7 @@ final class Calgary_Condo_Page_Overrides {
         $item->type = 'custom';
         $item->type_label = 'Custom Link';
         $item->title = 'Browse by Price';
-        $item->url = '#';
+        $item->url = home_url('/browse-calgary-condos-by-price/');
         $item->target = '';
         $item->attr_title = '';
         $item->description = '';
@@ -418,7 +535,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     public function add_price_drop_badges(): void {
-        if (is_admin() || !is_page('price-reduced-condos')) {
+        if (is_admin() || (!is_page('price-reduced-condos') && 'price-reduced-condos' !== self::$virtual_page_slug)) {
             return;
         }
         ?>
@@ -440,10 +557,12 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     private function price_reduced_layout(): string {
+        // NOTE FOR DEVELOPER: Verify the myRealPage saved search ID below is the correct price-reduced search
+        // before going live. search-1439357 is referenced elsewhere for "Under $300K" and may need updating.
         $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
 
         return <<<HTML
-<section class="ccl-section ccl-section--white ccl-compare-hero">
+<section class="ccl-section ccl-dark-luxury-section ccl-compare-hero">
     <div class="ccl-wrap ccl-compare-hero__inner">
         <div>
             <p class="ccl-eyebrow">Calgary Price Drop Condos</p>
@@ -539,6 +658,72 @@ HTML;
 [ccl_site_footer]
 SHORTCODES;
     }
+
+    private function building_alerts_layout(): string {
+        return <<<'SHORTCODES'
+<section class="ccl-section ccl-dark-luxury-section ccl-compare-hero">
+    <div class="ccl-wrap ccl-compare-hero__inner">
+        <div>
+            <p class="ccl-eyebrow">Calgary Condo Building Alerts</p>
+            <h1>Get notified first. Watch the buildings and communities that fit your plan.</h1>
+            <p>Set Calgary condo building alerts by preferred building, community, pet rules, school catchment area, price change, and budget. Stop checking listings every day.</p>
+        </div>
+        <div class="ccl-compare-hero__actions">
+            <a class="ccl-btn ccl-btn--primary" href="#condo-alerts" target="_self">Set Up My Building Alerts</a>
+            <a class="ccl-btn ccl-btn--dark" href="/all-calgary-condos/" target="_self">Search Calgary Condos</a>
+        </div>
+    </div>
+</section>
+<section class="ccl-section ccl-section--white">
+    <div class="ccl-wrap">
+        <p class="ccl-eyebrow">What building alerts do</p>
+        <h2>Track the condos that match your criteria before they go public.</h2>
+        <div class="ccl-portal-intro__grid">
+            <div>
+                <h3>New listings in preferred buildings</h3>
+                <p>Get notified when units become available in specific Calgary condo buildings or communities — before most buyers see them.</p>
+            </div>
+            <div>
+                <h3>Price changes and reductions</h3>
+                <p>Track Calgary condos where sellers have reduced their asking price to identify motivated opportunities and compare buildings at the right moment.</p>
+            </div>
+            <div>
+                <h3>Pet-friendly and school catchment areas</h3>
+                <p>Watch buildings that allow your pet or communities within preferred school catchment boundaries so your search stays focused on what matters most.</p>
+            </div>
+            <div>
+                <h3>Alerts by budget, building, and lifestyle</h3>
+                <p>Request alerts by community, budget, parking needs, and lifestyle fit. We watch the buildings and flag the right condos when they match.</p>
+            </div>
+        </div>
+    </div>
+</section>
+[ccl_alert_form title="Request Calgary Condo Building Alerts" subtitle="Tell us your preferred buildings, communities, budget, pet needs, school area, and timeline. We will watch and notify you when the right condo appears." button_text="Send My Building Alert Request"]
+[ccl_site_footer]
+SHORTCODES;
+    }
+
+    private function browse_by_price_layout(): string {
+        return <<<'SHORTCODES'
+<section class="ccl-section ccl-dark-luxury-section ccl-compare-hero">
+    <div class="ccl-wrap ccl-compare-hero__inner">
+        <div>
+            <p class="ccl-eyebrow">Browse Calgary Condos by Price</p>
+            <h1>Find the right Calgary condo for your budget.</h1>
+            <p>Browse Calgary condo listings by price range, then compare the building, fees, rules, parking, storage, and resale path before booking showings.</p>
+        </div>
+        <div class="ccl-compare-hero__actions">
+            <a class="ccl-btn ccl-btn--primary" href="/all-calgary-condos/" target="_self">Search All Calgary Condos</a>
+            <button type="button" class="ccl-btn ccl-btn--dark" data-ccl-lead-open data-lead-source="Browse by Price" data-requested-category="Condo Alerts" data-intent="Price range search request">Request Condos in My Price Range</button>
+        </div>
+    </div>
+</section>
+[ccl_price_grid eyebrow="Calgary Condo Price Ranges" title="Search condos by budget" subtitle="Start with your budget, then compare the building, fees, rules, and resale fit before booking showings."]
+[ccl_alert_form title="Request Calgary Condos in Your Price Range" subtitle="Tell us your target price range, preferred area, parking needs, pet rules, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Price Range Request"]
+[ccl_site_footer]
+SHORTCODES;
+    }
+
 }
 
 new Calgary_Condo_Page_Overrides();
