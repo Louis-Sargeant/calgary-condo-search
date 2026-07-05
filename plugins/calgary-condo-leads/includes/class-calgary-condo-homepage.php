@@ -272,28 +272,6 @@ final class Calgary_Condo_Homepage {
         <?php return (string) ob_get_clean();
     }
 
-    private function render_live_idx(): string {
-        $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2,ibf_property_type~DWELLING_TYPE%40APAR,ibf_price_to~300000 ][/mrp]';
-        ob_start(); ?>
-        <section id="idx-search" class="ccl-section ccl-home-live-idx" aria-labelledby="ccl-home-idx-title">
-            <div class="ccl-wrap">
-                <div class="ccl-home-idx-frame">
-                    <div class="ccl-home-section-heading">
-                        <p class="ccl-eyebrow">LIVE MLS®</p>
-                        <h2 id="ccl-home-idx-title">Calgary Condos Under $300,000</h2>
-                        <p>Browse live Calgary condo listings priced under $300,000, automatically updated through our myRealPage IDX feed.</p>
-                    </div>
-                    <div class="ccl-home-idx-frame__embed"><?php echo do_shortcode($idx); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
-                    <div class="ccl-home-live-idx__actions">
-                        <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url('/calgary-condos-under-300k/')); ?>" target="_self">View All Under $300K Condos</a>
-                        <a class="ccl-home-cta ccl-home-cta--glass" href="<?php echo esc_url(home_url('/building-alert-request/')); ?>" target="_self">Get Instant Condo Alerts</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <?php return (string) ob_get_clean();
-    }
-
     private function render_trust_risk(): string { ob_start(); ?>
         <section class="ccl-section ccl-home-trust-risk" aria-labelledby="ccl-home-risk-title"><div class="ccl-wrap"><div class="ccl-home-section-heading"><p class="ccl-eyebrow">Trust, lifestyle, and risk checks</p><h2 id="ccl-home-risk-title">Buy the building with your eyes open.</h2><p>Use condo due diligence, school context, and community guidance to shortlist stronger Calgary condo options.</p></div><div class="ccl-home-trust-grid"><article class="ccl-home-card"><h3>Building-risk guidance</h3><p>Review reserve fund signals, bylaws, insurance, fee pressure, management, special-assessment risk, and resale fit before booking every showing.</p><button type="button" class="ccl-home-cta ccl-home-cta--gold" data-ccl-lead-open data-requested-category="Building Risk Report" data-lead-source="Homepage Trust Section" data-clicked-cta="Request Building Risk Guidance">Request Building Risk Guidance</button></article><article class="ccl-home-card"><h3>School and lifestyle finder</h3><p>Match your condo search to commute, school-area questions, parks, CTrain access, river pathways, groceries, and the way you actually live.</p><button type="button" class="ccl-home-cta ccl-home-cta--gold" data-ccl-lead-open data-requested-category="General Calgary Condo Help" data-lead-source="Homepage Trust Section" data-clicked-cta="Ask About Schools and Lifestyle">Ask About Schools and Lifestyle</button></article><article class="ccl-home-card"><h3>Community guidance</h3><p>Compare Beltline, Downtown Core, Eau Claire, Mission, East Village, Hillhurst, Bridgeland, Seton, Mahogany, and other Calgary condo markets.</p><a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url(home_url('/calgary-communities/')); ?>" target="_self">Explore Community Guidance</a></article></div></div></section><?php return (string) ob_get_clean(); }
 
@@ -335,9 +313,6 @@ final class Calgary_Condo_Homepage {
             <?php echo $this->render_buyer_intent(); ?>
             <?php echo $this->render_area_first(); ?>
             <?php echo $this->render_building_first(); ?>
-            <?php if (!is_front_page()) : ?>
-                <?php echo $this->render_live_idx(); ?>
-            <?php endif; ?>
             <?php echo $this->render_trust_risk(); ?>
             <!-- Mobile sticky bar: only visible on small screens, fixed at bottom -->
             <div class="ccl-mobile-sticky-bar" aria-label="<?php esc_attr_e('Quick Calgary condo actions', 'calgary-condo-leads'); ?>">
