@@ -399,7 +399,9 @@ final class Calgary_Condo_Building_CPT {
                     <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                        <a href="#ccl-building-current-listings" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                        <?php if ($has_inventory) : ?>
+                            <a href="#ccl-building-current-listings" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                        <?php endif; ?>
                     </div>
                 </header>
 
@@ -444,7 +446,7 @@ final class Calgary_Condo_Building_CPT {
                     <p><?php esc_html_e('Get a building-specific review before you commit to a showing or offer.', 'calgary-condo-leads'); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                        <a href="/building-alert-request/" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('Request Condo Help', 'calgary-condo-leads'); ?></a>
+                        <a href="<?php echo esc_url(home_url('/building-alert-request/')); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('Request Condo Help', 'calgary-condo-leads'); ?></a>
                     </div>
                 </section>
             </article>
