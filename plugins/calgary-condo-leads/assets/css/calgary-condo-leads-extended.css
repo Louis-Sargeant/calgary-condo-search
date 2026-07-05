@@ -1268,9 +1268,7 @@
 .ccl-building-profile-page__hero h1,
 .ccl-building-profile-page__hero p,
 .ccl-building-profile-page__card h2,
-.ccl-building-profile-page__card p,
-.ccl-building-profile-page__snapshot-list dt,
-.ccl-building-profile-page__snapshot-list dd {
+.ccl-building-profile-page__card p {
   color: #f7f3e8;
 }
 
@@ -1331,35 +1329,57 @@
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
 }
 
-.ccl-building-profile-page__snapshot-list {
-  margin: 0;
-  display: grid;
-  gap: 12px;
-}
-
-.ccl-building-profile-page__snapshot-list div {
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-  padding-bottom: 12px;
-  display: grid;
-  gap: 6px;
-}
-
-.ccl-building-profile-page__snapshot-list dt {
-  font-weight: 800;
-  color: #D4AF37 !important;
-}
-
-.ccl-building-profile-page__snapshot-list dd {
-  margin: 0;
-}
-
-.ccl-building-profile-page__lead {
-  text-align: left;
-}
-
 .ccl-building-profile-page__note {
   margin: 12px 0 0;
   color: rgba(247, 243, 232, 0.74) !important;
+}
+
+/* Snapshot visual card grid */
+.ccl-building-profile-page__snapshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 14px;
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.ccl-building-profile-page__snapshot-card {
+  background: rgba(212, 175, 55, 0.07);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+}
+
+.ccl-building-profile-page__snapshot-label {
+  color: #D4AF37;
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ccl-building-profile-page__snapshot-value {
+  color: #f7f3e8;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Theme page-title suppression for building profile singles */
+body.ccl-building-profile-single .entry-header,
+body.ccl-building-profile-single .page-header,
+body.ccl-building-profile-single .site-main > header,
+body.ccl-building-profile-single main > header,
+body.ccl-building-profile-single .wp-block-post-title,
+body.ccl-building-profile-single .entry-title,
+body.ccl-building-profile-single h1.entry-title {
+  display: none !important;
 }
 
 @media (max-width: 720px) {
@@ -1369,6 +1389,16 @@
 
   .ccl-building-profile-page__secondary-cta {
     width: 100%;
+  }
+
+  .ccl-building-profile-page__snapshot-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .ccl-building-profile-page__snapshot-grid {
+    grid-template-columns: 1fr;
   }
 }
 
