@@ -335,7 +335,9 @@ final class Calgary_Condo_Homepage {
             <?php echo $this->render_buyer_intent(); ?>
             <?php echo $this->render_area_first(); ?>
             <?php echo $this->render_building_first(); ?>
-            <?php echo $this->render_live_idx(); ?>
+            <?php if (!is_front_page()) : ?>
+                <?php echo $this->render_live_idx(); ?>
+            <?php endif; ?>
             <?php echo $this->render_trust_risk(); ?>
             <!-- Mobile sticky bar: only visible on small screens, fixed at bottom -->
             <div class="ccl-mobile-sticky-bar" aria-label="<?php esc_attr_e('Quick Calgary condo actions', 'calgary-condo-leads'); ?>">
