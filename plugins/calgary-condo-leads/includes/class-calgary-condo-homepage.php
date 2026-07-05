@@ -65,80 +65,64 @@ final class Calgary_Condo_Homepage {
                 'area' => 'Victoria Park / Beltline',
                 'type' => 'High-rise',
                 'image' => 'https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.70-$0.82/sq ft',
                 'amenities' => 'Gym, owners lounge, concierge',
                 'year_built' => '2016',
-                'pet_policy' => 'Pets with board approval',
             ],
             [
                 'name' => 'Keynote Urban Village',
                 'area' => 'Beltline / Victoria Park',
                 'type' => 'High-rise',
                 'image' => 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.64-$0.76/sq ft',
                 'amenities' => 'Fitness centre, hot tub, owners room',
                 'year_built' => '2010-2013',
-                'pet_policy' => 'Pet-friendly with restrictions',
             ],
             [
                 'name' => 'Arriva',
                 'area' => 'Victoria Park',
                 'type' => 'Luxury high-rise',
                 'image' => 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.88-$1.05/sq ft',
                 'amenities' => 'Concierge, secure parking, storage',
                 'year_built' => '2007',
-                'pet_policy' => 'Case-by-case board approval',
             ],
             [
                 'name' => 'Vogue',
                 'area' => 'Downtown West End',
                 'type' => 'High-rise',
                 'image' => 'https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.58-$0.69/sq ft',
                 'amenities' => 'Sky gym, yoga studio, concierge',
                 'year_built' => '2017',
-                'pet_policy' => 'Pets with size limits',
             ],
             [
                 'name' => 'Princeton Grand',
                 'area' => 'Eau Claire',
                 'type' => 'Luxury low-rise',
                 'image' => 'https://images.unsplash.com/photo-1448630360428-65456885c650?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$1.10-$1.35/sq ft',
                 'amenities' => 'Concierge, fitness room, guest suite',
                 'year_built' => '2002',
-                'pet_policy' => 'Smaller pets typically permitted',
             ],
             [
                 'name' => 'Evolution',
                 'area' => 'East Village',
                 'type' => 'High-rise',
                 'image' => 'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.67-$0.80/sq ft',
                 'amenities' => 'Gym, sauna, steam, concierge',
                 'year_built' => '2015',
-                'pet_policy' => 'Pet-friendly bylaws',
             ],
             [
                 'name' => 'Bridgeland Crossing',
                 'area' => 'Bridgeland',
                 'type' => 'Mid-rise',
                 'image' => 'https://images.unsplash.com/photo-1430285561322-7808604715df?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.55-$0.69/sq ft',
                 'amenities' => 'Fitness studio, courtyard, guest suites',
                 'year_built' => '2016-2019',
-                'pet_policy' => 'Pets generally allowed',
             ],
             [
                 'name' => 'Union Square',
                 'area' => 'Beltline',
                 'type' => 'Concrete high-rise',
                 'image' => 'https://images.unsplash.com/photo-1465800872432-8cf1ac6ddc32?auto=format&fit=crop&w=1200&q=80',
-                'fees' => '$0.62-$0.74/sq ft',
                 'amenities' => 'Owner lounge, concierge, secure parkade',
                 'year_built' => '2009',
-                'pet_policy' => '',
             ],
         ];
     }
@@ -240,17 +224,11 @@ final class Calgary_Condo_Homepage {
                         <?php $building_url = $this->building_card_url($building); ?>
                         <?php
                         $highlights = [];
-                        if (!empty($building['fees'])) {
-                            $highlights[] = 'Fees: ' . (string) $building['fees'];
-                        }
                         if (!empty($building['amenities'])) {
                             $highlights[] = 'Amenities: ' . (string) $building['amenities'];
                         }
                         if (!empty($building['year_built'])) {
                             $highlights[] = 'Built: ' . (string) $building['year_built'];
-                        }
-                        if (!empty($building['pet_policy'])) {
-                            $highlights[] = 'Pets: ' . (string) $building['pet_policy'];
                         }
                         ?>
                         <article class="ccl-home-card ccl-home-building-card">

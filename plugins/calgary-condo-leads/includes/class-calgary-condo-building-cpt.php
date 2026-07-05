@@ -335,82 +335,271 @@ final class Calgary_Condo_Building_CPT {
             return $content;
         }
 
-        $overview = $content ? '<div class="ccl-building-profile-overview">' . wp_kses_post($content) . '</div>' : '';
+        $post_id = get_the_ID();
+        $building_name = get_the_title($post_id);
+        $community = $this->first_meta_value($post_id, ['building_community', 'ccl_building_community']);
+        $address = $this->first_meta_value($post_id, ['building_address', 'ccl_building_address']);
+        $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
+        $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
+        $inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+        $has_inventory = '' !== $inventory_shortcode;
+        $amenities = $this->public_amenities($post_id);
+        $pet_rental_note = $this->public_pet_rental_note($post_id);
+        $story = $this->public_story($content, $building_name, $community);
 
-        return '<div class="ccl-inner-page-shell ccl-building-profile"><div class="ccl-building-profile-grid"><main class="ccl-building-profile-main">'
-            . $overview
-            . $this->panel('Building Specs', $this->definition_list([
-                'Building Name' => 'post_title',
-                'Address' => 'building_address',
-                'Community' => 'building_community',
-                'Year Built' => 'building_year_built',
-                'Developer' => 'building_developer',
-                'Number of Units' => 'building_units',
-                'Number of Stories' => 'building_stories',
-                'Construction Type' => 'building_construction_type',
-            ]))
-            . $this->panel('Condo Fees & Ownership Notes', $this->definition_list([
-                'Condo Fee Details' => 'building_condo_fee_details',
-                'Fee Inclusions' => 'building_fee_inclusions',
-                'Insurance Notes' => 'building_insurance_notes',
-                'Reserve Fund Study Status' => 'building_reserve_fund_status',
-                'Special Assessment Notes' => 'building_special_assessment_notes',
-            ]))
-            . $this->panel('Bylaws & Restrictions', $this->definition_list([
-                'Pet Rules' => 'building_pet_rules',
-                'Rental Rules' => 'building_rental_rules',
-                'Short-Term Rental Restrictions' => 'building_short_term_rental_rules',
-                'Age Limits' => 'building_age_limits',
-                'Smoking Rules' => 'building_smoking_rules',
-                'Renovation Rules' => 'building_renovation_rules',
-                'Move-In / Move-Out Rules' => 'building_move_rules',
-            ]))
-            . $this->panel('Parking, Storage & Amenities', $this->definition_list([
-                'Underground Parking' => 'building_underground_parking',
-                'Visitor Parking' => 'building_visitor_parking',
-                'Storage Lockers' => 'building_storage_lockers',
-                'Bike Storage' => 'building_bike_storage',
-                'Gym' => 'building_gym',
-                'Concierge' => 'building_concierge',
-                'Rooftop Deck' => 'building_rooftop_deck',
-                'Guest Suite' => 'building_guest_suite',
-                'Party Room' => 'building_party_room',
-            ]))
-            . '</main><aside class="ccl-building-profile-sidebar">'
-            . $this->inventory()
-            . $this->lead_sidebar()
-            . '</aside></div></div>';
-    }
+        $snapshot = [
+            __('Building Name', 'calgary-condo-leads') => $building_name,
+            __('Community', 'calgary-condo-leads') => $community,
+            __('Address', 'calgary-condo-leads') => $address,
+            __('Building Type', 'calgary-condo-leads') => $building_type,
+            __('Year Built', 'calgary-condo-leads') => $year_built,
+        ];
 
-    private function field(string $key): string {
-        if ('post_title' === $key) {
-            return get_the_title();
+        if (!empty($amenities)) {
+            $snapshot[__('General Amenities', 'calgary-condo-leads')] = implode(', ', $amenities);
         }
 
-        $value = get_post_meta(get_the_ID(), $key, true);
-        return is_scalar($value) && '' !== trim((string) $value) ? (string) $value : self::FALLBACK;
-    }
-
-    private function definition_list(array $fields): string {
-        $html = '<dl class="ccl-building-profile-list">';
-        foreach ($fields as $label => $key) {
-            $html .= '<div><dt>' . esc_html($label) . '</dt><dd>' . wp_kses_post($this->field($key)) . '</dd></div>';
+        if ('' !== $pet_rental_note) {
+            $snapshot[__('Public Pet / Rental Note', 'calgary-condo-leads')] = $pet_rental_note;
         }
-        return $html . '</dl>';
+
+        $positioning = '' !== $community
+            ? sprintf(
+                /* translators: 1: building name, 2: community */
+                __('%1$s in %2$s with building-first guidance before you book a showing.', 'calgary-condo-leads'),
+                $building_name,
+                $community
+            )
+            : sprintf(
+                /* translators: %s: building name */
+                __('%s profile with building-first guidance before you book a showing.', 'calgary-condo-leads'),
+                $building_name
+            );
+
+        ob_start();
+        ?>
+        <main class="ccl-inner-page-shell ccl-building-profile-page-shell">
+            <article class="ccl-building-profile-page">
+                <header class="ccl-building-profile-page__hero">
+                    <p class="ccl-building-profile-page__eyebrow"><?php esc_html_e('Calgary Condo Building Profile', 'calgary-condo-leads'); ?></p>
+                    <h1><?php echo esc_html($building_name); ?></h1>
+                    <?php if ('' !== $community) : ?>
+                        <p class="ccl-building-profile-page__location"><?php echo esc_html($community); ?></p>
+                    <?php endif; ?>
+                    <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
+                    <div class="ccl-building-profile-page__hero-actions">
+                        <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                        <?php if ($has_inventory) : ?>
+                            <a href="#ccl-building-current-listings" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                        <?php endif; ?>
+                    </div>
+                </header>
+
+                <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-snapshot-title">
+                    <h2 id="ccl-building-snapshot-title"><?php esc_html_e('Public Building Snapshot', 'calgary-condo-leads'); ?></h2>
+                    <dl class="ccl-building-profile-page__snapshot-list">
+                        <?php foreach ($snapshot as $label => $value) : ?>
+                            <?php if ('' === trim((string) $value)) { continue; } ?>
+                            <div>
+                                <dt><?php echo esc_html($label); ?></dt>
+                                <dd><?php echo esc_html($value); ?></dd>
+                            </div>
+                        <?php endforeach; ?>
+                    </dl>
+                    <?php if ('' === trim($address . $building_type . $year_built)) : ?>
+                        <p class="ccl-building-profile-page__note"><?php esc_html_e('Some public building details are still being verified.', 'calgary-condo-leads'); ?></p>
+                    <?php endif; ?>
+                </section>
+
+                <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-story-title">
+                    <h2 id="ccl-building-story-title"><?php esc_html_e('Building Story', 'calgary-condo-leads'); ?></h2>
+                    <p><?php echo esc_html($story); ?></p>
+                </section>
+
+                <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
+                    <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
+                    <?php if ($has_inventory) : ?>
+                        <div class="ccl-building-profile-page__idx"><?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+                    <?php else : ?>
+                        <p><?php esc_html_e('Live building-specific listings are not connected on this page yet.', 'calgary-condo-leads'); ?></p>
+                        <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Alerts" data-clicked-cta="Request the current active listings for this building."><?php esc_html_e('Request the current active listings for this building.', 'calgary-condo-leads'); ?></button>
+                    <?php endif; ?>
+                </section>
+
+                <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-guidance-title">
+                    <h2 id="ccl-building-guidance-title"><?php esc_html_e('Buyer Verification Guidance', 'calgary-condo-leads'); ?></h2>
+                    <p><?php esc_html_e('Before booking a showing or writing an offer, request a building-specific review covering condo documents, reserve fund health, special assessment risk, insurance notes, recent sales, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>
+                </section>
+
+                <section class="ccl-building-profile-page__lead ccl-building-profile-page__card" aria-labelledby="ccl-building-lead-title">
+                    <h2 id="ccl-building-lead-title"><?php esc_html_e('Need Building-Level Due Diligence Before You Move Forward?', 'calgary-condo-leads'); ?></h2>
+                    <p><?php esc_html_e('Get a building-specific review before you commit to a showing or offer.', 'calgary-condo-leads'); ?></p>
+                    <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                </section>
+            </article>
+        </main>
+        <?php
+        return (string) ob_get_clean();
     }
 
-    private function panel(string $title, string $body): string {
-        return '<section class="ccl-building-profile-panel"><h2>' . esc_html($title) . '</h2>' . $body . '</section>';
+    private function first_meta_value(int $post_id, array $keys): string {
+        foreach ($keys as $key) {
+            $value = get_post_meta($post_id, $key, true);
+            if (!is_scalar($value)) {
+                continue;
+            }
+
+            $clean = trim((string) $value);
+            if ('' !== $clean) {
+                return $clean;
+            }
+        }
+
+        return '';
     }
 
-    private function inventory(): string {
-        $shortcode = trim((string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true));
-        $body = $shortcode ? do_shortcode($shortcode) : '<p>' . esc_html__('Live building-specific listings will appear here once the myRealPage saved search is connected for this address.', 'calgary-condo-leads') . '</p>';
-        return '<section class="ccl-building-profile-panel ccl-building-inventory-slot"><h2>' . esc_html__('Current Listings In This Building', 'calgary-condo-leads') . '</h2>' . $body . '</section>';
+    private function public_story(string $content, string $building_name, string $community): string {
+        $clean_content = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($content)));
+
+        if ('' !== $clean_content && !$this->contains_private_due_diligence_terms($clean_content) && !$this->looks_like_placeholder_copy($clean_content)) {
+            return $clean_content;
+        }
+
+        if ('' !== $community) {
+            return sprintf(
+                /* translators: 1: building name, 2: community */
+                __('%1$s sits within Calgary\'s %2$s condo market. Use this profile to understand location and lifestyle fit, then verify building-specific details before you tour units or write an offer.', 'calgary-condo-leads'),
+                $building_name,
+                $community
+            );
+        }
+
+        return sprintf(
+            /* translators: %s: building name */
+            __('%s is a Calgary condo option where buyers should confirm location fit, current inventory access, and building-specific details before moving forward.', 'calgary-condo-leads'),
+            $building_name
+        );
     }
 
-    private function lead_sidebar(): string {
-        return '<div class="ccl-building-lead-card"><h2>' . esc_html__('Compare this building first', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Send the building name, budget, parking needs, pet needs, and timing. We will help compare the building before you chase the unit.', 'calgary-condo-leads') . '</p><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
+    /** @return string[] */
+    private function public_amenities(int $post_id): array {
+        $amenity_map = [
+            'building_gym' => __('Fitness room', 'calgary-condo-leads'),
+            'building_concierge' => __('Concierge', 'calgary-condo-leads'),
+            'building_rooftop_deck' => __('Rooftop deck', 'calgary-condo-leads'),
+            'building_guest_suite' => __('Guest suite', 'calgary-condo-leads'),
+            'building_underground_parking' => __('Underground parking', 'calgary-condo-leads'),
+            'building_visitor_parking' => __('Visitor parking', 'calgary-condo-leads'),
+            'building_storage_lockers' => __('Storage lockers', 'calgary-condo-leads'),
+        ];
+
+        $amenities = [];
+
+        foreach ($amenity_map as $meta_key => $label) {
+            $value = trim((string) get_post_meta($post_id, $meta_key, true));
+            if ('' === $value || preg_match('/^(no|none|n\/a)$/i', $value)) {
+                continue;
+            }
+
+            $amenities[] = $label;
+        }
+
+        $legacy_amenities = trim((string) get_post_meta($post_id, 'ccl_building_amenities', true));
+        if ('' !== $legacy_amenities && !$this->contains_private_due_diligence_terms($legacy_amenities)) {
+            $amenities[] = $legacy_amenities;
+        }
+
+        return array_values(array_unique(array_filter($amenities)));
+    }
+
+    private function public_pet_rental_note(int $post_id): string {
+        $pet = trim((string) get_post_meta($post_id, 'building_pet_rules', true));
+        if ('' === $pet) {
+            $pet = trim((string) get_post_meta($post_id, 'ccl_building_pet_bylaws', true));
+        }
+
+        $rental = trim((string) get_post_meta($post_id, 'building_rental_rules', true));
+        if ('' === $rental) {
+            $rental = trim((string) get_post_meta($post_id, 'ccl_building_rental_constraints', true));
+        }
+
+        $notes = [];
+        if ($this->is_safe_public_policy_note($pet)) {
+            $notes[] = sprintf(__('Pets: %s', 'calgary-condo-leads'), $this->truncate_note($pet));
+        }
+
+        if ($this->is_safe_public_policy_note($rental)) {
+            $notes[] = sprintf(__('Rentals: %s', 'calgary-condo-leads'), $this->truncate_note($rental));
+        }
+
+        return implode(' ', $notes);
+    }
+
+    private function is_safe_public_policy_note(string $value): bool {
+        if ('' === $value) {
+            return false;
+        }
+
+        if (mb_strlen($value) > 180) {
+            return false;
+        }
+
+        return !$this->contains_private_due_diligence_terms($value);
+    }
+
+    private function truncate_note(string $value): string {
+        $clean = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($value)));
+        if (mb_strlen($clean) <= 120) {
+            return $clean;
+        }
+
+        return rtrim(mb_substr($clean, 0, 117)) . '...';
+    }
+
+    private function contains_private_due_diligence_terms(string $value): bool {
+        $disallowed_terms = [
+            'reserve fund',
+            'special assessment',
+            'insurance risk',
+            'meeting-minute',
+            'meeting minute',
+            'financial statement',
+            'bylaw interpretation',
+            'offer-risk',
+            'offer risk',
+            'buyer strategy',
+            'sales analysis',
+            'document review',
+            'red flag',
+            'upcoming building costs',
+        ];
+
+        $normalized = strtolower($value);
+        foreach ($disallowed_terms as $term) {
+            if (false !== strpos($normalized, $term)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function looks_like_placeholder_copy(string $value): bool {
+        $placeholder_terms = [
+            'details coming soon',
+            'still being verified',
+            'placeholder',
+            'to be verified',
+        ];
+
+        $normalized = strtolower($value);
+        foreach ($placeholder_terms as $term) {
+            if (false !== strpos($normalized, $term)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
