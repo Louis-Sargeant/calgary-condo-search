@@ -18,7 +18,7 @@ final class Calgary_Condo_Compare {
             return $content;
         }
 
-        return do_shortcode('[ccl_compare_buildings] [ccl_alert_form title="Request a Calgary Building Comparison" subtitle="Tell us the areas, buildings, budget, parking needs, pet rules, and timeline. We will help narrow the right options before you book showings." button_text="Send My Building Comparison Request"]');
+        return do_shortcode('[ccl_compare_buildings] [ccl_alert_form title="Request a Calgary Building Comparison" subtitle="Tell us the areas, buildings, budget, parking needs, pet rules, and timeline. We will help narrow the right options before you book showings." button_text="Send My Building Comparison Request" success_context="request-condo-help"]');
     }
 
     public function render_shortcode(array $atts = []): string {

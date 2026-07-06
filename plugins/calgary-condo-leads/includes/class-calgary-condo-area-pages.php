@@ -487,10 +487,19 @@ HTML;
         $lead_label = esc_html((string) ($area['lead_form_label'] ?? ('Get ' . $raw_label . ' Condo Alerts — Be the first to know about new listings, price changes, and condos that match your criteria.')));
         $id_slug  = sanitize_html_class($slug);
         $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
+        $feedback = Calgary_Condo_Leads::current_feedback();
         $scheme   = is_ssl() ? 'https://' : 'http://';
         $host     = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
         $uri      = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
-        $action   = esc_url(remove_query_arg('ccl_status', $scheme . $host . $uri) . '#condo-alerts');
+        $action   = esc_url(remove_query_arg(['ccl_status', 'ccl_thanks', 'ccl_feedback_target'], $scheme . $host . $uri) . '#condo-alerts');
+        $feedback_markup = '';
+        if (Calgary_Condo_Leads::FEEDBACK_TARGET_INLINE === $feedback['target']) {
+            if ('success' === $feedback['status']) {
+                $feedback_markup = '<p class="ccl-form__message ccl-form__message--success" role="status">' . esc_html($feedback['message']) . '</p>';
+            } elseif ('error' === $feedback['status']) {
+                $feedback_markup = '<p class="ccl-form__message ccl-form__message--error" role="alert">' . esc_html($feedback['message']) . '</p>';
+            }
+        }
 
         return <<<HTML
 <section class="ccl-section ccl-beltline-intro">
@@ -505,6 +514,10 @@ HTML;
             {$nonce}
             <input type="hidden" name="ccl_action" value="alert_form">
             <input type="hidden" name="ccl_area" value="{$label}">
+            <input type="hidden" name="ccl_lead_source" value="Regional Condo Page">
+            <input type="hidden" name="ccl_requested_category" value="Building Alerts">
+            <input type="hidden" name="ccl_confirmation_context" value="building-alerts">
+            <input type="hidden" name="ccl_feedback_target" value="inline">
             <label for="ccl-{$id_slug}-name">Your Name <span aria-hidden="true">*</span>
                 <input id="ccl-{$id_slug}-name" type="text" name="ccl_name" autocomplete="name" required>
             </label>
@@ -519,6 +532,7 @@ HTML;
             </label>
             <button type="submit" class="ccl-btn ccl-btn--primary">Send Me {$label} Alerts</button>
             <p class="ccl-form__note">No spam. Calgary condo updates only.</p>
+            {$feedback_markup}
         </form>
     </div>
 </section>

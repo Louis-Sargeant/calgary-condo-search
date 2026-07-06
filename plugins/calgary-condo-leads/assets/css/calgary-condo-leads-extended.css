@@ -1715,6 +1715,26 @@ body.ccl-building-profile-single h1.entry-title {
   transform: translateY(-1px);
 }
 
+.ccl-building-risk-modal__success,
+.ccl-building-risk-modal__error {
+  border-radius: 18px;
+  font-weight: 800;
+  margin-top: 24px;
+  padding: 16px 18px;
+}
+
+.ccl-building-risk-modal__success {
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.95));
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  color: #f8ecd0;
+}
+
+.ccl-building-risk-modal__error {
+  background: rgba(127, 29, 29, 0.82);
+  border: 1px solid rgba(248, 113, 113, 0.42);
+  color: #fecaca;
+}
+
 .ccl-building-risk-modal-is-open { overflow: hidden; }
 
 /* Schools and lifestyle grid. */
@@ -5841,8 +5861,20 @@ body.admin-bar .ccl-floating-lead-widget {
 }
 
 .ccl-hero-lead-panel__success {
-  color: #b9ffd4 !important;
-  background: rgba(46, 204, 113, 0.14);
+  color: #f8ecd0 !important;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.94));
+  border: 1px solid rgba(212, 175, 55, 0.42);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 800;
+  text-align: center;
+  margin: 0 !important;
+}
+
+.ccl-hero-lead-panel__error {
+  color: #fecaca !important;
+  background: rgba(127, 29, 29, 0.78);
+  border: 1px solid rgba(248, 113, 113, 0.4);
   border-radius: 12px;
   padding: 10px 12px;
   font-weight: 800;

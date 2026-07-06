@@ -22,6 +22,10 @@ final class Calgary_Condo_Search_Router {
         $query = isset($_GET['ccl_q']) ? sanitize_text_field((string) wp_unslash($_GET['ccl_q'])) : '';
         $status = isset($_GET['ccl_status']) ? sanitize_key((string) wp_unslash($_GET['ccl_status'])) : '';
 
+        if ('' === $query && in_array($status, ['success', 'error'], true)) {
+            return;
+        }
+
         if ('' === $query && '' === $status) {
             return;
         }

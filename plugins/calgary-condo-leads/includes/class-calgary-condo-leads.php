@@ -26,6 +26,11 @@ final class Calgary_Condo_Leads {
     private const LEAD_POST_TYPE = 'ccl_lead';
 
     /**
+     * Feedback target used by embedded forms.
+     */
+    public const FEEDBACK_TARGET_INLINE = 'inline';
+
+    /**
      * Return the singleton instance.
      */
     public static function instance(): Calgary_Condo_Leads {
@@ -34,6 +39,123 @@ final class Calgary_Condo_Leads {
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Read current form feedback state from the query string.
+     *
+     * @return array{status:string,target:string,context:string,message:string}
+     */
+    public static function current_feedback(): array {
+        $status  = isset($_GET['ccl_status']) ? sanitize_key(wp_unslash($_GET['ccl_status'])) : '';
+        $target  = isset($_GET['ccl_feedback_target']) ? sanitize_key(wp_unslash($_GET['ccl_feedback_target'])) : self::FEEDBACK_TARGET_INLINE;
+        $context = isset($_GET['ccl_thanks']) ? sanitize_key(wp_unslash($_GET['ccl_thanks'])) : 'generic';
+
+        if (!in_array($status, ['success', 'error'], true)) {
+            return [
+                'status' => '',
+                'target' => $target,
+                'context' => self::normalize_confirmation_context($context),
+                'message' => '',
+            ];
+        }
+
+        $context = self::normalize_confirmation_context($context);
+
+        return [
+            'status' => $status,
+            'target' => $target,
+            'context' => $context,
+            'message' => 'success' === $status
+                ? self::confirmation_message($context)
+                : __('Please check the required fields and try again.', 'calgary-condo-leads'),
+        ];
+    }
+
+    /**
+     * Resolve the branded success message for a given lead context.
+     */
+    public static function confirmation_message(string $context): string {
+        switch (self::normalize_confirmation_context($context)) {
+            case 'building-review':
+                return __('Thanks — your building review request has been received. I’ll review the building, current listings, and key buyer due-diligence items before you move forward. If this is time-sensitive, call or text me directly.', 'calgary-condo-leads');
+            case 'request-condo-help':
+                return __('Thanks — your condo request has been received. I’ll follow up with the next best options based on what you’re looking for. If you’re trying to book a showing or move quickly, call or text me directly.', 'calgary-condo-leads');
+            case 'building-alerts':
+                return __('You’re all set. You’ll be notified when relevant condo listings or building opportunities match your request.', 'calgary-condo-leads');
+            case 'price-reduced':
+                return __('You’re all set. We’ll watch for Calgary condo price reductions that match your request.', 'calgary-condo-leads');
+            case 'browse-by-price':
+                return __('Thanks — your price-range request has been received. I’ll help narrow the best Calgary condo options in that range.', 'calgary-condo-leads');
+            default:
+                return __('Thanks — your request has been received. I’ll follow up as soon as possible.', 'calgary-condo-leads');
+        }
+    }
+
+    /**
+     * Resolve the confirmation context for a submission.
+     *
+     * @param array<string,string> $lead Lead values.
+     */
+    public static function resolve_confirmation_context(array $lead): string {
+        if (!empty($lead['confirmation_context'])) {
+            return self::normalize_confirmation_context($lead['confirmation_context']);
+        }
+
+        $signals = strtolower(
+            implode(
+                ' ',
+                array_filter(
+                    [
+                        $lead['requested_category'] ?? '',
+                        $lead['intent'] ?? '',
+                        $lead['lead_source'] ?? '',
+                        $lead['clicked_cta'] ?? '',
+                        $lead['message'] ?? '',
+                    ]
+                )
+            )
+        );
+
+        if (false !== strpos($signals, 'building review') || false !== strpos($signals, 'building risk')) {
+            return 'building-review';
+        }
+
+        if (false !== strpos($signals, 'price drop') || false !== strpos($signals, 'price reduced')) {
+            return 'price-reduced';
+        }
+
+        if (false !== strpos($signals, 'price range') || false !== strpos($signals, 'browse by price')) {
+            return 'browse-by-price';
+        }
+
+        if (false !== strpos($signals, 'alert')) {
+            return 'building-alerts';
+        }
+
+        if (
+            false !== strpos($signals, 'condo help')
+            || false !== strpos($signals, 'comparison')
+            || false !== strpos($signals, 'shortlist')
+            || false !== strpos($signals, 'help request')
+        ) {
+            return 'request-condo-help';
+        }
+
+        return 'generic';
+    }
+
+    /**
+     * Normalize an arbitrary confirmation context key.
+     */
+    private static function normalize_confirmation_context(string $context): string {
+        $context = sanitize_key($context);
+
+        if (in_array($context, ['building-review', 'request-condo-help', 'building-alerts', 'price-reduced', 'browse-by-price'], true)) {
+            return $context;
+        }
+
+        return 'generic';
     }
 
     /**
@@ -262,12 +384,19 @@ final class Calgary_Condo_Leads {
                 'subtitle' => 'Tell us what you are looking for. We will follow up with guidance based on your preferred Calgary area, budget, and timing.',
                 'button_text' => 'Send Me Condo Alerts',
                 'privacy_text' => 'Your details stay with Calgary Condo Search and are used only to follow up about your condo search.',
-                'success_message' => 'Thanks. Your condo alert request has been received.',
+                'success_message' => 'Thanks — your request has been received. I’ll follow up as soon as possible.',
+                'success_context' => 'generic',
+                'feedback_target' => self::FEEDBACK_TARGET_INLINE,
             ],
             'ccl_alert_form'
         );
 
-        $status = isset($_GET['ccl_status']) ? sanitize_key(wp_unslash($_GET['ccl_status'])) : '';
+        $feedback = self::current_feedback();
+        $show_feedback = '' !== $feedback['status'] && $atts['feedback_target'] === $feedback['target'];
+        $success_message = $feedback['message'];
+        if ($show_feedback && 'success' === $feedback['status'] && 'generic' === $feedback['context'] && !empty($atts['success_message'])) {
+            $success_message = $atts['success_message'];
+        }
 
         ob_start();
         ?>
@@ -281,6 +410,8 @@ final class Calgary_Condo_Leads {
                 <form class="ccl-form" method="post" action="<?php echo esc_url($this->current_url()); ?>#condo-alerts">
                     <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                     <input type="hidden" name="ccl_action" value="alert_form">
+                    <input type="hidden" name="ccl_confirmation_context" value="<?php echo esc_attr($atts['success_context']); ?>">
+                    <input type="hidden" name="ccl_feedback_target" value="<?php echo esc_attr($atts['feedback_target']); ?>">
                     <label for="ccl-name"><?php esc_html_e('Name', 'calgary-condo-leads'); ?> <span aria-hidden="true">*</span>
                         <input id="ccl-name" type="text" name="ccl_name" autocomplete="name" required placeholder="<?php esc_attr_e('Your name', 'calgary-condo-leads'); ?>">
                     </label>
@@ -313,10 +444,10 @@ final class Calgary_Condo_Leads {
                     </label>
                     <button type="submit" class="ccl-btn ccl-btn--primary"><?php echo esc_html($atts['button_text']); ?></button>
                     <p class="ccl-form__note"><?php echo esc_html($atts['privacy_text']); ?></p>
-                    <?php if ('success' === $status) : ?>
-                        <p class="ccl-form__message ccl-form__message--success" role="status"><?php echo esc_html($atts['success_message']); ?></p>
-                    <?php elseif ('error' === $status) : ?>
-                        <p class="ccl-form__message ccl-form__message--error" role="alert"><?php esc_html_e('Please check the required fields and try again.', 'calgary-condo-leads'); ?></p>
+                    <?php if ($show_feedback && 'success' === $feedback['status']) : ?>
+                        <p class="ccl-form__message ccl-form__message--success" role="status"><?php echo esc_html($success_message); ?></p>
+                    <?php elseif ($show_feedback && 'error' === $feedback['status']) : ?>
+                        <p class="ccl-form__message ccl-form__message--error" role="alert"><?php echo esc_html($feedback['message']); ?></p>
                     <?php endif; ?>
                 </form>
             </div>
@@ -376,7 +507,16 @@ final class Calgary_Condo_Leads {
             return;
         }
 
-        $redirect_error = add_query_arg('ccl_status', 'error', $this->current_url(false));
+        $feedback_target = isset($_POST['ccl_feedback_target']) ? sanitize_key(wp_unslash($_POST['ccl_feedback_target'])) : self::FEEDBACK_TARGET_INLINE;
+        $confirmation_context = isset($_POST['ccl_confirmation_context']) ? sanitize_key(wp_unslash($_POST['ccl_confirmation_context'])) : 'generic';
+        $redirect_error = add_query_arg(
+            [
+                'ccl_status' => 'error',
+                'ccl_thanks' => self::normalize_confirmation_context($confirmation_context),
+                'ccl_feedback_target' => '' !== $feedback_target ? $feedback_target : self::FEEDBACK_TARGET_INLINE,
+            ],
+            $this->current_url(false)
+        );
 
         if (!isset($_POST['ccl_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['ccl_nonce'])), 'ccl_alert_form')) {
             wp_safe_redirect($redirect_error . '#condo-alerts');
@@ -385,7 +525,16 @@ final class Calgary_Condo_Leads {
 
         $honeypot = isset($_POST['ccl_website']) ? sanitize_text_field(wp_unslash($_POST['ccl_website'])) : '';
         if ('' !== $honeypot) {
-            wp_safe_redirect(add_query_arg('ccl_status', 'success', $this->current_url(false)) . '#condo-alerts');
+            wp_safe_redirect(
+                add_query_arg(
+                    [
+                        'ccl_status' => 'success',
+                        'ccl_thanks' => self::normalize_confirmation_context($confirmation_context),
+                        'ccl_feedback_target' => '' !== $feedback_target ? $feedback_target : self::FEEDBACK_TARGET_INLINE,
+                    ],
+                    $this->current_url(false)
+                ) . '#condo-alerts'
+            );
             exit;
         }
 
@@ -402,6 +551,9 @@ final class Calgary_Condo_Leads {
             'requested_page' => isset($_POST['ccl_requested_page']) ? sanitize_text_field(wp_unslash($_POST['ccl_requested_page'])) : '',
             'requested_url' => isset($_POST['ccl_requested_url']) ? esc_url_raw(wp_unslash($_POST['ccl_requested_url'])) : '',
             'intent' => isset($_POST['ccl_intent']) ? sanitize_text_field(wp_unslash($_POST['ccl_intent'])) : 'General inquiry',
+            'clicked_cta' => isset($_POST['ccl_clicked_cta']) ? sanitize_text_field(wp_unslash($_POST['ccl_clicked_cta'])) : '',
+            'confirmation_context' => isset($_POST['ccl_confirmation_context']) ? sanitize_key(wp_unslash($_POST['ccl_confirmation_context'])) : '',
+            'feedback_target' => isset($_POST['ccl_feedback_target']) ? sanitize_key(wp_unslash($_POST['ccl_feedback_target'])) : self::FEEDBACK_TARGET_INLINE,
         ];
 
         if ('' === $lead['name'] || !is_email($lead['email'])) {
@@ -434,7 +586,19 @@ final class Calgary_Condo_Leads {
 
         $this->email_lead_notification($lead, (int) $post_id);
 
-        wp_safe_redirect(add_query_arg('ccl_status', 'success', $this->current_url(false)) . '#condo-alerts');
+        $feedback_target = '' !== $lead['feedback_target'] ? $lead['feedback_target'] : self::FEEDBACK_TARGET_INLINE;
+        $confirmation_context = self::resolve_confirmation_context($lead);
+
+        wp_safe_redirect(
+            add_query_arg(
+                [
+                    'ccl_status' => 'success',
+                    'ccl_thanks' => $confirmation_context,
+                    'ccl_feedback_target' => $feedback_target,
+                ],
+                $this->current_url(false)
+            ) . '#condo-alerts'
+        );
         exit;
     }
 
@@ -473,6 +637,8 @@ final class Calgary_Condo_Leads {
                 sprintf(__('Requested page: %s', 'calgary-condo-leads'), $lead['requested_page'] ?? ''),
                 sprintf(__('Requested URL: %s', 'calgary-condo-leads'), $lead['requested_url'] ?? ''),
                 sprintf(__('Intent: %s', 'calgary-condo-leads'), $lead['intent'] ?? ''),
+                sprintf(__('Clicked CTA: %s', 'calgary-condo-leads'), $lead['clicked_cta'] ?? ''),
+                sprintf(__('Confirmation context: %s', 'calgary-condo-leads'), self::resolve_confirmation_context($lead)),
                 '',
                 sprintf(__('Lead ID: %d', 'calgary-condo-leads'), $post_id),
             ]
@@ -495,6 +661,6 @@ final class Calgary_Condo_Leads {
             $request_uri = strtok($request_uri, '?') ?: '/';
         }
 
-        return esc_url_raw($scheme . '://' . $host . $request_uri);
+        return esc_url_raw(remove_query_arg(['ccl_status', 'ccl_thanks', 'ccl_feedback_target'], $scheme . '://' . $host . $request_uri));
     }
 }

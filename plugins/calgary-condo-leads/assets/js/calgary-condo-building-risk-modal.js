@@ -23,5 +23,6 @@
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape' && !modal.hidden) { closeModal(); }
     });
+    if (modal.getAttribute('data-ccl-open-on-load') === 'true') { openModal(); }
   });
 }());
