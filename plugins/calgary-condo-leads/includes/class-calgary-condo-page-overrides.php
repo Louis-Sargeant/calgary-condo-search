@@ -577,7 +577,7 @@ final class Calgary_Condo_Page_Overrides {
 </section>
 
 [ccl_idx_shell eyebrow="Live Price Drop Condo Search" title="Current Calgary condos with recent price reductions" subtitle="Browse live price-reduced condo opportunities, then compare fees, bylaws, parking, storage, documents, and resale path before booking showings."]{$idx}[/ccl_idx_shell]
-[ccl_alert_form title="Get Calgary Condo Price Drop Alerts" subtitle="Tell us your target area, building, budget, and timing. We will help watch price reductions so you do not have to keep checking every day." button_text="Send My Price Drop Alert Request"]
+[ccl_alert_form title="Get Calgary Condo Price Drop Alerts" subtitle="Tell us your target area, building, budget, and timing. We will help watch price reductions so you do not have to keep checking every day." button_text="Send My Price Drop Alert Request" success_context="price-reduced"]
 [ccl_site_footer]
 HTML;
     }
@@ -599,7 +599,7 @@ HTML;
 </section>
 [ccl_market_snapshot title="What to compare before you book a showing" subtitle="Two units can look similar online and carry very different risk. Compare the building, fees, rules, documents, parking, storage, and resale path before you spend time on showings."]
 [ccl_building_checklist title="Building comparison checklist" subtitle="Use this checklist to separate strong Calgary condo options from weak ones before you write an offer."]
-[ccl_alert_form title="Request a Calgary Building Comparison" subtitle="Tell us the areas, buildings, budget, parking needs, pet rules, and timeline. We will help narrow the right options before you book showings." button_text="Send My Building Comparison Request"]
+[ccl_alert_form title="Request a Calgary Building Comparison" subtitle="Tell us the areas, buildings, budget, parking needs, pet rules, and timeline. We will help narrow the right options before you book showings." button_text="Send My Building Comparison Request" success_context="request-condo-help"]
 [ccl_site_footer]
 SHORTCODES;
     }
@@ -654,7 +654,7 @@ HTML;
 [ccl_school_community]
 [ccl_area_grid title="Explore Calgary condo communities" subtitle="Start with the Calgary condo areas buyers ask about most, then narrow by building, budget, schools, commute, and lifestyle fit."]
 [ccl_price_grid]
-[ccl_alert_form title="Get Community-Based Condo Alerts" subtitle="Tell us the areas, school needs, commute, budget, parking needs, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Community Search Request"]
+[ccl_alert_form title="Get Community-Based Condo Alerts" subtitle="Tell us the areas, school needs, commute, budget, parking needs, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Community Search Request" success_context="request-condo-help"]
 [ccl_site_footer]
 SHORTCODES;
     }
@@ -698,7 +698,7 @@ SHORTCODES;
         </div>
     </div>
 </section>
-[ccl_alert_form title="Request Calgary Condo Building Alerts" subtitle="Tell us your preferred buildings, communities, budget, pet needs, school area, and timeline. We will watch and notify you when the right condo appears." button_text="Send My Building Alert Request"]
+[ccl_alert_form title="Request Calgary Condo Building Alerts" subtitle="Tell us your preferred buildings, communities, budget, pet needs, school area, and timeline. We will watch and notify you when the right condo appears." button_text="Send My Building Alert Request" success_context="building-alerts"]
 [ccl_site_footer]
 SHORTCODES;
     }
@@ -719,7 +719,7 @@ SHORTCODES;
     </div>
 </section>
 [ccl_price_grid eyebrow="Calgary Condo Price Ranges" title="Search condos by budget" subtitle="Start with your budget, then compare the building, fees, rules, and resale fit before booking showings."]
-[ccl_alert_form title="Request Calgary Condos in Your Price Range" subtitle="Tell us your target price range, preferred area, parking needs, pet rules, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Price Range Request"]
+[ccl_alert_form title="Request Calgary Condos in Your Price Range" subtitle="Tell us your target price range, preferred area, parking needs, pet rules, and timeline. We will help narrow the right Calgary condo options." button_text="Send My Price Range Request" success_context="browse-by-price"]
 [ccl_site_footer]
 SHORTCODES;
     }

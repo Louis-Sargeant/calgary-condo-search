@@ -255,7 +255,8 @@ final class Calgary_Condo_Homepage {
 
     public function render(array $atts = [], ?string $content = null): string {
         $phone_tel     = defined('CCL_CONTACT_PHONE_TEL') ? CCL_CONTACT_PHONE_TEL : '+14038006996';
-        $hero_success  = isset($_GET['ccl_status']) && 'success' === sanitize_key(wp_unslash($_GET['ccl_status']));
+        $feedback      = Calgary_Condo_Leads::current_feedback();
+        $hero_feedback = 'homepage-hero' === $feedback['target'] ? $feedback : ['status' => '', 'message' => '', 'target' => '', 'context' => 'generic'];
         ob_start(); ?>
         <div class="ccl-page-shell ccl-premium-homepage-shell ccl-home-tight ccl-home-search-first" data-ccl-condo-home>
             <section id="clean-calgary-hero" class="ccl-home-hero" aria-labelledby="clean-calgary-hero-title">
@@ -267,14 +268,18 @@ final class Calgary_Condo_Homepage {
                     <div class="ccl-hero-lead-panel" id="condo-alerts" aria-label="<?php esc_attr_e('Get New Listings & Price Drops First', 'calgary-condo-leads'); ?>">
                         <h2 class="ccl-hero-lead-panel__title"><?php esc_html_e('Get New Listings & Price Drops First', 'calgary-condo-leads'); ?></h2>
                         <p class="ccl-hero-lead-panel__support"><?php esc_html_e('New listings, price drops & building updates.', 'calgary-condo-leads'); ?></p>
-                        <?php if ($hero_success) : ?>
-                            <p class="ccl-hero-lead-panel__success" role="status"><?php esc_html_e('Thanks — your Calgary condo alert request was received.', 'calgary-condo-leads'); ?></p>
+                        <?php if ('success' === $hero_feedback['status']) : ?>
+                            <p class="ccl-hero-lead-panel__success" role="status"><?php echo esc_html($hero_feedback['message']); ?></p>
+                        <?php elseif ('error' === $hero_feedback['status']) : ?>
+                            <p class="ccl-hero-lead-panel__error" role="alert"><?php echo esc_html($hero_feedback['message']); ?></p>
                         <?php else : ?>
                         <form class="ccl-hero-lead-panel__form" method="post" action="">
                             <?php wp_nonce_field('ccl_alert_form', 'ccl_nonce'); ?>
                             <input type="hidden" name="ccl_action" value="alert_form">
                             <input type="hidden" name="ccl_lead_source" value="Homepage Hero Lead Row">
                             <input type="hidden" name="ccl_requested_category" value="Condo Alerts">
+                            <input type="hidden" name="ccl_confirmation_context" value="building-alerts">
+                            <input type="hidden" name="ccl_feedback_target" value="homepage-hero">
                             <div class="ccl-hero-lead-panel__fields">
                                 <input type="text" name="ccl_name" placeholder="<?php esc_attr_e('Your Name', 'calgary-condo-leads'); ?>" autocomplete="name" required aria-label="<?php esc_attr_e('Your Name', 'calgary-condo-leads'); ?>">
                                 <input type="email" name="ccl_email" placeholder="<?php esc_attr_e('Email Address', 'calgary-condo-leads'); ?>" autocomplete="email" required aria-label="<?php esc_attr_e('Email Address', 'calgary-condo-leads'); ?>">
