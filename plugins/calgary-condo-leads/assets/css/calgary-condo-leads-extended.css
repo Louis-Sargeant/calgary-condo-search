@@ -1402,6 +1402,29 @@ body.ccl-building-profile-single h1.entry-title {
   }
 }
 
+/* Building profile IDX source note */
+.ccl-building-profile-page__card .ccl-building-profile-page__idx-source-note {
+  color: rgba(247, 243, 232, 0.74);
+  font-size: 0.875rem;
+  margin: 0 0 18px;
+}
+
+/* Building profile IDX premium container */
+.ccl-building-profile-page__idx.ccl-idx-premium-section {
+  background: radial-gradient(circle at center, #161f30 0%, #0b0f19 70%, #05070b 100%);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 16px;
+  margin-top: 8px;
+  overflow: hidden;
+  padding: clamp(16px, 3vw, 28px);
+}
+
+@media (max-width: 720px) {
+  .ccl-building-profile-page__idx.ccl-idx-premium-section {
+    padding: 16px;
+  }
+}
+
 #ccl-building-index-live-inventory {
   background: #ffffff;
   border-radius: 24px;
