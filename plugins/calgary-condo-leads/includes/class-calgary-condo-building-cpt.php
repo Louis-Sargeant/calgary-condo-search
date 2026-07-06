@@ -103,6 +103,7 @@ final class Calgary_Condo_Building_CPT {
         add_action('admin_init', [$this, 'redirect_legacy_buildings_admin_screen']);
         add_action('save_post_' . self::POST_TYPE, [$this, 'save_building_details']);
         add_filter('the_content', [$this, 'render_building_profile']);
+        add_filter('body_class', [$this, 'add_building_body_class']);
     }
 
     public function register_post_type(): void {
@@ -330,6 +331,15 @@ final class Calgary_Condo_Building_CPT {
             }
         }
     }
+    /** @param string[] $classes */
+    public function add_building_body_class(array $classes): array {
+        if (is_singular(self::POST_TYPE)) {
+            $classes[] = 'ccl-building-profile-single';
+        }
+
+        return $classes;
+    }
+
     public function render_building_profile(string $content): string {
         if (is_admin() || !is_singular(self::POST_TYPE) || !in_the_loop() || !is_main_query()) {
             return $content;
@@ -397,15 +407,15 @@ final class Calgary_Condo_Building_CPT {
 
                 <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-snapshot-title">
                     <h2 id="ccl-building-snapshot-title"><?php esc_html_e('Public Building Snapshot', 'calgary-condo-leads'); ?></h2>
-                    <dl class="ccl-building-profile-page__snapshot-list">
+                    <ul class="ccl-building-profile-page__snapshot-grid" role="list">
                         <?php foreach ($snapshot as $label => $value) : ?>
                             <?php if ('' === trim((string) $value)) { continue; } ?>
-                            <div>
-                                <dt><?php echo esc_html($label); ?></dt>
-                                <dd><?php echo esc_html($value); ?></dd>
-                            </div>
+                            <li class="ccl-building-profile-page__snapshot-card">
+                                <span class="ccl-building-profile-page__snapshot-label"><?php echo esc_html($label); ?></span>
+                                <span class="ccl-building-profile-page__snapshot-value"><?php echo esc_html($value); ?></span>
+                            </li>
                         <?php endforeach; ?>
-                    </dl>
+                    </ul>
                     <?php if ('' === trim($address . $building_type . $year_built)) : ?>
                         <p class="ccl-building-profile-page__note"><?php esc_html_e('Some public building details are still being verified.', 'calgary-condo-leads'); ?></p>
                     <?php endif; ?>
@@ -421,20 +431,23 @@ final class Calgary_Condo_Building_CPT {
                     <?php if ($has_inventory) : ?>
                         <div class="ccl-building-profile-page__idx"><?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
                     <?php else : ?>
-                        <p><?php esc_html_e('Live building-specific listings are not connected on this page yet.', 'calgary-condo-leads'); ?></p>
-                        <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Alerts" data-clicked-cta="Request the current active listings for this building."><?php esc_html_e('Request the current active listings for this building.', 'calgary-condo-leads'); ?></button>
+                        <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>
+                        <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Alerts" data-clicked-cta="Get Active Listings for This Building"><?php esc_html_e('Get Active Listings for This Building', 'calgary-condo-leads'); ?></button>
                     <?php endif; ?>
                 </section>
 
                 <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-guidance-title">
                     <h2 id="ccl-building-guidance-title"><?php esc_html_e('Buyer Verification Guidance', 'calgary-condo-leads'); ?></h2>
-                    <p><?php esc_html_e('Before booking a showing or writing an offer, request a building-specific review covering condo documents, reserve fund health, special assessment risk, insurance notes, recent sales, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>
+                    <p><?php esc_html_e('Before booking a showing or writing an offer, request a building-specific review covering condo documents, reserve fund health, insurance notes, special assessment risk, recent sales context, bylaws, parking/storage details, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>
                 </section>
 
                 <section class="ccl-building-profile-page__lead ccl-building-profile-page__card" aria-labelledby="ccl-building-lead-title">
                     <h2 id="ccl-building-lead-title"><?php esc_html_e('Need Building-Level Due Diligence Before You Move Forward?', 'calgary-condo-leads'); ?></h2>
                     <p><?php esc_html_e('Get a building-specific review before you commit to a showing or offer.', 'calgary-condo-leads'); ?></p>
-                    <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                    <div class="ccl-building-profile-page__hero-actions">
+                        <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                        <a href="<?php echo esc_url(home_url('/building-alert-request/')); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('Request Condo Help', 'calgary-condo-leads'); ?></a>
+                    </div>
                 </section>
             </article>
         </main>
