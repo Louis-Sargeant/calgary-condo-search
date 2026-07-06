@@ -377,7 +377,7 @@ final class Calgary_Condo_Building_CPT {
         $address = $this->first_meta_value($post_id, ['building_address', 'ccl_building_address']);
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
-        $inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+        $inventory_shortcode = trim((string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true));
         $has_inventory = '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
@@ -456,7 +456,9 @@ final class Calgary_Condo_Building_CPT {
                     <?php if ($has_inventory) : ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-building-profile-page__idx ccl-idx-premium-section"><?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+                        <div class="ccl-building-profile-page__idx-output">
+                            <?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                        </div>
                     <?php else : ?>
                         <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
                         <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>
