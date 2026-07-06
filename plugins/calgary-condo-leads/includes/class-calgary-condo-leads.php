@@ -161,7 +161,11 @@ final class Calgary_Condo_Leads {
     }
 
     /**
-     * Build the normalized lead signal string used for context inference.
+     * Build a searchable lead-signal haystack for context inference.
+     *
+     * This concatenates the lead metadata fields that best describe the visitor's
+     * intent into one normalized lowercase string so the matcher can pattern-match
+     * terms like "building review", "price drop", or "price range" in one place.
      *
      * @param array<string,string> $lead Lead values.
      */
@@ -405,7 +409,7 @@ final class Calgary_Condo_Leads {
                 'subtitle' => 'Tell us what you are looking for. We will follow up with guidance based on your preferred Calgary area, budget, and timing.',
                 'button_text' => 'Send Me Condo Alerts',
                 'privacy_text' => 'Your details stay with Calgary Condo Search and are used only to follow up about your condo search.',
-                'success_message' => 'Thanks — your request has been received. I’ll follow up as soon as possible.',
+                'success_message' => self::CONFIRMATION_MESSAGES['generic'],
                 'success_context' => 'generic',
                 'feedback_target' => self::FEEDBACK_TARGET_INLINE,
             ],
