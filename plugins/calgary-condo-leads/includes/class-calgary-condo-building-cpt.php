@@ -500,7 +500,7 @@ final class Calgary_Condo_Building_CPT {
                     <?php if ($has_listings_page) : ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('View verified active MLS listings for this building — updated with current market inventory.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-building-profile-page__hero-actions">
+                        <div class="ccl-building-profile-page__listing-actions">
                             <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__primary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                             <button type="button" class="ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                         </div>
