@@ -16,6 +16,7 @@ final class Calgary_Condo_Building_CPT {
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
     private const MRP_EMBED_SCRIPT_PATTERN = '/^\s*<script\b[^>]*\bsrc=(["\'])([^"\']+)\1[^>]*>\s*<\/script>\s*$/is';
+    private const MAX_URL_DECODE_ITERATIONS = 3;
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -566,30 +567,16 @@ final class Calgary_Condo_Building_CPT {
     }
 
     private function sanitize_mrp_embed_code(string $raw_embed): string {
-        $raw_embed = trim($raw_embed);
-        if ('' === $raw_embed) {
-            return '';
-        }
-
-        if (!preg_match(self::MRP_EMBED_SCRIPT_PATTERN, $raw_embed, $matches)) {
-            return '';
-        }
-
-        $src = trim((string) ($matches[2] ?? ''));
-        if (!$this->is_allowed_mrp_embed_src($src)) {
-            return '';
-        }
-
-        $safe_src = esc_url_raw($src, ['https']);
-        if ('' === $safe_src) {
-            return '';
-        }
-
-        return '<script src="' . esc_url($safe_src, ['https']) . '"></script>';
+        return $this->normalized_mrp_embed_code($raw_embed);
     }
 
     private function get_saved_mrp_embed_code(int $post_id): string {
         $raw_embed = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
+        return $this->normalized_mrp_embed_code($raw_embed);
+    }
+
+    private function normalized_mrp_embed_code(string $raw_embed): string {
+        $raw_embed = trim($raw_embed);
         if ('' === $raw_embed) {
             return '';
         }
@@ -629,7 +616,7 @@ final class Calgary_Condo_Building_CPT {
         }
 
         $decoded_path = $path;
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < self::MAX_URL_DECODE_ITERATIONS; $i++) {
             $decoded_next = rawurldecode($decoded_path);
             if ($decoded_next === $decoded_path) {
                 break;
@@ -642,7 +629,18 @@ final class Calgary_Condo_Building_CPT {
             return false;
         }
 
-        return 1 === preg_match('#^/[A-Za-z0-9/_\-.~]*$#', $decoded_path);
+        if (1 !== preg_match('#^/[A-Za-z0-9/_\-.~]*$#', $decoded_path)) {
+            return false;
+        }
+
+        $segments = array_filter(explode('/', trim($decoded_path, '/')), 'strlen');
+        foreach ($segments as $segment) {
+            if ('.' === $segment || '..' === $segment) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function public_story(string $content, string $building_name, string $community): string {
