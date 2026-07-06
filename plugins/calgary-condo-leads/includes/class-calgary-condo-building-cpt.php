@@ -393,6 +393,9 @@ final class Calgary_Condo_Building_CPT {
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
         $inventory_embed_code = $this->get_saved_mrp_embed_code($post_id);
+        if ('' !== $inventory_embed_code && 1 !== preg_match(self::MRP_EMBED_SCRIPT_PATTERN, $inventory_embed_code)) {
+            $inventory_embed_code = '';
+        }
         $inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
         $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
@@ -595,7 +598,7 @@ final class Calgary_Condo_Building_CPT {
             return '';
         }
 
-        return '<script src="' . esc_url($safe_src, ['https']) . '"></script>';
+        return '<script src="' . esc_attr($safe_src) . '"></script>';
     }
 
     private function is_allowed_mrp_embed_src(string $src): bool {
@@ -625,11 +628,7 @@ final class Calgary_Condo_Building_CPT {
             $decoded_path = $decoded_next;
         }
 
-        if (false !== strpos($decoded_path, '..')) {
-            return false;
-        }
-
-        if (1 !== preg_match('#^/[A-Za-z0-9/_\-.~]*$#', $decoded_path)) {
+        if (1 !== preg_match('#^/[A-Za-z0-9/_~.-]*$#', $decoded_path)) {
             return false;
         }
 
