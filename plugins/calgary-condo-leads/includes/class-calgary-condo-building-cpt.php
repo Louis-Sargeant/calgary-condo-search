@@ -456,7 +456,17 @@ final class Calgary_Condo_Building_CPT {
                     <?php if ($has_inventory) : ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-building-profile-page__idx ccl-idx-premium-section"><?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></div>
+                        <?php
+                        $mrp_shortcode = get_post_meta(get_the_ID(), 'building_mrp_shortcode', true);
+                        $mrp_shortcode = is_scalar($mrp_shortcode) ? trim((string) $mrp_shortcode) : '';
+                        ?>
+                        <div class="ccl-building-profile-page__idx-output">
+                            <?php
+                            if ('' !== $mrp_shortcode) {
+                                echo do_shortcode($mrp_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            }
+                            ?>
+                        </div>
                     <?php else : ?>
                         <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
                         <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>

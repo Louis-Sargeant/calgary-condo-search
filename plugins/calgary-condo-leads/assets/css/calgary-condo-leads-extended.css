@@ -1425,6 +1425,26 @@ body.ccl-building-profile-single h1.entry-title {
   }
 }
 
+.ccl-building-profile-page__idx-output {
+  margin-top: 8px;
+  min-height: 40px;
+  overflow: visible;
+  position: relative;
+  width: 100%;
+}
+
+.ccl-building-profile-page__idx-output .mrp-container,
+.ccl-building-profile-page__idx-output #mrp-listings-wrapper,
+.ccl-building-profile-page__idx-output .mrp-listing-results,
+.ccl-building-profile-page__idx-output .mrp-results-wrapper,
+.ccl-building-profile-page__idx-output .mrp-search-results,
+.ccl-building-profile-page__idx-output iframe {
+  max-width: 100%;
+  overflow: visible;
+  opacity: 1;
+  visibility: visible;
+}
+
 #ccl-building-index-live-inventory {
   background: #ffffff;
   border-radius: 24px;
