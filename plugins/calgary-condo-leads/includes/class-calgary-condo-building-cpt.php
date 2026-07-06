@@ -457,7 +457,15 @@ final class Calgary_Condo_Building_CPT {
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-building-profile-page__idx-output">
-                            <?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            <?php
+                            // Use the full the_content filter pipeline (not just do_shortcode) so that
+                            // myRealPage can enqueue its scripts and assets the same way a normal WP page does.
+                            // We temporarily remove this filter to prevent infinite recursion.
+                            remove_filter('the_content', [$this, 'render_building_profile']);
+                            $mrp_output = apply_filters('the_content', $inventory_shortcode); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+                            add_filter('the_content', [$this, 'render_building_profile']);
+                            echo $mrp_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            ?>
                         </div>
                     <?php else : ?>
                         <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
