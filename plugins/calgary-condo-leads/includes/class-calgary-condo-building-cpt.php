@@ -410,7 +410,7 @@ final class Calgary_Condo_Building_CPT {
         $raw_embed_meta       = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
         $inventory_embed_code = $this->validate_stored_mrp_embed_code($raw_embed_meta);
         $inventory_shortcode  = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
-        $listings_page_url    = esc_url_raw(trim((string) get_post_meta($post_id, 'building_listings_page_url', true)));
+        $listings_page_url    = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
         $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
