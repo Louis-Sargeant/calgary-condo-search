@@ -150,8 +150,7 @@ final class Calgary_Condo_Leads {
      * Determine whether a shortcode-level success message should override the generic fallback.
      */
     private static function should_use_custom_success_message(array $atts, array $feedback): bool {
-        return '' !== ($feedback['status'] ?? '')
-            && 'success' === ($feedback['status'] ?? '')
+        return 'success' === ($feedback['status'] ?? '')
             && 'generic' === ($feedback['context'] ?? '')
             && !empty($atts['success_message']);
     }
@@ -170,12 +169,7 @@ final class Calgary_Condo_Leads {
             $lead['message'] ?? '',
         ];
 
-        $signals = array_map(
-            static function (string $value): string {
-                return trim($value);
-            },
-            $signals
-        );
+        $signals = array_map('trim', $signals);
 
         return strtolower(implode(' ', array_filter($signals, static fn (string $value): bool => '' !== $value)));
     }
