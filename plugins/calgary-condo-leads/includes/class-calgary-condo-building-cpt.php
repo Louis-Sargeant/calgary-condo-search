@@ -392,11 +392,9 @@ final class Calgary_Condo_Building_CPT {
         $address = $this->first_meta_value($post_id, ['building_address', 'ccl_building_address']);
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
-        $inventory_embed_code = $this->get_saved_mrp_embed_code($post_id);
-        if ('' !== $inventory_embed_code && 1 !== preg_match(self::MRP_EMBED_SCRIPT_PATTERN, $inventory_embed_code)) {
-            $inventory_embed_code = '';
-        }
-        $inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+        $raw_embed_meta       = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
+        $inventory_embed_code = $this->validate_stored_mrp_embed_code($raw_embed_meta);
+        $inventory_shortcode  = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
         $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
@@ -473,8 +471,17 @@ final class Calgary_Condo_Building_CPT {
 
                 <!-- CCL-RENDER-FILE: class-calgary-condo-building-cpt.php::render_building_profile -->
                 <!-- CCL-PLUGIN-VERSION: <?php echo esc_html(defined('CCL_VERSION') ? CCL_VERSION : 'unknown'); ?> -->
+                <?php if (current_user_can('manage_options')) : ?>
+                <!-- CCL-EMBED-SAVED: <?php echo '' !== $raw_embed_meta ? 'yes' : 'no'; ?> -->
+                <!-- CCL-EMBED-RAW-LEN: <?php echo absint(strlen($raw_embed_meta)); ?> -->
+                <!-- CCL-EMBED-NORMALIZED-LEN: <?php echo absint(strlen($inventory_embed_code)); ?> -->
+                <!-- CCL-EMBED-WILL-RENDER: <?php echo '' !== $inventory_embed_code ? 'yes' : 'no'; ?> -->
+                <?php endif; ?>
                 <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
                     <?php if ('' !== $inventory_embed_code) : ?>
+                        <?php if (current_user_can('manage_options')) : ?>
+                        <!-- CCL-EMBED-OUTPUT: rendered by validate_stored_mrp_embed_code() len=<?php echo absint(strlen($inventory_embed_code)); ?> -->
+                        <?php endif; ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-building-profile-page__idx-output">
@@ -574,8 +581,35 @@ final class Calgary_Condo_Building_CPT {
     }
 
     private function get_saved_mrp_embed_code(int $post_id): string {
-        $raw_embed = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
-        return $this->normalized_mrp_embed_code($raw_embed);
+        return $this->validate_stored_mrp_embed_code(
+            trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true))
+        );
+    }
+
+    /**
+     * Validates a stored (already-sanitized) MRP embed string and returns it if safe.
+     *
+     * Intentionally does NOT call normalized_mrp_embed_code() — the stored value was
+     * already sanitized at save time via sanitize_mrp_embed_code().  Re-running
+     * esc_url_raw() + esc_attr() on an already-escaped string would corrupt URLs
+     * that contain HTML-entity-encoded query-string delimiters (e.g. &amp;).
+     */
+    private function validate_stored_mrp_embed_code(string $stored): string {
+        $stored = trim($stored);
+        if ('' === $stored) {
+            return '';
+        }
+
+        if (!preg_match(self::MRP_EMBED_SCRIPT_PATTERN, $stored, $matches)) {
+            return '';
+        }
+
+        $src = trim((string) ($matches[2] ?? ''));
+        if (!$this->is_allowed_mrp_embed_src($src)) {
+            return '';
+        }
+
+        return $stored;
     }
 
     private function normalized_mrp_embed_code(string $raw_embed): string {
