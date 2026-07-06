@@ -1403,10 +1403,10 @@ body.ccl-building-profile-single h1.entry-title {
 }
 
 /* Building profile IDX source note */
-.ccl-building-profile-page__idx-source-note {
-  color: rgba(247, 243, 232, 0.74) !important;
-  font-size: 0.875rem !important;
-  margin: 0 0 18px !important;
+.ccl-building-profile-page__card .ccl-building-profile-page__idx-source-note {
+  color: rgba(247, 243, 232, 0.74);
+  font-size: 0.875rem;
+  margin: 0 0 18px;
 }
 
 /* Building profile IDX premium container */
