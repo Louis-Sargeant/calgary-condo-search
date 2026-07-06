@@ -452,19 +452,50 @@ final class Calgary_Condo_Building_CPT {
                     <p><?php echo esc_html($story); ?></p>
                 </section>
 
+                <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- diagnostic HTML comments, no user data ?>
+                <?php echo '<!-- CCL-RENDER-FILE: class-calgary-condo-building-cpt.php::render_building_profile -->'; ?>
+                <?php echo '<!-- CCL-PLUGIN-VERSION: ' . esc_html(defined('CCL_VERSION') ? CCL_VERSION : 'unknown') . ' -->'; ?>
                 <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
                     <?php if ($has_inventory) : ?>
+                        <?php
+                        // --- Diagnostic: admin-only source comments (not visible on-screen) ---
+                        if (current_user_can('manage_options')) {
+                            $meta_raw_diag   = (string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true);
+                            $meta_len_diag   = strlen($meta_raw_diag);
+                            $sc_exists_diag  = shortcode_exists('mrp') ? 'true' : 'false';
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            echo '<!-- CCL-META: building_mrp_shortcode present=' . ($meta_len_diag > 0 ? 'yes' : 'no') . ' len=' . $meta_len_diag . ' -->';
+                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            echo '<!-- CCL-SHORTCODE-EXISTS: mrp=' . $sc_exists_diag . ' -->';
+                        }
+                        ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-building-profile-page__idx-output">
                             <?php
-                            // Use the full the_content filter pipeline (not just do_shortcode) so that
-                            // myRealPage can enqueue its scripts and assets the same way a normal WP page does.
-                            // We temporarily remove this filter to prevent infinite recursion.
-                            remove_filter('the_content', [$this, 'render_building_profile']);
-                            $mrp_output = apply_filters('the_content', $inventory_shortcode); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-                            add_filter('the_content', [$this, 'render_building_profile']);
-                            echo $mrp_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            // Approach A: do_shortcode() directly — avoids wptexturize / wpautop mangling
+                            // the shortcode string before shortcode processing runs.
+                            $mrp_output_a = do_shortcode($inventory_shortcode);
+
+                            if ('' !== trim($mrp_output_a) && $mrp_output_a !== $inventory_shortcode) {
+                                // Approach A produced real output.
+                                if (current_user_can('manage_options')) {
+                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                    echo '<!-- CCL-RENDER-METHOD: do_shortcode (A) output-len=' . strlen($mrp_output_a) . ' -->';
+                                }
+                                echo $mrp_output_a; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            } else {
+                                // Approach C fallback: apply_filters('the_content') with recursion guard.
+                                remove_filter('the_content', [$this, 'render_building_profile']);
+                                $mrp_output_c = apply_filters('the_content', $inventory_shortcode); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+                                add_filter('the_content', [$this, 'render_building_profile']);
+
+                                if (current_user_can('manage_options')) {
+                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                    echo '<!-- CCL-RENDER-METHOD: apply_filters_the_content (C) output-len=' . strlen($mrp_output_c) . ' do_shortcode-raw-len=' . strlen($mrp_output_a) . ' -->';
+                                }
+                                echo $mrp_output_c; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                            }
                             ?>
                         </div>
                     <?php else : ?>
