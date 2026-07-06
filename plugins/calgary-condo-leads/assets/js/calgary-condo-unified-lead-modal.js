@@ -44,7 +44,10 @@
 
     function resolveConfirmationContext(trigger, requestedCategory, intent) {
       var explicit = trigger.getAttribute('data-confirmation-context');
-      var haystack = ((requestedCategory || '') + ' ' + (intent || '') + ' ' + (trigger.getAttribute('data-clicked-cta') || '')).toLowerCase();
+      var haystack = [requestedCategory || '', intent || '', trigger.getAttribute('data-clicked-cta') || '']
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
 
       if (explicit) { return explicit; }
       if (haystack.indexOf('building review') !== -1 || haystack.indexOf('building risk') !== -1) { return 'building-review'; }
@@ -59,7 +62,7 @@
       var leadSource = trigger.getAttribute('data-lead-source') || 'Calgary Condo Portal';
       var requestedCategory = trigger.getAttribute('data-requested-category') || 'General Calgary Condo Help';
       var intent = trigger.getAttribute('data-intent') || 'General inquiry';
-      var clickedCta = trigger.getAttribute('data-clicked-cta') || (trigger.textContent || '').trim();
+      var clickedCta = trigger.getAttribute('data-clicked-cta') || trigger.getAttribute('aria-label') || (trigger.textContent || '').trim();
       var confirmationContext = resolveConfirmationContext(trigger, requestedCategory, intent);
       var ctaText = /risk/i.test(intent + ' ' + requestedCategory) ? 'Send Me the Building Risk Report' : 'Send Me the Active Condo List';
 

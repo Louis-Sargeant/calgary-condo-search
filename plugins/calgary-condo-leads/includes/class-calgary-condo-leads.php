@@ -31,6 +31,20 @@ final class Calgary_Condo_Leads {
     public const FEEDBACK_TARGET_INLINE = 'inline';
 
     /**
+     * Canonical confirmation messages keyed by lead intent.
+     *
+     * @var array<string,string>
+     */
+    private const CONFIRMATION_MESSAGES = [
+        'building-review' => 'Thanks — your building review request has been received. I’ll review the building, current listings, and key buyer due-diligence items before you move forward. If this is time-sensitive, call or text me directly.',
+        'request-condo-help' => 'Thanks — your condo request has been received. I’ll follow up with the next best options based on what you’re looking for. If you’re trying to book a showing or move quickly, call or text me directly.',
+        'building-alerts' => 'You’re all set. You’ll be notified when relevant condo listings or building opportunities match your request.',
+        'price-reduced' => 'You’re all set. We’ll watch for Calgary condo price reductions that match your request.',
+        'browse-by-price' => 'Thanks — your price-range request has been received. I’ll help narrow the best Calgary condo options in that range.',
+        'generic' => 'Thanks — your request has been received. I’ll follow up as soon as possible.',
+    ];
+
+    /**
      * Return the singleton instance.
      */
     public static function instance(): Calgary_Condo_Leads {
@@ -47,9 +61,9 @@ final class Calgary_Condo_Leads {
      * @return array{status:string,target:string,context:string,message:string}
      */
     public static function current_feedback(): array {
-        $status  = isset($_GET['ccl_status']) ? sanitize_key(wp_unslash($_GET['ccl_status'])) : '';
-        $target  = isset($_GET['ccl_feedback_target']) ? sanitize_key(wp_unslash($_GET['ccl_feedback_target'])) : self::FEEDBACK_TARGET_INLINE;
-        $context = isset($_GET['ccl_thanks']) ? sanitize_key(wp_unslash($_GET['ccl_thanks'])) : 'generic';
+        $status  = isset($_GET['ccl_status']) ? sanitize_key((string) wp_unslash($_GET['ccl_status'])) : '';
+        $target  = isset($_GET['ccl_feedback_target']) ? sanitize_key((string) wp_unslash($_GET['ccl_feedback_target'])) : self::FEEDBACK_TARGET_INLINE;
+        $context = isset($_GET['ccl_thanks']) ? sanitize_key((string) wp_unslash($_GET['ccl_thanks'])) : 'generic';
 
         if (!in_array($status, ['success', 'error'], true)) {
             return [
@@ -76,20 +90,7 @@ final class Calgary_Condo_Leads {
      * Resolve the branded success message for a given lead context.
      */
     public static function confirmation_message(string $context): string {
-        switch (self::normalize_confirmation_context($context)) {
-            case 'building-review':
-                return __('Thanks — your building review request has been received. I’ll review the building, current listings, and key buyer due-diligence items before you move forward. If this is time-sensitive, call or text me directly.', 'calgary-condo-leads');
-            case 'request-condo-help':
-                return __('Thanks — your condo request has been received. I’ll follow up with the next best options based on what you’re looking for. If you’re trying to book a showing or move quickly, call or text me directly.', 'calgary-condo-leads');
-            case 'building-alerts':
-                return __('You’re all set. You’ll be notified when relevant condo listings or building opportunities match your request.', 'calgary-condo-leads');
-            case 'price-reduced':
-                return __('You’re all set. We’ll watch for Calgary condo price reductions that match your request.', 'calgary-condo-leads');
-            case 'browse-by-price':
-                return __('Thanks — your price-range request has been received. I’ll help narrow the best Calgary condo options in that range.', 'calgary-condo-leads');
-            default:
-                return __('Thanks — your request has been received. I’ll follow up as soon as possible.', 'calgary-condo-leads');
-        }
+        return __(self::CONFIRMATION_MESSAGES[self::normalize_confirmation_context($context)] ?? self::CONFIRMATION_MESSAGES['generic'], 'calgary-condo-leads');
     }
 
     /**
@@ -102,20 +103,7 @@ final class Calgary_Condo_Leads {
             return self::normalize_confirmation_context($lead['confirmation_context']);
         }
 
-        $signals = strtolower(
-            implode(
-                ' ',
-                array_filter(
-                    [
-                        $lead['requested_category'] ?? '',
-                        $lead['intent'] ?? '',
-                        $lead['lead_source'] ?? '',
-                        $lead['clicked_cta'] ?? '',
-                        $lead['message'] ?? '',
-                    ]
-                )
-            )
-        );
+        $signals = self::lead_signal_haystack($lead);
 
         if (false !== strpos($signals, 'building review') || false !== strpos($signals, 'building risk')) {
             return 'building-review';
@@ -151,11 +139,45 @@ final class Calgary_Condo_Leads {
     private static function normalize_confirmation_context(string $context): string {
         $context = sanitize_key($context);
 
-        if (in_array($context, ['building-review', 'request-condo-help', 'building-alerts', 'price-reduced', 'browse-by-price'], true)) {
+        if (array_key_exists($context, self::CONFIRMATION_MESSAGES)) {
             return $context;
         }
 
         return 'generic';
+    }
+
+    /**
+     * Determine whether a shortcode-level success message should override the generic fallback.
+     */
+    private static function should_use_custom_success_message(array $atts, array $feedback): bool {
+        return '' !== ($feedback['status'] ?? '')
+            && 'success' === ($feedback['status'] ?? '')
+            && 'generic' === ($feedback['context'] ?? '')
+            && !empty($atts['success_message']);
+    }
+
+    /**
+     * Build the normalized lead signal string used for context inference.
+     *
+     * @param array<string,string> $lead Lead values.
+     */
+    private static function lead_signal_haystack(array $lead): string {
+        $signals = [
+            $lead['requested_category'] ?? '',
+            $lead['intent'] ?? '',
+            $lead['lead_source'] ?? '',
+            $lead['clicked_cta'] ?? '',
+            $lead['message'] ?? '',
+        ];
+
+        $signals = array_map(
+            static function (string $value): string {
+                return trim($value);
+            },
+            $signals
+        );
+
+        return strtolower(implode(' ', array_filter($signals, static fn (string $value): bool => '' !== $value)));
     }
 
     /**
@@ -394,7 +416,7 @@ final class Calgary_Condo_Leads {
         $feedback = self::current_feedback();
         $show_feedback = '' !== $feedback['status'] && $atts['feedback_target'] === $feedback['target'];
         $success_message = $feedback['message'];
-        if ($show_feedback && 'success' === $feedback['status'] && 'generic' === $feedback['context'] && !empty($atts['success_message'])) {
+        if (self::should_use_custom_success_message($atts, $feedback)) {
             $success_message = $atts['success_message'];
         }
 
