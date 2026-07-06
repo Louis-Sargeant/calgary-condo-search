@@ -488,10 +488,7 @@ HTML;
         $id_slug  = sanitize_html_class($slug);
         $nonce    = wp_nonce_field('ccl_alert_form', 'ccl_nonce', true, false);
         $feedback = Calgary_Condo_Leads::current_feedback();
-        $scheme   = is_ssl() ? 'https://' : 'http://';
-        $host     = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
-        $uri      = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
-        $action   = esc_url(remove_query_arg(['ccl_status', 'ccl_thanks', 'ccl_feedback_target'], $scheme . $host . $uri) . '#condo-alerts');
+        $action   = esc_url(Calgary_Condo_Leads::current_frontend_url() . '#condo-alerts');
         $feedback_markup = '';
         if (Calgary_Condo_Leads::FEEDBACK_TARGET_INLINE === $feedback['target']) {
             if ('success' === $feedback['status']) {

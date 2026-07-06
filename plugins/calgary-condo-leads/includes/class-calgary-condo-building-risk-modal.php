@@ -83,10 +83,7 @@ final class Calgary_Condo_Building_Risk_Modal {
     }
 
     private function current_url(): string {
-        $scheme = is_ssl() ? 'https://' : 'http://';
-        $host = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
-        $uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
-        return remove_query_arg(['ccl_status', 'ccl_thanks', 'ccl_feedback_target'], $scheme . $host . $uri);
+        return Calgary_Condo_Leads::current_frontend_url();
     }
 }
 

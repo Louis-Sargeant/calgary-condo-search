@@ -90,7 +90,9 @@ final class Calgary_Condo_Leads {
      * Resolve the branded success message for a given lead context.
      */
     public static function confirmation_message(string $context): string {
-        return __(self::CONFIRMATION_MESSAGES[self::normalize_confirmation_context($context)] ?? self::CONFIRMATION_MESSAGES['generic'], 'calgary-condo-leads');
+        $normalized_context = self::normalize_confirmation_context($context);
+
+        return __(self::CONFIRMATION_MESSAGES[$normalized_context], 'calgary-condo-leads');
     }
 
     /**
@@ -148,6 +150,9 @@ final class Calgary_Condo_Leads {
 
     /**
      * Determine whether a shortcode-level success message should override the generic fallback.
+     *
+     * @param array<string,string> $atts Shortcode attributes.
+     * @param array<string,string> $feedback Parsed feedback state from the query string.
      */
     private static function should_use_custom_success_message(array $atts, array $feedback): bool {
         return 'success' === ($feedback['status'] ?? '')
@@ -664,11 +669,11 @@ final class Calgary_Condo_Leads {
     }
 
     /**
-     * Build the current front-end URL.
+     * Build the current front-end URL with feedback query args removed.
      *
-     * @param bool $include_query Whether to include current query parameters.
+     * @param bool $include_query Whether to include the current request query string.
      */
-    private function current_url(bool $include_query = true): string {
+    public static function current_frontend_url(bool $include_query = true): string {
         $scheme = is_ssl() ? 'https' : 'http';
         $host = isset($_SERVER['HTTP_HOST']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_HOST'])) : '';
         $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash($_SERVER['REQUEST_URI'])) : '/';
@@ -678,5 +683,14 @@ final class Calgary_Condo_Leads {
         }
 
         return esc_url_raw(remove_query_arg(['ccl_status', 'ccl_thanks', 'ccl_feedback_target'], $scheme . '://' . $host . $request_uri));
+    }
+
+    /**
+     * Build the current front-end URL.
+     *
+     * @param bool $include_query Whether to include current query parameters.
+     */
+    private function current_url(bool $include_query = true): string {
+        return self::current_frontend_url($include_query);
     }
 }

@@ -42,6 +42,14 @@
       }, 25);
     }
 
+    /**
+     * Infer the confirmation message context for the CTA that opened the modal.
+     *
+     * @param {Element} trigger
+     * @param {string} requestedCategory
+     * @param {string} intent
+     * @returns {string}
+     */
     function resolveConfirmationContext(trigger, requestedCategory, intent) {
       var explicit = trigger.getAttribute('data-confirmation-context');
       var haystack = [requestedCategory || '', intent || '', trigger.getAttribute('data-clicked-cta') || '']
