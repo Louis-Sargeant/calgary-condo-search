@@ -1426,8 +1426,12 @@ body.ccl-building-profile-single h1.entry-title {
 }
 
 .ccl-building-profile-page__idx-output {
+  display: block;
+  height: auto;
   margin-top: 8px;
+  max-height: none;
   min-height: 40px;
+  opacity: 1;
   overflow: visible;
   position: relative;
   width: 100%;
