@@ -111,7 +111,27 @@ final class Calgary_Condo_Building_CPT {
             return;
         }
 
-        register_post_type(self::POST_TYPE, [
+        register_post_type(self::POST_TYPE, self::post_type_args());
+    }
+
+    /**
+     * Called on plugin activation to register the post type and flush rewrite
+     * rules so /calgary-condo-buildings/{slug}/ resolves immediately without
+     * requiring a manual Settings → Permalinks save.
+     *
+     * Safe: flushes only on activation, never on every page load.
+     */
+    public static function activate(): void {
+        if (!post_type_exists(self::POST_TYPE)) {
+            register_post_type(self::POST_TYPE, self::post_type_args());
+        }
+
+        flush_rewrite_rules(false);
+    }
+
+    /** @return array<string,mixed> */
+    private static function post_type_args(): array {
+        return [
             'labels' => [
                 'name' => __('Calgary Condo Buildings', 'calgary-condo-leads'),
                 'singular_name' => __('Condo Building', 'calgary-condo-leads'),
@@ -122,16 +142,18 @@ final class Calgary_Condo_Building_CPT {
                 'search_items' => __('Search Calgary Condo Buildings', 'calgary-condo-leads'),
             ],
             'public' => true,
+            'publicly_queryable' => true,
             'show_ui' => true,
+            'query_var' => true,
             'capability_type' => 'post',
             'map_meta_cap' => true,
             'has_archive' => true,
-            'rewrite' => ['slug' => 'calgary-condo-buildings'],
+            'rewrite' => ['slug' => 'calgary-condo-buildings', 'with_front' => false],
             'menu_icon' => 'dashicons-building',
             'show_in_menu' => 'edit.php?post_type=ccl_lead',
             'show_in_rest' => true,
             'supports' => ['title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'revisions'],
-        ]);
+        ];
     }
 
     public function register_taxonomies(): void {
