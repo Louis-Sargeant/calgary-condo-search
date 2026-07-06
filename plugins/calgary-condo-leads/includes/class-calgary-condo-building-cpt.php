@@ -100,6 +100,11 @@ final class Calgary_Condo_Building_CPT {
             'type' => 'textarea',
             'description' => 'Optional direct myRealPage embed script. Only https://idx.myrealpage.com/ script embeds are allowed.',
         ],
+        'building_listings_page_url' => [
+            'label' => 'Building Listings Page URL',
+            'type' => 'url',
+            'description' => 'URL of the dedicated WordPress IDX listings page for this building (e.g. https://example.com/the-guardian-active-listings/). When set, the Current Listings section will show a "View Current Listings" button linking here instead of attempting an inline embed.',
+        ],
     ];
 
     public function __construct() {
@@ -253,6 +258,14 @@ final class Calgary_Condo_Building_CPT {
                                     id="<?php echo esc_attr($meta_key); ?>"
                                     name="<?php echo esc_attr($meta_key); ?>"
                                 ><?php echo esc_textarea($value); ?></textarea>
+                            <?php elseif ('url' === $field['type']) : ?>
+                                <input
+                                    class="large-text"
+                                    type="url"
+                                    id="<?php echo esc_attr($meta_key); ?>"
+                                    name="<?php echo esc_attr($meta_key); ?>"
+                                    value="<?php echo esc_attr($value); ?>"
+                                />
                             <?php else : ?>
                                 <input
                                     class="regular-text"
@@ -326,6 +339,8 @@ final class Calgary_Condo_Building_CPT {
                 }
 
                 $sanitized = $this->sanitize_mrp_embed_code((string) $value);
+            } elseif ('building_listings_page_url' === $meta_key) {
+                $sanitized = esc_url_raw((string) $value, ['http', 'https']);
             } else {
                 $sanitized = 'textarea' === $field['type']
                     ? sanitize_textarea_field($value)
@@ -395,7 +410,9 @@ final class Calgary_Condo_Building_CPT {
         $raw_embed_meta       = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
         $inventory_embed_code = $this->validate_stored_mrp_embed_code($raw_embed_meta);
         $inventory_shortcode  = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
-        $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
+        $listings_page_url    = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+        $has_listings_page    = '' !== $listings_page_url;
+        $has_inventory = $has_listings_page || '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
         $story = $this->public_story($content, $building_name, $community);
@@ -442,7 +459,9 @@ final class Calgary_Condo_Building_CPT {
                     <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                        <?php if ($has_inventory) : ?>
+                        <?php if ($has_listings_page) : ?>
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                        <?php elseif ($has_inventory) : ?>
                             <a href="#ccl-building-current-listings" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php endif; ?>
                     </div>
@@ -478,7 +497,14 @@ final class Calgary_Condo_Building_CPT {
                 <!-- CCL-EMBED-WILL-RENDER: <?php echo '' !== $inventory_embed_code ? 'yes' : 'no'; ?> -->
                 <?php endif; ?>
                 <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
-                    <?php if ('' !== $inventory_embed_code) : ?>
+                    <?php if ($has_listings_page) : ?>
+                        <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
+                        <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('View verified active MLS listings for this building — updated with current market inventory.', 'calgary-condo-leads'); ?></p>
+                        <div class="ccl-building-profile-page__listing-actions">
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__primary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                            <button type="button" class="ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                        </div>
+                    <?php elseif ('' !== $inventory_embed_code) : ?>
                         <?php if (current_user_can('manage_options')) : ?>
                         <!-- CCL-EMBED-OUTPUT: rendered by validate_stored_mrp_embed_code() len=<?php echo absint(strlen($inventory_embed_code)); ?> -->
                         <?php endif; ?>

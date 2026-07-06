@@ -1297,7 +1297,8 @@
   color: rgba(247, 243, 232, 0.92) !important;
 }
 
-.ccl-building-profile-page__hero-actions {
+.ccl-building-profile-page__hero-actions,
+.ccl-building-profile-page__listing-actions {
   margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
@@ -1383,7 +1384,8 @@ body.ccl-building-profile-single h1.entry-title {
 }
 
 @media (max-width: 720px) {
-  .ccl-building-profile-page__hero-actions {
+  .ccl-building-profile-page__hero-actions,
+  .ccl-building-profile-page__listing-actions {
     flex-direction: column;
   }
 
