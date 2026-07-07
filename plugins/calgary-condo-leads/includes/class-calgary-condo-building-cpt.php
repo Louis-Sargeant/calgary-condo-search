@@ -460,7 +460,7 @@ final class Calgary_Condo_Building_CPT {
                     <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <?php if ('' !== $listings_page_url) : ?>
-                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__primary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__primary-cta" aria-label="<?php echo esc_attr(sprintf(__('View current listings for %s', 'calgary-condo-leads'), $building_name)); ?>"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php endif; ?>
                         <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                     </div>
@@ -788,6 +788,7 @@ final class Calgary_Condo_Building_CPT {
     private function word_count(string $value): int {
         $parts = preg_split('/[\s\p{Z}]+/u', trim($value), -1, PREG_SPLIT_NO_EMPTY);
         if (false === $parts) {
+            error_log('Calgary_Condo_Building_CPT::word_count regex split failed.'); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             return 0;
         }
 
@@ -799,11 +800,15 @@ final class Calgary_Condo_Building_CPT {
     }
 
     private function build_story_text(array $parts): string {
-        $clean_parts = array_values(array_filter(array_map(static function ($part): string {
-            return trim((string) $part);
-        }, $parts), static function (string $part): bool {
-            return '' !== $part;
-        }));
+        $clean_parts = [];
+        foreach ($parts as $part) {
+            $clean = trim((string) $part);
+            if ('' === $clean) {
+                continue;
+            }
+
+            $clean_parts[] = $clean;
+        }
 
         return implode(' ', $clean_parts);
     }
