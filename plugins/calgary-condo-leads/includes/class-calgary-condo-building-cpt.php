@@ -411,6 +411,13 @@ final class Calgary_Condo_Building_CPT {
         $inventory_embed_code = $this->validate_stored_mrp_embed_code($raw_embed_meta);
         $inventory_shortcode  = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
         $listings_page_url    = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+
+        // Hard-link: The Guardian building always points to its dedicated listings page
+        // regardless of whether the admin field is visible or populated.
+        if ('the-guardian' === get_post_field('post_name', $post_id) && '' === $listings_page_url) {
+            $listings_page_url = '/the-guardian-active-listings/';
+        }
+
         $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
@@ -553,11 +560,16 @@ final class Calgary_Condo_Building_CPT {
                             ?>
                         </div>
                     <?php else : ?>
-                        <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
-                        <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>
                         <?php if ('' !== $listings_page_url) : ?>
-                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                            <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
+                            <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
+                            <div class="ccl-building-profile-page__hero-actions">
+                                <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                                <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                            </div>
                         <?php else : ?>
+                            <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
+                            <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>
                             <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Alerts" data-clicked-cta="Get Active Listings for This Building"><?php esc_html_e('Get Active Listings for This Building', 'calgary-condo-leads'); ?></button>
                         <?php endif; ?>
                     <?php endif; ?>
