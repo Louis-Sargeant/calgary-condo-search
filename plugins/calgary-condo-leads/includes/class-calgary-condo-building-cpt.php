@@ -412,7 +412,7 @@ final class Calgary_Condo_Building_CPT {
 
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
-        $story = $this->public_story($content, $building_name, $community);
+        $story = $this->public_story($content, $building_name, $community, $address, $year_built, $building_type, $amenities);
 
         $snapshot = [
             __('Building Name', 'calgary-condo-leads') => $building_name,
@@ -455,10 +455,10 @@ final class Calgary_Condo_Building_CPT {
                     <?php endif; ?>
                     <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
-                        <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                         <?php if ('' !== $listings_page_url) : ?>
-                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__primary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php endif; ?>
+                        <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                     </div>
                 </header>
 
@@ -494,21 +494,19 @@ final class Calgary_Condo_Building_CPT {
                         <?php else : ?>
                             <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
                         <?php endif; ?>
-                        <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                     </div>
                 </section>
 
                 <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-guidance-title">
                     <h2 id="ccl-building-guidance-title"><?php esc_html_e('Buyer Verification Guidance', 'calgary-condo-leads'); ?></h2>
-                    <p><?php esc_html_e('Before booking a showing or writing an offer, request a building-specific review covering condo documents, reserve fund health, insurance notes, special assessment risk, recent sales context, bylaws, parking/storage details, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>
+                    <p><?php esc_html_e('Before booking a showing or writing an offer, verify the building-specific details that are not always clear in a public listing. This may include condo documents, bylaws, parking and storage details, pet/rental rules, insurance notes, reserve fund context, recent sales, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>
                 </section>
 
                 <section class="ccl-building-profile-page__lead ccl-building-profile-page__card" aria-labelledby="ccl-building-lead-title">
-                    <h2 id="ccl-building-lead-title"><?php esc_html_e('Need Building-Level Due Diligence Before You Move Forward?', 'calgary-condo-leads'); ?></h2>
-                    <p><?php esc_html_e('Get a building-specific review before you commit to a showing or offer.', 'calgary-condo-leads'); ?></p>
+                    <h2 id="ccl-building-lead-title"><?php esc_html_e('Want a Building-Level Review Before You Book a Showing?', 'calgary-condo-leads'); ?></h2>
+                    <p><?php esc_html_e('Request a building-specific review before you commit to a showing or offer. We will help you understand what to verify, what questions to ask, and where public listing data may not tell the full story.', 'calgary-condo-leads'); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                        <a href="<?php echo esc_url(home_url('/building-alert-request/')); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('Request Condo Help', 'calgary-condo-leads'); ?></a>
                     </div>
                 </section>
             </article>
@@ -695,27 +693,81 @@ final class Calgary_Condo_Building_CPT {
         return true;
     }
 
-    private function public_story(string $content, string $building_name, string $community): string {
+    private function public_story(string $content, string $building_name, string $community, string $address, string $year_built, string $building_type, array $amenities): string {
         $clean_content = trim(preg_replace('/\s+/', ' ', wp_strip_all_tags($content)));
 
-        if ('' !== $clean_content && !$this->contains_private_due_diligence_terms($clean_content) && !$this->looks_like_placeholder_copy($clean_content)) {
+        if (
+            '' !== $clean_content
+            && !$this->contains_private_due_diligence_terms($clean_content)
+            && !$this->looks_like_placeholder_copy($clean_content)
+            && mb_strlen($clean_content) >= 130
+        ) {
             return $clean_content;
         }
 
-        if ('' !== $community) {
-            return sprintf(
+        $intro = '';
+        if ('' !== $building_type && '' !== $community) {
+            $intro = sprintf(
+                /* translators: 1: building name, 2: building type, 3: community */
+                __('%1$s is a %2$s condo building in %3$s.', 'calgary-condo-leads'),
+                $building_name,
+                $building_type,
+                $community
+            );
+        } elseif ('' !== $building_type) {
+            $intro = sprintf(
+                /* translators: 1: building name, 2: building type */
+                __('%1$s is a %2$s condo building in Calgary.', 'calgary-condo-leads'),
+                $building_name,
+                $building_type
+            );
+        } elseif ('' !== $community) {
+            $intro = sprintf(
                 /* translators: 1: building name, 2: community */
-                __('%1$s sits within Calgary\'s %2$s condo market. Use this profile to understand location and lifestyle fit, then verify building-specific details before you tour units or write an offer.', 'calgary-condo-leads'),
+                __('%1$s is a condo building in %2$s.', 'calgary-condo-leads'),
                 $building_name,
                 $community
             );
+        } else {
+            $intro = sprintf(
+                /* translators: %s: building name */
+                __('%s is a Calgary condo building.', 'calgary-condo-leads'),
+                $building_name
+            );
         }
 
-        return sprintf(
-            /* translators: %s: building name */
-            __('%s is a Calgary condo option where buyers should confirm location fit, current inventory access, and building-specific details before moving forward.', 'calgary-condo-leads'),
-            $building_name
-        );
+        $detail_parts = [];
+        if ('' !== $address) {
+            $detail_parts[] = sprintf(
+                /* translators: %s: building address */
+                __('Located at %s.', 'calgary-condo-leads'),
+                $address
+            );
+        }
+
+        if ('' !== $year_built) {
+            $detail_parts[] = sprintf(
+                /* translators: %s: year built */
+                __('Built in %s.', 'calgary-condo-leads'),
+                $year_built
+            );
+        }
+
+        if (!empty($amenities)) {
+            $detail_parts[] = sprintf(
+                /* translators: %s: amenity list */
+                __('Public amenities may include %s.', 'calgary-condo-leads'),
+                implode(', ', $amenities)
+            );
+        }
+
+        $details = implode(' ', $detail_parts);
+
+        if ('' !== $community) {
+            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby downtown amenities, transit, restaurants, pathways, and inner-city services. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads'));
+        }
+
+        return trim($intro . ' ' . $details . ' ' . __('Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads'));
     }
 
     /** @return string[] */
