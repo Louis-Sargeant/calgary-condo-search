@@ -16,9 +16,10 @@ final class Calgary_Condo_Building_CPT {
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
     private const MRP_EMBED_SCRIPT_PATTERN = '/^\s*<script\b[^>]*\bsrc=(["\'])([^"\']+)\1[^>]*>\s*<\/script>\s*$/is';
+    // Treat short one-line blurbs as thin copy so fallback story guidance can replace them.
     private const MIN_PUBLIC_STORY_LENGTH = 130;
+    // Require meaningful sentence density in addition to character length.
     private const MIN_PUBLIC_STORY_WORDS = 20;
-    private const STORY_VERIFICATION_GUIDANCE = 'Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.';
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -766,12 +767,13 @@ final class Calgary_Condo_Building_CPT {
         }
 
         $details = implode(' ', $detail_parts);
+        $verification_guidance = $this->story_verification_guidance();
 
         if ('' !== $community) {
-            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads') . ' ' . __(self::STORY_VERIFICATION_GUIDANCE, 'calgary-condo-leads'));
+            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads') . ' ' . $verification_guidance);
         }
 
-        return trim($intro . ' ' . $details . ' ' . __(self::STORY_VERIFICATION_GUIDANCE, 'calgary-condo-leads'));
+        return trim($intro . ' ' . $details . ' ' . $verification_guidance);
     }
 
     private function word_count(string $value): int {
@@ -781,6 +783,10 @@ final class Calgary_Condo_Building_CPT {
         }
 
         return count($parts);
+    }
+
+    private function story_verification_guidance(): string {
+        return __('Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads');
     }
 
     /** @return string[] */
