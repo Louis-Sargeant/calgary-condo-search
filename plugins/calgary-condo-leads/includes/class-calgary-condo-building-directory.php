@@ -224,6 +224,8 @@ final class Calgary_Condo_Building_Directory {
      * @return array{name:string,community:string,year:string,type:string,permalink:string,letter:string,community_keys:array<int,string>,index:string}
      */
     public static function build_directory_entry_from_post(WP_Post $post): array {
+        // Support both the current meta keys and older mirrored keys so the
+        // directory stays stable while legacy imported records are normalized.
         $community = self::first_non_empty([
             (string) get_post_meta($post->ID, 'building_community', true),
             (string) get_post_meta($post->ID, 'ccl_building_community', true),
@@ -531,7 +533,7 @@ HTML;
 
         uasort(
             $extra,
-            static fn(array $left, array $right): int => strcasecmp($left['label'], $right['label'])
+            static fn(array $left, array $right): int => strcasecmp((string) ($left['label'] ?? ''), (string) ($right['label'] ?? ''))
         );
 
         return array_merge($chips, array_values($extra));
@@ -575,7 +577,7 @@ HTML;
 
         return sprintf(
             '<%1$s class="ccl-building-directory__plaque" %2$s data-building-name="%3$s" data-building-community="%4$s"><span class="ccl-building-directory__index">%5$s</span><h3 class="ccl-building-directory__name">%6$s</h3><p class="ccl-building-directory__community">%7$s</p><p class="ccl-building-directory__stats">%8$s</p></%1$s>',
-            esc_html($tag),
+            $tag,
             $attributes,
             esc_attr(self::normalize_search_term($name)),
             esc_attr($community_keys),
@@ -623,11 +625,15 @@ HTML;
         var matchesSearch = !term || name.indexOf(term) !== -1;
         var matchesCommunity = activeCommunity === 'all' || communities.indexOf(activeCommunity) !== -1;
         var visible = matchesSearch && matchesCommunity;
+        var indexLabel = plaque.querySelector('.ccl-building-directory__index');
 
         plaque.hidden = !visible;
         if (visible) {
           groupVisible += 1;
           visibleCount += 1;
+          if (indexLabel) {
+            indexLabel.textContent = 'No. ' + String(visibleCount).padStart(2, '0');
+          }
         }
       });
 
