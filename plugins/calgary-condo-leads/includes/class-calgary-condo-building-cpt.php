@@ -545,17 +545,7 @@ final class Calgary_Condo_Building_CPT {
         }
 
         if (str_starts_with($raw_url, '/')) {
-            $parts = wp_parse_url($raw_url);
-            if (!is_array($parts)) {
-                return '';
-            }
-
-            if (isset($parts['scheme']) || isset($parts['host']) || isset($parts['user']) || isset($parts['pass']) || isset($parts['port'])) {
-                return '';
-            }
-
-            $path_only = (string) ($parts['path'] ?? '');
-            if ('' === trim($path_only) || !str_starts_with($path_only, '/')) {
+            if (1 !== preg_match('#^/\S*$#', $raw_url)) {
                 return '';
             }
 
