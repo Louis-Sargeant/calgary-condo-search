@@ -773,7 +773,7 @@ final class Calgary_Condo_Building_CPT {
             return $this->build_story_text([
                 $intro,
                 $details,
-                __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads'),
+                __('Its location may offer access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads'),
                 $verification_guidance,
             ]);
         }
@@ -788,7 +788,6 @@ final class Calgary_Condo_Building_CPT {
     private function word_count(string $value): int {
         $parts = preg_split('/[\s\p{Z}]+/u', trim($value), -1, PREG_SPLIT_NO_EMPTY);
         if (false === $parts) {
-            error_log(sprintf('Calgary_Condo_Building_CPT::word_count regex split failed (input_length=%d).', mb_strlen($value))); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             return 0;
         }
 
