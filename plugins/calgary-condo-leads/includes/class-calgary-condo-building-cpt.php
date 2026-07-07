@@ -91,19 +91,19 @@ final class Calgary_Condo_Building_CPT {
             'type' => 'textarea',
         ],
         'building_mrp_shortcode' => [
-            'label' => 'Building IDX Shortcode (myRealPage)',
+            'label' => 'Building IDX Shortcode (myRealPage) — reference only',
             'type' => 'textarea',
-            'description' => 'Paste the myRealPage saved-search shortcode for this building. Example: [mrp account_id=XXXXX listing_def=XXXXX context=recip perm_attr=tmpl~v2][/mrp]. Leave empty to show the "Get Active Listings" fallback CTA instead.',
+            'description' => 'Legacy field — kept for reference only. myRealPage shortcodes are no longer rendered inline inside building profiles. Paste the shortcode on the matching normal WordPress IDX listings page instead.',
         ],
         'building_mrp_embed_code' => [
-            'label' => 'Building IDX Embed Code (myRealPage)',
+            'label' => 'Building IDX Embed Code (myRealPage) — reference only',
             'type' => 'textarea',
-            'description' => 'Optional direct myRealPage embed script. Only https://idx.myrealpage.com/ script embeds are allowed.',
+            'description' => 'Legacy field — kept for reference only. myRealPage embed scripts are no longer rendered inline inside building profiles. Paste the embed on the matching normal WordPress IDX listings page instead.',
         ],
         'building_listings_page_url' => [
-            'label' => 'Listings Page URL',
+            'label' => 'Building Listings Page URL',
             'type' => 'url',
-            'description' => 'Fallback URL for the "View Current Listings" button when no IDX embed or shortcode is set. Example: https://louiss106.sg-host.com/the-guardian-active-listings/',
+            'description' => 'Paste the normal WordPress IDX listings page URL for this building. Example: /the-guardian-active-listings/. This powers the "View Current Listings" button on the building profile.',
         ],
     ];
 
@@ -407,10 +407,7 @@ final class Calgary_Condo_Building_CPT {
         $address = $this->first_meta_value($post_id, ['building_address', 'ccl_building_address']);
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
-        $raw_embed_meta       = trim((string) get_post_meta($post_id, 'building_mrp_embed_code', true));
-        $inventory_embed_code = $this->validate_stored_mrp_embed_code($raw_embed_meta);
-        $inventory_shortcode  = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
-        $listings_page_url    = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+        $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
 
         // Hard-link: The Guardian building always points to its dedicated listings page
         // regardless of whether the admin field is visible or populated.
@@ -418,7 +415,6 @@ final class Calgary_Condo_Building_CPT {
             $listings_page_url = '/the-guardian-active-listings/';
         }
 
-        $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
         $story = $this->public_story($content, $building_name, $community);
@@ -465,9 +461,7 @@ final class Calgary_Condo_Building_CPT {
                     <p class="ccl-building-profile-page__positioning"><?php echo esc_html($positioning); ?></p>
                     <div class="ccl-building-profile-page__hero-actions">
                         <button type="button" class="ccl-btn ccl-building-profile-page__primary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                        <?php if ($has_inventory) : ?>
-                            <a href="#ccl-building-current-listings" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
-                        <?php elseif ('' !== $listings_page_url) : ?>
+                        <?php if ('' !== $listings_page_url) : ?>
                             <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-building-profile-page__secondary-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php endif; ?>
                     </div>
@@ -496,83 +490,17 @@ final class Calgary_Condo_Building_CPT {
 
                 <!-- CCL-RENDER-FILE: class-calgary-condo-building-cpt.php::render_building_profile -->
                 <!-- CCL-PLUGIN-VERSION: <?php echo esc_html(defined('CCL_VERSION') ? CCL_VERSION : 'unknown'); ?> -->
-                <?php if (current_user_can('manage_options')) : ?>
-                <!-- CCL-EMBED-SAVED: <?php echo '' !== $raw_embed_meta ? 'yes' : 'no'; ?> -->
-                <!-- CCL-EMBED-RAW-LEN: <?php echo absint(strlen($raw_embed_meta)); ?> -->
-                <!-- CCL-EMBED-NORMALIZED-LEN: <?php echo absint(strlen($inventory_embed_code)); ?> -->
-                <!-- CCL-EMBED-WILL-RENDER: <?php echo '' !== $inventory_embed_code ? 'yes' : 'no'; ?> -->
-                <?php endif; ?>
                 <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
-                    <?php if ('' !== $inventory_embed_code) : ?>
-                        <?php if (current_user_can('manage_options')) : ?>
-                        <!-- CCL-EMBED-OUTPUT: rendered by validate_stored_mrp_embed_code() len=<?php echo absint(strlen($inventory_embed_code)); ?> -->
-                        <?php endif; ?>
-                        <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
-                        <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-building-profile-page__idx-output">
-                            <?php echo $inventory_embed_code; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                        </div>
-                    <?php elseif ('' !== $inventory_shortcode) : ?>
-                        <?php
-                        // Diagnostic: admin-only source comments (not visible on-screen).
-                        if (current_user_can('manage_options')) {
-                            $meta_raw  = (string) get_post_meta(get_the_ID(), 'building_mrp_shortcode', true);
-                            $meta_len  = strlen($meta_raw);
-                            $sc_exists = shortcode_exists('mrp') ? 'true' : 'false';
-                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            echo '<!-- CCL-META: building_mrp_shortcode present=' . ($meta_len > 0 ? 'yes' : 'no') . ' len=' . $meta_len . ' -->';
-                            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            echo '<!-- CCL-SHORTCODE-EXISTS: mrp=' . $sc_exists . ' -->';
-                        }
-                        ?>
-                        <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
-                        <p class="ccl-building-profile-page__idx-source-note"><?php esc_html_e('Live MLS listing data is provided through myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                        <div class="ccl-building-profile-page__idx-output">
-                            <?php
-                            // Approach A: do_shortcode() directly — avoids wptexturize/wpautop running
-                            // before do_shortcode and potentially mangling shortcode attribute syntax.
-                            $mrp_output = do_shortcode($inventory_shortcode);
-                            $mrp_trimmed = trim($mrp_output);
-
-                            if ('' !== $mrp_trimmed && $mrp_output !== $inventory_shortcode) {
-                                // Approach A produced real shortcode output.
-                                if (current_user_can('manage_options')) {
-                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                    echo '<!-- CCL-RENDER-METHOD: do_shortcode (A) output-len=' . strlen($mrp_output) . ' -->';
-                                }
-                                echo $mrp_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            } else {
-                                // Approach A returned empty or the raw shortcode string unchanged.
-                                // Fallback — Approach C: apply_filters('the_content') with recursion guard.
-                                // Approach B (apply_filters without guard) is skipped — it would cause
-                                // infinite recursion since render_building_profile is a the_content filter.
-                                $raw_len = strlen($mrp_output);
-                                remove_filter('the_content', [$this, 'render_building_profile']);
-                                $mrp_output = apply_filters('the_content', $inventory_shortcode); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-                                add_filter('the_content', [$this, 'render_building_profile']);
-
-                                if (current_user_can('manage_options')) {
-                                    // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                    echo '<!-- CCL-RENDER-METHOD: apply_filters_the_content (C) output-len=' . strlen($mrp_output) . ' do_shortcode-raw-len=' . $raw_len . ' -->';
-                                }
-                                echo $mrp_output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            }
-                            ?>
-                        </div>
-                    <?php else : ?>
+                    <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
+                    <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
+                    <div class="ccl-building-profile-page__hero-actions">
                         <?php if ('' !== $listings_page_url) : ?>
-                            <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
-                            <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                            <div class="ccl-building-profile-page__hero-actions">
-                                <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
-                                <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
-                            </div>
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php else : ?>
-                            <h2 id="ccl-building-listings-title"><?php esc_html_e('Current Listings', 'calgary-condo-leads'); ?></h2>
-                            <p><?php esc_html_e('View current MLS listings available in this building. Verified listing data — including price, beds/baths, square footage, photos, and active status — is sourced directly from the MLS feed.', 'calgary-condo-leads'); ?></p>
-                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Alerts" data-clicked-cta="Get Active Listings for This Building"><?php esc_html_e('Get Active Listings for This Building', 'calgary-condo-leads'); ?></button>
+                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Listings"><?php esc_html_e('Request Current Listings', 'calgary-condo-leads'); ?></button>
                         <?php endif; ?>
-                    <?php endif; ?>
+                        <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                    </div>
                 </section>
 
                 <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-guidance-title">
