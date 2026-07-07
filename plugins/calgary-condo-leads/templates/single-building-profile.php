@@ -33,7 +33,12 @@ $fields = [
     __('Parking', 'calgary-condo-leads') => 'ccl_building_parking',
 ];
 
-$inventory_shortcode = trim((string) get_post_meta($post_id, 'building_mrp_shortcode', true));
+$listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+$listings_heading = sprintf(
+    /* translators: %s: building name */
+    __('Current Listings in %s', 'calgary-condo-leads'),
+    get_the_title($post_id)
+);
 
 $has_missing = false;
 ?>
@@ -61,12 +66,16 @@ $has_missing = false;
         </aside>
         <div class="ccl-building-profile__idx">
             <div class="ccl-building-profile__idx-feed">
-                <h2><?php esc_html_e('Current Listings In This Building', 'calgary-condo-leads'); ?></h2>
-                <?php if ('' !== $inventory_shortcode) : ?>
-                    <?php echo do_shortcode($inventory_shortcode); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                <?php else : ?>
-                    <p><?php esc_html_e('Live building-specific listings will appear here once the myRealPage saved search is connected for this address.', 'calgary-condo-leads'); ?></p>
-                <?php endif; ?>
+                <h2><?php echo esc_html($listings_heading); ?></h2>
+                <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
+                <div class="ccl-building-profile-page__hero-actions">
+                    <?php if ('' !== $listings_page_url) : ?>
+                        <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                    <?php else : ?>
+                        <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
+                    <?php endif; ?>
+                    <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
+                </div>
             </div>
         </div>
     </div>

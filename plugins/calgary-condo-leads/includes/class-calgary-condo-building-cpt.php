@@ -16,7 +16,6 @@ final class Calgary_Condo_Building_CPT {
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
     private const MRP_EMBED_SCRIPT_PATTERN = '/^\s*<script\b[^>]*\bsrc=(["\'])([^"\']+)\1[^>]*>\s*<\/script>\s*$/is';
-    private const MAX_URL_DECODE_ITERATIONS = 3;
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -102,8 +101,8 @@ final class Calgary_Condo_Building_CPT {
         ],
         'building_listings_page_url' => [
             'label' => 'Building Listings Page URL',
-            'type' => 'url',
-            'description' => 'Paste the normal WordPress IDX listings page URL for this building. Example: /the-guardian-active-listings/. This powers the "View Current Listings" button on the building profile.',
+            'type' => 'text',
+            'description' => 'Paste the normal WordPress IDX listings page URL for this building. Supports relative URLs like /the-guardian-active-listings/ and absolute URLs when needed. This powers the "View Current Listings" button on the building profile.',
         ],
     ];
 
@@ -339,6 +338,8 @@ final class Calgary_Condo_Building_CPT {
                 }
 
                 $sanitized = $this->sanitize_mrp_embed_code((string) $value);
+            } elseif ('building_listings_page_url' === $meta_key) {
+                $sanitized = $this->sanitize_building_listings_page_url((string) $value);
             } elseif ('url' === $field['type']) {
                 $sanitized = esc_url_raw((string) $value);
             } else {
@@ -408,12 +409,6 @@ final class Calgary_Condo_Building_CPT {
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
         $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
-
-        // Hard-link: The Guardian building always points to its dedicated listings page
-        // regardless of whether the admin field is visible or populated.
-        if ('the-guardian' === get_post_field('post_name', $post_id) && '' === $listings_page_url) {
-            $listings_page_url = '/the-guardian-active-listings/';
-        }
 
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
@@ -497,7 +492,7 @@ final class Calgary_Condo_Building_CPT {
                         <?php if ('' !== $listings_page_url) : ?>
                             <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php else : ?>
-                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Listings"><?php esc_html_e('Request Current Listings', 'calgary-condo-leads'); ?></button>
+                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
                         <?php endif; ?>
                         <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                     </div>
@@ -536,6 +531,68 @@ final class Calgary_Condo_Building_CPT {
         }
 
         return '';
+    }
+
+    private function sanitize_building_listings_page_url(string $raw_url): string {
+        $raw_url = trim($raw_url);
+        if ('' === $raw_url) {
+            return '';
+        }
+
+        if (str_contains($raw_url, "\n") || str_contains($raw_url, "\r")) {
+            return '';
+        }
+
+        if (str_starts_with($raw_url, '/')) {
+            $parts = wp_parse_url($raw_url);
+            if (!is_array($parts)) {
+                return '';
+            }
+
+            if (isset($parts['scheme']) || isset($parts['host']) || isset($parts['user']) || isset($parts['pass']) || isset($parts['port'])) {
+                return '';
+            }
+
+            if (isset($parts['fragment']) && '' !== trim((string) $parts['fragment'])) {
+                return '';
+            }
+
+            $path_only = (string) ($parts['path'] ?? '');
+            if ('' === trim($path_only) || !str_starts_with($path_only, '/')) {
+                return '';
+            }
+
+            $decoded_path = $path_only;
+            for ($i = 0; $i < 3; $i++) {
+                $decoded_next = rawurldecode($decoded_path);
+                if ($decoded_next === $decoded_path) {
+                    break;
+                }
+
+                $decoded_path = $decoded_next;
+            }
+
+            if (1 !== preg_match('#^/[A-Za-z0-9/_~.\-]*$#', $decoded_path)) {
+                return '';
+            }
+
+            $segments = array_filter(explode('/', trim($decoded_path, '/')), 'strlen');
+            foreach ($segments as $segment) {
+                if ('.' === $segment || '..' === $segment) {
+                    return '';
+                }
+            }
+
+            $query = (string) ($parts['query'] ?? '');
+            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9._~!$&()*+,;=:@%\-]*$#', $query)) {
+                return '';
+            }
+
+            $normalized_relative = $path_only . ('' !== $query ? '?' . $query : '');
+            return esc_url_raw($normalized_relative);
+        }
+
+        return esc_url_raw($raw_url, ['http', 'https']);
     }
 
     private function sanitize_mrp_embed_code(string $raw_embed): string {
