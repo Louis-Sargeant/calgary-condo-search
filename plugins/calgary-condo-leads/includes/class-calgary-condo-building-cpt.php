@@ -16,7 +16,6 @@ final class Calgary_Condo_Building_CPT {
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
     private const MRP_EMBED_SCRIPT_PATTERN = '/^\s*<script\b[^>]*\bsrc=(["\'])([^"\']+)\1[^>]*>\s*<\/script>\s*$/is';
-    private const MAX_URL_DECODE_ITERATIONS = 3;
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -564,7 +563,7 @@ final class Calgary_Condo_Building_CPT {
             }
 
             $decoded_path = $path_only;
-            for ($i = 0; $i < self::MAX_URL_DECODE_ITERATIONS; $i++) {
+            for ($i = 0; $i < 3; $i++) {
                 $decoded_next = rawurldecode($decoded_path);
                 if ($decoded_next === $decoded_path) {
                     break;
@@ -585,7 +584,7 @@ final class Calgary_Condo_Building_CPT {
             }
 
             $query = (string) ($parts['query'] ?? '');
-            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9._~!$&()*+,;=:@/?%\-]*$#', $query)) {
+            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9._~!$&()*+,;=:@%\-]*$#', $query)) {
                 return '';
             }
 
