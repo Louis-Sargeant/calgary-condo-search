@@ -102,7 +102,7 @@ final class Calgary_Condo_Building_CPT {
         ],
         'building_listings_page_url' => [
             'label' => 'Building Listings Page URL',
-            'type' => 'url',
+            'type' => 'text',
             'description' => 'Paste the normal WordPress IDX listings page URL for this building. Example: /the-guardian-active-listings/. This powers the "View Current Listings" button on the building profile.',
         ],
     ];
@@ -339,6 +339,8 @@ final class Calgary_Condo_Building_CPT {
                 }
 
                 $sanitized = $this->sanitize_mrp_embed_code((string) $value);
+            } elseif ('building_listings_page_url' === $meta_key) {
+                $sanitized = $this->sanitize_building_listings_page_url((string) $value);
             } elseif ('url' === $field['type']) {
                 $sanitized = esc_url_raw((string) $value);
             } else {
@@ -408,12 +410,6 @@ final class Calgary_Condo_Building_CPT {
         $building_type = $this->first_meta_value($post_id, ['building_construction_type', 'ccl_building_type']);
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
         $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
-
-        // Hard-link: The Guardian building always points to its dedicated listings page
-        // regardless of whether the admin field is visible or populated.
-        if ('the-guardian' === get_post_field('post_name', $post_id) && '' === $listings_page_url) {
-            $listings_page_url = '/the-guardian-active-listings/';
-        }
 
         $amenities = $this->public_amenities($post_id);
         $pet_rental_note = $this->public_pet_rental_note($post_id);
@@ -497,7 +493,7 @@ final class Calgary_Condo_Building_CPT {
                         <?php if ('' !== $listings_page_url) : ?>
                             <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                         <?php else : ?>
-                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Listings"><?php esc_html_e('Request Current Listings', 'calgary-condo-leads'); ?></button>
+                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
                         <?php endif; ?>
                         <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                     </div>
@@ -536,6 +532,28 @@ final class Calgary_Condo_Building_CPT {
         }
 
         return '';
+    }
+
+    private function sanitize_building_listings_page_url(string $raw_url): string {
+        $raw_url = trim($raw_url);
+        if ('' === $raw_url) {
+            return '';
+        }
+
+        if (str_starts_with($raw_url, '/')) {
+            $path_only = wp_parse_url($raw_url, PHP_URL_PATH);
+            if (!is_string($path_only) || '' === trim($path_only) || !str_starts_with($path_only, '/')) {
+                return '';
+            }
+
+            if (false !== strpos($raw_url, "\n") || false !== strpos($raw_url, "\r")) {
+                return '';
+            }
+
+            return esc_url_raw($raw_url);
+        }
+
+        return esc_url_raw($raw_url, ['http', 'https']);
     }
 
     private function sanitize_mrp_embed_code(string $raw_embed): string {
