@@ -13,6 +13,7 @@ final class Calgary_Condo_Building_CPT {
     public const POST_TYPE = 'ccl_building';
     private const FALLBACK = 'Details coming soon — verify building information before making decisions.';
     private const THE_GUARDIAN_SLUG = 'the-guardian';
+    private const THE_GUARDIAN_LISTINGS_URL = '/the-guardian-active-listings/';
     private const META_BOX_ID = 'ccl-building-details';
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
@@ -417,7 +418,7 @@ final class Calgary_Condo_Building_CPT {
         // Hard-link: The Guardian building always points to its dedicated listings page
         // regardless of whether the admin field is visible or populated.
         if (self::THE_GUARDIAN_SLUG === $building_slug) {
-            $listings_page_url = '/the-guardian-active-listings/';
+            $listings_page_url = self::THE_GUARDIAN_LISTINGS_URL;
         }
 
         $has_inventory = '' !== $inventory_embed_code || '' !== $inventory_shortcode;
