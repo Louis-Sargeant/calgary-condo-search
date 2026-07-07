@@ -111,6 +111,7 @@ final class Calgary_Condo_Building_Index {
             'order' => 'ASC',
             'no_found_rows' => true,
             'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
             'tax_query' => [
                 [
                     'taxonomy' => $term['taxonomy'],
@@ -120,6 +121,7 @@ final class Calgary_Condo_Building_Index {
             ],
         ]);
 
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
         $entries = array_map([Calgary_Condo_Building_Directory::class, 'build_directory_entry_from_post'], $posts);
         $context_note = 'ccl_building_community' === $term['taxonomy']
             ? sprintf(__('Currently filtered to %s.', 'calgary-condo-leads'), $term['name'])

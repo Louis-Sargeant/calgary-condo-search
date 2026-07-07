@@ -355,12 +355,14 @@ final class Calgary_Condo_Building_Directory {
             'order' => 'ASC',
             'no_found_rows' => true,
             'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
         ]);
 
         if (empty($posts)) {
             return $this->fallback_directory_entries([]);
         }
 
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
         return array_map([self::class, 'build_directory_entry_from_post'], $posts);
     }
 
@@ -376,8 +378,10 @@ final class Calgary_Condo_Building_Directory {
             'order' => 'ASC',
             'no_found_rows' => true,
             'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
         ]);
 
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
         $mapped_posts = [];
         foreach ($posts as $post) {
             $mapped_posts[strtolower($post->post_title)] = $post;
@@ -625,15 +629,11 @@ HTML;
         var matchesSearch = !term || name.indexOf(term) !== -1;
         var matchesCommunity = activeCommunity === 'all' || communities.indexOf(activeCommunity) !== -1;
         var visible = matchesSearch && matchesCommunity;
-        var indexLabel = plaque.querySelector('.ccl-building-directory__index');
 
         plaque.hidden = !visible;
         if (visible) {
           groupVisible += 1;
           visibleCount += 1;
-          if (indexLabel) {
-            indexLabel.textContent = 'No. ' + String(visibleCount).padStart(2, '0');
-          }
         }
       });
 
