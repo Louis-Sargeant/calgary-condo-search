@@ -10,8 +10,6 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Building_Directory {
-    private const BUILDING_HERO_IMAGE = 'https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b';
-
     private const BUILDINGS = [
         ['name' => 'The Guardian', 'area' => 'Victoria Park / Beltline', 'type' => 'High-rise', 'focus' => 'Downtown access, views, newer tower product'],
         ['name' => 'Keynote Urban Village', 'area' => 'Beltline / Victoria Park', 'type' => 'High-rise', 'focus' => 'Walkability, amenities, downtown lifestyle'],
@@ -31,13 +29,16 @@ final class Calgary_Condo_Building_Directory {
         ['name' => 'Radius', 'area' => 'Bridgeland', 'type' => 'Concrete mid-rise', 'focus' => 'Modern building, inner-city lifestyle'],
     ];
 
-    public function __construct() {
-        add_action('template_redirect', [$this, 'redirect_legacy_beltline_building_route'], 0);
-        add_action('template_redirect', [$this, 'render_buildings_page'], 0);
-        add_shortcode('ccl_building_directory', [$this, 'shortcode']);
-        add_shortcode('ccl_building_database_directory', [$this, 'database_shortcode']);
-    }
-
+    private const DIRECTORY_COMMUNITY_PRESETS = [
+        ['label' => 'Victoria Park / Beltline', 'key' => 'victoria-park-beltline', 'aliases' => ['victoria park', 'beltline']],
+        ['label' => 'Downtown West End', 'key' => 'downtown-west-end', 'aliases' => ['downtown west end', 'west end']],
+        ['label' => 'Eau Claire', 'key' => 'eau-claire', 'aliases' => ['eau claire']],
+        ['label' => 'Mission', 'key' => 'mission', 'aliases' => ['mission']],
+        ['label' => 'East Village', 'key' => 'east-village', 'aliases' => ['east village']],
+        ['label' => 'Bridgeland/Riverside', 'key' => 'bridgeland-riverside', 'aliases' => ['bridgeland', 'riverside']],
+        ['label' => 'Hillhurst', 'key' => 'hillhurst', 'aliases' => ['hillhurst']],
+        ['label' => 'Sunnyside', 'key' => 'sunnyside', 'aliases' => ['sunnyside']],
+    ];
 
     private const VISUAL_DIRECTORY_CARDS = [
         'Inner-City Condo Hubs' => [
@@ -73,6 +74,12 @@ final class Calgary_Condo_Building_Directory {
         ],
     ];
 
+    public function __construct() {
+        add_action('template_redirect', [$this, 'redirect_legacy_beltline_building_route'], 0);
+        add_action('template_redirect', [$this, 'render_buildings_page'], 0);
+        add_shortcode('ccl_building_directory', [$this, 'shortcode']);
+        add_shortcode('ccl_building_database_directory', [$this, 'database_shortcode']);
+    }
 
     /**
      * Return normalized visual directory card destinations for search routing.
@@ -112,7 +119,7 @@ final class Calgary_Condo_Building_Directory {
         return $routes;
     }
 
-    private static function normalize_search_term(string $term): string {
+    public static function normalize_search_term(string $term): string {
         return trim((string) preg_replace('/\s+/', ' ', (string) preg_replace('/[^a-z0-9]+/', ' ', strtolower($term))));
     }
 
@@ -123,6 +130,130 @@ final class Calgary_Condo_Building_Directory {
      */
     public static function fallback_buildings(): array {
         return self::BUILDINGS;
+    }
+
+    /**
+     * @param array<string,mixed> $args
+     */
+    public static function render_premium_directory(array $entries, array $args = []): string {
+        $defaults = [
+            'section_id' => 'ccl-building-directory',
+            'eyebrow' => __('Calgary Condo Search — Building Directory', 'calgary-condo-leads'),
+            'title' => __('Every building, indexed.', 'calgary-condo-leads'),
+            'intro' => __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by name, filter by community, or browse the full building index below.', 'calgary-condo-leads'),
+            'context_note' => '',
+            'empty_message' => __('No building plaques match the current search and community filter.', 'calgary-condo-leads'),
+        ];
+
+        $args = array_merge($defaults, $args);
+        $section_id = sanitize_html_class((string) $args['section_id']);
+
+        // Re-sort here because array-first fallback data and any future callers of
+        // this shared renderer are not guaranteed to arrive in title order.
+        usort(
+            $entries,
+            static fn(array $left, array $right): int => self::compare_entry_strings($left, $right, 'name')
+        );
+
+        $prepared_entries = [];
+        foreach ($entries as $index => $entry) {
+            $prepared_entries[] = self::prepare_entry($entry, $index + 1);
+        }
+
+        $groups = self::group_entries_by_letter($prepared_entries);
+        $chips = self::community_chips($prepared_entries);
+
+        ob_start();
+        ?>
+        <section id="<?php echo esc_attr($section_id); ?>" class="ccl-building-directory" data-ccl-building-directory>
+            <div class="ccl-building-directory__header">
+                <p class="ccl-building-directory__eyebrow"><?php echo esc_html((string) $args['eyebrow']); ?></p>
+                <h1 class="ccl-building-directory__title"><?php echo esc_html((string) $args['title']); ?></h1>
+                <p class="ccl-building-directory__sub"><?php echo esc_html((string) $args['intro']); ?></p>
+                <?php if ('' !== trim((string) $args['context_note'])) : ?>
+                    <p class="ccl-building-directory__context"><?php echo esc_html((string) $args['context_note']); ?></p>
+                <?php endif; ?>
+            </div>
+            <div class="ccl-building-directory__controls">
+                <label class="screen-reader-text" for="<?php echo esc_attr($section_id); ?>-search"><?php esc_html_e('Search by building name', 'calgary-condo-leads'); ?></label>
+                <input
+                    id="<?php echo esc_attr($section_id); ?>-search"
+                    class="ccl-building-directory__search"
+                    type="search"
+                    placeholder="<?php esc_attr_e('Search by building name…', 'calgary-condo-leads'); ?>"
+                    aria-label="<?php esc_attr_e('Search by building name', 'calgary-condo-leads'); ?>"
+                    data-ccl-directory-search
+                />
+                <div class="ccl-building-directory__chips" role="group" aria-label="<?php esc_attr_e('Filter buildings by community', 'calgary-condo-leads'); ?>">
+                    <button type="button" class="ccl-building-directory__chip is-active" data-community-filter="all"><?php esc_html_e('All Communities', 'calgary-condo-leads'); ?></button>
+                    <?php foreach ($chips as $chip) : ?>
+                        <button type="button" class="ccl-building-directory__chip" data-community-filter="<?php echo esc_attr($chip['key']); ?>"><?php echo esc_html($chip['label']); ?></button>
+                    <?php endforeach; ?>
+                </div>
+                <nav class="ccl-building-directory__alpha" aria-label="<?php esc_attr_e('Jump to building letter', 'calgary-condo-leads'); ?>">
+                    <?php foreach (range('A', 'Z') as $letter) : ?>
+                        <?php if (isset($groups[$letter])) : ?>
+                            <a href="#<?php echo esc_attr($section_id . '-letter-' . strtolower($letter)); ?>" data-alpha-link><?php echo esc_html($letter); ?></a>
+                        <?php else : ?>
+                            <span aria-disabled="true"><?php echo esc_html($letter); ?></span>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </nav>
+            </div>
+            <div class="ccl-building-directory__groups">
+                <?php foreach ($groups as $letter => $letter_entries) : ?>
+                    <section id="<?php echo esc_attr($section_id . '-letter-' . strtolower($letter)); ?>" class="ccl-building-directory__group" data-letter-group data-letter="<?php echo esc_attr($letter); ?>">
+                        <div class="ccl-building-directory__group-head">
+                            <h2 class="ccl-building-directory__group-label"><?php echo esc_html($letter); ?></h2>
+                            <p class="ccl-building-directory__group-count"><?php echo esc_html(sprintf(_n('%d building', '%d buildings', count($letter_entries), 'calgary-condo-leads'), count($letter_entries))); ?></p>
+                        </div>
+                        <div class="ccl-building-directory__grid">
+                            <?php foreach ($letter_entries as $entry) : ?>
+                                <?php echo self::render_plaque($entry); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            <?php endforeach; ?>
+                        </div>
+                    </section>
+                <?php endforeach; ?>
+            </div>
+            <p class="ccl-building-directory__empty" data-directory-empty hidden><?php echo esc_html((string) $args['empty_message']); ?></p>
+        </section>
+        <?php
+
+        return (string) ob_get_clean() . self::directory_script($section_id);
+    }
+
+    /**
+     * @return array{name:string,community:string,year:string,type:string,permalink:string,letter:string,community_keys:array<int,string>,index:string}
+     */
+    public static function build_directory_entry_from_post(WP_Post $post): array {
+        // Support both the current meta keys and older mirrored keys so the
+        // directory stays stable while legacy imported records are normalized.
+        $community = self::first_non_empty([
+            (string) get_post_meta($post->ID, 'building_community', true),
+            (string) get_post_meta($post->ID, 'ccl_building_community', true),
+            self::taxonomy_term_name($post->ID, 'ccl_building_community'),
+        ]);
+
+        $year = self::first_non_empty([
+            (string) get_post_meta($post->ID, 'building_year_built', true),
+            (string) get_post_meta($post->ID, 'ccl_building_year_built', true),
+        ]);
+
+        $type = self::first_non_empty([
+            (string) get_post_meta($post->ID, 'building_construction_type', true),
+            (string) get_post_meta($post->ID, 'ccl_building_type', true),
+        ]);
+
+        return [
+            'name' => $post->post_title,
+            'community' => $community,
+            'year' => $year,
+            'type' => $type,
+            'permalink' => (string) get_permalink($post),
+            'letter' => self::letter_for_name($post->post_title),
+            'community_keys' => self::community_filter_keys($community),
+            'index' => '',
+        ];
     }
 
     public function database_shortcode(): string {
@@ -163,7 +294,6 @@ final class Calgary_Condo_Building_Directory {
         return do_shortcode('[mrp account_id=67196 listing_def=search-' . esc_attr($search_id) . ' context=recip perm_attr=tmpl~v2 ][/mrp]');
     }
 
-
     public function redirect_legacy_beltline_building_route(): void {
         if (is_admin()) {
             return;
@@ -198,172 +328,421 @@ final class Calgary_Condo_Building_Directory {
         status_header(200);
         nocache_headers();
         get_header();
-        echo $this->styles(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->page(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         get_footer();
         exit;
     }
 
     public function shortcode(): string {
-        return $this->styles() . $this->directory_section(false);
-    }
-
-    private function styles(): string {
-        return <<<'CSS'
-<style>
-.ccl-building-page{background:#f6f7f8;color:#0A1A2F}.ccl-building-wrap{width:min(1180px,calc(100% - 40px));margin:0 auto}.ccl-building-hero{position:relative;overflow:hidden;background:#07162a;color:#fff;padding:92px 0;min-height:560px;display:flex;align-items:center}.ccl-building-hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(90deg,rgba(7,22,42,.96) 0%,rgba(7,22,42,.83) 36%,rgba(7,22,42,.48) 68%,rgba(7,22,42,.2) 100%),linear-gradient(180deg,rgba(7,22,42,.14),rgba(7,22,42,.38)),var(--ccl-building-hero-image);background-size:cover;background-position:center;transform:scale(1.02);opacity:1}.ccl-building-hero:after{content:"";position:absolute;inset:auto 0 0 0;height:38%;background:linear-gradient(to top,rgba(7,22,42,.88),transparent)}.ccl-building-hero__inner{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,.92fr) minmax(320px,.42fr);gap:34px;align-items:center}.ccl-building-eyebrow{margin:0 0 14px;color:#F0C75E;font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:13px}.ccl-building-hero h1{margin:0 0 18px;color:#fff;font-size:clamp(42px,5vw,72px);line-height:.96;letter-spacing:-.05em;text-shadow:0 12px 34px rgba(0,0,0,.35)}.ccl-building-hero p{margin:0;color:rgba(255,255,255,.9);font-size:18px;line-height:1.6;max-width:760px}.ccl-building-visual{display:none}.ccl-building-searchbox{background:rgba(10,26,47,.58);border:1px solid rgba(255,255,255,.26);border-radius:26px;padding:24px;backdrop-filter:blur(13px);box-shadow:0 24px 70px rgba(0,0,0,.28)}.ccl-building-searchbox strong{display:block;color:#fff;font-size:24px;margin-bottom:10px}.ccl-building-searchbox span{display:block;color:rgba(255,255,255,.82);line-height:1.5}.ccl-building-section{padding:58px 0;background:#fff}.ccl-building-section--soft{background:#f6f7f8}.ccl-building-section h2{margin:0 0 12px;font-size:clamp(30px,4vw,48px);letter-spacing:-.04em;line-height:1}.ccl-building-section p{max-width:820px;color:#4b5563;line-height:1.7;font-size:17px}.ccl-building-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:28px}.ccl-building-card{background:#fff;border:1px solid rgba(10,26,47,.1);border-radius:22px;padding:20px;box-shadow:0 18px 45px rgba(10,26,47,.07);min-height:190px}.ccl-building-card span{display:inline-block;background:#F0C75E;color:#0A1A2F;border-radius:999px;padding:6px 10px;font-weight:900;font-size:12px;margin-bottom:12px}.ccl-building-card h3{margin:0 0 8px;font-size:22px;line-height:1.1}.ccl-building-card p{font-size:14px;line-height:1.55;margin:0;color:#4b5563}.ccl-building-card small{display:block;margin-top:12px;color:#64748b;font-weight:800}.ccl-building-cta{background:#0A1A2F;color:#fff;border-radius:28px;padding:34px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.ccl-building-cta h2{color:#fff;margin:0 0 8px}.ccl-building-cta p{color:rgba(255,255,255,.78);margin:0}.ccl-building-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;background:#F0C75E;color:#0A1A2F;text-decoration:none;font-weight:900;white-space:nowrap}@media(max-width:980px){.ccl-building-hero{min-height:520px}.ccl-building-hero__inner,.ccl-building-cta{grid-template-columns:1fr}.ccl-building-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.ccl-building-hero{padding:62px 0;min-height:520px}.ccl-building-grid{grid-template-columns:1fr}.ccl-building-btn{width:100%}}
-</style>
-CSS;
+        return $this->directory_section(false);
     }
 
     private function page(): string {
-        return '<main class="ccl-inner-page-shell ccl-building-page">' . $this->hero() . $this->directory_section(true) . $this->cta() . '</main>';
-    }
-
-    private function hero(): string {
-        $hero_image = esc_url(self::BUILDING_HERO_IMAGE);
-
-        return <<<HTML
-<section class="ccl-building-hero" style="--ccl-building-hero-image:url('{$hero_image}')">
-    <div class="ccl-building-wrap ccl-building-hero__inner">
-        <div>
-            <p class="ccl-building-eyebrow">Calgary Condo Buildings</p>
-            <h1>Search Calgary condos by building, not just price.</h1>
-            <p>Browse Calgary condo buildings across every price point — entry-level, mid-rise, high-rise, concrete, luxury, downtown, Beltline, East Village, Bridgeland, and more. Compare the building first, then chase the right listing.</p>
-        </div>
-        <aside class="ccl-building-searchbox">
-            <strong>All Calgary condo buildings</strong>
-            <span>Fees, bylaws, parking, storage, insurance, reserve fund strength, documents, amenities, and resale path matter before showings.</span>
-        </aside>
-    </div>
-</section>
-HTML;
+        return '<main class="ccl-inner-page-shell ccl-building-page">' . $this->directory_section(true) . $this->cta() . '</main>';
     }
 
     /**
-     * Return the list of buildings to display in the directory.
-     *
-     * Queries published ccl_building CPT posts first and normalises each post
-     * into the same ['name','area','type','focus'] shape used by the hard-coded
-     * BUILDINGS constant. Falls back to the hard-coded constant when no
-     * published ccl_building posts exist (CPT-absent scenario).
-     *
-     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     * @return array<int,array{name:string,community:string,year:string,type:string,permalink:string,letter:string,community_keys:array<int,string>,index:string}>
      */
-    private function get_buildings_data(): array {
+    private function get_directory_entries(): array {
         if (Calgary_Condo_Building_Data_Mode::is_array_first()) {
-            return $this->get_array_first_buildings_data();
+            return $this->get_array_first_directory_entries();
         }
 
-        // update_post_meta_cache is true by default in WP_Query; set explicitly
-        // so that all meta is fetched in one query before the foreach loop.
         $posts = get_posts([
-            'post_type'              => Calgary_Condo_Building_CPT::POST_TYPE,
-            'post_status'            => 'publish',
-            'posts_per_page'         => -1,
-            'orderby'                => 'title',
-            'order'                  => 'ASC',
-            'no_found_rows'          => true,
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+            'no_found_rows' => true,
             'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
         ]);
 
         if (empty($posts)) {
-            return self::BUILDINGS;
+            return $this->fallback_directory_entries([]);
         }
 
-        return $this->normalize_posts_to_buildings($posts);
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
+        return array_map([self::class, 'build_directory_entry_from_post'], $posts);
     }
 
     /**
-     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     * @return array<int,array{name:string,community:string,year:string,type:string,permalink:string,letter:string,community_keys:array<int,string>,index:string}>
      */
-    private function get_array_first_buildings_data(): array {
-        if (!empty(self::BUILDINGS)) {
-            return self::BUILDINGS;
-        }
-
+    private function get_array_first_directory_entries(): array {
         $posts = get_posts([
-            'post_type'              => Calgary_Condo_Building_CPT::POST_TYPE,
-            'post_status'            => 'publish',
-            'posts_per_page'         => -1,
-            'orderby'                => 'title',
-            'order'                  => 'ASC',
-            'no_found_rows'          => true,
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'orderby' => 'title',
+            'order' => 'ASC',
+            'no_found_rows' => true,
             'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
         ]);
 
-        return empty($posts) ? [] : $this->normalize_posts_to_buildings($posts);
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
+        $mapped_posts = [];
+        foreach ($posts as $post) {
+            $mapped_posts[strtolower($post->post_title)] = $post;
+        }
+
+        return $this->fallback_directory_entries($mapped_posts);
     }
 
     /**
-     * @param array<int,WP_Post> $posts
-     * @return array<int,array{name:string,area:string,type:string,focus:string}>
+     * @param array<string,WP_Post> $mapped_posts
+     * @return array<int,array{name:string,community:string,year:string,type:string,permalink:string,letter:string,community_keys:array<int,string>,index:string}>
      */
-    private function normalize_posts_to_buildings(array $posts): array {
-        $buildings = [];
-        foreach ($posts as $post) {
-            $area  = (string) get_post_meta($post->ID, 'building_community', true);
-            $type  = (string) get_post_meta($post->ID, 'building_construction_type', true);
-            // post_excerpt is used for the card focus line; empty strings render
-            // a blank <p> which is acceptable and consistent with the card template.
-            $focus = trim(wp_strip_all_tags((string) $post->post_excerpt));
+    private function fallback_directory_entries(array $mapped_posts): array {
+        $entries = [];
 
-            $buildings[] = [
-                'name'  => $post->post_title,
-                'area'  => $area,
-                'type'  => $type,
-                'focus' => $focus,
+        foreach (self::BUILDINGS as $building) {
+            $post = $mapped_posts[strtolower($building['name'])] ?? null;
+            if ($post instanceof WP_Post) {
+                $entries[] = self::build_directory_entry_from_post($post);
+                continue;
+            }
+
+            $community = (string) ($building['area'] ?? '');
+            $type = (string) ($building['type'] ?? '');
+            $entries[] = [
+                'name' => (string) $building['name'],
+                'community' => $community,
+                'year' => '',
+                'type' => $type,
+                'permalink' => '',
+                'letter' => self::letter_for_name((string) $building['name']),
+                'community_keys' => self::community_filter_keys($community),
+                'index' => '',
             ];
         }
 
-        return $buildings;
+        return $entries;
     }
 
     private function directory_section(bool $include_intro): string {
-        $cards = '';
-        foreach ($this->get_buildings_data() as $building) {
-            $name = esc_html($building['name']);
-            $area = esc_html($building['area']);
-            $type = esc_html($building['type']);
-            $focus = esc_html($building['focus']);
-            $cards .= <<<HTML
-<article class="ccl-building-card">
-    <span>{$type}</span>
-    <h3>{$name}</h3>
-    <p>{$focus}</p>
-    <small>{$area}</small>
-</article>
-HTML;
-        }
-
-        $intro = $include_intro ? '<p>This is the starter Calgary building directory for all condo buyers — first-time buyers, downsizers, investors, downtown buyers, luxury buyers, and price-sensitive buyers. The next phase is individual building profile pages with building-specific listing feeds where the IDX data supports it.</p>' : '';
-
-        return <<<HTML
-<section class="ccl-building-section ccl-dark-luxury-section">
-    <div class="ccl-building-wrap">
-        <p class="ccl-building-eyebrow">Building Directory</p>
-        <h2>Popular Calgary condo buildings</h2>
-        {$intro}
-        <div class="ccl-building-grid">{$cards}</div>
-    </div>
-</section>
-HTML;
+        return self::render_premium_directory(
+            $this->get_directory_entries(),
+            [
+                'section_id' => $include_intro ? 'ccl-building-directory-page' : 'ccl-building-directory-shortcode',
+                'intro' => $include_intro
+                    ? __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by name, filter by community, or browse the full building index below.', 'calgary-condo-leads')
+                    : __('Search by building name, filter by community, or browse the full Calgary condo building index below.', 'calgary-condo-leads'),
+            ]
+        );
     }
 
     private function cta(): string {
         return <<<HTML
-<section class="ccl-building-section ccl-building-section--soft ccl-dark-luxury-section">
-    <div class="ccl-building-wrap">
-        <div class="ccl-building-cta">
-            <div>
-                <h2>Want alerts for a specific building?</h2>
-                <p>Tell us the building, budget, unit type, parking needs, and timing. We will watch the right listings and help compare the building before you book showings.</p>
-            </div>
-            <button type="button" class="ccl-building-btn" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Alerts" data-intent="Building profile list request">Set Building Alerts</button>
+<section class="ccl-building-directory-cta">
+    <div class="ccl-building-directory-cta__inner">
+        <div>
+            <p class="ccl-building-directory-cta__eyebrow">Calgary Condo Search</p>
+            <h2>Want alerts for a specific building?</h2>
+            <p>Tell us the building, budget, unit type, parking needs, and timing. We will watch the right listings and help compare the building before you book showings.</p>
         </div>
+        <button type="button" class="ccl-building-directory-cta__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Alerts" data-intent="Building profile list request">Set Building Alerts</button>
     </div>
 </section>
 HTML;
+    }
+
+    /**
+     * @param array<string,mixed> $entry
+     * @return array<string,mixed>
+     */
+    private static function prepare_entry(array $entry, int $position): array {
+        $name = trim((string) ($entry['name'] ?? ''));
+        $community = trim((string) ($entry['community'] ?? ''));
+        $year = trim((string) ($entry['year'] ?? ''));
+        $type = trim((string) ($entry['type'] ?? ''));
+        $permalink = trim((string) ($entry['permalink'] ?? ''));
+        $community_keys = !empty($entry['community_keys']) && is_array($entry['community_keys'])
+            ? array_values(array_unique(array_filter(array_map('strval', $entry['community_keys']))))
+            : self::community_filter_keys($community);
+
+        return [
+            'name' => $name,
+            'community' => '' !== $community ? $community : __('Community pending', 'calgary-condo-leads'),
+            'year' => $year,
+            'type' => $type,
+            'permalink' => $permalink,
+            'letter' => self::letter_for_name($name),
+            'community_keys' => $community_keys,
+            'index' => str_pad((string) $position, 2, '0', STR_PAD_LEFT),
+        ];
+    }
+
+    /**
+     * @param array<int,array<string,mixed>> $entries
+     * @return array<string,array<int,array<string,mixed>>>
+     */
+    private static function group_entries_by_letter(array $entries): array {
+        $groups = [];
+
+        foreach ($entries as $entry) {
+            $letter = (string) ($entry['letter'] ?? '#');
+            if (!isset($groups[$letter])) {
+                $groups[$letter] = [];
+            }
+
+            $groups[$letter][] = $entry;
+        }
+
+        ksort($groups);
+        return $groups;
+    }
+
+    /**
+     * @param array<int,array<string,mixed>> $entries
+     * @return array<int,array{label:string,key:string}>
+     */
+    private static function community_chips(array $entries): array {
+        $chips = [];
+        $available_keys = [];
+
+        foreach ($entries as $entry) {
+            foreach ((array) ($entry['community_keys'] ?? []) as $key) {
+                $available_keys[(string) $key] = true;
+            }
+        }
+
+        foreach (self::DIRECTORY_COMMUNITY_PRESETS as $preset) {
+            $key = (string) $preset['key'];
+            if (isset($available_keys[$key])) {
+                $chips[] = ['label' => (string) $preset['label'], 'key' => $key];
+                unset($available_keys[$key]);
+            }
+        }
+
+        $extra = [];
+        foreach ($entries as $entry) {
+            $label = trim((string) ($entry['community'] ?? ''));
+            if ('' === $label) {
+                continue;
+            }
+
+            $key = str_replace(' ', '-', self::normalize_search_term($label));
+            if ('all' === $key || isset($extra[$key])) {
+                continue;
+            }
+
+            if (!isset($available_keys[$key])) {
+                continue;
+            }
+
+            $extra[$key] = ['label' => $label, 'key' => $key];
+        }
+
+        uasort(
+            $extra,
+            static fn(array $left, array $right): int => self::compare_entry_strings($left, $right, 'label')
+        );
+
+        return array_merge($chips, array_values($extra));
+    }
+
+    /**
+     * @param array<string,mixed> $entry
+     */
+    private static function render_plaque(array $entry): string {
+        $name = (string) ($entry['name'] ?? '');
+        $community = (string) ($entry['community'] ?? '');
+        $year = trim((string) ($entry['year'] ?? ''));
+        $type = trim((string) ($entry['type'] ?? ''));
+        $permalink = trim((string) ($entry['permalink'] ?? ''));
+        $community_keys = implode('|', array_map('sanitize_html_class', (array) ($entry['community_keys'] ?? [])));
+
+        $stats = [];
+        if ('' !== $year) {
+            $stats[] = sprintf(__('Built %s', 'calgary-condo-leads'), $year);
+        }
+        if ('' !== $type) {
+            $stats[] = $type;
+        }
+        if (empty($stats)) {
+            $stats[] = __('Profile details coming soon', 'calgary-condo-leads');
+        }
+
+        $tag = '' !== $permalink ? 'a' : 'article';
+        $attributes = '' !== $permalink
+            ? 'href="' . esc_url($permalink) . '" aria-label="' . esc_attr(sprintf(__('Open %1$s building profile in %2$s', 'calgary-condo-leads'), $name, $community)) . '"'
+            : 'aria-label="' . esc_attr(sprintf(__('Building profile for %s is being prepared', 'calgary-condo-leads'), $name)) . '"';
+
+        $stats_markup = '';
+        foreach ($stats as $stat_index => $stat) {
+            if ($stat_index > 0) {
+                $stats_markup .= '<span aria-hidden="true">|</span>';
+            }
+
+            $stats_markup .= '<span>' . esc_html($stat) . '</span>';
+        }
+
+        return sprintf(
+            '<%1$s class="ccl-building-directory__plaque" %2$s data-building-name="%3$s" data-building-community="%4$s"><span class="ccl-building-directory__index">%5$s</span><h3 class="ccl-building-directory__name">%6$s</h3><p class="ccl-building-directory__community">%7$s</p><p class="ccl-building-directory__stats">%8$s</p></%1$s>',
+            $tag,
+            $attributes,
+            esc_attr(self::normalize_search_term($name)),
+            esc_attr($community_keys),
+            esc_html(sprintf(__('No. %s', 'calgary-condo-leads'), (string) ($entry['index'] ?? '00'))),
+            esc_html($name),
+            esc_html($community),
+            $stats_markup
+        );
+    }
+
+    private static function directory_script(string $section_id): string {
+        $section_id = esc_js($section_id);
+
+        return <<<HTML
+<script>
+(function() {
+  var root = document.getElementById('{$section_id}');
+  if (!root || root.dataset.cclDirectoryReady === 'true') {
+    return;
+  }
+
+  root.dataset.cclDirectoryReady = 'true';
+
+  var search = root.querySelector('[data-ccl-directory-search]');
+  var chips = Array.prototype.slice.call(root.querySelectorAll('[data-community-filter]'));
+  var groups = Array.prototype.slice.call(root.querySelectorAll('[data-letter-group]'));
+  var empty = root.querySelector('[data-directory-empty]');
+  var activeCommunity = 'all';
+
+  function normalizeSearchTerm(value) {
+    return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  function applyFilters() {
+    var term = normalizeSearchTerm(search ? search.value : '');
+    var visibleCount = 0;
+
+    groups.forEach(function(group) {
+      var groupVisible = 0;
+      var plaques = Array.prototype.slice.call(group.querySelectorAll('.ccl-building-directory__plaque'));
+
+      plaques.forEach(function(plaque) {
+        var name = plaque.getAttribute('data-building-name') || '';
+        var communities = (plaque.getAttribute('data-building-community') || '').split('|');
+        var matchesSearch = !term || name.indexOf(term) !== -1;
+        var matchesCommunity = activeCommunity === 'all' || communities.indexOf(activeCommunity) !== -1;
+        var visible = matchesSearch && matchesCommunity;
+
+        plaque.hidden = !visible;
+        if (visible) {
+          groupVisible += 1;
+          visibleCount += 1;
+        }
+      });
+
+      group.hidden = groupVisible === 0;
+    });
+
+    if (empty) {
+      empty.hidden = visibleCount !== 0;
+    }
+  }
+
+  if (search) {
+    search.addEventListener('input', applyFilters);
+  }
+
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      activeCommunity = chip.getAttribute('data-community-filter') || 'all';
+      chips.forEach(function(button) {
+        button.classList.toggle('is-active', button === chip);
+      });
+      applyFilters();
+    });
+  });
+
+  applyFilters();
+})();
+</script>
+HTML;
+    }
+
+    /**
+     * @param array<int,string> $values
+     */
+    private static function first_non_empty(array $values): string {
+        foreach ($values as $value) {
+            $value = trim((string) $value);
+            if ('' !== $value) {
+                return $value;
+            }
+        }
+
+        return '';
+    }
+
+    private static function taxonomy_term_name(int $post_id, string $taxonomy): string {
+        $terms = get_the_terms($post_id, $taxonomy);
+        if (is_wp_error($terms) || empty($terms) || !is_array($terms)) {
+            return '';
+        }
+
+        $first = reset($terms);
+        return $first instanceof WP_Term ? (string) $first->name : '';
+    }
+
+    private static function letter_for_name(string $name): string {
+        $first_character = strtoupper((string) mb_substr(trim($name), 0, 1));
+        return preg_match('/[A-Z]/', $first_character) ? $first_character : '#';
+    }
+
+    /**
+     * @return array<int,string>
+     */
+    private static function community_filter_keys(string $community): array {
+        $normalized = self::normalize_search_term($community);
+        $keys = [];
+
+        if ('' !== $normalized) {
+            $keys[] = str_replace(' ', '-', $normalized);
+        }
+
+        foreach (self::DIRECTORY_COMMUNITY_PRESETS as $preset) {
+            foreach ((array) $preset['aliases'] as $alias) {
+                if (self::contains_all_terms($normalized, self::normalize_search_term((string) $alias))) {
+                    $keys[] = (string) $preset['key'];
+                    break;
+                }
+            }
+        }
+
+        return array_values(array_unique(array_filter($keys)));
+    }
+
+    private static function contains_all_terms(string $haystack, string $needle): bool {
+        if ('' === $haystack || '' === $needle) {
+            return false;
+        }
+
+        foreach (explode(' ', $needle) as $term) {
+            if ('' === $term) {
+                continue;
+            }
+
+            if (false === strpos($haystack, $term)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param array<string,mixed> $left
+     * @param array<string,mixed> $right
+     */
+    private static function compare_entry_strings(array $left, array $right, string $field): int {
+        return strcasecmp((string) ($left[$field] ?? ''), (string) ($right[$field] ?? ''));
     }
 }
 

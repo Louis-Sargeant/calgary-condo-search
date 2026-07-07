@@ -10,8 +10,6 @@ if (!defined('ABSPATH')) {
 }
 
 final class Calgary_Condo_Building_Index {
-    private const DEFAULT_CARD_IMAGE = 'https://media-production.lp-cdn.com/cdn-cgi/image/format=auto,quality=85/https://media-production.lp-cdn.com/media/a4d49880-59d1-42e4-a404-c5e1cf16111b';
-
     private const INDEX_TERMS = [
         'beltline' => ['name' => 'Beltline', 'taxonomy' => 'ccl_building_community'],
         'downtown-core' => ['name' => 'Downtown Core', 'taxonomy' => 'ccl_building_community'],
@@ -79,23 +77,14 @@ final class Calgary_Condo_Building_Index {
     }
 
     /**
-     * Resolve term metadata for a community/profile route slug.
-     *
-     * Checks the ccl_building_community and ccl_building_profile CPT taxonomy
-     * terms first (CPT-present scenario). Falls back to the hard-coded
-     * INDEX_TERMS constant when no live taxonomy term exists (CPT-absent
-     * scenario), preserving all existing routes.
-     *
      * @param string $slug URL slug from the /calgary-condo-buildings/{slug}/ path.
-     * @return array{name:string,taxonomy:string}|null Term metadata, or null if unrecognised.
+     * @return array{name:string,taxonomy:string}|null
      */
     private function resolve_term(string $slug): ?array {
         if ('kensington' === $slug) {
             return null;
         }
 
-        // Array-first mode intentionally bypasses live taxonomy lookup so the
-        // hard-coded route matrix can be restored instantly during rollback.
         if (Calgary_Condo_Building_Data_Mode::is_array_first() && isset(self::INDEX_TERMS[$slug])) {
             return self::INDEX_TERMS[$slug];
         }
@@ -110,13 +99,19 @@ final class Calgary_Condo_Building_Index {
         return self::INDEX_TERMS[$slug] ?? null;
     }
 
+    /**
+     * @param array{name:string,taxonomy:string} $term
+     */
     private function render_index(string $slug, array $term): string {
-        $query = new WP_Query([
+        $posts = get_posts([
             'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => 'publish',
-            'posts_per_page' => 24,
+            'posts_per_page' => -1,
             'orderby' => 'title',
             'order' => 'ASC',
+            'no_found_rows' => true,
+            'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
             'tax_query' => [
                 [
                     'taxonomy' => $term['taxonomy'],
@@ -126,75 +121,47 @@ final class Calgary_Condo_Building_Index {
             ],
         ]);
 
+        update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
+        $entries = array_map([Calgary_Condo_Building_Directory::class, 'build_directory_entry_from_post'], $posts);
         ob_start();
         ?>
-        <main class="ccl-inner-page-shell ccl-building-index">
-            <header class="ccl-building-index__header">
-                <p class="ccl-building-index__eyebrow"><?php esc_html_e('Calgary Building Database', 'calgary-condo-leads'); ?></p>
-                <h1><?php echo esc_html(sprintf(__('Browse %s Condo Buildings', 'calgary-condo-leads'), $term['name'])); ?></h1>
-                <p><?php esc_html_e('Compare Calgary condo buildings by profile before you book showings. Review building type, address, ownership fit, and available inventory where the myRealPage feed is connected.', 'calgary-condo-leads'); ?></p>
-            </header>
-            <?php if ($query->have_posts()) : ?>
-                <div class="ccl-building-index-grid">
-                    <?php while ($query->have_posts()) : $query->the_post(); ?>
-                        <?php echo $this->render_card(get_the_ID()); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    <?php endwhile; ?>
-                </div>
-            <?php elseif ('beltline' !== $slug) : ?>
-                <section class="ccl-building-profile-panel ccl-building-index__empty">
-                    <p><?php esc_html_e('Building profiles for this category are being connected. For current listings and building guidance, request a condo shortlist.', 'calgary-condo-leads'); ?></p>
-                </section>
-            <?php endif; ?>
+        <main class="ccl-inner-page-shell ccl-building-page ccl-building-index-page">
+            <?php
+            echo Calgary_Condo_Building_Directory::render_premium_directory(
+                $entries,
+                [
+                    'section_id' => 'ccl-building-index-' . sanitize_html_class($slug),
+                    'context_note' => $this->context_note($term),
+                    'empty_message' => __('Building profiles for this route are being connected. Request a shortlist and we will point you to the right building pages.', 'calgary-condo-leads'),
+                ]
+            ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            ?>
             <?php echo $this->lead_card(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             <?php echo $this->live_inventory_slot($slug, $term['name']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
         </main>
         <?php
-        wp_reset_postdata();
+
         return (string) ob_get_clean();
     }
 
-    private function render_card(int $post_id): string {
-        $active_count = trim((string) get_post_meta($post_id, 'building_active_listings_count', true));
-        $active_label = '' !== $active_count ? $active_count : __('Connect IDX feed', 'calgary-condo-leads');
-        $photo = get_the_post_thumbnail($post_id, 'medium_large', ['class' => 'ccl-building-index-card__image']);
-        if (!$photo) {
-            $photo = '<img src="' . esc_url(self::DEFAULT_CARD_IMAGE) . '" alt="' . esc_attr__('Calgary condo building', 'calgary-condo-leads') . '" class="ccl-building-index-card__image" />';
-        }
-
-        ob_start();
-        ?>
-        <article class="ccl-building-index-card">
-            <a href="<?php echo esc_url(get_permalink($post_id)); ?>" target="_self">
-                <div class="ccl-building-index-card__photo"><?php echo wp_kses_post($photo); ?></div>
-                <h3><?php echo esc_html(get_the_title($post_id)); ?></h3>
-                <p><?php echo esc_html($this->meta($post_id, 'building_address')); ?></p>
-                <ul>
-                    <li><?php echo esc_html__('Community:', 'calgary-condo-leads') . ' ' . esc_html($this->meta($post_id, 'building_community')); ?></li>
-                    <li><?php echo esc_html__('Year Built:', 'calgary-condo-leads') . ' ' . esc_html($this->meta($post_id, 'building_year_built')); ?></li>
-                    <li><?php echo esc_html__('Units:', 'calgary-condo-leads') . ' ' . esc_html($this->meta($post_id, 'building_units')); ?></li>
-                    <li><?php echo esc_html__('Stories:', 'calgary-condo-leads') . ' ' . esc_html($this->meta($post_id, 'building_stories')); ?></li>
-                    <li><?php echo esc_html__('Active Listings:', 'calgary-condo-leads') . ' ' . esc_html($active_label); ?></li>
-                </ul>
-            </a>
-        </article>
-        <?php
-        return (string) ob_get_clean();
-    }
-
-    private function meta(int $post_id, string $key): string {
-        $value = get_post_meta($post_id, $key, true);
-        return is_scalar($value) && '' !== trim((string) $value) ? (string) $value : __('Coming soon', 'calgary-condo-leads');
+    /**
+     * @param array{name:string,taxonomy:string} $term
+     */
+    private function context_note(array $term): string {
+        return 'ccl_building_community' === $term['taxonomy']
+            ? sprintf(__('Currently filtered to %s.', 'calgary-condo-leads'), $term['name'])
+            : sprintf(__('Currently filtered to the %s building profile.', 'calgary-condo-leads'), $term['name']);
     }
 
     private function lead_card(): string {
-        return '<div class="ccl-building-lead-card"><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
+        return '<div class="ccl-building-lead-card"><h2>' . esc_html__('Need help narrowing the shortlist?', 'calgary-condo-leads') . '</h2><p>' . esc_html__('Tell us the buildings or communities you are considering and we will help compare fit, rules, and current opportunities.', 'calgary-condo-leads') . '</p><button type="button" class="ccl-building-lead-card__button" data-ccl-lead-open data-lead-source="Building Profile Searches" data-requested-category="Building Shortlist" data-intent="Building profile list request">' . esc_html__('Get a condo shortlist', 'calgary-condo-leads') . '</button><a href="' . esc_url('tel:+14038006996') . '" target="_self" class="phone-link-block ccl-building-lead-card__phone">' . esc_html__('Call Calgary Direct: +1 (403) 800-6996', 'calgary-condo-leads') . '</a></div>';
     }
 
     private function live_inventory_slot(string $slug, string $community_name): string {
         $beltline_mrp_shortcode = 'beltline' === $slug ? "[mrp account_id=67196 listing_def=search-1439738 context=recip perm_attr=tmpl~v2]
 [/mrp]" : '';
         $heading = sprintf(__('Live %s Condo Listings', 'calgary-condo-leads'), $community_name);
-        $intro = sprintf(__('Browse current %s condo opportunities below. Use the building directory above to compare buildings, fees, bylaws, parking, storage, and resale fit before booking showings.', 'calgary-condo-leads'), $community_name);
+        $intro = sprintf(__('Browse current %s condo opportunities below. Use the building index above to compare buildings, fees, bylaws, parking, storage, and resale fit before booking showings.', 'calgary-condo-leads'), $community_name);
 
         ob_start();
         ?>
@@ -210,6 +177,7 @@ final class Calgary_Condo_Building_Index {
             ?>
         </section>
         <?php
+
         return (string) ob_get_clean();
     }
 }
