@@ -103,7 +103,7 @@ final class Calgary_Condo_Building_CPT {
         'building_listings_page_url' => [
             'label' => 'Building Listings Page URL',
             'type' => 'text',
-            'description' => 'Paste the normal WordPress IDX listings page URL for this building. Example: /the-guardian-active-listings/. This powers the "View Current Listings" button on the building profile.',
+            'description' => 'Paste the normal WordPress IDX listings page URL for this building. Supports relative URLs like /the-guardian-active-listings/ and absolute URLs when needed. This powers the "View Current Listings" button on the building profile.',
         ],
     ];
 
@@ -545,8 +545,20 @@ final class Calgary_Condo_Building_CPT {
         }
 
         if (str_starts_with($raw_url, '/')) {
-            if (1 !== preg_match('#^/\S*$#', $raw_url)) {
+            if (1 !== preg_match("#^/[A-Za-z0-9\\-._~!$&'()*+,;=:@/?%#]*$#", $raw_url)) {
                 return '';
+            }
+
+            $path_only = wp_parse_url($raw_url, PHP_URL_PATH);
+            if (!is_string($path_only) || '' === trim($path_only)) {
+                return '';
+            }
+
+            $segments = array_filter(explode('/', trim($path_only, '/')), 'strlen');
+            foreach ($segments as $segment) {
+                if ('.' === $segment || '..' === $segment) {
+                    return '';
+                }
             }
 
             return esc_url_raw($raw_url);
