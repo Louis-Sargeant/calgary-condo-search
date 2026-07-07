@@ -545,12 +545,17 @@ final class Calgary_Condo_Building_CPT {
         }
 
         if (str_starts_with($raw_url, '/')) {
-            if (1 !== preg_match("#^/[A-Za-z0-9\\-._~!$&'()*+,;=:@/?%#]*$#", $raw_url)) {
+            if (1 !== preg_match('#^/[A-Za-z0-9\-\._~!$&()*+,;=:@/?%#]*$#', $raw_url)) {
                 return '';
             }
 
-            $path_only = wp_parse_url($raw_url, PHP_URL_PATH);
-            if (!is_string($path_only) || '' === trim($path_only)) {
+            $path_parts = preg_split('/[?#]/', $raw_url, 2);
+            if (!is_array($path_parts) || !isset($path_parts[0])) {
+                return '';
+            }
+
+            $path_only = (string) $path_parts[0];
+            if ('' === trim($path_only)) {
                 return '';
             }
 
@@ -564,7 +569,7 @@ final class Calgary_Condo_Building_CPT {
             return esc_url_raw($raw_url);
         }
 
-        return esc_url_raw($raw_url, ['http', 'https']);
+        return esc_url_raw($raw_url, ['https']);
     }
 
     private function sanitize_mrp_embed_code(string $raw_embed): string {
