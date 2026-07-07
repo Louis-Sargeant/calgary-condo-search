@@ -605,12 +605,12 @@ HTML;
   var empty = root.querySelector('[data-directory-empty]');
   var activeCommunity = 'all';
 
-  function normalize(value) {
+  function normalizeSearchTerm(value) {
     return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
   function applyFilters() {
-    var term = normalize(search ? search.value : '');
+    var term = normalizeSearchTerm(search ? search.value : '');
     var visibleCount = 0;
 
     groups.forEach(function(group) {

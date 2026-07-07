@@ -1432,6 +1432,9 @@ body.ccl-building-profile-single h1.entry-title {
   max-height: none;
   min-height: 40px;
   opacity: 1;
+  overflow: visible;
+  position: relative;
+  width: 100%;
 }
 
 .ccl-building-page,
@@ -1807,9 +1810,6 @@ body.ccl-building-profile-single h1.entry-title {
   .ccl-building-directory__plaque {
     min-height: 0;
   }
-  overflow: visible;
-  position: relative;
-  width: 100%;
 }
 
 .ccl-building-profile-page__idx-output .mrp-container,
