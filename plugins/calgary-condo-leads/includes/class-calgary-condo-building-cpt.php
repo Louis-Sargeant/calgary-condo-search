@@ -573,7 +573,7 @@ final class Calgary_Condo_Building_CPT {
                 $decoded_path = $decoded_next;
             }
 
-            if (1 !== preg_match('#^/[A-Za-z0-9/_~\.-]*$#', $decoded_path)) {
+            if (1 !== preg_match('#^/[A-Za-z0-9/_~.\-]*$#', $decoded_path)) {
                 return '';
             }
 
@@ -585,7 +585,7 @@ final class Calgary_Condo_Building_CPT {
             }
 
             $query = (string) ($parts['query'] ?? '');
-            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9\-\._~!$&()*+,;=:@/?%]*$#', $query)) {
+            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9._~!$&()*+,;=:@/?%\-]*$#', $query)) {
                 return '';
             }
 
