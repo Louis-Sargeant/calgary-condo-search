@@ -210,7 +210,100 @@ final class Calgary_Condo_Homepage {
         <?php return (string) ob_get_clean();
     }
 
+    /**
+     * Retrieve building entries for the homepage directory section.
+     *
+     * Queries published ccl_building CPT posts first so the listing scales
+     * automatically as buildings are added in the admin. Falls back to the
+     * hardcoded building_cards() array when no CPT posts exist.
+     *
+     * @return array<int,array{name:string,area:string,type:string,year_built:string,permalink:string}>
+     */
+    private function get_building_first_entries(): array {
+        if (class_exists('Calgary_Condo_Building_CPT')) {
+            $posts = get_posts([
+                'post_type'              => Calgary_Condo_Building_CPT::POST_TYPE,
+                'post_status'            => 'publish',
+                'posts_per_page'         => -1,
+                'orderby'                => 'title',
+                'order'                  => 'ASC',
+                'no_found_rows'          => true,
+                'update_post_meta_cache' => true,
+            ]);
+
+            if (!empty($posts)) {
+                $entries = [];
+
+                foreach ($posts as $post) {
+                    $community = (string) get_post_meta($post->ID, 'building_community', true);
+                    if ('' === $community) {
+                        $community = (string) get_post_meta($post->ID, 'ccl_building_community', true);
+                    }
+
+                    $year_built = (string) get_post_meta($post->ID, 'building_year_built', true);
+                    if ('' === $year_built) {
+                        $year_built = (string) get_post_meta($post->ID, 'ccl_building_year_built', true);
+                    }
+
+                    $type = (string) get_post_meta($post->ID, 'building_construction_type', true);
+                    if ('' === $type) {
+                        $type = (string) get_post_meta($post->ID, 'ccl_building_type', true);
+                    }
+
+                    $entries[] = [
+                        'name'       => $post->post_title,
+                        'area'       => $community,
+                        'type'       => $type,
+                        'year_built' => $year_built,
+                        'permalink'  => (string) get_permalink($post),
+                    ];
+                }
+
+                return $entries;
+            }
+        }
+
+        // Fall back to the hardcoded array with permalink resolved via building_card_url().
+        $entries = [];
+        foreach ($this->building_cards() as $building) {
+            $entries[] = [
+                'name'       => (string) ($building['name'] ?? ''),
+                'area'       => (string) ($building['area'] ?? ''),
+                'type'       => (string) ($building['type'] ?? ''),
+                'year_built' => (string) ($building['year_built'] ?? ''),
+                'permalink'  => $this->building_card_url($building),
+            ];
+        }
+
+        return $entries;
+    }
+
     private function render_building_first(): string {
+        $entries = $this->get_building_first_entries();
+
+        // Sort alphabetically by building name.
+        usort(
+            $entries,
+            static function (array $a, array $b): int {
+                return strcasecmp((string) ($a['name'] ?? ''), (string) ($b['name'] ?? ''));
+            }
+        );
+
+        // Assign sequential catalog index numbers.
+        foreach (array_keys($entries) as $i) {
+            $entries[$i]['index'] = str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT);
+        }
+
+        // Group by first letter (A-Z or # for non-alpha).
+        $groups = [];
+        foreach ($entries as $entry) {
+            $name   = trim((string) ($entry['name'] ?? ''));
+            $first  = strtoupper((string) mb_substr($name, 0, 1));
+            $letter = preg_match('/[A-Z]/', $first) ? $first : '#';
+            $groups[$letter][] = $entry;
+        }
+        ksort($groups);
+
         ob_start(); ?>
         <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title">
             <div class="ccl-wrap">
@@ -219,36 +312,90 @@ final class Calgary_Condo_Homepage {
                     <h2 id="ccl-home-building-title">Calgary Condo Search — Building Directory</h2>
                     <p>Every building, indexed.</p>
                 </div>
-                <div class="ccl-building-directory-simple">
-                    <?php foreach ($this->building_cards() as $building) : ?>
-                        <?php $building_url = $this->building_card_url($building); ?>
-                        <a class="ccl-building-plaque" href="<?php echo esc_url($building_url); ?>">
-                            <span class="ccl-building-plaque__name"><?php echo esc_html($building['name']); ?></span>
-                            <span class="ccl-building-plaque__community"><?php echo esc_html($building['area']); ?></span>
-                            <?php
-                            $stats = [];
-                            if (!empty($building['year_built'])) {
-                                $stats[] = 'Built ' . (string) $building['year_built'];
-                            }
-                            if (!empty($building['type'])) {
-                                $stats[] = (string) $building['type'];
-                            }
-                            ?>
-                            <?php if (!empty($stats)) : ?>
-                                <span class="ccl-building-plaque__stats"><?php echo esc_html(implode(' · ', $stats)); ?></span>
-                            <?php endif; ?>
-                        </a>
+                <nav class="ccl-building-alpha" aria-label="<?php echo esc_attr__('Jump to building letter', 'calgary-condo-leads'); ?>">
+                    <?php foreach (range('A', 'Z') as $alpha_letter) : ?>
+                        <?php if (isset($groups[$alpha_letter])) : ?>
+                            <a href="#ccl-home-building-<?php echo esc_attr(strtolower($alpha_letter)); ?>"><?php echo esc_html($alpha_letter); ?></a>
+                        <?php else : ?>
+                            <span aria-hidden="true"><?php echo esc_html($alpha_letter); ?></span>
+                        <?php endif; ?>
                     <?php endforeach; ?>
-                </div>
+                </nav>
+                <?php foreach ($groups as $letter => $letter_entries) : ?>
+                    <div id="ccl-home-building-<?php echo esc_attr(strtolower((string) $letter)); ?>" class="ccl-building-group">
+                        <h3 class="ccl-building-group__label"><?php echo esc_html((string) $letter); ?></h3>
+                        <div class="ccl-building-directory-simple">
+                            <?php foreach ($letter_entries as $building) : ?>
+                                <?php
+                                $stats = [];
+                                if (!empty($building['year_built'])) {
+                                    $stats[] = 'Built ' . (string) $building['year_built'];
+                                }
+                                if (!empty($building['type'])) {
+                                    $stats[] = (string) $building['type'];
+                                }
+                                ?>
+                                <a class="ccl-building-plaque" href="<?php echo esc_url((string) $building['permalink']); ?>">
+                                    <span class="ccl-building-plaque__index"><?php echo esc_html(sprintf(__('No. %s', 'calgary-condo-leads'), (string) $building['index'])); ?></span>
+                                    <span class="ccl-building-plaque__name"><?php echo esc_html($building['name']); ?></span>
+                                    <span class="ccl-building-plaque__community"><?php echo esc_html($building['area']); ?></span>
+                                    <?php if (!empty($stats)) : ?>
+                                        <span class="ccl-building-plaque__stats"><?php echo esc_html(implode(' · ', $stats)); ?></span>
+                                    <?php endif; ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </section>
         <style>
+        .ccl-building-alpha {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 22px;
+            margin-bottom: 28px;
+        }
+        .ccl-building-alpha a,
+        .ccl-building-alpha span {
+            min-width: 34px;
+            min-height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #2a2d35;
+            color: #ece7da;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .ccl-building-alpha a:hover,
+        .ccl-building-alpha a:focus-visible {
+            border-color: #c9a24a;
+            color: #e3c374;
+            outline: none;
+        }
+        .ccl-building-alpha span[aria-hidden="true"] {
+            color: #55585f;
+            cursor: default;
+        }
+        .ccl-building-group {
+            margin-bottom: 32px;
+        }
+        .ccl-building-group__label {
+            margin: 0 0 14px;
+            color: #ece7da;
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            letter-spacing: -0.03em;
+        }
         .ccl-building-directory-simple {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 16px;
             max-width: 1180px;
-            margin-top: 28px;
         }
         .ccl-building-plaque {
             position: relative;
@@ -263,13 +410,13 @@ final class Calgary_Condo_Homepage {
             overflow: hidden;
             transition: background 0.18s ease, border-color 0.18s ease;
         }
-        .ccl-building-plaque::before {
+        .ccl-building-plaque::after {
             content: '';
             position: absolute;
-            left: 0;
             top: 0;
-            bottom: 0;
-            width: 3px;
+            left: 0;
+            right: 0;
+            height: 2px;
             background: transparent;
             transition: background 0.18s ease;
         }
@@ -279,9 +426,17 @@ final class Calgary_Condo_Homepage {
             border-color: #3a3e48;
             outline: none;
         }
-        .ccl-building-plaque:hover::before,
-        .ccl-building-plaque:focus-visible::before {
+        .ccl-building-plaque:hover::after,
+        .ccl-building-plaque:focus-visible::after {
             background: #c9a24a;
+        }
+        .ccl-building-plaque__index {
+            color: #a9a596;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            font-variant-numeric: tabular-nums;
         }
         .ccl-building-plaque__name {
             font-size: 1rem;
