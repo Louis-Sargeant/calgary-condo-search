@@ -415,7 +415,7 @@ final class Calgary_Condo_Building_CPT {
 
         // Hard-link: The Guardian building always points to its dedicated listings page
         // regardless of whether the admin field is visible or populated.
-        if ('the-guardian' === $building_slug && '' === $listings_page_url) {
+        if ('the-guardian' === $building_slug) {
             $listings_page_url = '/the-guardian-active-listings/';
         }
 
@@ -508,7 +508,7 @@ final class Calgary_Condo_Building_CPT {
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-building-profile-page__hero-actions">
-                            <a href="<?php echo esc_url('/the-guardian-active-listings/'); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
                             <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                         </div>
                     <?php elseif ('' !== $inventory_embed_code) : ?>
