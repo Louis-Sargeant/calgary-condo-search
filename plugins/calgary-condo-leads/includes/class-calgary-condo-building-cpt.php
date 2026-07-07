@@ -17,6 +17,7 @@ final class Calgary_Condo_Building_CPT {
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
     private const MRP_EMBED_SCRIPT_PATTERN = '/^\s*<script\b[^>]*\bsrc=(["\'])([^"\']+)\1[^>]*>\s*<\/script>\s*$/is';
     private const MIN_PUBLIC_STORY_LENGTH = 130;
+    private const MIN_PUBLIC_STORY_WORDS = 20;
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -702,6 +703,7 @@ final class Calgary_Condo_Building_CPT {
             && !$this->contains_private_due_diligence_terms($clean_content)
             && !$this->looks_like_placeholder_copy($clean_content)
             && mb_strlen($clean_content) >= self::MIN_PUBLIC_STORY_LENGTH
+            && str_word_count($clean_content) >= self::MIN_PUBLIC_STORY_WORDS
         ) {
             return $clean_content;
         }
@@ -765,7 +767,7 @@ final class Calgary_Condo_Building_CPT {
         $details = implode(' ', $detail_parts);
 
         if ('' !== $community) {
-            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and inner-city services. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads'));
+            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads'));
         }
 
         return trim($intro . ' ' . $details . ' ' . __('Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads'));
