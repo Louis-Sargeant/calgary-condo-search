@@ -123,10 +123,6 @@ final class Calgary_Condo_Building_Index {
 
         update_object_term_cache($posts, Calgary_Condo_Building_CPT::POST_TYPE);
         $entries = array_map([Calgary_Condo_Building_Directory::class, 'build_directory_entry_from_post'], $posts);
-        $context_note = 'ccl_building_community' === $term['taxonomy']
-            ? sprintf(__('Currently filtered to %s.', 'calgary-condo-leads'), $term['name'])
-            : sprintf(__('Currently filtered to the %s building profile.', 'calgary-condo-leads'), $term['name']);
-
         ob_start();
         ?>
         <main class="ccl-inner-page-shell ccl-building-page ccl-building-index-page">
@@ -135,7 +131,7 @@ final class Calgary_Condo_Building_Index {
                 $entries,
                 [
                     'section_id' => 'ccl-building-index-' . sanitize_html_class($slug),
-                    'context_note' => $context_note,
+                    'context_note' => $this->context_note($term),
                     'empty_message' => __('Building profiles for this route are being connected. Request a shortlist and we will point you to the right building pages.', 'calgary-condo-leads'),
                 ]
             ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -146,6 +142,15 @@ final class Calgary_Condo_Building_Index {
         <?php
 
         return (string) ob_get_clean();
+    }
+
+    /**
+     * @param array{name:string,taxonomy:string} $term
+     */
+    private function context_note(array $term): string {
+        return 'ccl_building_community' === $term['taxonomy']
+            ? sprintf(__('Currently filtered to %s.', 'calgary-condo-leads'), $term['name'])
+            : sprintf(__('Currently filtered to the %s building profile.', 'calgary-condo-leads'), $term['name']);
     }
 
     private function lead_card(): string {

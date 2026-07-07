@@ -148,6 +148,8 @@ final class Calgary_Condo_Building_Directory {
         $args = array_merge($defaults, $args);
         $section_id = sanitize_html_class((string) $args['section_id']);
 
+        // Re-sort here because array-first fallback data and any future callers of
+        // this shared renderer are not guaranteed to arrive in title order.
         usort(
             $entries,
             static fn(array $left, array $right): int => strcasecmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? ''))
