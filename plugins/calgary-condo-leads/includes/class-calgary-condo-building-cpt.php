@@ -545,31 +545,55 @@ final class Calgary_Condo_Building_CPT {
         }
 
         if (str_starts_with($raw_url, '/')) {
-            if (1 !== preg_match('#^/[A-Za-z0-9\-\._~!$&()*+,;=:@/?%#]*$#', $raw_url)) {
+            $parts = wp_parse_url($raw_url);
+            if (!is_array($parts)) {
                 return '';
             }
 
-            $path_parts = preg_split('/[?#]/', $raw_url, 2);
-            if (!is_array($path_parts) || !isset($path_parts[0])) {
+            if (isset($parts['scheme']) || isset($parts['host']) || isset($parts['user']) || isset($parts['pass']) || isset($parts['port'])) {
                 return '';
             }
 
-            $path_only = (string) $path_parts[0];
-            if ('' === trim($path_only)) {
+            if (isset($parts['fragment']) && '' !== trim((string) $parts['fragment'])) {
                 return '';
             }
 
-            $segments = array_filter(explode('/', trim($path_only, '/')), 'strlen');
+            $path_only = (string) ($parts['path'] ?? '');
+            if ('' === trim($path_only) || !str_starts_with($path_only, '/')) {
+                return '';
+            }
+
+            $decoded_path = $path_only;
+            for ($i = 0; $i < self::MAX_URL_DECODE_ITERATIONS; $i++) {
+                $decoded_next = rawurldecode($decoded_path);
+                if ($decoded_next === $decoded_path) {
+                    break;
+                }
+
+                $decoded_path = $decoded_next;
+            }
+
+            if (1 !== preg_match('#^/[A-Za-z0-9/_~\.-]*$#', $decoded_path)) {
+                return '';
+            }
+
+            $segments = array_filter(explode('/', trim($decoded_path, '/')), 'strlen');
             foreach ($segments as $segment) {
                 if ('.' === $segment || '..' === $segment) {
                     return '';
                 }
             }
 
-            return esc_url_raw($raw_url);
+            $query = (string) ($parts['query'] ?? '');
+            if ('' !== $query && 1 !== preg_match('#^[A-Za-z0-9\-\._~!$&()*+,;=:@/?%]*$#', $query)) {
+                return '';
+            }
+
+            $normalized_relative = $path_only . ('' !== $query ? '?' . $query : '');
+            return esc_url_raw($normalized_relative);
         }
 
-        return esc_url_raw($raw_url, ['https']);
+        return esc_url_raw($raw_url, ['http', 'https']);
     }
 
     private function sanitize_mrp_embed_code(string $raw_embed): string {
