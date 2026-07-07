@@ -215,9 +215,9 @@ final class Calgary_Condo_Homepage {
         <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title">
             <div class="ccl-wrap">
                 <div class="ccl-home-section-heading">
-                    <p class="ccl-eyebrow">Building-first search</p>
-                    <h2 id="ccl-home-building-title">Search by building, not just price.</h2>
-                    <p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p>
+                    <p class="ccl-eyebrow">Building Directory</p>
+                    <h2 id="ccl-home-building-title">Calgary Condo Search — Building Directory</h2>
+                    <p>Every building, indexed.</p>
                 </div>
                 <div class="ccl-building-directory-simple">
                     <?php foreach ($this->building_cards() as $building) : ?>
@@ -245,43 +245,67 @@ final class Calgary_Condo_Homepage {
         <style>
         .ccl-building-directory-simple {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px;
-            margin-top: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            max-width: 1180px;
+            margin-top: 28px;
         }
         .ccl-building-plaque {
+            position: relative;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            padding: 18px 20px;
+            gap: 6px;
+            padding: 22px 24px 22px 28px;
             background: #15171c;
             border: 1px solid #2a2d35;
-            border-radius: 10px;
+            border-radius: 4px;
             text-decoration: none;
-            transition: background 0.15s ease;
+            overflow: hidden;
+            transition: background 0.18s ease, border-color 0.18s ease;
+        }
+        .ccl-building-plaque::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: transparent;
+            transition: background 0.18s ease;
         }
         .ccl-building-plaque:hover,
         .ccl-building-plaque:focus-visible {
             background: #1b1e25;
-            outline: 2px solid #c9a24a;
-            outline-offset: 2px;
+            border-color: #3a3e48;
+            outline: none;
+        }
+        .ccl-building-plaque:hover::before,
+        .ccl-building-plaque:focus-visible::before {
+            background: #c9a24a;
         }
         .ccl-building-plaque__name {
-            font-size: 1rem;
+            font-size: 0.975rem;
             font-weight: 600;
             color: #c9a24a;
             line-height: 1.3;
+            letter-spacing: 0.01em;
+            transition: color 0.18s ease;
+        }
+        .ccl-building-plaque:hover .ccl-building-plaque__name,
+        .ccl-building-plaque:focus-visible .ccl-building-plaque__name {
+            color: #e3c374;
         }
         .ccl-building-plaque__community {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: #ece7da;
-            opacity: 0.75;
+            opacity: 0.8;
+            letter-spacing: 0.015em;
         }
         .ccl-building-plaque__stats {
-            font-size: 0.78rem;
-            color: #ece7da;
-            opacity: 0.5;
-            margin-top: 2px;
+            font-size: 0.75rem;
+            color: #a9a596;
+            margin-top: 4px;
+            letter-spacing: 0.01em;
         }
         </style>
         <?php return (string) ob_get_clean();
