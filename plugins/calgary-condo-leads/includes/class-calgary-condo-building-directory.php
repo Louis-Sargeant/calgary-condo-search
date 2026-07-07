@@ -140,9 +140,9 @@ final class Calgary_Condo_Building_Directory {
             'section_id' => 'ccl-building-directory',
             'eyebrow' => __('Calgary Condo Search — Building Directory', 'calgary-condo-leads'),
             'title' => __('Every building, indexed.', 'calgary-condo-leads'),
-            'intro' => __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by name, filter by community, or browse the full building index below.', 'calgary-condo-leads'),
+            'intro' => __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by building name or browse the full building index below.', 'calgary-condo-leads'),
             'context_note' => '',
-            'empty_message' => __('No building plaques match the current search and community filter.', 'calgary-condo-leads'),
+            'empty_message' => __('No building plaques match the current search.', 'calgary-condo-leads'),
         ];
 
         $args = array_merge($defaults, $args);
@@ -161,7 +161,6 @@ final class Calgary_Condo_Building_Directory {
         }
 
         $groups = self::group_entries_by_letter($prepared_entries);
-        $chips = self::community_chips($prepared_entries);
 
         ob_start();
         ?>
@@ -175,25 +174,21 @@ final class Calgary_Condo_Building_Directory {
                 <?php endif; ?>
             </div>
             <div class="ccl-building-directory__controls">
-                <label class="screen-reader-text" for="<?php echo esc_attr($section_id); ?>-search"><?php esc_html_e('Search by building name', 'calgary-condo-leads'); ?></label>
-                <input
-                    id="<?php echo esc_attr($section_id); ?>-search"
-                    class="ccl-building-directory__search"
-                    type="search"
-                    placeholder="<?php esc_attr_e('Search by building name…', 'calgary-condo-leads'); ?>"
-                    aria-label="<?php esc_attr_e('Search by building name', 'calgary-condo-leads'); ?>"
-                    data-ccl-directory-search
-                />
-                <div class="ccl-building-directory__chips" role="group" aria-label="<?php esc_attr_e('Filter buildings by community', 'calgary-condo-leads'); ?>">
-                    <button type="button" class="ccl-building-directory__chip is-active" data-community-filter="all"><?php esc_html_e('All Communities', 'calgary-condo-leads'); ?></button>
-                    <?php foreach ($chips as $chip) : ?>
-                        <button type="button" class="ccl-building-directory__chip" data-community-filter="<?php echo esc_attr($chip['key']); ?>"><?php echo esc_html($chip['label']); ?></button>
-                    <?php endforeach; ?>
+                <div class="ccl-building-directory__search-wrap">
+                    <label class="screen-reader-text" for="<?php echo esc_attr($section_id); ?>-search"><?php esc_html_e('Search buildings by name', 'calgary-condo-leads'); ?></label>
+                    <input
+                        id="<?php echo esc_attr($section_id); ?>-search"
+                        class="ccl-building-directory__search"
+                        type="search"
+                        placeholder="<?php esc_attr_e('Search by building name…', 'calgary-condo-leads'); ?>"
+                        aria-label="<?php esc_attr_e('Search buildings by name', 'calgary-condo-leads'); ?>"
+                        data-ccl-directory-search
+                    />
                 </div>
                 <nav class="ccl-building-directory__alpha" aria-label="<?php esc_attr_e('Jump to building letter', 'calgary-condo-leads'); ?>">
                     <?php foreach (range('A', 'Z') as $letter) : ?>
                         <?php if (isset($groups[$letter])) : ?>
-                            <a href="#<?php echo esc_attr($section_id . '-letter-' . strtolower($letter)); ?>" data-alpha-link><?php echo esc_html($letter); ?></a>
+                            <a href="#<?php echo esc_attr($section_id . '-letter-' . strtolower($letter)); ?>" data-alpha-link data-letter="<?php echo esc_attr($letter); ?>"><?php echo esc_html($letter); ?></a>
                         <?php else : ?>
                             <span aria-disabled="true"><?php echo esc_html($letter); ?></span>
                         <?php endif; ?>
@@ -429,8 +424,8 @@ final class Calgary_Condo_Building_Directory {
             [
                 'section_id' => $include_intro ? 'ccl-building-directory-page' : 'ccl-building-directory-shortcode',
                 'intro' => $include_intro
-                    ? __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by name, filter by community, or browse the full building index below.', 'calgary-condo-leads')
-                    : __('Search by building name, filter by community, or browse the full Calgary condo building index below.', 'calgary-condo-leads'),
+                    ? __('Calgary condo buildings organized like a proper directory — not a photo scroll. Search by building name or browse the full building index below.', 'calgary-condo-leads')
+                    : __('Search by building name or browse the full Calgary condo building index below.', 'calgary-condo-leads'),
             ]
         );
     }
@@ -608,10 +603,9 @@ HTML;
   root.dataset.cclDirectoryReady = 'true';
 
   var search = root.querySelector('[data-ccl-directory-search]');
-  var chips = Array.prototype.slice.call(root.querySelectorAll('[data-community-filter]'));
+  var alphaLinks = Array.prototype.slice.call(root.querySelectorAll('[data-alpha-link][data-letter]'));
   var groups = Array.prototype.slice.call(root.querySelectorAll('[data-letter-group]'));
   var empty = root.querySelector('[data-directory-empty]');
-  var activeCommunity = 'all';
 
   function normalizeSearchTerm(value) {
     return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -620,17 +614,17 @@ HTML;
   function applyFilters() {
     var term = normalizeSearchTerm(search ? search.value : '');
     var visibleCount = 0;
+    var visibleLetters = {};
 
     groups.forEach(function(group) {
       var groupVisible = 0;
+      var letter = (group.getAttribute('data-letter') || '').toUpperCase();
       var plaques = Array.prototype.slice.call(group.querySelectorAll('.ccl-building-directory__plaque'));
 
       plaques.forEach(function(plaque) {
         var name = plaque.getAttribute('data-building-name') || '';
-        var communities = (plaque.getAttribute('data-building-community') || '').split('|');
         var matchesSearch = !term || name.indexOf(term) !== -1;
-        var matchesCommunity = activeCommunity === 'all' || communities.indexOf(activeCommunity) !== -1;
-        var visible = matchesSearch && matchesCommunity;
+        var visible = matchesSearch;
 
         plaque.hidden = !visible;
         if (visible) {
@@ -640,6 +634,22 @@ HTML;
       });
 
       group.hidden = groupVisible === 0;
+      if (groupVisible > 0 && letter) {
+        visibleLetters[letter] = true;
+      }
+    });
+
+    alphaLinks.forEach(function(link) {
+      var linkLetter = (link.getAttribute('data-letter') || '').toUpperCase();
+      var isVisible = !!visibleLetters[linkLetter];
+
+      link.hidden = !isVisible;
+      link.setAttribute('aria-disabled', isVisible ? 'false' : 'true');
+      if (isVisible) {
+        link.removeAttribute('tabindex');
+      } else {
+        link.setAttribute('tabindex', '-1');
+      }
     });
 
     if (empty) {
@@ -650,16 +660,6 @@ HTML;
   if (search) {
     search.addEventListener('input', applyFilters);
   }
-
-  chips.forEach(function(chip) {
-    chip.addEventListener('click', function() {
-      activeCommunity = chip.getAttribute('data-community-filter') || 'all';
-      chips.forEach(function(button) {
-        button.classList.toggle('is-active', button === chip);
-      });
-      applyFilters();
-    });
-  });
 
   applyFilters();
 })();

@@ -1497,6 +1497,10 @@ body.ccl-building-profile-single h1.entry-title {
   margin-bottom: 28px;
 }
 
+.ccl-building-directory__search-wrap {
+  display: grid;
+}
+
 .ccl-building-directory__search {
   width: 100%;
   min-height: 60px;
@@ -1576,6 +1580,11 @@ body.ccl-building-profile-single h1.entry-title {
 .ccl-building-directory__alpha a:hover {
   border-color: #c9a24a;
   color: #e3c374;
+}
+
+.ccl-building-directory__alpha a[aria-disabled="true"] {
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .ccl-building-directory__alpha span[aria-disabled="true"] {
