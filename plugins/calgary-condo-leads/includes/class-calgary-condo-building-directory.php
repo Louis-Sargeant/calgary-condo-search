@@ -644,7 +644,7 @@ HTML;
       var isVisible = !!visibleLetters[linkLetter];
 
       link.hidden = !isVisible;
-      link.setAttribute('aria-disabled', isVisible ? 'false' : 'true');
+      link.classList.toggle('is-disabled', !isVisible);
       if (isVisible) {
         link.removeAttribute('tabindex');
       } else {

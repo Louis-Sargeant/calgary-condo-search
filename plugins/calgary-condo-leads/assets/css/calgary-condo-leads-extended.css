@@ -1582,7 +1582,7 @@ body.ccl-building-profile-single h1.entry-title {
   color: #e3c374;
 }
 
-.ccl-building-directory__alpha a[aria-disabled="true"] {
+.ccl-building-directory__alpha a.is-disabled {
   opacity: 0.45;
   pointer-events: none;
 }
