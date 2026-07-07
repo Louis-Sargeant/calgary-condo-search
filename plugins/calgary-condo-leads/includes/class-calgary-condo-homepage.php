@@ -215,7 +215,7 @@ final class Calgary_Condo_Homepage {
         <section class="ccl-section ccl-home-building-first" aria-labelledby="ccl-home-building-title">
             <div class="ccl-wrap">
                 <div class="ccl-home-section-heading">
-                    <p class="ccl-eyebrow">Building Directory</p>
+                    <p class="ccl-eyebrow">Property Index</p>
                     <h2 id="ccl-home-building-title">Calgary Condo Search — Building Directory</h2>
                     <p>Every building, indexed.</p>
                 </div>
@@ -284,7 +284,7 @@ final class Calgary_Condo_Homepage {
             background: #c9a24a;
         }
         .ccl-building-plaque__name {
-            font-size: 0.975rem;
+            font-size: 1rem;
             font-weight: 600;
             color: #c9a24a;
             line-height: 1.3;
