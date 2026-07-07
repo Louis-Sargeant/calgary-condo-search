@@ -219,34 +219,71 @@ final class Calgary_Condo_Homepage {
                     <h2 id="ccl-home-building-title">Search by building, not just price.</h2>
                     <p>These profiles help buyers ask better questions. When a live page is not available, request building-specific guidance instead of guessing.</p>
                 </div>
-                <div class="ccl-home-building-grid">
+                <div class="ccl-building-directory-simple">
                     <?php foreach ($this->building_cards() as $building) : ?>
                         <?php $building_url = $this->building_card_url($building); ?>
-                        <?php
-                        $highlights = [];
-                        if (!empty($building['amenities'])) {
-                            $highlights[] = 'Amenities: ' . (string) $building['amenities'];
-                        }
-                        if (!empty($building['year_built'])) {
-                            $highlights[] = 'Built: ' . (string) $building['year_built'];
-                        }
-                        ?>
-                        <article class="ccl-home-card ccl-home-building-card">
-                            <span><?php echo esc_html($building['area']); ?></span>
-                            <?php if (!empty($building['image'])) : ?>
-                                <img src="<?php echo esc_url((string) $building['image']); ?>" alt="<?php echo esc_attr($building['name'] . ' condo building in Calgary'); ?>" loading="lazy" style="display:block;width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;margin:0 0 14px;">
+                        <a class="ccl-building-plaque" href="<?php echo esc_url($building_url); ?>">
+                            <span class="ccl-building-plaque__name"><?php echo esc_html($building['name']); ?></span>
+                            <span class="ccl-building-plaque__community"><?php echo esc_html($building['area']); ?></span>
+                            <?php
+                            $stats = [];
+                            if (!empty($building['year_built'])) {
+                                $stats[] = 'Built ' . (string) $building['year_built'];
+                            }
+                            if (!empty($building['type'])) {
+                                $stats[] = (string) $building['type'];
+                            }
+                            ?>
+                            <?php if (!empty($stats)) : ?>
+                                <span class="ccl-building-plaque__stats"><?php echo esc_html(implode(' · ', $stats)); ?></span>
                             <?php endif; ?>
-                            <h3><?php echo esc_html($building['name']); ?></h3>
-                            <p><?php echo esc_html($building['type']); ?> in <?php echo esc_html($building['area']); ?>.</p>
-                            <?php if (!empty($highlights)) : ?>
-                                <p><?php echo esc_html(implode(' • ', $highlights)); ?></p>
-                            <?php endif; ?>
-                            <a class="ccl-home-cta ccl-home-cta--gold" href="<?php echo esc_url($building_url); ?>" target="_self">View Building Profile</a>
-                        </article>
+                        </a>
                     <?php endforeach; ?>
                 </div>
             </div>
         </section>
+        <style>
+        .ccl-building-directory-simple {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .ccl-building-plaque {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 18px 20px;
+            background: #15171c;
+            border: 1px solid #2a2d35;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: background 0.15s ease;
+        }
+        .ccl-building-plaque:hover,
+        .ccl-building-plaque:focus-visible {
+            background: #1b1e25;
+            outline: 2px solid #c9a24a;
+            outline-offset: 2px;
+        }
+        .ccl-building-plaque__name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #c9a24a;
+            line-height: 1.3;
+        }
+        .ccl-building-plaque__community {
+            font-size: 0.85rem;
+            color: #ece7da;
+            opacity: 0.75;
+        }
+        .ccl-building-plaque__stats {
+            font-size: 0.78rem;
+            color: #ece7da;
+            opacity: 0.5;
+            margin-top: 2px;
+        }
+        </style>
         <?php return (string) ob_get_clean();
     }
 
