@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) {
 final class Calgary_Condo_Building_CPT {
     public const POST_TYPE = 'ccl_building';
     private const FALLBACK = 'Details coming soon — verify building information before making decisions.';
+    private const THE_GUARDIAN_SLUG = 'the-guardian';
     private const META_BOX_ID = 'ccl-building-details';
     private const META_BOX_NONCE_ACTION = 'ccl_building_details_save';
     private const META_BOX_NONCE_NAME = 'ccl_building_details_nonce';
@@ -415,7 +416,7 @@ final class Calgary_Condo_Building_CPT {
 
         // Hard-link: The Guardian building always points to its dedicated listings page
         // regardless of whether the admin field is visible or populated.
-        if ('the-guardian' === $building_slug) {
+        if (self::THE_GUARDIAN_SLUG === $building_slug) {
             $listings_page_url = '/the-guardian-active-listings/';
         }
 
@@ -504,7 +505,7 @@ final class Calgary_Condo_Building_CPT {
                 <!-- CCL-EMBED-WILL-RENDER: <?php echo '' !== $inventory_embed_code ? 'yes' : 'no'; ?> -->
                 <?php endif; ?>
                 <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
-                    <?php if ('the-guardian' === $building_slug) : ?>
+                    <?php if (self::THE_GUARDIAN_SLUG === $building_slug) : ?>
                         <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
                         <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                         <div class="ccl-building-profile-page__hero-actions">
