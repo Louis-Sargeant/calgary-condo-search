@@ -119,7 +119,7 @@ final class Calgary_Condo_Building_Directory {
         return $routes;
     }
 
-    private static function normalize_search_term(string $term): string {
+    public static function normalize_search_term(string $term): string {
         return trim((string) preg_replace('/\s+/', ' ', (string) preg_replace('/[^a-z0-9]+/', ' ', strtolower($term))));
     }
 
@@ -152,7 +152,7 @@ final class Calgary_Condo_Building_Directory {
         // this shared renderer are not guaranteed to arrive in title order.
         usort(
             $entries,
-            static fn(array $left, array $right): int => strcasecmp((string) ($left['name'] ?? ''), (string) ($right['name'] ?? ''))
+            static fn(array $left, array $right): int => self::compare_entry_strings($left, $right, 'name')
         );
 
         $prepared_entries = [];
@@ -539,7 +539,7 @@ HTML;
 
         uasort(
             $extra,
-            static fn(array $left, array $right): int => strcasecmp((string) ($left['label'] ?? ''), (string) ($right['label'] ?? ''))
+            static fn(array $left, array $right): int => self::compare_entry_strings($left, $right, 'label')
         );
 
         return array_merge($chips, array_values($extra));
@@ -735,6 +735,14 @@ HTML;
         }
 
         return true;
+    }
+
+    /**
+     * @param array<string,mixed> $left
+     * @param array<string,mixed> $right
+     */
+    private static function compare_entry_strings(array $left, array $right, string $field): int {
+        return strcasecmp((string) ($left[$field] ?? ''), (string) ($right[$field] ?? ''));
     }
 }
 
