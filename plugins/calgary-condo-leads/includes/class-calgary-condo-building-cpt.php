@@ -770,15 +770,24 @@ final class Calgary_Condo_Building_CPT {
         $verification_guidance = $this->story_verification_guidance();
 
         if ('' !== $community) {
-            return trim($intro . ' ' . $details . ' ' . __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads') . ' ' . $verification_guidance);
+            return $this->build_story_text([
+                $intro,
+                $details,
+                __('Its location gives buyers access to nearby amenities, transit, restaurants, pathways, and local services.', 'calgary-condo-leads'),
+                $verification_guidance,
+            ]);
         }
 
-        return trim($intro . ' ' . $details . ' ' . $verification_guidance);
+        return $this->build_story_text([
+            $intro,
+            $details,
+            $verification_guidance,
+        ]);
     }
 
     private function word_count(string $value): int {
         $parts = preg_split('/[\s\p{Z}]+/u', trim($value), -1, PREG_SPLIT_NO_EMPTY);
-        if (!is_array($parts)) {
+        if (false === $parts) {
             return 0;
         }
 
@@ -787,6 +796,16 @@ final class Calgary_Condo_Building_CPT {
 
     private function story_verification_guidance(): string {
         return __('Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.', 'calgary-condo-leads');
+    }
+
+    private function build_story_text(array $parts): string {
+        $clean_parts = array_values(array_filter(array_map(static function ($part): string {
+            return trim((string) $part);
+        }, $parts), static function (string $part): bool {
+            return '' !== $part;
+        }));
+
+        return implode(' ', $clean_parts);
     }
 
     /** @return string[] */
