@@ -34,6 +34,11 @@ $fields = [
 ];
 
 $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+$listings_heading = sprintf(
+    /* translators: %s: building name */
+    __('Current Listings in %s', 'calgary-condo-leads'),
+    get_the_title($post_id)
+);
 
 $has_missing = false;
 ?>
@@ -61,7 +66,7 @@ $has_missing = false;
         </aside>
         <div class="ccl-building-profile__idx">
             <div class="ccl-building-profile__idx-feed">
-                <h2><?php printf(esc_html__('Current Listings in %s', 'calgary-condo-leads'), esc_html(get_the_title($post_id))); ?></h2>
+                <h2><?php echo esc_html($listings_heading); ?></h2>
                 <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                 <div class="ccl-building-profile-page__hero-actions">
                     <?php if ('' !== $listings_page_url) : ?>
