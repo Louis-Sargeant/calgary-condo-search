@@ -17,8 +17,8 @@ return [
         'year_built' => '2016',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, social lounge, concierge service, workshop, garden terrace.',
-        'story' => 'The Guardian is a modern high-rise condo in Calgary’s Beltline with quick access to Downtown, the Saddledome district, and river pathways. Buyers often choose it for newer concrete construction, skyline views, and central-city convenience.',
-        'listings_page_url' => '',
+        'story' => 'The Guardian is a high-rise condo building in the Beltline. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including quick connections to Downtown, the Saddledome district, and the Elbow and Bow river pathway systems. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
+        'listings_page_url' => '/the-guardian-active-listings/',
     ],
     [
         'name' => 'Sasso',
@@ -27,7 +27,7 @@ return [
         'year_built' => '2006',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, hot tub, recreation lounge, concierge support.',
-        'story' => 'Sasso is a Beltline high-rise near Stampede Park and Victoria Park C-Train access. It appeals to buyers who want Downtown proximity with established amenities and practical urban layouts.',
+        'story' => 'Sasso is a high-rise condo building in the Beltline, close to Stampede Park and the Victoria Park/Stampede C-Train station. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -37,7 +37,7 @@ return [
         'year_built' => '2008',
         'building_type' => 'Luxury high-rise condo',
         'amenities' => 'Concierge, secured entry, fitness facilities, premium common areas.',
-        'story' => 'Arriva is a luxury high-rise in the Beltline/Victoria Park district known for larger floor plans and premium finishes. Its location supports walkable Downtown living with quick access to event venues, restaurants, and major office corridors.',
+        'story' => 'Arriva is a luxury high-rise condo building in the Beltline. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, with proximity to the Victoria Park event district and downtown Calgary. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -47,7 +47,7 @@ return [
         'year_built' => '2010',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, hot tubs, owner lounge, concierge, retail access.',
-        'story' => 'Keynote Urban Village is a well-known Beltline high-rise complex with strong walkability and direct access to shops, services, and transit. It is often considered by buyers who want a full urban lifestyle close to Downtown Calgary.',
+        'story' => 'Keynote Urban Village is a high-rise condo building in the Beltline. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including on-site retail and strong walkability to Downtown Calgary. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -57,7 +57,7 @@ return [
         'year_built' => '2017',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, concierge, owners lounge, rooftop social spaces.',
-        'story' => 'Vogue is a newer Downtown West End high-rise with fast access to the core business district and Bow River pathways. Buyers often like the modern design, concierge-supported feel, and central commute options.',
+        'story' => 'Vogue is a high-rise condo building in the Downtown West End. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including the Bow River pathway system and the central business district. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -67,7 +67,7 @@ return [
         'year_built' => '2009',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, social spaces, concierge support, secure parking.',
-        'story' => 'Union Square is a central Beltline high-rise that offers convenient access to Downtown offices, restaurants, and transit. It is a popular option for buyers seeking inner-city ownership with practical urban convenience.',
+        'story' => 'Union Square is a high-rise condo building in the Beltline. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, with quick connections to Downtown Calgary offices and the broader Beltline corridor. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -77,7 +77,7 @@ return [
         'year_built' => '2016',
         'building_type' => 'Mid-rise condo',
         'amenities' => 'Fitness room, resident lounge, courtyard spaces, bike-friendly access.',
-        'story' => 'Bridgeland Crossing is a modern mid-rise project in Bridgeland with quick C-Train and pathway access. It attracts buyers who want an inner-city neighbourhood setting while staying close to Downtown Calgary.',
+        'story' => 'Bridgeland Crossing is a mid-rise condo building in Bridgeland. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, with the Bridgeland-Memorial C-Train station and Bow River pathways close by. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -87,7 +87,7 @@ return [
         'year_built' => '2016',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, steam/sauna areas, concierge, lounge and terrace spaces.',
-        'story' => 'Evolution is an East Village high-rise close to the river pathways, library, and Downtown core. Buyers often consider it for newer construction, amenity spaces, and a walkable inner-city location.',
+        'story' => 'Evolution is a high-rise condo building in East Village. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including the Bow River pathway system, the Central Library, and the growing East Village dining and retail scene. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
     [
@@ -97,7 +97,7 @@ return [
         'year_built' => '2002',
         'building_type' => 'Luxury condo',
         'amenities' => 'Concierge, secure parking, premium common areas, river-adjacent location.',
-        'story' => 'Princeton Grand is a luxury Eau Claire building near river pathways and central Downtown services. It is typically considered by buyers looking for premium finish quality in an established inner-city location.',
+        'story' => 'Princeton Grand is a luxury condo building in Eau Claire. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including the Bow River pathway system, Princes Island Park, and the upscale Eau Claire dining and retail district. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
     ],
 ];
