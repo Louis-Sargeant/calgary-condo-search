@@ -1,15 +1,13 @@
 <?php
 /**
- * Third production-safe building import batch.
+ * Fourth production-safe building import batch.
  *
- * Adds tower-specific records that were identified during the batch-1/batch-2
- * audit as requiring separate building profiles (separate condo corporations,
- * separate addresses, or separate IDX targets).
+ * Re-applies enriched public/basic data for Keynote Two Urban Village.
+ * This batch exists to trigger the auto-seed runner update for a record
+ * that was originally seeded with placeholder values in batch 3.
  *
  * seed_note is an internal annotation field only. It is never written to
  * WordPress post meta and is ignored by all importers and the seed runner.
- * Use it to document multi-tower/phase buildings, naming ambiguity, or
- * any field that requires manual verification before publishing.
  *
  * @package CalgaryCondoLeads
  */
@@ -20,10 +18,9 @@ if (!defined('ABSPATH')) {
 
 return [
     [
-        // Tower-specific record. Part of the Keynote Urban Village development.
+        // Enriched update for Keynote Two Urban Village.
         // Keynote Two / Keynote 2 is at 225 11 Avenue SE — a separate tower with its own condo corporation.
-        // Keynote One Urban Village (220 12 Avenue SE) is already in building-first-batch.php.
-        // Do not blend Keynote One and Keynote Two into a single IDX target.
+        // Keynote One Urban Village (220 12 Avenue SE) is in building-first-batch.php and is not modified here.
         'name'             => 'Keynote Two Urban Village',
         'slug'             => 'keynote-two-urban-village',
         'community'        => 'Beltline / Victoria Park',
