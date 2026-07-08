@@ -42,6 +42,7 @@ require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-cpt.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-seeder.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-csv-importer.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-batch-importer.php';
+require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-second-batch-importer.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-index.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-community-schools.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-chat-widget.php';
