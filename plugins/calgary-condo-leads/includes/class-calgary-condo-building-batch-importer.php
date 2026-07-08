@@ -438,6 +438,7 @@ final class Calgary_Condo_Building_Batch_Importer {
      * @return array<string,mixed>
      */
     private function row_result(array $prepared, string $action, string $message, int $post_id = 0): array {
+        $target_status = $post_id > 0 ? (string) get_post_field('post_status', $post_id) : $this->determine_target_status(0, $prepared);
         return [
             'row_number' => (int) ($prepared['row_number'] ?? 0),
             'name' => (string) ($prepared['name'] ?? ''),
@@ -446,6 +447,8 @@ final class Calgary_Condo_Building_Batch_Importer {
             'action' => $action,
             'message' => $message,
             'post_id' => $post_id,
+            'post_status' => $target_status,
+            'edit_url' => $post_id > 0 ? get_edit_post_link($post_id) : '',
         ];
     }
 
@@ -481,17 +484,29 @@ final class Calgary_Condo_Building_Batch_Importer {
                     <th><?php esc_html_e('Building', 'calgary-condo-leads'); ?></th>
                     <th><?php esc_html_e('Community', 'calgary-condo-leads'); ?></th>
                     <th><?php esc_html_e('Slug', 'calgary-condo-leads'); ?></th>
+                    <th><?php esc_html_e('Status', 'calgary-condo-leads'); ?></th>
                     <th><?php esc_html_e('Action', 'calgary-condo-leads'); ?></th>
                     <th><?php esc_html_e('Details', 'calgary-condo-leads'); ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($rows as $row) : ?>
+                    <?php
+                    $edit_url = (string) ($row['edit_url'] ?? '');
+                    $building_label = (string) ($row['name'] ?? '');
+                    ?>
                     <tr>
                         <td><?php echo esc_html((string) ($row['row_number'] ?? '')); ?></td>
-                        <td><?php echo esc_html((string) ($row['name'] ?? '')); ?></td>
+                        <td>
+                            <?php if ('' !== $edit_url) : ?>
+                                <a href="<?php echo esc_url($edit_url); ?>"><?php echo esc_html($building_label); ?></a>
+                            <?php else : ?>
+                                <?php echo esc_html($building_label); ?>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo esc_html((string) ($row['community'] ?? '')); ?></td>
                         <td><code><?php echo esc_html((string) ($row['slug'] ?? '')); ?></code></td>
+                        <td><?php echo esc_html((string) ($row['post_status'] ?? '')); ?></td>
                         <td><?php echo esc_html((string) ($row['action'] ?? '')); ?></td>
                         <td><?php echo esc_html((string) ($row['message'] ?? '')); ?></td>
                     </tr>
