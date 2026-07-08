@@ -43,6 +43,7 @@ require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-seeder.php'
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-csv-importer.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-batch-importer.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-second-batch-importer.php';
+require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-seed-runner.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-building-index.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-community-schools.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-chat-widget.php';
@@ -56,6 +57,10 @@ require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-cleanup.php';
 register_activation_hook(CCL_PLUGIN_FILE, static function (): void {
     Calgary_Condo_Building_CPT::activate();
 });
+
+// Versioned building seed runner.  Runs any outstanding batch data files on
+// init (priority 30, after CPT and default terms are registered).  Idempotent.
+Calgary_Condo_Building_Seed_Runner::register();
 
 
 add_action('wp_footer', static function (): void {
