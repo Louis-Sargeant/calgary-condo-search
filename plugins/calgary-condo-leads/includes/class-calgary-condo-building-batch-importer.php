@@ -280,12 +280,12 @@ final class Calgary_Condo_Building_Batch_Importer {
         }
 
         global $wpdb;
+        $limit = (int) self::DUPLICATE_DETECTION_LIMIT;
         $title_matches = $wpdb->get_col(
             $wpdb->prepare(
-                "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC LIMIT %d",
+                "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC LIMIT {$limit}",
                 Calgary_Condo_Building_CPT::POST_TYPE,
-                $name,
-                self::DUPLICATE_DETECTION_LIMIT
+                $name
             )
         );
 
@@ -342,12 +342,19 @@ final class Calgary_Condo_Building_Batch_Importer {
         }
 
         $community_terms = wp_get_post_terms($post_id, 'ccl_building_community', ['fields' => 'names']);
-        if (is_wp_error($community_terms) || count($community_terms) !== 1) {
+        if (is_wp_error($community_terms)) {
+            return true;
+        }
+
+        $community_terms = array_values($community_terms);
+        if (count($community_terms) !== 1) {
             return true;
         }
 
         $incoming_community = trim((string) ($meta['building_community'] ?? ''));
-        return strcasecmp((string) $community_terms[0], $incoming_community) !== 0;
+        $current_community = trim((string) $community_terms[0]);
+
+        return strcasecmp($current_community, $incoming_community) !== 0;
     }
 
     /**
