@@ -279,24 +279,16 @@ final class Calgary_Condo_Building_Batch_Importer {
             return ['status' => 'matched_slug', 'post_id' => (int) $slug_matches[0]];
         }
 
-        $title_matches = [];
-        $title_candidates = get_posts([
+        $title_matches = get_posts([
             'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
             'post_status' => ['publish', 'draft', 'pending', 'private', 'future'],
-            'posts_per_page' => -1,
+            'title' => $name,
+            'posts_per_page' => self::DUPLICATE_DETECTION_LIMIT,
             'fields' => 'ids',
             'no_found_rows' => true,
         ]);
-        foreach ($title_candidates as $candidate_id) {
-            $candidate_title = get_the_title((int) $candidate_id);
-            if (!is_string($candidate_title) || $candidate_title !== $name) {
-                continue;
-            }
-
-            $title_matches[] = (int) $candidate_id;
-            if (count($title_matches) > 1) {
-                break;
-            }
+        if (!is_array($title_matches)) {
+            $title_matches = [];
         }
 
         if (count($title_matches) > 1) {
