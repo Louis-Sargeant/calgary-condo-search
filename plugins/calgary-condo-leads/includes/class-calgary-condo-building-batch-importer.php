@@ -325,10 +325,6 @@ final class Calgary_Condo_Building_Batch_Importer {
         foreach ($meta as $meta_key => $incoming_value) {
             $incoming = trim((string) $incoming_value);
 
-            if ('building_listings_page_url' === $meta_key && '' === $incoming) {
-                continue;
-            }
-
             if ('' === $incoming) {
                 continue;
             }
@@ -390,10 +386,6 @@ final class Calgary_Condo_Building_Batch_Importer {
         $meta = is_array($prepared['meta'] ?? null) ? $prepared['meta'] : [];
         foreach ($meta as $meta_key => $incoming_value) {
             $value = trim((string) $incoming_value);
-
-            if ('building_listings_page_url' === $meta_key && '' === $value) {
-                continue;
-            }
 
             if ('' === $value) {
                 continue;
