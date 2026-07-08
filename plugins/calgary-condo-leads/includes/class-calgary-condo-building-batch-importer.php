@@ -283,9 +283,10 @@ final class Calgary_Condo_Building_Batch_Importer {
         $limit = (int) self::DUPLICATE_DETECTION_LIMIT;
         $title_matches = $wpdb->get_col(
             $wpdb->prepare(
-                "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC LIMIT {$limit}",
+                "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC LIMIT %d",
                 Calgary_Condo_Building_CPT::POST_TYPE,
-                $name
+                $name,
+                $limit
             )
         );
 
