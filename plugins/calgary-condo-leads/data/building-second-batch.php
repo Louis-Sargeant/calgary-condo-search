@@ -67,7 +67,7 @@ return [
         'year_built' => '',
         'building_type' => 'High-rise condo',
         'amenities' => '',
-        'story' => 'Montana is a Beltline condo building that provides buyers with an inner-city ownership option close to the restaurants, services, and transit connections that make the Beltline one of Calgary\'s most active urban communities.',
+        'story' => 'Montana is a Beltline condo building that provides buyers with an inner-city ownership option close to the restaurants, services, and transit connections that make the Beltline one of the most active urban communities in Calgary.',
         'listings_page_url' => '',
     ],
     [
@@ -77,7 +77,7 @@ return [
         'year_built' => '',
         'building_type' => 'High-rise condo',
         'amenities' => '',
-        'story' => 'Stella is a Beltline condo that offers buyers a central inner-city base within one of Calgary\'s most walkable and active urban neighbourhoods, with quick access to Downtown offices, dining, and transit.',
+        'story' => 'Stella is a Beltline condo that offers buyers a central inner-city base within one of the most walkable and active urban neighbourhoods in Calgary, with quick access to Downtown offices, dining, and transit.',
         'listings_page_url' => '',
     ],
     [
@@ -87,7 +87,7 @@ return [
         'year_built' => '',
         'building_type' => 'High-rise condo',
         'amenities' => '',
-        'story' => 'Nova is a Beltline condo building positioned within Calgary\'s densest urban residential corridor. Buyers often consider it for its central location and access to the shops, restaurants, and transit options throughout the Beltline.',
+        'story' => 'Nova is a Beltline condo building positioned within the densest urban residential corridor in Calgary. Buyers often consider it for its central location and access to the shops, restaurants, and transit options throughout the Beltline.',
         'listings_page_url' => '',
     ],
     [
@@ -127,7 +127,7 @@ return [
         'year_built' => '',
         'building_type' => 'Luxury condo',
         'amenities' => '',
-        'story' => 'The Estate is a luxury condo building in the Eau Claire area, offering residents an upscale inner-city address near the Bow River pathways, Prince\'s Island Park, and the premium services of the Eau Claire district.',
+        'story' => 'The Estate is a luxury condo building in the Eau Claire area, offering residents an upscale inner-city address near the Bow River pathways, Princes Island Park, and the premium services of the Eau Claire district.',
         'listings_page_url' => '',
     ],
     [
@@ -157,7 +157,7 @@ return [
         'year_built' => '',
         'building_type' => 'Luxury high-rise condo',
         'amenities' => 'Concierge, premium common areas, river-adjacent access.',
-        'story' => 'The Concord is a luxury condo development in the Eau Claire area, known for its premium positioning close to the Bow River pathways and Prince\'s Island Park. It is typically sought by buyers looking for a high-end riverside address in inner Calgary.',
+        'story' => 'The Concord is a luxury condo development in the Eau Claire area, known for its premium positioning close to the Bow River pathways and Princes Island Park. It is typically sought by buyers looking for a high-end riverside address in inner Calgary.',
         'listings_page_url' => '',
     ],
     [
@@ -167,7 +167,7 @@ return [
         'year_built' => '',
         'building_type' => 'Luxury condo',
         'amenities' => 'Concierge, secure parking, premium common areas, Bow River pathway access.',
-        'story' => 'Eau Claire Estates is a luxury condo building in Calgary\'s Eau Claire district. It offers residents an established riverfront address with access to the Bow River pathways, Prince\'s Island Park, and the high-end retail and dining of the Eau Claire area.',
+        'story' => 'Eau Claire Estates is a luxury condo building in the Eau Claire district of Calgary. It offers residents an established riverfront address with access to the Bow River pathways, Princes Island Park, and the high-end retail and dining of the Eau Claire area.',
         'listings_page_url' => '',
     ],
     [
@@ -177,7 +177,7 @@ return [
         'year_built' => '',
         'building_type' => 'Luxury condo',
         'amenities' => '',
-        'story' => 'Riverfront Pointe is a condo building in the Eau Claire area positioned near the Bow River. Its riverside location attracts buyers who value pathway access, proximity to Prince\'s Island Park, and a premium inner-city address.',
+        'story' => 'Riverfront Pointe is a condo building in the Eau Claire area positioned near the Bow River. Its riverside location attracts buyers who value pathway access, proximity to Princes Island Park, and a premium inner-city address.',
         'listings_page_url' => '',
     ],
     [
@@ -207,7 +207,7 @@ return [
         'year_built' => '',
         'building_type' => 'High-rise condo',
         'amenities' => 'Fitness room, concierge, social lounge, river-adjacent access.',
-        'story' => 'Outlook at Waterfront is a high-rise condo in the Eau Claire area, part of the broader Waterfront development. It offers residents Bow River pathway access, proximity to Prince\'s Island Park, and the urban amenities of inner-city Calgary.',
+        'story' => 'Outlook at Waterfront is a high-rise condo in the Eau Claire area, part of the broader Waterfront development. It offers residents Bow River pathway access, proximity to Princes Island Park, and the urban amenities of inner-city Calgary.',
         'listings_page_url' => '',
     ],
 ];
