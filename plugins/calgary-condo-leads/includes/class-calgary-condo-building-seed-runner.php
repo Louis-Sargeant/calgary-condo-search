@@ -42,8 +42,16 @@ final class Calgary_Condo_Building_Seed_Runner {
 
     /**
      * Run any seed batches whose version number exceeds the stored option.
+     * The static guard ensures this is a no-op if somehow called more than
+     * once in the same request (WP caches options, but be explicit).
      */
     public static function maybe_run(): void {
+        static $ran = false;
+        if ($ran) {
+            return;
+        }
+        $ran = true;
+
         $saved = (int) get_option(self::OPTION_KEY, 0);
 
         if ($saved >= self::CURRENT_SEED_VERSION) {
@@ -284,12 +292,25 @@ final class Calgary_Condo_Building_Seed_Runner {
         }
 
         $community_terms = wp_get_post_terms($post_id, 'ccl_building_community', ['fields' => 'names']);
-        if (is_wp_error($community_terms) || count($community_terms) !== 1) {
+        if (is_wp_error($community_terms)) {
             return true;
         }
 
         $incoming_community = (string) ($prepared['meta']['building_community'] ?? '');
-        return trim((string) $community_terms[0]) !== $incoming_community;
+
+        // Building has no community terms but we have one to set — needs update.
+        if (empty($community_terms) && '' !== $incoming_community) {
+            return true;
+        }
+
+        // Building has exactly one community term — compare directly.
+        if (1 === count($community_terms)) {
+            return trim((string) $community_terms[0]) !== $incoming_community;
+        }
+
+        // Multiple terms: only flag a change when the incoming community is not
+        // already among them (avoids spurious updates when extra terms exist).
+        return !in_array($incoming_community, array_map('trim', $community_terms), true);
     }
 
     /**
