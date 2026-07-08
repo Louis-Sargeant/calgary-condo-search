@@ -280,13 +280,13 @@ final class Calgary_Condo_Building_Batch_Importer {
         }
 
         global $wpdb;
-        $limit = (int) self::DUPLICATE_DETECTION_LIMIT;
         $query = $wpdb->prepare(
-            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC",
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_title = %s ORDER BY ID ASC LIMIT %d",
             Calgary_Condo_Building_CPT::POST_TYPE,
-            $name
+            $name,
+            self::DUPLICATE_DETECTION_LIMIT
         );
-        $title_matches = $wpdb->get_col($query . " LIMIT {$limit}");
+        $title_matches = $wpdb->get_col($query);
         if (!is_array($title_matches)) {
             $title_matches = [];
         }
@@ -341,18 +341,20 @@ final class Calgary_Condo_Building_Batch_Importer {
 
         $community_terms = wp_get_post_terms($post_id, 'ccl_building_community', ['fields' => 'names']);
         if (is_wp_error($community_terms)) {
+            error_log('Calgary building batch importer: unable to read ccl_building_community terms for post ' . $post_id . '.');
             return true;
         }
 
         $community_terms = array_values($community_terms);
         if (count($community_terms) !== 1) {
+            error_log('Calgary building batch importer: unexpected ccl_building_community term count for post ' . $post_id . '.');
             return true;
         }
 
-        $incoming_community = trim((string) ($prepared['meta']['building_community'] ?? ''));
+        $incoming_community = (string) ($prepared['meta']['building_community'] ?? '');
         $current_community = trim((string) $community_terms[0]);
 
-        return strcasecmp($current_community, $incoming_community) !== 0;
+        return $current_community !== $incoming_community;
     }
 
     /**
@@ -404,6 +406,7 @@ final class Calgary_Condo_Building_Batch_Importer {
         if ('' !== $community) {
             $term_result = wp_set_post_terms($post_id, [$community], 'ccl_building_community', false);
             if (is_wp_error($term_result)) {
+                error_log('Calgary building batch importer: unable to set ccl_building_community term for post ' . $post_id . '.');
                 return 0;
             }
         }
