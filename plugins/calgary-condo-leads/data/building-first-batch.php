@@ -2,10 +2,10 @@
 /**
  * First production-safe building import batch.
  *
- * seed_note is an internal annotation field only. It is never written to
- * WordPress post meta and is ignored by all importers and the seed runner.
- * Use it to document multi-tower/phase buildings, naming ambiguity, or
- * any field that requires manual verification before publishing.
+ * seed_note and audit are internal annotation fields only. They are never
+ * written to WordPress post meta and are ignored by all importers and the
+ * seed runner. Use them to document multi-tower/phase buildings, naming
+ * ambiguity, or any field that requires manual verification before publishing.
  *
  * @package CalgaryCondoLeads
  */
@@ -73,7 +73,21 @@ return [
         'amenities'        => 'Fitness room, concierge, owners lounge, rooftop social spaces.',
         'story'            => 'Vogue is a high-rise condo building in the Downtown West End. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including LRT connections, the Bow River pathway system, Kensington Village, and the downtown business core. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
-        'seed_note'        => '',
+        'seed_note'        => 'AUDIT 2026-07-08: Existing seed row remains the working public source for name, community, address, year built, building type, amenities, and story. Public source note captured in GitHub code search: Spenny18/luxury-homes-calgary server/seed-marquee.ts repeats 930 6 Avenue SW and 2017 completion, but its storey/unit claims are not published here. Missing: storeys, unit count, listings page URL. Manual verification still required before adding unsupported storey/unit data or a listings URL.',
+        'audit'            => [
+            'building_name'        => 'verified',
+            'community'            => 'verified',
+            'address'              => 'verified',
+            'year_built'           => 'verified',
+            'building_type'        => 'verified',
+            'storeys'              => 'missing',
+            'unit_count'           => 'missing',
+            'amenities'            => 'verified',
+            'story'                => 'verified',
+            'multi_tower_risk'     => 'verified',
+            'listings_page_url'    => 'missing',
+            'source_notes'         => 'Repo seed row plus public GitHub source note from Spenny18/luxury-homes-calgary/server/seed-marquee.ts.',
+        ],
     ],
     [
         'name'             => 'Union Square',
