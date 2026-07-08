@@ -237,6 +237,9 @@ final class Calgary_Condo_Building_Second_Batch_Importer {
         $address = sanitize_text_field((string) ($row['address'] ?? $row['building_address'] ?? ''));
         $year_built = sanitize_text_field((string) ($row['year_built'] ?? $row['building_year_built'] ?? ''));
         $building_type = sanitize_text_field((string) ($row['building_type'] ?? $row['building_construction_type'] ?? ''));
+        $developer = sanitize_text_field((string) ($row['developer'] ?? $row['building_developer'] ?? ''));
+        $storeys = sanitize_text_field((string) ($row['storeys'] ?? $row['building_stories'] ?? ''));
+        $units = sanitize_text_field((string) ($row['units'] ?? $row['building_units'] ?? ''));
         $amenities = sanitize_textarea_field((string) ($row['amenities'] ?? $row['ccl_building_amenities'] ?? ''));
         $story = sanitize_textarea_field((string) ($row['story'] ?? $row['description'] ?? $row['building_story'] ?? ''));
         $listings_page_url = sanitize_text_field((string) ($row['listings_page_url'] ?? $row['building_listings_page_url'] ?? ''));
@@ -251,6 +254,9 @@ final class Calgary_Condo_Building_Second_Batch_Importer {
                 'building_address' => $address,
                 'building_year_built' => $year_built,
                 'building_construction_type' => $building_type,
+                'building_developer' => $developer,
+                'building_stories' => $storeys,
+                'building_units' => $units,
                 'ccl_building_amenities' => $amenities,
                 'building_listings_page_url' => $listings_page_url,
             ],
