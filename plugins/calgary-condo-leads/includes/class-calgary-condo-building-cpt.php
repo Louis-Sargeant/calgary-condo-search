@@ -487,20 +487,6 @@ final class Calgary_Condo_Building_CPT {
                     <p><?php echo esc_html($story); ?></p>
                 </section>
 
-                <!-- CCL-RENDER-FILE: class-calgary-condo-building-cpt.php::render_building_profile -->
-                <!-- CCL-PLUGIN-VERSION: <?php echo esc_html(defined('CCL_VERSION') ? CCL_VERSION : 'unknown'); ?> -->
-                <section id="ccl-building-current-listings" class="ccl-building-profile-page__card" aria-labelledby="ccl-building-listings-title">
-                    <h2 id="ccl-building-listings-title"><?php echo esc_html(sprintf(__('Current Listings in %s', 'calgary-condo-leads'), $building_name)); ?></h2>
-                    <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
-                    <div class="ccl-building-profile-page__hero-actions">
-                        <?php if ('' !== $listings_page_url) : ?>
-                            <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
-                        <?php else : ?>
-                            <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
-                        <?php endif; ?>
-                    </div>
-                </section>
-
                 <section class="ccl-building-profile-page__card" aria-labelledby="ccl-building-guidance-title">
                     <h2 id="ccl-building-guidance-title"><?php esc_html_e('Buyer Verification Guidance', 'calgary-condo-leads'); ?></h2>
                     <p><?php esc_html_e('Before booking a showing or writing an offer, verify the building-specific details that are not always clear in a public listing. This may include condo documents, bylaws, parking and storage details, pet/rental rules, insurance notes, reserve fund context, recent sales, and buyer-fit concerns.', 'calgary-condo-leads'); ?></p>

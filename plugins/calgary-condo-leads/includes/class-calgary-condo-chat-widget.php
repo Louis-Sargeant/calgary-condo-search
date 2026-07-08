@@ -12,6 +12,13 @@ final class Calgary_Condo_Chat_Widget {
         if (is_admin()) {
             return;
         }
+
+        $building_post_type = class_exists('Calgary_Condo_Building_CPT')
+            ? Calgary_Condo_Building_CPT::POST_TYPE
+            : 'ccl_building';
+        if (is_singular($building_post_type)) {
+            return;
+        }
         ?>
         <button type="button" class="ccl-floating-lead-widget" aria-label="Request Calgary condo help" data-ccl-lead-open data-lead-source="Floating Help Button" data-requested-category="General Calgary Condo Help" data-intent="Help request">
             <span aria-hidden="true">✉</span>
