@@ -71,7 +71,7 @@ return [
         'year_built'       => '2017',
         'building_type'    => 'High-rise condo',
         'amenities'        => 'Fitness room, concierge, owners lounge, rooftop social spaces.',
-        'story'            => 'Vogue is a high-rise condo building in the Downtown West End. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including the Bow River pathway system and the central business district. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, and building-specific risks before writing an offer.',
+        'story'            => 'Vogue is a high-rise condo building in the Downtown West End. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including LRT connections, the Bow River pathway system, Kensington Village, and the downtown business core. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
         'seed_note'        => '',
     ],
