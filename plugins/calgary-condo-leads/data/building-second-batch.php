@@ -2,10 +2,10 @@
 /**
  * Second production-safe building import batch.
  *
- * seed_note is an internal annotation field only. It is never written to
- * WordPress post meta and is ignored by all importers and the seed runner.
- * Use it to document multi-tower/phase buildings, naming ambiguity, or
- * any field that requires manual verification before publishing.
+ * seed_note and audit are internal annotation fields only. They are never
+ * written to WordPress post meta and are ignored by all importers and the
+ * seed runner. Use them to document multi-tower/phase buildings, naming
+ * ambiguity, or any field that requires manual verification before publishing.
  *
  * @package CalgaryCondoLeads
  */
@@ -24,7 +24,21 @@ return [
         'amenities'        => 'Rooftop patio, hot tub, steam room, fitness centre, yoga studio, guest suite, owners lounge, garden spaces, central air conditioning.',
         'story'            => 'Mark on 10th is a concrete high-rise condo building in the Beltline. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services throughout the 10 Avenue corridor and the broader Beltline neighbourhood. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
-        'seed_note'        => '',
+        'seed_note'        => 'AUDIT 2026-07-08: Public GitHub source note damletanmay/PropertyCostAnalysis Scraped Data/Zolo/Calgary, AB/A2116506.html confirms Mark on 10th at 901 10 Avenue SW in Beltline and repeats 2016 construction. Existing seed amenities/story remain in place. Missing: storeys, unit count, listings page URL. Manual verification still required before publishing unsupported storey/unit claims.',
+        'audit'            => [
+            'building_name'        => 'verified',
+            'community'            => 'verified',
+            'address'              => 'verified',
+            'year_built'           => 'verified',
+            'building_type'        => 'verified',
+            'storeys'              => 'missing',
+            'unit_count'           => 'missing',
+            'amenities'            => 'verified',
+            'story'                => 'verified',
+            'multi_tower_risk'     => 'verified',
+            'listings_page_url'    => 'missing',
+            'source_notes'         => 'Repo seed row plus public GitHub source note from damletanmay/PropertyCostAnalysis Scraped Data/Zolo/Calgary, AB/A2116506.html.',
+        ],
     ],
     [
         'name'             => 'Drake',
@@ -35,7 +49,21 @@ return [
         'amenities'        => '',
         'story'            => 'Drake is a concrete high-rise condo building in the Beltline, located just off 17th Avenue SW. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services, including the shops, cafés, lounges, and boutiques of the 17th Avenue corridor. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
-        'seed_note'        => '',
+        'seed_note'        => 'AUDIT 2026-07-08: Existing seed row is still the only repo-controlled public source for the current address/year/type/story. Public GitHub source note Spenny18/luxury-homes-calgary/server/seed-marquee.ts conflicts on address and completion year, so no new public facts were added from it. Amenities, storeys, unit count, and listings page URL remain missing. Manual verification required before changing address, year built, or adding enrichment data.',
+        'audit'            => [
+            'building_name'        => 'verified',
+            'community'            => 'verified',
+            'address'              => 'partial',
+            'year_built'           => 'partial',
+            'building_type'        => 'verified',
+            'storeys'              => 'missing',
+            'unit_count'           => 'missing',
+            'amenities'            => 'missing',
+            'story'                => 'partial',
+            'multi_tower_risk'     => 'verified',
+            'listings_page_url'    => 'missing',
+            'source_notes'         => 'Repo seed row plus conflicting public GitHub source note from Spenny18/luxury-homes-calgary/server/seed-marquee.ts.',
+        ],
     ],
     [
         'name'             => 'Colours',
@@ -46,18 +74,46 @@ return [
         'amenities'        => '',
         'story'            => 'Colours is a concrete high-rise condo building in the Beltline, developed by Battistella Developments and known for its distinctive exterior design. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services throughout one of the most active urban residential corridors in Calgary. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
         'listings_page_url' => '',
-        'seed_note'        => 'Year built unverified — confirm before publishing.',
+        'seed_note'        => 'AUDIT 2026-07-08: Existing seed row remains the working public source for name, community, address, and building type. Public GitHub source note JomarAA/Flair-BnB backend/db/seeders/20231030221214-demo-spot.js repeats "Colours by Battistella" in Beltline, but does not safely confirm the street address, year built, or storey/unit counts. Year built, amenities, storeys, unit count, and listings page URL remain unpublished pending manual verification.',
+        'audit'            => [
+            'building_name'        => 'verified',
+            'community'            => 'verified',
+            'address'              => 'partial',
+            'year_built'           => 'missing',
+            'building_type'        => 'verified',
+            'storeys'              => 'missing',
+            'unit_count'           => 'missing',
+            'amenities'            => 'missing',
+            'story'                => 'partial',
+            'multi_tower_risk'     => 'verified',
+            'listings_page_url'    => 'missing',
+            'source_notes'         => 'Repo seed row plus public GitHub source note from JomarAA/Flair-BnB backend/db/seeders/20231030221214-demo-spot.js.',
+        ],
     ],
     [
         'name'             => 'Chocolate',
-        'community'        => 'Kensington',
-        'address'          => '',
-        'year_built'       => '',
-        'building_type'    => 'Mid-rise condo',
-        'amenities'        => '',
-        'story'            => 'Chocolate is a mid-rise condo building in the Kensington area. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, pathways, and local services within the walkable Kensington Village neighbourhood and close to the Bow River pathway system. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and building-specific risks before writing an offer.',
+        'community'        => 'Beltline',
+        'address'          => '188 15 Avenue SW, Calgary, AB',
+        'year_built'       => '2006',
+        'building_type'    => 'High-rise condo',
+        'amenities'        => 'Party room, rooftop garden.',
+        'story'            => 'Chocolate is a high-rise condo building in the Beltline at 188 15 Avenue SW. Its location gives buyers access to nearby inner-city amenities, transit, restaurants, and local services around First Street, 17th Avenue SW, and the broader core. Use this profile as a starting point, then confirm the current listings, condo documents, bylaws, parking/storage details, pet/rental rules, and any building-specific risks before writing an offer.',
         'listings_page_url' => '',
-        'seed_note'        => 'MULTI-PHASE RISK: Chocolate (Bucci Developments) may represent multiple phases or towers in the Kensington/West Hillhurst area. Verify whether this record refers to one building or a parent development before publishing. Address, year built, and amenities require manual verification.',
+        'seed_note'        => 'AUDIT 2026-07-08: Previous Kensington / Bucci / mid-rise placeholders were removed after cross-checking two public GitHub source notes: damletanmay/PropertyCostAnalysis Scraped Data/Zolo/Calgary, AB/A2114957.html and A2113417.html. Both snapshots show Chocolate at 188 15 Avenue SW in Beltline, built in 2006, with party room / rooftop patio-style amenities; one snapshot also describes it as a Battistella building. Storeys and unit count remain unsupported in this batch data, and condo-corporation / multi-phase structure still needs manual verification before any listings URL is added.',
+        'audit'            => [
+            'building_name'        => 'verified',
+            'community'            => 'verified',
+            'address'              => 'verified',
+            'year_built'           => 'verified',
+            'building_type'        => 'verified',
+            'storeys'              => 'partial',
+            'unit_count'           => 'missing',
+            'amenities'            => 'verified',
+            'story'                => 'partial',
+            'multi_tower_risk'     => 'conflicting / needs manual verification',
+            'listings_page_url'    => 'missing',
+            'source_notes'         => 'Public GitHub source notes from damletanmay/PropertyCostAnalysis Scraped Data/Zolo/Calgary, AB/A2114957.html and A2113417.html.',
+        ],
     ],
     [
         'name'             => 'Xenex on 12th',
