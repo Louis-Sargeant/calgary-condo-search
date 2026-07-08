@@ -346,7 +346,8 @@ final class Calgary_Condo_Building_Batch_Importer {
             return true;
         }
 
-        return 0 !== strcasecmp((string) $community_terms[0], (string) $meta['building_community']);
+        $incoming_community = trim((string) ($meta['building_community'] ?? ''));
+        return 0 !== strcasecmp((string) $community_terms[0], $incoming_community);
     }
 
     /**
