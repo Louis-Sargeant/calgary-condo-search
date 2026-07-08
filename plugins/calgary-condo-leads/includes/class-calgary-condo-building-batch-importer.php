@@ -271,7 +271,7 @@ final class Calgary_Condo_Building_Batch_Importer {
             'no_found_rows' => true,
         ]);
 
-        if (count($slug_matches) >= self::DUPLICATE_DETECTION_LIMIT) {
+        if (count($slug_matches) > 1) {
             return ['status' => 'duplicate', 'post_id' => 0];
         }
 
@@ -293,7 +293,7 @@ final class Calgary_Condo_Building_Batch_Importer {
             return ['status' => 'new', 'post_id' => 0];
         }
 
-        if (count($title_matches) >= self::DUPLICATE_DETECTION_LIMIT) {
+        if (count($title_matches) > 1) {
             return ['status' => 'duplicate', 'post_id' => 0];
         }
 
@@ -347,7 +347,7 @@ final class Calgary_Condo_Building_Batch_Importer {
         }
 
         $incoming_community = trim((string) ($meta['building_community'] ?? ''));
-        return 0 !== strcasecmp((string) $community_terms[0], $incoming_community);
+        return strcasecmp((string) $community_terms[0], $incoming_community) !== 0;
     }
 
     /**
