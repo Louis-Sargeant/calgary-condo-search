@@ -279,19 +279,24 @@ final class Calgary_Condo_Building_Batch_Importer {
             return ['status' => 'matched_slug', 'post_id' => (int) $slug_matches[0]];
         }
 
-        global $wpdb;
-        $limit = (int) self::DUPLICATE_DETECTION_LIMIT;
-        $title_matches = $wpdb->get_col(
-            $wpdb->prepare(
-                "SELECT ID FROM {$wpdb->posts} WHERE post_type = %s AND post_status <> 'trash' AND post_title = %s ORDER BY ID ASC LIMIT %d",
-                Calgary_Condo_Building_CPT::POST_TYPE,
-                $name,
-                $limit
-            )
-        );
+        $title_matches = [];
+        $title_candidates = get_posts([
+            'post_type' => Calgary_Condo_Building_CPT::POST_TYPE,
+            'post_status' => ['publish', 'draft', 'pending', 'private', 'future'],
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            'no_found_rows' => true,
+        ]);
+        foreach ($title_candidates as $candidate_id) {
+            $candidate_title = get_the_title((int) $candidate_id);
+            if (!is_string($candidate_title) || $candidate_title !== $name) {
+                continue;
+            }
 
-        if (!is_array($title_matches)) {
-            return ['status' => 'new', 'post_id' => 0];
+            $title_matches[] = (int) $candidate_id;
+            if (count($title_matches) > 1) {
+                break;
+            }
         }
 
         if (count($title_matches) > 1) {
@@ -352,7 +357,7 @@ final class Calgary_Condo_Building_Batch_Importer {
             return true;
         }
 
-        $incoming_community = trim((string) ($meta['building_community'] ?? ''));
+        $incoming_community = trim((string) ($prepared['meta']['building_community'] ?? ''));
         $current_community = trim((string) $community_terms[0]);
 
         return strcasecmp($current_community, $incoming_community) !== 0;
@@ -403,7 +408,7 @@ final class Calgary_Condo_Building_Batch_Importer {
             update_post_meta($post_id, $meta_key, $value);
         }
 
-        $community = (string) ($meta['building_community'] ?? '');
+        $community = (string) ($prepared['meta']['building_community'] ?? '');
         if ('' !== $community) {
             $term_result = wp_set_post_terms($post_id, [$community], 'ccl_building_community', false);
             if (is_wp_error($term_result)) {
