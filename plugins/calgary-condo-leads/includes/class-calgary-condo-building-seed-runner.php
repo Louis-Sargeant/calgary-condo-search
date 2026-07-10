@@ -24,13 +24,14 @@ final class Calgary_Condo_Building_Seed_Runner {
      * Increment this constant whenever a new batch data file is added.
      * Batch 1 = version 1, Batch 2 = version 2, …
      */
-    const CURRENT_SEED_VERSION = 4;
+    const CURRENT_SEED_VERSION = 5;
 
     private const BATCH_FILES = [
         1 => 'building-first-batch.php',
         2 => 'building-second-batch.php',
         3 => 'building-third-batch.php',
         4 => 'building-fourth-batch.php',
+        5 => 'building-fifth-batch.php',
     ];
 
     private const DUPLICATE_DETECTION_LIMIT = 2;
