@@ -24,7 +24,7 @@ final class Calgary_Condo_Building_Seed_Runner {
      * Increment this constant whenever a new batch data file is added.
      * Batch 1 = version 1, Batch 2 = version 2, …
      */
-    const CURRENT_SEED_VERSION = 6;
+    const CURRENT_SEED_VERSION = 7;
 
     private const BATCH_FILES = [
         1 => 'building-first-batch.php',
@@ -33,6 +33,7 @@ final class Calgary_Condo_Building_Seed_Runner {
         4 => 'building-fourth-batch.php',
         5 => 'building-fifth-batch.php',
         6 => 'building-sixth-batch.php',
+        7 => 'building-seventh-batch.php',
     ];
 
     private const DUPLICATE_DETECTION_LIMIT = 2;
@@ -186,6 +187,8 @@ final class Calgary_Condo_Building_Seed_Runner {
         $address   = sanitize_text_field((string) ($row['address'] ?? $row['building_address'] ?? ''));
         $year_built     = sanitize_text_field((string) ($row['year_built'] ?? $row['building_year_built'] ?? ''));
         $building_type  = sanitize_text_field((string) ($row['building_type'] ?? $row['building_construction_type'] ?? ''));
+        $developer      = sanitize_text_field((string) ($row['developer'] ?? $row['building_developer'] ?? ''));
+        $storeys        = sanitize_text_field((string) ($row['storeys'] ?? $row['building_stories'] ?? ''));
         $amenities      = sanitize_textarea_field((string) ($row['amenities'] ?? $row['ccl_building_amenities'] ?? ''));
         $story          = sanitize_textarea_field((string) ($row['story'] ?? $row['description'] ?? $row['building_story'] ?? ''));
         $listings_url   = sanitize_text_field((string) ($row['listings_page_url'] ?? $row['building_listings_page_url'] ?? ''));
@@ -199,6 +202,8 @@ final class Calgary_Condo_Building_Seed_Runner {
                 'building_community'         => $community,
                 'building_address'           => $address,
                 'building_year_built'        => $year_built,
+                'building_developer'         => $developer,
+                'building_stories'           => $storeys,
                 'building_construction_type' => $building_type,
                 'ccl_building_amenities'     => $amenities,
                 'building_listings_page_url' => $listings_url,
