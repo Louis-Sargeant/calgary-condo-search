@@ -253,12 +253,12 @@ HTML;
                     <p>Months of supply estimates how long it would take to sell the current listings at the current sales pace. Lower months of supply usually favours sellers. Higher months of supply usually gives buyers more leverage.</p>
                 </article>
                 <article class="ccl-learn-card">
-                    <h3>What is a buyer&#8217;s market?</h3>
-                    <p>A buyer&#8217;s market means buyers generally have more selection, more time, and more negotiating power. In condos, this can happen when apartment inventory rises faster than sales.</p>
+                    <h3>What is a buyer's market?</h3>
+                    <p>A buyer's market means buyers generally have more selection, more time, and more negotiating power. In condos, this can happen when apartment inventory rises faster than sales.</p>
                 </article>
                 <article class="ccl-learn-card">
-                    <h3>What is a seller&#8217;s market?</h3>
-                    <p>A seller&#8217;s market means supply is tight and buyers compete for fewer listings. Well-priced units can sell faster and sellers may have more leverage.</p>
+                    <h3>What is a seller's market?</h3>
+                    <p>A seller's market means supply is tight and buyers compete for fewer listings. Well-priced units can sell faster and sellers may have more leverage.</p>
                 </article>
                 <article class="ccl-learn-card">
                     <h3>Why does apartment supply matter?</h3>
