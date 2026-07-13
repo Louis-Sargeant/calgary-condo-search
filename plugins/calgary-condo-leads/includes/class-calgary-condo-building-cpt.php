@@ -33,7 +33,6 @@ final class Calgary_Condo_Building_CPT {
         'eau claire'             => '/eau-claire-condos/',
         'mission'                => '/mission-condos/',
         'hillhurst'              => '/hillhurst-condos/',
-        'bridgeland/riverside'   => '/bridgeland-riverside-condos/',
         'bridgeland riverside'   => '/bridgeland-riverside-condos/',
         'inglewood'              => '/inglewood-condos/',
         'sunnyside'              => '/sunnyside-condos/',
@@ -557,7 +556,10 @@ final class Calgary_Condo_Building_CPT {
             return '';
         }
 
-        $key = strtolower(trim($community));
+        // Normalize: lowercase, trim, replace slashes with spaces to handle "Bridgeland/Riverside" variants.
+        $key = strtolower(trim(str_replace('/', ' ', $community)));
+        // Collapse any double-spaces produced by normalization.
+        $key = preg_replace('/\s+/', ' ', $key) ?? $key;
         return self::COMMUNITY_IDX_MAP[$key] ?? '';
     }
 
