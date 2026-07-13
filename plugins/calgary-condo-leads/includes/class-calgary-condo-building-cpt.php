@@ -20,6 +20,25 @@ final class Calgary_Condo_Building_CPT {
     private const MIN_PUBLIC_STORY_LENGTH = 130;
     // Require meaningful sentence density in addition to character length.
     private const MIN_PUBLIC_STORY_WORDS = 20;
+    /**
+     * Maps known building communities (case-insensitive) to verified IDX page URLs.
+     * Used as the intermediate fallback when a building has no custom building_listings_page_url.
+     * Priority: building_listings_page_url → community IDX URL → /all-calgary-condos/
+     */
+    private const COMMUNITY_IDX_MAP = [
+        'beltline'               => '/beltline-condos/',
+        'downtown'               => '/downtown-condos/',
+        'downtown west end'      => '/downtown-condos/',
+        'east village'           => '/east-village-condos/',
+        'eau claire'             => '/eau-claire-condos/',
+        'mission'                => '/mission-condos/',
+        'hillhurst'              => '/hillhurst-condos/',
+        'bridgeland riverside'   => '/bridgeland-riverside-condos/',
+        'inglewood'              => '/inglewood-condos/',
+        'sunnyside'              => '/sunnyside-condos/',
+        'chinatown'              => '/chinatown-condos/',
+        'mahogany'               => '/mahogany-condos/',
+    ];
     private const META_FIELDS = [
         'building_address' => [
             'label' => 'Building Address',
@@ -414,7 +433,14 @@ final class Calgary_Condo_Building_CPT {
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
         $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
         $has_custom_listings_page_url = '' !== $listings_page_url;
-        $resolved_listings_page_url = $has_custom_listings_page_url ? $listings_page_url : '/all-calgary-condos/';
+        $community_idx_url = $this->resolve_community_idx_url($community);
+        if ($has_custom_listings_page_url) {
+            $resolved_listings_page_url = $listings_page_url;
+        } elseif ('' !== $community_idx_url) {
+            $resolved_listings_page_url = $community_idx_url;
+        } else {
+            $resolved_listings_page_url = '/all-calgary-condos/';
+        }
         $listings_button_label = $has_custom_listings_page_url
             ? __('View Current Listings', 'calgary-condo-leads')
             : __('Search Live Listings', 'calgary-condo-leads');
@@ -523,6 +549,18 @@ final class Calgary_Condo_Building_CPT {
         </main>
         <?php
         return (string) ob_get_clean();
+    }
+
+    private function resolve_community_idx_url(string $community): string {
+        if ('' === $community) {
+            return '';
+        }
+
+        // Normalize: lowercase, trim, replace slashes with spaces to handle "Bridgeland/Riverside" variants.
+        $key = strtolower(trim(str_replace('/', ' ', $community)));
+        // Collapse any double-spaces produced by normalization.
+        $key = preg_replace('/\s+/', ' ', $key) ?? $key;
+        return self::COMMUNITY_IDX_MAP[$key] ?? '';
     }
 
     private function first_meta_value(int $post_id, array $keys): string {
