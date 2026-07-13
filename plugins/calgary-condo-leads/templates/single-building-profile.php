@@ -34,6 +34,13 @@ $fields = [
 ];
 
 $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
+$has_custom_listings_page_url = '' !== $listings_page_url;
+$resolved_listings_page_url = $has_custom_listings_page_url ? $listings_page_url : '/calgary-condos-for-sale/';
+$listings_button_label = $has_custom_listings_page_url
+    ? __('View Current Listings', 'calgary-condo-leads')
+    : __('Search Live Listings', 'calgary-condo-leads');
+$building_address = trim((string) get_post_meta($post_id, 'building_address', true));
+$fallback_search_hint = '' !== $building_address ? $building_address : get_the_title($post_id);
 $listings_heading = sprintf(
     /* translators: %s: building name */
     __('Current Listings in %s', 'calgary-condo-leads'),
@@ -69,10 +76,22 @@ $has_missing = false;
                 <h2><?php echo esc_html($listings_heading); ?></h2>
                 <p><?php esc_html_e('View live MLS listings available in this building. Listing data is powered by myRealPage and updates with active market inventory.', 'calgary-condo-leads'); ?></p>
                 <div class="ccl-building-profile-page__hero-actions">
-                    <?php if ('' !== $listings_page_url) : ?>
-                        <a href="<?php echo esc_url($listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php esc_html_e('View Current Listings', 'calgary-condo-leads'); ?></a>
+                    <a href="<?php echo esc_url($resolved_listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php echo esc_html($listings_button_label); ?></a>
+                    <?php if ($has_custom_listings_page_url) : ?>
+                        <p class="ccl-building-profile__meta-note"><?php esc_html_e('Live listings for this building.', 'calgary-condo-leads'); ?></p>
                     <?php else : ?>
-                        <button type="button" class="ccl-btn ccl-building-profile-page__section-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Listings" data-clicked-cta="Request Current Availability"><?php esc_html_e('Request Current Availability', 'calgary-condo-leads'); ?></button>
+                        <p class="ccl-building-profile__meta-note"><?php esc_html_e('Search this building by name or address on the live MLS condo search.', 'calgary-condo-leads'); ?></p>
+                        <p class="ccl-building-profile__meta-note">
+                            <?php
+                            echo esc_html(
+                                sprintf(
+                                    /* translators: %s: building search hint */
+                                    __('Search: %s', 'calgary-condo-leads'),
+                                    $fallback_search_hint
+                                )
+                            );
+                            ?>
+                        </p>
                     <?php endif; ?>
                     <button type="button" class="ccl-btn ccl-building-profile-page__secondary-cta" data-ccl-lead-open data-lead-source="Building Profile" data-requested-category="Building Risk Report" data-clicked-cta="Get My Building Review"><?php esc_html_e('Get My Building Review', 'calgary-condo-leads'); ?></button>
                 </div>
