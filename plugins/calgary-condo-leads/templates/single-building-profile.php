@@ -35,7 +35,7 @@ $fields = [
 
 $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
 $has_custom_listings_page_url = '' !== $listings_page_url;
-$resolved_listings_page_url = $has_custom_listings_page_url ? $listings_page_url : '/calgary-condos-for-sale/';
+$resolved_listings_page_url = $has_custom_listings_page_url ? $listings_page_url : '/all-calgary-condos/';
 $listings_button_label = $has_custom_listings_page_url
     ? __('View Current Listings', 'calgary-condo-leads')
     : __('Search Live Listings', 'calgary-condo-leads');
