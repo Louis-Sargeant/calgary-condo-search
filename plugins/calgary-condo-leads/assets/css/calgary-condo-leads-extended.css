@@ -6464,3 +6464,89 @@ body.admin-bar .ccl-floating-lead-widget {
     min-width: 0;
   }
 }
+
+/* =========================================================
+   All Calgary Condos — Building Search Bridge
+   Scoped to .ccl-all-condos-search-bridge only.
+   ========================================================= */
+
+.ccl-all-condos-search-bridge {
+  padding: clamp(48px, 6vw, 80px) 0;
+}
+
+.ccl-all-condos-search-bridge .ccl-wrap {
+  max-width: 860px;
+}
+
+.ccl-all-condos-search-bridge h2 {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-size: clamp(1.45rem, 2.6vw, 2rem);
+  line-height: 1.2;
+}
+
+.ccl-all-condos-search-bridge__body {
+  margin-bottom: 28px;
+  max-width: 680px;
+  line-height: 1.65;
+}
+
+.ccl-all-condos-search-bridge__examples {
+  margin-bottom: 36px;
+}
+
+.ccl-all-condos-search-bridge__examples-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  color: rgba(212, 175, 55, 0.88) !important;
+}
+
+.ccl-all-condos-search-bridge__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ccl-all-condos-search-bridge__chips li {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: rgba(212, 175, 55, 0.12) !important;
+  border: 1px solid rgba(212, 175, 55, 0.44) !important;
+  color: rgba(255, 244, 224, 0.92) !important;
+}
+
+.ccl-all-condos-search-bridge__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+}
+
+.ccl-all-condos-search-bridge__cta-note {
+  font-size: 0.92rem;
+  font-style: italic;
+  margin: 0 !important;
+  color: rgba(255, 244, 224, 0.78) !important;
+}
+
+.ccl-all-condos-search-bridge__cta-btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .ccl-all-condos-search-bridge__cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
