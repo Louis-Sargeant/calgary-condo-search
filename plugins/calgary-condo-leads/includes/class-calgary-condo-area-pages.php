@@ -227,7 +227,7 @@ final class Calgary_Condo_Area_Pages {
     ];
 
     private const REGIONAL_MRP_SHORTCODES = [
-        'all-calgary-condos'       => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2][/mrp]',
+        'all-calgary-condos'       => '[mrp account_id=67196 listing_def=search-1439659 context=recip perm_attr=tmpl~v2|collapse_sliders~no|sliders~yes][/mrp]',
         'southeast-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439652 context=recip perm_attr=tmpl~v2][/mrp]',
         'southwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439299 context=recip perm_attr=tmpl~v2 ][/mrp]',
         'northwest-calgary-condos' => '[mrp account_id=67196 listing_def=search-1439583 context=recip perm_attr=tmpl~v2 ][/mrp]',
@@ -543,15 +543,14 @@ HTML;
 <section class="ccl-section ccl-all-condos-search-bridge ccl-dark-luxury-section">
     <div class="ccl-wrap">
         <p class="ccl-eyebrow">Building Search Guide</p>
-        <h2>Find Listings in a Specific Calgary Condo Building</h2>
-        <p class="ccl-all-condos-search-bridge__body">Use the live MLS search below to search by building name, street address, or community. Start with the building name or address shown on the building profile, then refine by price, beds, parking, storage, or other listing details inside the IDX search.</p>
+        <h2>Search a specific Calgary condo building</h2>
+        <p class="ccl-all-condos-search-bridge__body">Enter the building name, street address, or community from the building profile, then refine by price, beds, parking, storage, and other MLS details.</p>
         <div class="ccl-all-condos-search-bridge__examples">
             <p class="ccl-all-condos-search-bridge__examples-label">Search examples:</p>
             <ul class="ccl-all-condos-search-bridge__chips">
                 <li>Five West</li>
                 <li>910 5 Avenue SW</li>
                 <li>Downtown West End</li>
-                <li>Beltline</li>
                 <li>Nova</li>
                 <li>1118 12 Avenue SW</li>
             </ul>
