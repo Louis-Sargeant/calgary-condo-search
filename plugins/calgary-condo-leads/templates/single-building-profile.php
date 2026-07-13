@@ -78,10 +78,10 @@ $has_missing = false;
                 <div class="ccl-building-profile-page__hero-actions">
                     <a href="<?php echo esc_url($resolved_listings_page_url); ?>" class="ccl-btn ccl-building-profile-page__section-cta"><?php echo esc_html($listings_button_label); ?></a>
                     <?php if ($has_custom_listings_page_url) : ?>
-                        <p class="ccl-building-profile__meta-note"><?php esc_html_e('Live listings for this building.', 'calgary-condo-leads'); ?></p>
+                        <p class="ccl-building-profile-page__note"><?php esc_html_e('Live listings for this building.', 'calgary-condo-leads'); ?></p>
                     <?php else : ?>
-                        <p class="ccl-building-profile__meta-note"><?php esc_html_e('Search this building by name or address on the live MLS condo search.', 'calgary-condo-leads'); ?></p>
-                        <p class="ccl-building-profile__meta-note">
+                        <p class="ccl-building-profile-page__note"><?php esc_html_e('Search this building by name or address on the live MLS condo search.', 'calgary-condo-leads'); ?></p>
+                        <p class="ccl-building-profile-page__note">
                             <?php
                             echo esc_html(
                                 sprintf(
