@@ -433,6 +433,7 @@ HTML;
             : $this->regional_idx_section($slug, $area, $raw_label);
         $lead_modal = do_shortcode('[ccl_lead_modal title="Get a ' . $label . ' condo shortlist" subtitle="Send your preferred buildings, budget, parking needs, pet needs, and timing. We will help narrow the right ' . $label . ' options without inventing listing data."]');
         $intro_content = $this->area_intro_blocks($area, $slug);
+        $search_bridge = 'all-calgary-condos' === $slug ? $this->all_condos_search_bridge() : '';
 
         return <<<HTML
 <main class="ccl-inner-page-shell ccl-area-page ccl-area-page--{$slug}">
@@ -470,6 +471,7 @@ HTML;
         </div>
     </section>
 
+    {$search_bridge}
     {$idx_section}
     {$lead_modal}
 </main>
@@ -531,6 +533,33 @@ HTML;
             <p class="ccl-form__note">No spam. Calgary condo updates only.</p>
             {$feedback_markup}
         </form>
+    </div>
+</section>
+HTML;
+    }
+
+    private function all_condos_search_bridge(): string {
+        return <<<HTML
+<section class="ccl-section ccl-all-condos-search-bridge ccl-dark-luxury-section">
+    <div class="ccl-wrap">
+        <p class="ccl-eyebrow">Building Search Guide</p>
+        <h2>Find Listings in a Specific Calgary Condo Building</h2>
+        <p class="ccl-all-condos-search-bridge__body">Use the live MLS search below to search by building name, street address, or community. Start with the building name or address shown on the building profile, then refine by price, beds, parking, storage, or other listing details inside the IDX search.</p>
+        <div class="ccl-all-condos-search-bridge__examples">
+            <p class="ccl-all-condos-search-bridge__examples-label">Search examples:</p>
+            <ul class="ccl-all-condos-search-bridge__chips">
+                <li>Five West</li>
+                <li>910 5 Avenue SW</li>
+                <li>Downtown West End</li>
+                <li>Beltline</li>
+                <li>Nova</li>
+                <li>1118 12 Avenue SW</li>
+            </ul>
+        </div>
+        <div class="ccl-all-condos-search-bridge__cta">
+            <p class="ccl-all-condos-search-bridge__cta-note">Need building-level help before booking a showing?</p>
+            <button type="button" class="ccl-btn ccl-btn--primary ccl-all-condos-search-bridge__cta-btn" data-ccl-lead-open data-lead-source="All Calgary Condos" data-requested-category="Building Review" data-clicked-cta="Request Building Review">Request Building Review</button>
+        </div>
     </div>
 </section>
 HTML;
