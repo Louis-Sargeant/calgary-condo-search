@@ -1918,6 +1918,38 @@ body.ccl-building-profile-single h1.entry-title {
   padding: 18px;
 }
 
+.ccl-region-idx-cta-panel .ccl-wrap {
+  max-width: 900px;
+}
+
+.ccl-region-idx-cta-card {
+  margin-top: 26px;
+  padding: clamp(20px, 3vw, 30px);
+  border-radius: 20px;
+  border: 1px solid rgba(212, 175, 55, 0.38);
+  background: rgba(5, 9, 18, 0.72);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.34);
+}
+
+.ccl-region-idx-cta-btn {
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.ccl-region-idx-cta-note {
+  margin: 16px 0 0 !important;
+  max-width: 700px;
+  color: rgba(255, 244, 224, 0.82) !important;
+  line-height: 1.55;
+}
+
+@media (max-width: 600px) {
+  .ccl-region-idx-cta-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 #mrp-nw-listings-feed-container,
 .ccl-manual-mrp-feed {
   width: 100% !important;

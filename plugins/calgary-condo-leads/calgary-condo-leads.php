@@ -26,6 +26,10 @@ if (!defined('CCL_CONTACT_PHONE_TEL')) {
     define('CCL_CONTACT_PHONE_TEL', '+1403' . '8006996');
 }
 
+if (!defined('CCL_IDX_BROKER_CALGARY_CONDOS_RESULTS_URL')) {
+    define('CCL_IDX_BROKER_CALGARY_CONDOS_RESULTS_URL', 'https://sargeantrealestate.idxbroker.com/idx/results/listings?idxID=a636&pt=1&ccz=city&city%5B%5D=6539');
+}
+
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-leads.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-site-sections.php';
 require_once CCL_PLUGIN_DIR . 'includes/class-calgary-condo-assets.php';

@@ -557,9 +557,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     private function price_reduced_layout(): string {
-        // NOTE FOR DEVELOPER: Verify the myRealPage saved search ID below is the correct price-reduced search
-        // before going live. search-1439357 is referenced elsewhere for "Under $300K" and may need updating.
-        $idx = '[mrp account_id=67196 listing_def=search-1439357 context=recip perm_attr=tmpl~v2 ][/mrp]';
+        $idx_url = esc_url(CCL_IDX_BROKER_CALGARY_CONDOS_RESULTS_URL);
 
         return <<<HTML
 <section class="ccl-section ccl-dark-luxury-section ccl-compare-hero">
@@ -576,7 +574,17 @@ final class Calgary_Condo_Page_Overrides {
     </div>
 </section>
 
-[ccl_idx_shell eyebrow="Live Price Drop Condo Search" title="Current Calgary condos with recent price reductions" subtitle="Browse live price-reduced condo opportunities, then compare fees, bylaws, parking, storage, documents, and resale path before booking showings."]{$idx}[/ccl_idx_shell]
+<section id="idx-search" class="ccl-section ccl-region-idx-section ccl-region-idx-cta-panel ccl-dark-luxury-section" aria-labelledby="ccl-price-reduced-idx-title">
+    <div class="ccl-wrap">
+        <p class="ccl-eyebrow">IDX Broker Calgary Condo Search</p>
+        <h2 id="ccl-price-reduced-idx-title" class="ccl-idx-title">Open Calgary condo results and refine for price-drop opportunities</h2>
+        <p class="ccl-idx-copy">Use IDX Broker Calgary results, then narrow by community, building, address, price, beds, and baths while tracking new value opportunities.</p>
+        <div class="ccl-region-idx-cta-card">
+            <a class="ccl-btn ccl-btn--primary ccl-region-idx-cta-btn" href="{$idx_url}">Open Calgary Condo Results</a>
+            <p class="ccl-region-idx-cta-note">Refine by community and building first, then compare ownership costs, condo rules, and resale fit before booking showings.</p>
+        </div>
+    </div>
+</section>
 [ccl_alert_form title="Get Calgary Condo Price Drop Alerts" subtitle="Tell us your target area, building, budget, and timing. We will help watch price reductions so you do not have to keep checking every day." button_text="Send My Price Drop Alert Request" success_context="price-reduced"]
 [ccl_site_footer]
 HTML;
