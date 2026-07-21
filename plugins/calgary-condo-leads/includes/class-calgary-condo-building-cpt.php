@@ -21,9 +21,19 @@ final class Calgary_Condo_Building_CPT {
     // Require meaningful sentence density in addition to character length.
     private const MIN_PUBLIC_STORY_WORDS = 20;
     /**
+     * IDX Broker address-search constants.
+     * These are public URL parameters visible in every generated link — not API credentials.
+     * Base URL and parameter values match the verified Five West test URL.
+     */
+    private const IDX_BROKER_BASE_URL  = 'https://sargeantrealestate.idxbroker.com/idx/results/listings';
+    private const IDX_BROKER_IDX_ID    = 'a636';
+    private const IDX_BROKER_CITY_CODE = '6539';
+
+    /**
      * Maps known building communities (case-insensitive) to verified IDX page URLs.
-     * Used as the intermediate fallback when a building has no custom building_listings_page_url.
-     * Priority: building_listings_page_url → community IDX URL → /all-calgary-condos/
+     * Used as the community fallback when a building has no custom building_listings_page_url
+     * and no parseable street address for IDX Broker address search.
+     * Priority: building_listings_page_url → IDX address URL → community IDX URL → /all-calgary-condos/
      */
     private const COMMUNITY_IDX_MAP = [
         'beltline'               => '/beltline-condos/',
@@ -433,9 +443,12 @@ final class Calgary_Condo_Building_CPT {
         $year_built = $this->first_meta_value($post_id, ['building_year_built', 'ccl_building_year_built']);
         $listings_page_url = trim((string) get_post_meta($post_id, 'building_listings_page_url', true));
         $has_custom_listings_page_url = '' !== $listings_page_url;
+        $idx_address_url = $this->generate_idx_address_url($address);
         $community_idx_url = $this->resolve_community_idx_url($community);
         if ($has_custom_listings_page_url) {
             $resolved_listings_page_url = $listings_page_url;
+        } elseif ('' !== $idx_address_url) {
+            $resolved_listings_page_url = $idx_address_url;
         } elseif ('' !== $community_idx_url) {
             $resolved_listings_page_url = $community_idx_url;
         } else {
@@ -549,6 +562,70 @@ final class Calgary_Condo_Building_CPT {
         </main>
         <?php
         return (string) ob_get_clean();
+    }
+
+    /**
+     * Parse a civic address into an IDX Broker address-search URL.
+     *
+     * Strips unit/suite prefixes and trailing compass directions to produce a
+     * clean street-number + street-name + street-type query that IDX Broker
+     * can match reliably.
+     *
+     * Supported address formats:
+     *   910 5 Avenue SW
+     *   1118 12 Avenue SW
+     *   1122 3 Street SE
+     *   Unit 101 - 910 5 Avenue SW
+     *   #101, 910 5 Avenue SW
+     *
+     * Returns an empty string when the address cannot be parsed to a usable
+     * street number and name (e.g. an empty or non-standard address).
+     */
+    private function generate_idx_address_url(string $address): string {
+        $address = trim($address);
+        if ('' === $address) {
+            return '';
+        }
+
+        // Strip unit/suite prefix formats: "Unit 101 - ", "Unit 101, ", "#101 - ", "#101, ".
+        $address = preg_replace('/^(?:Unit\s+\S+|#\S+)\s*[-,]\s*/i', '', $address) ?? $address;
+        $address = trim($address);
+
+        // Split on whitespace.
+        $parts = preg_split('/\s+/', $address);
+        if (!is_array($parts) || count($parts) < 2) {
+            return '';
+        }
+
+        // First token must be a civic number: digits, optionally followed by a letter (e.g. 123A).
+        if (!preg_match('/^\d+[A-Za-z]?$/', $parts[0])) {
+            return '';
+        }
+
+        $civic_number = $parts[0];
+
+        // Remove trailing compass direction if present.
+        $last = strtoupper((string) $parts[count($parts) - 1]);
+        if (in_array($last, ['NE', 'NW', 'SE', 'SW', 'N', 'S', 'E', 'W'], true)) {
+            array_pop($parts);
+        }
+
+        // Remaining tokens after civic number form the street name and type.
+        $street_parts = array_slice($parts, 1);
+        if (empty($street_parts)) {
+            return '';
+        }
+
+        // IDX Broker expects lowercase with spaces encoded as +.
+        $aw_address_raw = strtolower($civic_number . ' ' . implode(' ', $street_parts));
+        $aw_address     = urlencode($aw_address_raw);
+
+        return self::IDX_BROKER_BASE_URL
+            . '?idxID=' . rawurlencode(self::IDX_BROKER_IDX_ID)
+            . '&aw_address=' . $aw_address
+            . '&ccz=city'
+            . '&pt=1'
+            . '&city%5B%5D=' . rawurlencode(self::IDX_BROKER_CITY_CODE);
     }
 
     private function resolve_community_idx_url(string $community): string {
