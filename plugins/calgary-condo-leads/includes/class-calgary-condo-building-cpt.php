@@ -605,7 +605,7 @@ final class Calgary_Condo_Building_CPT {
         $civic_number = $parts[0];
 
         // Remove trailing compass direction if present.
-        $last = strtoupper((string) end($parts));
+        $last = strtoupper((string) $parts[count($parts) - 1]);
         if (in_array($last, ['NE', 'NW', 'SE', 'SW', 'N', 'S', 'E', 'W'], true)) {
             array_pop($parts);
         }
@@ -618,7 +618,7 @@ final class Calgary_Condo_Building_CPT {
 
         // IDX Broker expects lowercase with spaces encoded as +.
         $aw_address_raw = strtolower($civic_number . ' ' . implode(' ', $street_parts));
-        $aw_address     = str_replace('%20', '+', rawurlencode($aw_address_raw));
+        $aw_address     = urlencode($aw_address_raw);
 
         return self::IDX_BROKER_BASE_URL
             . '?idxID=' . rawurlencode(self::IDX_BROKER_IDX_ID)
