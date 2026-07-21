@@ -252,8 +252,6 @@ final class Calgary_Condo_Area_Pages {
         'mahogany-condos'              => '[mrp account_id=67196 listing_def=search-1440072 context=recip perm_attr=tmpl~v2][/mrp]',
     ];
 
-    private const IDX_BROKER_CALGARY_CONDOS_RESULTS_URL = 'https://sargeantrealestate.idxbroker.com/idx/results/listings?idxID=a636&pt=1&ccz=city&city%5B%5D=6539';
-
     private const IDX_BROKER_CTA_SLUGS = [
         'all-calgary-condos',
         'downtown-condos',
@@ -629,7 +627,7 @@ HTML;
     private function idx_broker_cta_section(array $area, string $raw_label): string {
         $idx_heading = esc_html((string) ($area['idx_heading'] ?? ('Search ' . $raw_label . ' Condos on IDX Broker')));
         $idx_copy = esc_html((string) ($area['idx_copy'] ?? ('Open Calgary condo results, then refine by community, building, exact address, price, beds, baths, and lifestyle fit before booking showings.')));
-        $idx_url = esc_url(self::IDX_BROKER_CALGARY_CONDOS_RESULTS_URL);
+        $idx_url = esc_url(CCL_IDX_BROKER_CALGARY_CONDOS_RESULTS_URL);
 
         return <<<HTML
 <section id="idx-search" class="ccl-idx-premium-section ccl-region-idx-section ccl-region-idx-cta-panel ccl-dark-luxury-section" aria-labelledby="ccl-idx-title">
@@ -638,7 +636,7 @@ HTML;
         <h2 id="ccl-idx-title" class="ccl-idx-title">{$idx_heading}</h2>
         <p class="ccl-idx-copy">{$idx_copy}</p>
         <div class="ccl-region-idx-cta-card">
-            <a class="ccl-btn ccl-btn--primary ccl-region-idx-cta-btn" href="{$idx_url}" target="_self">Open Calgary Condo Results</a>
+            <a class="ccl-btn ccl-btn--primary ccl-region-idx-cta-btn" href="{$idx_url}">Open Calgary Condo Results</a>
             <p class="ccl-region-idx-cta-note">Use filters for community, address, building, price, beds, baths, and key ownership details to quickly narrow the right condo fit.</p>
         </div>
     </div>

@@ -23,8 +23,6 @@ final class Calgary_Condo_Page_Overrides {
      */
     private const CREB_MARKET_UPDATE_URL = 'https://www.creb.com/Housing_Statistics/';
 
-    private const IDX_BROKER_CALGARY_CONDOS_RESULTS_URL = 'https://sargeantrealestate.idxbroker.com/idx/results/listings?idxID=a636&pt=1&ccz=city&city%5B%5D=6539';
-
     /**
      * Slug of the currently-active virtual page, used for wp_footer hooks that check is_page().
      */
@@ -559,7 +557,7 @@ final class Calgary_Condo_Page_Overrides {
     }
 
     private function price_reduced_layout(): string {
-        $idx_url = esc_url(self::IDX_BROKER_CALGARY_CONDOS_RESULTS_URL);
+        $idx_url = esc_url(CCL_IDX_BROKER_CALGARY_CONDOS_RESULTS_URL);
 
         return <<<HTML
 <section class="ccl-section ccl-dark-luxury-section ccl-compare-hero">
@@ -582,7 +580,7 @@ final class Calgary_Condo_Page_Overrides {
         <h2 id="ccl-price-reduced-idx-title" class="ccl-idx-title">Open Calgary condo results and refine for price-drop opportunities</h2>
         <p class="ccl-idx-copy">Use IDX Broker Calgary results, then narrow by community, building, address, price, beds, and baths while tracking new value opportunities.</p>
         <div class="ccl-region-idx-cta-card">
-            <a class="ccl-btn ccl-btn--primary ccl-region-idx-cta-btn" href="{$idx_url}" target="_self">Open Calgary Condo Results</a>
+            <a class="ccl-btn ccl-btn--primary ccl-region-idx-cta-btn" href="{$idx_url}">Open Calgary Condo Results</a>
             <p class="ccl-region-idx-cta-note">Refine by community and building first, then compare ownership costs, condo rules, and resale fit before booking showings.</p>
         </div>
     </div>
