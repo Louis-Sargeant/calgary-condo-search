@@ -5,12 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Louis Sargeant personal Calgary real estate website: search listings, compare condos, and build your game plan with Sargeant Real Estate at REAL Broker." />
   <title>Louis Sargeant | Calgary REALTOR® | REAL Broker</title>
+  <script>
+    const CTA_LINKS = Object.freeze({
+      searchListings: "https://sargeantrealestate.idxbroker.com/idx/search/advanced",
+      searchCondos: "https://sargeantrealestate.idxbroker.com/i/condo",
+      priceReduced: "https://sargeantrealestate.idxbroker.com/i/condo",
+      requestGamePlan: "#contact", // TODO: connect this CTA to the final CRM/form destination.
+      buildingReview: "#contact", // TODO: connect this CTA to the final CRM/form destination.
+      homeValue: "#contact", // TODO: connect this CTA to the final CRM/form destination.
+      strategyCall: "#contact", // TODO: connect this CTA to the final CRM/form destination.
+      reviews: "#reviews", // TODO: replace with final review profile URL.
+      instagram: "#", // TODO: replace with final Instagram URL.
+      facebook: "#", // TODO: replace with final Facebook URL.
+      youtube: "#", // TODO: replace with final YouTube URL.
+      tiktok: "#", // TODO: replace with final TikTok URL.
+      linkedin: "#", // TODO: replace with final LinkedIn URL.
+      googleBusinessProfile: "#" // TODO: replace with final Google Business Profile URL.
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll("[data-link]").forEach((element) => {
+        const link = CTA_LINKS[element.dataset.link];
+
+        if (link) {
+          element.setAttribute("href", link);
+        }
+      });
+    });
+  </script>
   <style>
     :root {
       --bg: #05070b;
       --bg-elevated: #0b1020;
       --panel: rgba(18, 23, 40, 0.72);
       --panel-strong: rgba(10, 14, 24, 0.9);
+      --panel-soft: rgba(21, 28, 47, 0.84);
       --line: rgba(230, 198, 135, 0.28);
       --line-soft: rgba(230, 198, 135, 0.16);
       --gold: #d4af37;
@@ -62,8 +91,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 16px 20px;
-      margin-bottom: 20px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
     }
 
     .brand {
@@ -113,9 +142,10 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 8px 10px;
+      padding: 10px 12px;
       border-radius: 999px;
-      border: 1px solid transparent;
+      border: 1px solid rgba(230, 198, 135, 0.1);
+      background: rgba(255, 255, 255, 0.01);
     }
 
     .main-nav a:hover,
@@ -126,9 +156,16 @@
     }
 
     .hero {
-      padding: clamp(34px, 6vw, 62px);
-      margin-bottom: 18px;
-      text-align: left;
+      padding: clamp(36px, 7vw, 76px);
+      margin-bottom: 22px;
+      overflow: hidden;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 360px);
+      gap: 26px;
+      align-items: end;
     }
 
     .eyebrow {
@@ -143,23 +180,41 @@
     h1 {
       margin: 0;
       font-size: clamp(2.1rem, 7vw, 3.6rem);
-      line-height: 1.05;
+      line-height: 1;
       letter-spacing: -0.02em;
       text-wrap: balance;
+      max-width: 11ch;
     }
 
     .hero p {
-      margin: 16px 0 0;
+      margin: 18px 0 0;
       color: var(--muted);
-      max-width: 780px;
+      max-width: 720px;
       font-size: clamp(1rem, 2.5vw, 1.14rem);
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-copy::after {
+      content: "";
+      position: absolute;
+      inset: auto -6rem -6rem auto;
+      width: 18rem;
+      height: 18rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.2), transparent 68%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     .button-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
+      gap: 12px;
+      margin-top: 28px;
     }
 
     .btn {
@@ -167,36 +222,81 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
-      padding: 11px 16px;
+      min-height: 56px;
+      padding: 15px 22px;
       border-radius: 999px;
       border: 1px solid var(--line);
-      font-size: 0.82rem;
+      font-size: 0.84rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      transition: transform 0.18s ease, border-color 0.18s ease;
+      background: linear-gradient(180deg, rgba(255, 244, 224, 0.03), rgba(255, 244, 224, 0.01));
+      box-shadow: inset 0 1px 0 rgba(255, 244, 224, 0.06);
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
     }
 
     .btn:hover,
     .btn:focus-visible {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       border-color: var(--gold);
+      box-shadow: 0 18px 32px rgba(0, 0, 0, 0.26), inset 0 1px 0 rgba(255, 244, 224, 0.08);
       outline: none;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+      color: #fff7e3;
+      border-color: rgba(230, 198, 135, 0.5);
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.34), rgba(144, 109, 16, 0.28));
+      box-shadow: 0 20px 38px rgba(123, 96, 28, 0.24), inset 0 1px 0 rgba(255, 250, 234, 0.14);
+    }
+
+    .hero-actions .btn:first-child,
+    .hero-actions .btn:nth-child(2) {
+      min-width: 220px;
     }
 
     .trust-line {
-      margin-top: 16px;
+      margin-top: 18px;
       color: var(--muted);
       font-size: 0.86rem;
     }
 
+    .hero-panel {
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(160deg, rgba(18, 23, 40, 0.82), rgba(10, 14, 24, 0.96));
+      border: 1px solid var(--line-soft);
+      box-shadow: inset 0 1px 0 rgba(255, 244, 224, 0.06);
+    }
+
+    .hero-panel p {
+      margin: 0;
+      font-size: 0.96rem;
+    }
+
+    .hero-panel-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .hero-point {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(230, 198, 135, 0.12);
+    }
+
+    .hero-point strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-size: 0.94rem;
+    }
+
     .section {
-      margin-top: 16px;
-      padding: 26px;
+      margin-top: 20px;
+      padding: 30px;
     }
 
     .section h2 {
@@ -219,14 +319,14 @@
     .social-grid,
     .stat-grid {
       display: grid;
-      gap: 12px;
-      margin-top: 18px;
+      gap: 16px;
+      margin-top: 22px;
     }
 
-    .action-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+    .action-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .action-list {
       list-style: none;
-      margin: 18px 0 0;
+      margin: 22px 0 0;
       padding: 0;
     }
     .card-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
@@ -241,6 +341,15 @@
       border-radius: 16px;
       background: var(--panel);
       border: 1px solid var(--line-soft);
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .item:hover,
+    .item:focus-within {
+      transform: translateY(-3px);
+      border-color: rgba(230, 198, 135, 0.34);
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.24);
+      background: linear-gradient(160deg, rgba(25, 31, 52, 0.86), rgba(10, 14, 24, 0.94));
     }
 
     .item h3 {
@@ -261,6 +370,47 @@
       padding-left: 18px;
       display: grid;
       gap: 6px;
+    }
+
+    .action-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 212px;
+      padding: 20px;
+      text-decoration: none;
+      background: linear-gradient(165deg, rgba(20, 26, 45, 0.9), rgba(8, 11, 19, 0.96));
+    }
+
+    .action-card-copy {
+      display: grid;
+      gap: 10px;
+    }
+
+    .card-kicker {
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .card-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-arrow::after {
+      content: "→";
+      color: var(--gold-soft);
+      font-size: 1rem;
     }
 
     .mini-link {
@@ -296,12 +446,136 @@
       font-size: 0.82rem;
     }
 
+    .review-card {
+      min-height: 100%;
+      display: grid;
+      gap: 14px;
+    }
+
+    .review-label {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(230, 198, 135, 0.2);
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .review-meta {
+      color: var(--muted);
+      font-size: 0.84rem;
+      letter-spacing: 0.04em;
+    }
+
+    .social-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 88px;
+      padding: 18px;
+      text-decoration: none;
+    }
+
+    .social-card span:last-child {
+      color: var(--gold-soft);
+      font-size: 0.9rem;
+    }
+
     .final-cta {
-      text-align: center;
+      text-align: left;
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(280px, 420px);
+      gap: 22px;
+      align-items: stretch;
+      margin-top: 22px;
+    }
+
+    .contact-copy {
+      display: grid;
+      align-content: start;
+      gap: 18px;
+    }
+
+    .contact-pillars {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-pillar {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(230, 198, 135, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .contact-pillar strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .form-mockup {
+      padding: 22px;
+      border-radius: 22px;
+      background: linear-gradient(165deg, rgba(20, 26, 45, 0.94), rgba(8, 11, 19, 0.98));
+      border: 1px solid rgba(230, 198, 135, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 244, 224, 0.06);
+    }
+
+    .form-mockup h3 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+    }
+
+    .form-mockup p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .mock-fields {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mock-field {
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(230, 198, 135, 0.12);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mock-field-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gold-soft);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .mock-field-value {
+      color: var(--text);
+      opacity: 0.84;
+    }
+
+    .mock-note {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.85rem;
     }
 
     .footer {
-      margin-top: 18px;
+      margin-top: 22px;
       padding: 18px 22px;
       font-size: 0.9rem;
       color: var(--muted);
@@ -315,6 +589,9 @@
     @media (max-width: 860px) {
       .about-grid { grid-template-columns: 1fr; }
       .site-header { position: static; }
+      .hero-layout,
+      .contact-layout { grid-template-columns: 1fr; }
+      h1 { max-width: 12ch; }
     }
 
     @media (max-width: 680px) {
@@ -323,8 +600,14 @@
       .hero,
       .section,
       .footer { padding-left: 14px; padding-right: 14px; }
+      .site-header { gap: 14px; }
+      .main-nav { justify-content: flex-start; }
+      .main-nav a { padding: 10px 12px; }
       .btn { width: 100%; }
       .button-row { flex-direction: column; }
+      .hero-actions { margin-top: 24px; }
+      .action-grid { grid-template-columns: 1fr; }
+      .action-card { min-height: auto; }
     }
   </style>
 </head>
@@ -351,28 +634,106 @@
     </header>
 
     <section class="hero glass" aria-labelledby="hero-title">
-      <p class="eyebrow">Calgary-Focused REALTOR®</p>
-      <h1 id="hero-title">Your Calgary Real Estate Game Plan Starts Here</h1>
-      <p>Search Calgary listings, compare communities and condo buildings, understand the market, and get straight advice before you buy or sell.</p>
-      <div class="button-row" aria-label="Hero calls to action">
-        <!-- TODO: Replace with final Calgary-wide listings route after IDX/search migration -->
-        <a class="btn btn-primary" href="https://louiss106.sg-host.com/calgary-listings/">Search Calgary Listings</a>
-        <a class="btn" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Request My Game Plan</a>
-        <a class="btn" href="https://louiss106.sg-host.com/calgary-condos/" title="Search Calgary condo-only listings">Search Calgary Condos</a>
+      <div class="hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow">Calgary-Focused REALTOR®</p>
+          <h1 id="hero-title">Your Calgary Real Estate Game Plan Starts Here</h1>
+          <p>Search Calgary listings, compare condo options, and get a sharper strategy before you buy, sell, invest, or make your next move in Calgary.</p>
+          <div class="button-row hero-actions" aria-label="Hero calls to action">
+            <a class="btn btn-primary" data-link="searchListings" href="https://sargeantrealestate.idxbroker.com/idx/search/advanced">Search Calgary Listings</a>
+            <!-- TODO: connect this CTA to the final CRM/form destination. -->
+            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
+            <a class="btn" data-link="searchCondos" href="https://sargeantrealestate.idxbroker.com/i/condo" title="Search Calgary condo-only listings">Search Calgary Condos</a>
+          </div>
+          <p class="trust-line">REAL Broker · CNE® Certified Negotiation Expert · 16+ Years Experience · Licensed in Alberta &amp; BC</p>
+        </div>
+        <aside class="hero-panel" aria-label="Calgary strategy highlights">
+          <p>Calgary-first guidance for buyers, sellers, and condo clients who want more than a search page.</p>
+          <div class="hero-panel-list">
+            <div class="hero-point">
+              <strong>Start with the right search</strong>
+              <span>Move quickly from broad Calgary listings to focused condo opportunities.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Build a smarter plan</strong>
+              <span>Map timing, pricing, negotiation, and next steps around your exact situation.</span>
+            </div>
+            <div class="hero-point">
+              <strong>Protect the condo decision</strong>
+              <span>Research building quality, fees, bylaws, and resale risk before you commit.</span>
+            </div>
+          </div>
+        </aside>
       </div>
-      <p class="trust-line">REAL Broker · CNE® Certified Negotiation Expert · 16+ Years Experience · Licensed in Alberta &amp; BC</p>
     </section>
 
     <section class="section glass" id="search" aria-labelledby="search-title">
       <h2 id="search-title">Search and Action Hub</h2>
+      <p class="section-intro">Choose the next Calgary action that fits your situation, then move straight into listings, condo research, pricing questions, or a strategy conversation.</p>
       <ul class="action-grid action-list">
-        <li><a class="item" href="https://louiss106.sg-host.com/calgary-listings/"><h3>Search Calgary Listings</h3><p>Browse active Calgary listings across property types.</p></a></li>
-        <li><a class="item" href="https://louiss106.sg-host.com/calgary-condos/"><h3>Search Calgary Condos</h3><p>Focus your search on Calgary condo opportunities.</p></a></li>
-        <li><a class="item" href="https://louiss106.sg-host.com/price-reduced-condos/"><h3>Price Reduced Listings</h3><p>Track recent price reductions in Calgary.</p></a></li>
-        <!-- TODO: Replace this and all matching condo-review CTA destinations (`#contact`) with final condo-building-review route -->
-        <li><a class="item" href="#contact"><h3>Request Condo Building Review</h3><p>Get strategic guidance before you commit.</p></a></li>
-        <li><a class="item" href="https://louiss106.sg-host.com/home-value/"><h3>Get My Calgary Home Value</h3><p>Start with a pricing and market-read conversation.</p></a></li>
-        <li><a class="item" href="https://calendar.app.google/qJLDHg63nGswK7nh8"><h3>Book a Strategy Call</h3><p>Book a focused call to map out your next move.</p></a></li>
+        <li>
+          <a class="item action-card" data-link="searchListings" href="https://sargeantrealestate.idxbroker.com/idx/search/advanced">
+            <div class="action-card-copy">
+              <span class="card-kicker">Search</span>
+              <h3>Search Calgary Listings</h3>
+              <p>Browse Calgary listings across property types with a stronger starting point.</p>
+            </div>
+            <span class="card-arrow">Open Search</span>
+          </a>
+        </li>
+        <li>
+          <a class="item action-card" data-link="searchCondos" href="https://sargeantrealestate.idxbroker.com/i/condo">
+            <div class="action-card-copy">
+              <span class="card-kicker">Condos</span>
+              <h3>Search Calgary Condos</h3>
+              <p>Focus on Calgary condo opportunities when building, fees, and location all matter.</p>
+            </div>
+            <span class="card-arrow">View Condos</span>
+          </a>
+        </li>
+        <li>
+          <a class="item action-card" data-link="priceReduced" href="https://sargeantrealestate.idxbroker.com/i/condo">
+            <div class="action-card-copy">
+              <span class="card-kicker">Opportunity</span>
+              <h3>Price Reduced Listings</h3>
+              <p>Track Calgary listings showing fresh motivation and potential negotiation leverage.</p>
+            </div>
+            <span class="card-arrow">See Reductions</span>
+          </a>
+        </li>
+        <li>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="item action-card" data-link="buildingReview" href="#contact">
+            <div class="action-card-copy">
+              <span class="card-kicker">Due Diligence</span>
+              <h3>Request Condo Building Review</h3>
+              <p>Get strategic guidance on the building before you make a unit-level decision.</p>
+            </div>
+            <span class="card-arrow">Request Review</span>
+          </a>
+        </li>
+        <li>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="item action-card" data-link="homeValue" href="#contact">
+            <div class="action-card-copy">
+              <span class="card-kicker">Sell</span>
+              <h3>Get My Calgary Home Value</h3>
+              <p>Start with pricing context, market positioning, and a realistic Calgary launch plan.</p>
+            </div>
+            <span class="card-arrow">Start Valuation</span>
+          </a>
+        </li>
+        <li>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="item action-card" data-link="strategyCall" href="#contact">
+            <div class="action-card-copy">
+              <span class="card-kicker">Plan</span>
+              <h3>Book a Strategy Call</h3>
+              <p>Book a focused conversation to map your next move with a Calgary-first approach.</p>
+            </div>
+            <span class="card-arrow">Book Now</span>
+          </a>
+        </li>
       </ul>
     </section>
 
@@ -382,17 +743,20 @@
         <article class="item" id="buy">
           <h3>Buying in Calgary</h3>
           <p>Get clear guidance before you book showings, write an offer, or compete for a property.</p>
-          <a class="mini-link" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Build My Buyer Game Plan</a>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="mini-link" data-link="requestGamePlan" href="#contact">Build My Buyer Game Plan</a>
         </article>
         <article class="item" id="sell">
           <h3>Selling in Calgary</h3>
           <p>Price, prepare, launch, negotiate, and close with a plan built around your timing and goals.</p>
-          <a class="mini-link" href="https://louiss106.sg-host.com/home-value/">Start My Seller Strategy</a>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="mini-link" data-link="homeValue" href="#contact">Start My Seller Strategy</a>
         </article>
         <article class="item" id="condos">
           <h3>Researching Calgary Condos</h3>
           <p>Before you buy the unit, understand the building, condo fees, bylaws, parking, storage, pet rules, and resale path.</p>
-          <a class="mini-link" href="#contact">Request a Condo Building Review</a>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <a class="mini-link" data-link="buildingReview" href="#contact">Request a Condo Building Review</a>
         </article>
       </div>
     </section>
@@ -410,7 +774,8 @@
         <article class="item"><h3>Offer conditions and document review</h3></article>
       </div>
       <div class="button-row">
-        <a class="btn btn-primary" href="#contact">Get My Condo Building Review</a>
+        <!-- TODO: connect this CTA to the final CRM/form destination. -->
+        <a class="btn btn-primary" data-link="buildingReview" href="#contact">Get My Condo Building Review</a>
       </div>
     </section>
 
@@ -425,7 +790,8 @@
         <article class="item"><h3>Offer Strategy</h3><p>Align price, conditions, and timing with live market behavior.</p></article>
       </div>
       <div class="button-row">
-        <a class="btn" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Ask Louis What This Market Means For Me</a>
+        <!-- TODO: connect this CTA to the final CRM/form destination. -->
+        <a class="btn" data-link="strategyCall" href="#contact">Ask Louis What This Market Means For Me</a>
       </div>
     </section>
 
@@ -448,40 +814,97 @@
 
     <section class="section glass" id="reviews" aria-labelledby="reviews-title">
       <h2 id="reviews-title">What Clients Say About Working With Louis</h2>
-      <!-- Replace with verified RankMyAgent / Rate-My-Agent / client review excerpts. -->
-      <!-- TODO: Replace review placeholders with verified review snippets and links -->
+      <!-- TODO: Replace with verified RankMyAgent / Rate-My-Agent / Google review excerpts. -->
+      <p class="section-intro">Social proof is being prepared for launch so this section can transition cleanly into verified third-party review excerpts.</p>
       <div class="review-grid">
-        <article class="item"><h3>Verified Client Review</h3><p>Placeholder for verified review excerpt.</p></article>
-        <article class="item"><h3>Verified Client Review</h3><p>Placeholder for verified review excerpt.</p></article>
-        <article class="item"><h3>Verified Client Review</h3><p>Placeholder for verified review excerpt.</p></article>
+        <article class="item review-card">
+          <span class="review-label">Verified review placeholder</span>
+          <h3>Buyer Experience</h3>
+          <p>Verified client review excerpt coming soon.</p>
+          <span class="review-meta">Reserved for a verified RankMyAgent / Rate-My-Agent / Google review excerpt.</span>
+        </article>
+        <article class="item review-card">
+          <span class="review-label">Verified review placeholder</span>
+          <h3>Seller Experience</h3>
+          <p>Verified client review excerpt coming soon.</p>
+          <span class="review-meta">Reserved for a verified RankMyAgent / Rate-My-Agent / Google review excerpt.</span>
+        </article>
+        <article class="item review-card">
+          <span class="review-label">Verified review placeholder</span>
+          <h3>Condo Client Experience</h3>
+          <p>Verified client review excerpt coming soon.</p>
+          <span class="review-meta">Reserved for a verified RankMyAgent / Rate-My-Agent / Google review excerpt.</span>
+        </article>
       </div>
       <div class="button-row">
-        <!-- TODO: Replace with final review profile URL -->
-        <a class="btn" href="#contact">Read Client Reviews</a>
-        <a class="btn btn-primary" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Request My Game Plan</a>
+        <!-- TODO: replace with final review profile URL. -->
+        <a class="btn" data-link="reviews" href="#reviews">Read Client Reviews</a>
+        <!-- TODO: connect this CTA to the final CRM/form destination. -->
+        <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
       </div>
     </section>
 
     <section class="section glass" aria-labelledby="social-title">
       <h2 id="social-title">Follow Louis for Calgary Real Estate Updates</h2>
-      <!-- TODO: Confirm final social links and domain forwarding targets -->
+      <p class="section-intro">Keep the launch structure in place for social proof, local market updates, and Calgary real estate content across the key platforms.</p>
+      <!-- TODO: replace all placeholder social profile URLs before launch. -->
       <div class="social-grid">
-        <a class="item" href="https://www.instagram.com/louissargeant.realestate/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a class="item" href="https://www.facebook.com/LouisSargeantRealestate/" target="_blank" rel="noopener noreferrer">Facebook</a>
-        <a class="item" href="https://www.youtube.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a class="item" href="https://www.tiktok.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">TikTok</a>
-        <a class="item" href="https://www.linkedin.com/in/louis-sargeant-b5b5812b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <div class="item">Google Business Profile (URL coming soon)</div>
+        <a class="item social-card" data-link="instagram" href="#"><span>Instagram</span><span>→</span></a>
+        <a class="item social-card" data-link="facebook" href="#"><span>Facebook</span><span>→</span></a>
+        <a class="item social-card" data-link="youtube" href="#"><span>YouTube</span><span>→</span></a>
+        <a class="item social-card" data-link="tiktok" href="#"><span>TikTok</span><span>→</span></a>
+        <a class="item social-card" data-link="linkedin" href="#"><span>LinkedIn</span><span>→</span></a>
+        <a class="item social-card" data-link="googleBusinessProfile" href="#"><span>Google Business Profile</span><span>→</span></a>
       </div>
     </section>
 
     <section class="section glass final-cta" id="contact" aria-labelledby="final-cta-title">
-      <h2 id="final-cta-title">Ready to Make Your Next Calgary Move?</h2>
-      <p class="section-intro">Tell me what you are trying to do — buy, sell, invest, relocate, or research a condo building — and I’ll help you build the right game plan.</p>
-      <div class="button-row">
-        <a class="btn btn-primary" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Request My Game Plan</a>
-        <a class="btn" href="https://louiss106.sg-host.com/calgary-listings/">Search Calgary Listings</a>
-        <a class="btn" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Ask About a Condo Building</a>
+      <h2 id="final-cta-title">Request My Calgary Game Plan</h2>
+      <p class="section-intro">Tell Louis what you are trying to do in Calgary and this section can route into the right buyer, seller, or condo conversation once the final CRM destination is connected.</p>
+      <div class="contact-layout">
+        <div class="contact-copy">
+          <div class="contact-pillars">
+            <div class="contact-pillar">
+              <strong>Buying, selling, or planning a move</strong>
+              <span>Share your timing, location, and goals so the next steps are built around your real situation.</span>
+            </div>
+            <div class="contact-pillar">
+              <strong>Calgary condo research</strong>
+              <span>Use this CTA to flag building questions, document concerns, or shortlist decisions before you write an offer.</span>
+            </div>
+            <div class="contact-pillar">
+              <strong>Strategy first</strong>
+              <span>Keep the Calgary-first positioning intact with a cleaner conversion path instead of a generic contact block.</span>
+            </div>
+          </div>
+          <div class="button-row">
+            <!-- TODO: connect this CTA to the final CRM/form destination. -->
+            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
+            <a class="btn" data-link="searchListings" href="https://sargeantrealestate.idxbroker.com/idx/search/advanced">Search Calgary Listings</a>
+            <!-- TODO: connect this CTA to the final CRM/form destination. -->
+            <a class="btn" data-link="buildingReview" href="#contact">Ask About a Condo Building</a>
+          </div>
+        </div>
+        <div class="form-mockup" aria-label="Premium contact form preview">
+          <h3>Calgary Game Plan Intake</h3>
+          <p>A premium intake preview keeps the CTA launch-ready without introducing a live backend form yet.</p>
+          <div class="mock-fields">
+            <div class="mock-field">
+              <span class="mock-field-label">Your focus</span>
+              <span class="mock-field-value">Buying · Selling · Condo Research · Relocating</span>
+            </div>
+            <div class="mock-field">
+              <span class="mock-field-label">Neighbourhoods or buildings</span>
+              <span class="mock-field-value">Downtown Calgary, Beltline, Mission, Eau Claire, or a specific building.</span>
+            </div>
+            <div class="mock-field">
+              <span class="mock-field-label">Timing and priorities</span>
+              <span class="mock-field-value">Timeline, budget, must-haves, and the questions you want answered first.</span>
+            </div>
+          </div>
+          <!-- TODO: connect this CTA to the final CRM/form destination. -->
+          <p class="mock-note">Phone: +1 (403) 800-6996 · Email: louis@sargeantrealestate.com</p>
+        </div>
       </div>
     </section>
 
