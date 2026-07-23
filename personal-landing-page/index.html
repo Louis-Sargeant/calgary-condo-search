@@ -31,6 +31,11 @@
           element.setAttribute("href", link);
         }
       });
+
+      document.querySelectorAll("[data-placeholder-link]").forEach((element) => {
+        element.setAttribute("aria-disabled", "true");
+        element.addEventListener("click", (event) => event.preventDefault());
+      });
     });
   </script>
   <style>
@@ -183,7 +188,7 @@
       line-height: 1;
       letter-spacing: -0.02em;
       text-wrap: balance;
-      max-width: 11ch;
+      max-width: 15ch;
     }
 
     .hero p {
@@ -586,12 +591,24 @@
 
     .footer strong { color: var(--text); }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     @media (max-width: 860px) {
       .about-grid { grid-template-columns: 1fr; }
       .site-header { position: static; }
       .hero-layout,
       .contact-layout { grid-template-columns: 1fr; }
-      h1 { max-width: 12ch; }
+      h1 { max-width: 13ch; }
     }
 
     @media (max-width: 680px) {
@@ -642,7 +659,7 @@
           <div class="button-row hero-actions" aria-label="Hero calls to action">
             <a class="btn btn-primary" data-link="searchListings" href="https://sargeantrealestate.idxbroker.com/idx/search/advanced">Search Calgary Listings</a>
             <!-- TODO: connect this CTA to the final CRM/form destination. -->
-            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
+            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact" aria-describedby="contact-link-note">Request My Game Plan</a>
             <a class="btn" data-link="searchCondos" href="https://sargeantrealestate.idxbroker.com/i/condo" title="Search Calgary condo-only listings">Search Calgary Condos</a>
           </div>
           <p class="trust-line">REAL Broker · CNE® Certified Negotiation Expert · 16+ Years Experience · Licensed in Alberta &amp; BC</p>
@@ -703,7 +720,7 @@
         </li>
         <li>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="item action-card" data-link="buildingReview" href="#contact">
+          <a class="item action-card" data-link="buildingReview" href="#contact" aria-describedby="contact-link-note">
             <div class="action-card-copy">
               <span class="card-kicker">Due Diligence</span>
               <h3>Request Condo Building Review</h3>
@@ -714,7 +731,7 @@
         </li>
         <li>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="item action-card" data-link="homeValue" href="#contact">
+          <a class="item action-card" data-link="homeValue" href="#contact" aria-describedby="contact-link-note">
             <div class="action-card-copy">
               <span class="card-kicker">Sell</span>
               <h3>Get My Calgary Home Value</h3>
@@ -725,7 +742,7 @@
         </li>
         <li>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="item action-card" data-link="strategyCall" href="#contact">
+          <a class="item action-card" data-link="strategyCall" href="#contact" aria-describedby="contact-link-note">
             <div class="action-card-copy">
               <span class="card-kicker">Plan</span>
               <h3>Book a Strategy Call</h3>
@@ -744,19 +761,19 @@
           <h3>Buying in Calgary</h3>
           <p>Get clear guidance before you book showings, write an offer, or compete for a property.</p>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="mini-link" data-link="requestGamePlan" href="#contact">Build My Buyer Game Plan</a>
+          <a class="mini-link" data-link="requestGamePlan" href="#contact" aria-describedby="contact-link-note">Build My Buyer Game Plan</a>
         </article>
         <article class="item" id="sell">
           <h3>Selling in Calgary</h3>
           <p>Price, prepare, launch, negotiate, and close with a plan built around your timing and goals.</p>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="mini-link" data-link="homeValue" href="#contact">Start My Seller Strategy</a>
+          <a class="mini-link" data-link="homeValue" href="#contact" aria-describedby="contact-link-note">Start My Seller Strategy</a>
         </article>
         <article class="item" id="condos">
           <h3>Researching Calgary Condos</h3>
           <p>Before you buy the unit, understand the building, condo fees, bylaws, parking, storage, pet rules, and resale path.</p>
           <!-- TODO: connect this CTA to the final CRM/form destination. -->
-          <a class="mini-link" data-link="buildingReview" href="#contact">Request a Condo Building Review</a>
+          <a class="mini-link" data-link="buildingReview" href="#contact" aria-describedby="contact-link-note">Request a Condo Building Review</a>
         </article>
       </div>
     </section>
@@ -775,7 +792,7 @@
       </div>
       <div class="button-row">
         <!-- TODO: connect this CTA to the final CRM/form destination. -->
-        <a class="btn btn-primary" data-link="buildingReview" href="#contact">Get My Condo Building Review</a>
+        <a class="btn btn-primary" data-link="buildingReview" href="#contact" aria-describedby="contact-link-note">Get My Condo Building Review</a>
       </div>
     </section>
 
@@ -791,7 +808,7 @@
       </div>
       <div class="button-row">
         <!-- TODO: connect this CTA to the final CRM/form destination. -->
-        <a class="btn" data-link="strategyCall" href="#contact">Ask Louis What This Market Means For Me</a>
+        <a class="btn" data-link="strategyCall" href="#contact" aria-describedby="contact-link-note">Ask Louis What This Market Means For Me</a>
       </div>
     </section>
 
@@ -838,9 +855,9 @@
       </div>
       <div class="button-row">
         <!-- TODO: replace with final review profile URL. -->
-        <a class="btn" data-link="reviews" href="#reviews">Read Client Reviews</a>
+        <a class="btn" data-link="reviews" data-placeholder-link="reviews" href="#reviews" aria-describedby="review-placeholder-note">Read Client Reviews</a>
         <!-- TODO: connect this CTA to the final CRM/form destination. -->
-        <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
+        <a class="btn btn-primary" data-link="requestGamePlan" href="#contact" aria-describedby="contact-link-note">Request My Game Plan</a>
       </div>
     </section>
 
@@ -849,12 +866,12 @@
       <p class="section-intro">Keep the launch structure in place for social proof, local market updates, and Calgary real estate content across the key platforms.</p>
       <!-- TODO: replace all placeholder social profile URLs before launch. -->
       <div class="social-grid">
-        <a class="item social-card" data-link="instagram" href="#"><span>Instagram</span><span>→</span></a>
-        <a class="item social-card" data-link="facebook" href="#"><span>Facebook</span><span>→</span></a>
-        <a class="item social-card" data-link="youtube" href="#"><span>YouTube</span><span>→</span></a>
-        <a class="item social-card" data-link="tiktok" href="#"><span>TikTok</span><span>→</span></a>
-        <a class="item social-card" data-link="linkedin" href="#"><span>LinkedIn</span><span>→</span></a>
-        <a class="item social-card" data-link="googleBusinessProfile" href="#"><span>Google Business Profile</span><span>→</span></a>
+        <a class="item social-card" data-link="instagram" data-placeholder-link="instagram" href="#" aria-describedby="social-placeholder-note"><span>Instagram</span><span>→</span></a>
+        <a class="item social-card" data-link="facebook" data-placeholder-link="facebook" href="#" aria-describedby="social-placeholder-note"><span>Facebook</span><span>→</span></a>
+        <a class="item social-card" data-link="youtube" data-placeholder-link="youtube" href="#" aria-describedby="social-placeholder-note"><span>YouTube</span><span>→</span></a>
+        <a class="item social-card" data-link="tiktok" data-placeholder-link="tiktok" href="#" aria-describedby="social-placeholder-note"><span>TikTok</span><span>→</span></a>
+        <a class="item social-card" data-link="linkedin" data-placeholder-link="linkedin" href="#" aria-describedby="social-placeholder-note"><span>LinkedIn</span><span>→</span></a>
+        <a class="item social-card" data-link="googleBusinessProfile" data-placeholder-link="googleBusinessProfile" href="#" aria-describedby="social-placeholder-note"><span>Google Business Profile</span><span>→</span></a>
       </div>
     </section>
 
@@ -879,10 +896,10 @@
           </div>
           <div class="button-row">
             <!-- TODO: connect this CTA to the final CRM/form destination. -->
-            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact">Request My Game Plan</a>
+            <a class="btn btn-primary" data-link="requestGamePlan" href="#contact" aria-describedby="contact-link-note">Request My Game Plan</a>
             <a class="btn" data-link="searchListings" href="https://sargeantrealestate.idxbroker.com/idx/search/advanced">Search Calgary Listings</a>
             <!-- TODO: connect this CTA to the final CRM/form destination. -->
-            <a class="btn" data-link="buildingReview" href="#contact">Ask About a Condo Building</a>
+            <a class="btn" data-link="buildingReview" href="#contact" aria-describedby="contact-link-note">Ask About a Condo Building</a>
           </div>
         </div>
         <div class="form-mockup" aria-label="Premium contact form preview">
@@ -906,7 +923,10 @@
           <p class="mock-note">Phone: +1 (403) 800-6996 · Email: louis@sargeantrealestate.com</p>
         </div>
       </div>
+      <p class="sr-only" id="contact-link-note">This placeholder CTA opens the Request My Calgary Game Plan contact section until the final CRM destination is connected.</p>
     </section>
+    <p class="sr-only" id="review-placeholder-note">Review profile link placeholder only. Replace this placeholder URL before launch.</p>
+    <p class="sr-only" id="social-placeholder-note">Social profile link placeholder only. Replace this placeholder URL before launch.</p>
 
     <footer class="footer" aria-label="Site footer">
       <strong>Louis Sargeant</strong><br />
