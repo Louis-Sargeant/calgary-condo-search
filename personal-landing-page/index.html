@@ -224,6 +224,11 @@
     }
 
     .action-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+    .action-list {
+      list-style: none;
+      margin: 18px 0 0;
+      padding: 0;
+    }
     .card-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
     .check-grid,
     .market-grid,
@@ -350,25 +355,25 @@
       <h1 id="hero-title">Your Calgary Real Estate Game Plan Starts Here</h1>
       <p>Search Calgary listings, compare communities and condo buildings, understand the market, and get straight advice before you buy or sell.</p>
       <div class="button-row" aria-label="Hero calls to action">
-        <!-- TODO: Replace with final IDX/search URL for Calgary listings (currently points to existing Calgary condos search route) -->
-        <a class="btn btn-primary" href="https://louiss106.sg-host.com/all-calgary-condos/">Search Calgary Listings</a>
+        <!-- TODO: Replace with final Calgary-wide listings route after IDX/search migration -->
+        <a class="btn btn-primary" href="https://louiss106.sg-host.com/calgary-listings/">Search Calgary Listings</a>
         <a class="btn" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Request My Game Plan</a>
-        <a class="btn" href="https://louiss106.sg-host.com/calgary-condos/">Search Calgary Condos</a>
+        <a class="btn" href="https://louiss106.sg-host.com/calgary-condos/" title="Search Calgary condo-only listings">Search Calgary Condos</a>
       </div>
       <p class="trust-line">REAL Broker · CNE® Certified Negotiation Expert · 16+ Years Experience · Licensed in Alberta &amp; BC</p>
     </section>
 
     <section class="section glass" id="search" aria-labelledby="search-title">
       <h2 id="search-title">Search and Action Hub</h2>
-      <div class="action-grid" role="list">
-        <a class="item" role="listitem" href="https://louiss106.sg-host.com/all-calgary-condos/"><h3>Search Calgary Listings</h3><p>Browse active Calgary homes and condos.</p></a>
-        <a class="item" role="listitem" href="https://louiss106.sg-host.com/calgary-condos/"><h3>Search Calgary Condos</h3><p>Focus your search on Calgary condo opportunities.</p></a>
-        <a class="item" role="listitem" href="https://louiss106.sg-host.com/price-reduced-condos/"><h3>Price Reduced Listings</h3><p>Track recent price reductions in Calgary.</p></a>
-        <!-- TODO: Replace with final condo-building-review route -->
-        <a class="item" role="listitem" href="#contact"><h3>Request Condo Building Review</h3><p>Get strategic guidance before you commit.</p></a>
-        <a class="item" role="listitem" href="https://louiss106.sg-host.com/home-value/"><h3>Get My Home Value</h3><p>Start with a pricing and market-read conversation.</p></a>
-        <a class="item" role="listitem" href="https://calendar.app.google/qJLDHg63nGswK7nh8"><h3>Book a Strategy Call</h3><p>Book a focused call to map out your next move.</p></a>
-      </div>
+      <ul class="action-grid action-list">
+        <li><a class="item" href="https://louiss106.sg-host.com/calgary-listings/"><h3>Search Calgary Listings</h3><p>Browse active Calgary listings across property types.</p></a></li>
+        <li><a class="item" href="https://louiss106.sg-host.com/calgary-condos/"><h3>Search Calgary Condos</h3><p>Focus your search on Calgary condo opportunities.</p></a></li>
+        <li><a class="item" href="https://louiss106.sg-host.com/price-reduced-condos/"><h3>Price Reduced Listings</h3><p>Track recent price reductions in Calgary.</p></a></li>
+        <!-- TODO: Replace this and all matching condo-review CTA destinations (`#contact`) with final condo-building-review route -->
+        <li><a class="item" href="#contact"><h3>Request Condo Building Review</h3><p>Get strategic guidance before you commit.</p></a></li>
+        <li><a class="item" href="https://louiss106.sg-host.com/home-value/"><h3>Get My Calgary Home Value</h3><p>Start with a pricing and market-read conversation.</p></a></li>
+        <li><a class="item" href="https://calendar.app.google/qJLDHg63nGswK7nh8"><h3>Book a Strategy Call</h3><p>Book a focused call to map out your next move.</p></a></li>
+      </ul>
     </section>
 
     <section class="section glass" aria-labelledby="paths-title">
@@ -466,7 +471,7 @@
         <a class="item" href="https://www.youtube.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">YouTube</a>
         <a class="item" href="https://www.tiktok.com/@louissargeantrealestate" target="_blank" rel="noopener noreferrer">TikTok</a>
         <a class="item" href="https://www.linkedin.com/in/louis-sargeant-b5b5812b/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a class="item" href="#contact" aria-label="Google Business Profile URL coming soon">Google Business Profile (URL coming soon)</a>
+        <div class="item">Google Business Profile (URL coming soon)</div>
       </div>
     </section>
 
@@ -475,8 +480,8 @@
       <p class="section-intro">Tell me what you are trying to do — buy, sell, invest, relocate, or research a condo building — and I’ll help you build the right game plan.</p>
       <div class="button-row">
         <a class="btn btn-primary" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Request My Game Plan</a>
-        <a class="btn" href="https://louiss106.sg-host.com/all-calgary-condos/">Search Calgary Listings</a>
-        <a class="btn" href="#contact">Ask About a Condo Building</a>
+        <a class="btn" href="https://louiss106.sg-host.com/calgary-listings/">Search Calgary Listings</a>
+        <a class="btn" href="https://calendar.app.google/qJLDHg63nGswK7nh8">Ask About a Condo Building</a>
       </div>
     </section>
 
